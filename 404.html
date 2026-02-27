@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Pàgina no trobada | VBG Labs</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/x-icon" href="/VBGlabs.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Sora:wght@700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F9FAFB;
+            color: #1F2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error-code {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 800;
+            color: #FEE2E2;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 rgba(220, 38, 38, 0.1);
+        }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #6B7280;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #DC2626;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background: #B91C1C;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(220, 38, 38, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-code">404</div>
+    <h1>Pàgina no trobada</h1>
+    <p>La pàgina que busques no existeix o ha estat moguda. Torna a l'inici per explorar els nostres serveis
+        d'automatització.</p>
+    <a href="/" class="btn-home">Tornar a l'Inici</a>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+{
+    "nav": {
+        "services": "Servicios",
+        "whyn8n": "Por qué N8N",
+        "advantages": "Ventajas",
+        "contact": "Contacto",
+        "cta": "Solicitar Consulta"
+    },
+    "hero": {
+        "badge": "EXPERTOS CERTIFICADOS EN N8N",
+        "title1": "Automatización Empresarial Inteligente con IA",
+        "title2": "Agentic AI Workflows con ",
+        "highlight": "ROI Medible",
+        "location": "Sirviendo empresas de Lleida y Cataluña",
+        "description": "Transformamos procesos operativos en autonomous AI workflows con N8N que optimizan recursos, reducen errores 95% y escalan tu negocio con automatización inteligente.",
+        "cta1": "Agendar Consultoría",
+        "cta2": "Conocer Soluciones"
+    },
+    "stats": {
+        "hours": "Horas Ahorradas Mensualmente",
+        "costs": "Reducción de Costes Operativos",
+        "speed": "Mejora en Velocidad de Procesos",
+        "roi": "ROI Documentado a 3 Años"
+    },
+    "services": {
+        "tag": "SERVICIOS",
+        "title": "Servicios de Automatización Inteligente con IA para Tu Negocio",
+        "description": "Soluciones de automatización empresarial con AI agents y N8N workflows para ahorrar tiempo, eliminar errores y ofrecer servicio profesional 24/7 a tus clientes.",
+        "service1": {
+            "title": "Gestión Automática de Pedidos",
+            "description": "Recibe pedidos por WhatsApp, web o teléfono y que se registren automáticamente. Confirmación instantánea al cliente, aviso a ti, y todo organizado sin perder nada.",
+            "metric": "✨ Cero errores, cero caos",
+            "ideal": "💡 Ideal para: Pastelerías, panaderías, restaurantes"
+        },
+        "service2": {
+            "title": "Asistente Virtual 24/7 con AI Agents",
+            "description": "AI agent inteligente con procesamiento de lenguaje natural que responde clientes automáticamente: horarios, precios, disponibilidad, ubicación. Automatización conversacional que solo escala consultas complejas a atención humana.",
+            "metric": "✨ 70% menos interrupciones",
+            "ideal": "💡 Ideal para: Peluquerías, talleres, clínicas"
+        },
+        "service3": {
+            "title": "Recordatorios y Avisos Inteligentes",
+            "description": "Envía recordatorios de citas automáticamente 24h antes. Avisa cuando un pedido está listo. Gestiona cancelaciones sin que tengas que hacer nada.",
+            "metric": "✨ 50% menos ausencias",
+            "ideal": "💡 Ideal para: Barberías, fisio, talleres"
+        },
+        "service4": {
+            "title": "Facturas Automáticas al Momento",
+            "description": "Genera facturas PDF desde cualquier pedido o servicio. Se envían automáticamente al cliente y se archivan en Drive. Cero tiempo perdido en papeleo.",
+            "metric": "✨ Facturación instantánea",
+            "ideal": "💡 Ideal para: Todos los negocios"
+        },
+        "service5": {
+            "title": "Más Reseñas en Google Maps",
+            "description": "Después de cada venta o servicio, un mensaje automático pide una reseña con enlace directo. Más visibilidad, más clientes nuevos.",
+            "metric": "✨ +200% más reseñas",
+            "ideal": "💡 Ideal para: Restaurantes, tiendas, servicios"
+        },
+        "service6": {
+            "title": "Todos los Mensajes en Un Solo Lugar",
+            "description": "WhatsApp, Instagram, Facebook, email... todo en una única pantalla. Responde desde un lugar y no pierdas ninguna conversación importante con clientes.",
+            "metric": "✨ Atención perfecta",
+            "ideal": "💡 Ideal para: Tiendas, comercios"
+        }
+    },
+    "whyn8n": {
+        "tag": "TECNOLOGÍA",
+        "title": "¿Por qué N8N es la Mejor Plataforma de Workflow Automation?",
+        "description": "N8N es la plataforma líder mundial en automatización de workflows empresariales con IA. Open-source, self-hosted, con 400+ integraciones nativas.",
+        "feature1": {
+            "title": "Open Source & Self-Hosted: Control Total de Datos",
+            "description": "Plataforma de automatización open-source con comunidad activa de 70.000+ desarrolladores. Control absoluto sobre datos sensibles, GDPR compliant. Zero vendor lock-in.",
+            "metric": "70K+ Comunidad"
+        },
+        "feature2": {
+            "title": "400+ Integraciones Nativas: Ecosistema Completo",
+            "description": "Conecta con cualquier herramienta empresarial via API: Slack, Google Workspace, Salesforce, HubSpot, Shopify, OpenAI, Anthropic y 400+ apps.",
+            "metric": "400+ Apps"
+        },
+        "feature3": {
+            "title": "ROI Probado: 80% Ahorro vs Zapier",
+            "description": "Hasta 80% más económico que Zapier, Make o Power Automate con ROI documentado. Modelo de pricing transparente sin límites artificiales.",
+            "metric": "80% Ahorro vs Otros"
+        },
+        "feature4": {
+            "title": "Editor Visual No-Code: Workflows Sin Programar",
+            "description": "Interfaz drag-and-drop intuitiva para crear AI workflows complejos sin código. Debugging visual en tiempo real, testing integrado.",
+            "metric": "Zero-Code UI"
+        },
+        "feature5": {
+            "title": "Seguridad Enterprise: GDPR & Encriptación",
+            "description": "Despliegue self-hosted en tu infraestructura. GDPR & ISO compliant. Encriptación end-to-end, audit logs completos.",
+            "metric": "GDPR Compliant"
+        },
+        "feature6": {
+            "title": "Escalabilidad Enterprise: Performance Garantizada",
+            "description": "Escalabilidad horizontal ilimitada con arquitectura distribuida. Alta disponibilidad 99.9%, redundancia multi-zona.",
+            "metric": "99.9% Uptime"
+        }
+    },
+    "advantages": {
+        "tag": "VENTAJAS",
+        "title": "Ventajas Competitivas: Por qué VBG Labs es Líder en AI Automation",
+        "description": "Experiencia demostrada implementando automatizaciones que generan resultados medibles y retorno de inversión garantizado.",
+        "adv1": {
+            "title": "Certificación Oficial N8N",
+            "description": "Equipo certificado por N8N con acceso directo a soporte técnico prioritario. Formación continua en las últimas funcionalidades y mejores prácticas.",
+            "metric": "Certificado Oficial"
+        },
+        "adv2": {
+            "title": "Track Record Demostrado",
+            "description": "+50 automatizaciones implementadas con éxito en los últimos 2 años. ROI medio del 248% en 12 meses. Satisfacción cliente del 98%.",
+            "metric": "50+ Proyectos"
+        },
+        "adv3": {
+            "title": "Metodología Agile",
+            "description": "Iteraciones cortas de 2 semanas. Despliegues incrementales. Feedback constante. Primera automatización productiva en menos de 30 días.",
+            "metric": "30 Días Go-Live"
+        },
+        "adv4": {
+            "title": "Soporte Técnico Local",
+            "description": "Equipo técnico en Lleida disponible en catalán, castellano e inglés. Respuesta en menos de 2 horas. Soporte 24/7 para incidentes críticos.",
+            "metric": "2h Response Time"
+        },
+        "adv5": {
+            "title": "Analytics & Monitoring",
+            "description": "Dashboards personalizados con métricas clave. Alertas proactivas. Reports mensuales de impacto.",
+            "metric": "Real-Time Dashboards"
+        },
+        "adv6": {
+            "title": "Formación y Capacitación",
+            "description": "Training completo para tu equipo interno. Documentación exhaustiva. Sesiones mensuales de Q&A. Transferencia de conocimiento garantizada.",
+            "metric": "Full Training Included"
+        }
+    },
+    "footer": {
+        "description": "Consultoría especializada en automatización de procesos empresariales mediante N8N e Inteligencia Artificial. Transformamos operaciones con soluciones medibles y escalables.",
+        "location": "📍 Con sede en Almenar, Lleida 25126\nSirviendo empresas de toda Cataluña",
+        "rights": "Todos los derechos reservados.",
+        "developed": "Desarrollado con excelencia en Almenar, Lleida"
+    },
+    "contact": {
+        "tag": "CONTACTO",
+        "title": "Comienza Tu Transformación Digital con AI Automation",
+        "description": "Cuéntanos tus necesidades y te ayudaremos a encontrar la mejor solución de automatización para tu negocio.",
+        "infoTitle": "Estamos aquí para ayudarte",
+        "infoDescription": "Respondiendo consultas en menos de 2 horas. Disponibles en catalán, castellano e inglés para empresas de toda Cataluña.",
+        "locationLabel": "Ubicación",
+        "locationValue": "Almenar, Lleida 25126<br>Cataluña, España",
+        "emailLabel": "Email",
+        "hoursLabel": "Horario de Atención",
+        "hoursValue": "Lunes - Viernes<br>09:00 - 18:00",
+        "responseLabel": "Tiempo de Respuesta",
+        "responseValue": "< 2 horas laborables",
+        "formTitle": "Solicita una consulta gratuita",
+        "formSubtitle": "Te responderemos en menos de 2 horas laborables",
+        "form": {
+            "name": "Nombre",
+            "namePlaceholder": "Tu nombre completo",
+            "company": "Empresa",
+            "companyPlaceholder": "Nombre de la empresa",
+            "email": "Email",
+            "emailPlaceholder": "email@ejemplo.com",
+            "phone": "Teléfono",
+            "phonePlaceholder": "+34 600 000 000",
+            "service": "Servicio de interés",
+            "serviceDefault": "Selecciona una opción",
+            "serviceOrders": "Gestión automática de pedidos",
+            "serviceChatbot": "Asistente virtual / Chatbot",
+            "serviceReminders": "Recordatorios y avisos",
+            "serviceInvoicing": "Facturación automática",
+            "serviceReviews": "Reseñas Google Maps",
+            "serviceMessages": "Centralización mensajes",
+            "serviceOther": "Otro / No estoy seguro",
+            "message": "Mensaje",
+            "messagePlaceholder": "Cuéntanos tus necesidades...",
+            "privacy": "Acepto la política de privacidad y el tratamiento de mis datos para recibir información sobre servicios.",
+            "submit": "Enviar Solicitud",
+            "sending": "Enviando...",
+            "success": "¡Mensaje enviado correctamente! Te contactaremos pronto.",
+            "error": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
+        }
+    },
+    "meta": {
+        "title": "VBG Labs - Automatización Empresarial N8N en Lleida | Almenar",
+        "description": "Consultoría especializada en automatización de procesos empresariales con N8N e Inteligencia Artificial en Lleida."
+    }
+}
