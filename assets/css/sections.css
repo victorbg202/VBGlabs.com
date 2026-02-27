@@ -121,12 +121,186 @@ h1 .highlight::after {
     margin-top: var(--gap-large);
 }
 
-/* --- Why N8N --- */
-/* (uses component classes from components.css) */
+/* --- Transformation (Before/After) --- */
+#transformation {
+    background: var(--white);
+    padding: 6rem var(--container-padding);
+}
 
-/* --- Advantages --- */
-#advantages {
+.before-after-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: var(--gap-large) auto 0;
+}
+
+.ba-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.ba-card {
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.ba-card:hover {
+    transform: translateY(-4px);
+}
+
+.ba-card h3 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.ba-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+}
+
+.ba-before {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+}
+
+.ba-before .ba-label {
+    color: #B91C1C;
+}
+
+.ba-before h3 {
+    color: #7F1D1D;
+}
+
+.ba-after {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+}
+
+.ba-after .ba-label {
+    color: #15803D;
+}
+
+.ba-after h3 {
+    color: #14532D;
+}
+
+.ba-after:hover {
+    box-shadow: 0 12px 32px rgba(21, 128, 61, 0.1);
+}
+
+.ba-before:hover {
+    box-shadow: 0 12px 32px rgba(185, 28, 28, 0.08);
+}
+
+/* Real Example blockquote */
+.real-example {
+    max-width: 750px;
+    margin: 3rem auto;
+    padding: 2rem 2.5rem;
     background: var(--gray-50);
+    border-left: 4px solid var(--red);
+    border-radius: 0 16px 16px 0;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+.real-example-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.real-example blockquote {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--gray-700);
+    font-style: italic;
+    margin: 0;
+}
+
+/* Section CTA */
+.section-cta {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.section-cta .btn {
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+}
+
+/* --- Real Results --- */
+#results {
+    background: var(--gray-50);
+    padding: 6rem var(--container-padding);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: var(--gap-medium);
+    margin-top: var(--gap-large);
+}
+
+.result-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid var(--gray-200);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.result-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.result-number {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+}
+
+.result-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+}
+
+.result-card p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--gray-600);
+}
+
+/* Trust line */
+.trust-line {
+    max-width: 650px;
+    margin: 3rem auto 0;
+    text-align: center;
+}
+
+.trust-line p {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--gray-500);
+    line-height: 1.7;
 }
 
 /* --- Contact --- */

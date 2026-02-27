@@ -44,25 +44,9 @@
         justify-self: end;
     }
 
-    .why-item {
+    .ba-row {
         grid-template-columns: 1fr 1fr;
-        gap: clamp(2rem, 4vw, 4rem);
-    }
-
-    .why-item-reverse {
-        direction: rtl;
-    }
-
-    .why-item-reverse>* {
-        direction: ltr;
-    }
-
-    .advantage-item {
-        grid-template-columns: auto 1fr;
-    }
-
-    .advantage-number {
-        font-size: 4rem;
+        gap: 1.5rem;
     }
 
     .stats-bar {
@@ -109,32 +93,8 @@
         display: none;
     }
 
-    .why-icon {
-        width: 180px;
-        height: 180px;
-        font-size: 5rem;
-    }
-
-    .why-content h3 {
-        font-size: 2rem;
-    }
-
-    .why-content p {
-        font-size: 1.125rem;
-    }
-
-    .advantage-number {
-        font-size: 5rem;
-    }
-
-    .advantage-icon {
-        width: 56px;
-        height: 56px;
-        font-size: 1.75rem;
-    }
-
-    .advantage-content h3 {
-        font-size: 1.75rem;
+    .results-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .stats-bar {
@@ -197,6 +157,19 @@
 
     .contact-form-card {
         padding: 1.25rem;
+    }
+
+    .ba-row {
+        grid-template-columns: 1fr;
+    }
+
+    .real-example {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
     }
 }
 

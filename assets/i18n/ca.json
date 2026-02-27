@@ -1,8 +1,8 @@
 {
   "nav": {
     "services": "Serveis",
-    "whyn8n": "Per què N8N",
-    "advantages": "Avantatges",
+    "transformation": "Transformació",
+    "results": "Resultats",
     "contact": "Contacte",
     "cta": "Sol·licitar Consulta"
   },
@@ -63,75 +63,53 @@
       "ideal": "💡 Ideal per: Botigues, comerços"
     }
   },
-  "whyn8n": {
-    "tag": "TECNOLOGIA",
-    "title": "Per què N8N és la Millor Plataforma de Workflow Automation?",
-    "description": "N8N és la plataforma líder mundial en automatització de workflows empresarials amb IA. Open-source, self-hosted, amb 400+ integracions natives.",
-    "feature1": {
-      "title": "Open Source & Self-Hosted: Control Total de Dades",
-      "description": "Plataforma d'automatització open-source amb comunitat activa de 70.000+ desenvolupadors. Control absolut sobre dades sensibles, GDPR compliant. Zero vendor lock-in, màxima transparència.",
-      "metric": "70K+ Comunitat"
+  "transformation": {
+    "tag": "TRANSFORMACIÓ",
+    "title": "Això és el que canvia al teu negoci",
+    "description": "Compara el teu dia a dia actual amb com podria ser demà. Sense complicacions, sense tecnicismes.",
+    "labelBefore": "🔴 Abans",
+    "labelAfter": "🟢 Després",
+    "row1": {
+      "before": "Perds comandes perquè no vas veure el WhatsApp a temps.",
+      "after": "Cada comanda es registra, confirma i organitza automàticament. Cap comanda perduda, mai més."
     },
-    "feature2": {
-      "title": "400+ Integracions Natives: Ecosistema Complet",
-      "description": "Connecta amb qualsevol eina empresarial via API: Slack, Google Workspace, Salesforce, HubSpot, Shopify, OpenAI, Anthropic i 400+ apps.",
-      "metric": "400+ Apps"
+    "row2": {
+      "before": "Clients que no es presenten a la cita sense avisar. Et quedes amb un forat a l'agenda.",
+      "after": "Reben un recordatori automàtic 24h abans. Poden confirmar o cancel·lar amb un clic."
     },
-    "feature3": {
-      "title": "ROI Proven: 80% Estalvi vs Zapier",
-      "description": "Fins a 80% més econòmic que Zapier, Make o Power Automate amb ROI documentat. Model de pricing transparent sense límits artificials.",
-      "metric": "80% Estalvi vs Altres"
+    "row3": {
+      "before": "Passes hores fent factures a mà, perseguint cobraments i organitzant papers.",
+      "after": "Les factures es generen i envien soles al moment. S'arxiven automàticament. Zero paperassa."
     },
-    "feature4": {
-      "title": "Editor Visual No-Code: Workflows Sense Programar",
-      "description": "Interfície drag-and-drop intuïtiva per crear AI workflows complexos sense codi. Debugging visual en temps real, testing integrat.",
-      "metric": "Zero-Code UI"
+    "row4": {
+      "before": "Missatges a WhatsApp, Instagram, email... i sempre se'n perd algun d'important.",
+      "after": "Tot arriba a una pantalla. Respon des d'un sol lloc sense perdre cap conversa."
     },
-    "feature5": {
-      "title": "Seguretat Enterprise: GDPR & Encriptació",
-      "description": "Desplegament self-hosted en la teva infraestructura. GDPR & ISO compliant. Encriptació end-to-end, audit logs complerts.",
-      "metric": "GDPR Compliant"
-    },
-    "feature6": {
-      "title": "Escalabilitat Enterprise: Performance Garantida",
-      "description": "Escalabilitat horitzontal il·limitada amb arquitectura distribuïda. Alta disponibilitat 99.9%, redundància multi-zona.",
-      "metric": "99.9% Uptime"
-    }
+    "example": "Una fleca d'Almenar rebia 15 comandes al dia per WhatsApp. Algunes es perdien, altres s'anotaven malament. Ara, cada comanda es registra sola, el client rep confirmació instantània, i no han perdut ni una sola comanda en 6 mesos.",
+    "cta": "Vull veure com funcionaria al meu negoci →"
   },
-  "advantages": {
-    "tag": "AVANTATGES",
-    "title": "Avantatges Competitius: Per què VBG Labs és Líder en AI Automation",
-    "description": "Experiència demostrada implementant automatitzacions que generen resultats mesurables i retorn d'inversió garantit.",
-    "adv1": {
-      "title": "Certificació Oficial N8N",
-      "description": "Equip certificat per N8N amb accés directe a suport tècnic prioritari. Formació contínua en les últimes funcionalitats i millors pràctiques.",
-      "metric": "Certificat Oficial"
+  "results": {
+    "tag": "RESULTATS REALS",
+    "title": "No et prometem miracles. Et mostrem dades.",
+    "description": "Resultats documentats d'empreses locals com la teva.",
+    "r1": {
+      "title": "Hores estalviades al mes",
+      "description": "Temps que els nostres clients recuperen per dedicar al que realment importa: vendre, crear, atendre."
     },
-    "adv2": {
-      "title": "Track Record Demostrat",
-      "description": "+50 automatitzacions implementades amb èxit en els últims 2 anys. ROI mitjà del 248% en 12 mesos. Satisfacció client del 98%.",
-      "metric": "50+ Projectes"
+    "r2": {
+      "title": "Comandes perdudes",
+      "description": "Cada comanda, cita o missatge queda registrat automàticament. Res es perd, res s'oblida."
     },
-    "adv3": {
-      "title": "Metodologia Agile",
-      "description": "Iteracions curtes de 2 setmanes. Desplegaments incrementals. Feedback constant. Primera automatització productiva en menys de 30 dies.",
-      "metric": "30 Dies Go-Live"
+    "r3": {
+      "title": "Menys absències a cites",
+      "description": "Recordatoris automàtics que redueixen cancel·lacions sense que tu hagis de fer res."
     },
-    "adv4": {
-      "title": "Suport Tècnic Local",
-      "description": "Equip tècnic a Lleida disponible en català, castellà i anglès. Resposta en menys de 2 hores. Suport 24/7 per incidents crítics.",
-      "metric": "2h Response Time"
+    "r4": {
+      "title": "Ressenyes a Google",
+      "description": "Després de cada servei, un missatge automàtic demana opinió. Més ressenyes = més clients nous."
     },
-    "adv5": {
-      "title": "Analytics & Monitoring",
-      "description": "Dashboards personalitzats amb mètriques clau. Alertes proactives. Reports mensuals d'impacte. Identificació oportunitats optimització.",
-      "metric": "Real-Time Dashboards"
-    },
-    "adv6": {
-      "title": "Formació i Capacitació",
-      "description": "Training complet per al teu equip intern. Documentació exhaustiva. Sessions mensuals de Q&A. Transferiment de coneixement garantit.",
-      "metric": "Full Training Included"
-    }
+    "trust": "Usem tecnologia flexible i escalable per fer-ho possible. Tu no has de saber com funciona per dins — nosaltres ens n'encarreguem.",
+    "cta": "Parlem del teu negoci →"
   },
   "footer": {
     "description": "Consultoria especialitzada en automatització de processos empresarials mitjançant N8N i Intel·ligència Artificial. Transformem operacions amb solucions mesurables i escalables.",

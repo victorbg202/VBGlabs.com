@@ -1,8 +1,8 @@
 {
     "nav": {
         "services": "Services",
-        "whyn8n": "Why N8N",
-        "advantages": "Advantages",
+        "transformation": "Transformation",
+        "results": "Results",
         "contact": "Contact",
         "cta": "Request Consultation"
     },
@@ -63,75 +63,53 @@
             "ideal": "💡 Ideal for: Shops, retail"
         }
     },
-    "whyn8n": {
-        "tag": "TECHNOLOGY",
-        "title": "Why is N8N the Best Workflow Automation Platform?",
-        "description": "N8N is the world's leading platform for enterprise workflow automation with AI. Open-source, self-hosted, with 400+ native integrations.",
-        "feature1": {
-            "title": "Open Source & Self-Hosted: Total Data Control",
-            "description": "Open-source automation platform with active community of 70,000+ developers. Absolute control over sensitive data, GDPR compliant. Zero vendor lock-in.",
-            "metric": "70K+ Community"
+    "transformation": {
+        "tag": "TRANSFORMATION",
+        "title": "This is what changes in your business",
+        "description": "Compare your current day-to-day with how it could be tomorrow. No complications, no jargon.",
+        "labelBefore": "🔴 Before",
+        "labelAfter": "🟢 After",
+        "row1": {
+            "before": "You lose orders because you didn't see the WhatsApp in time.",
+            "after": "Every order is registered, confirmed and organized automatically. No order lost, ever again."
         },
-        "feature2": {
-            "title": "400+ Native Integrations: Complete Ecosystem",
-            "description": "Connect with any business tool via API: Slack, Google Workspace, Salesforce, HubSpot, Shopify, OpenAI, Anthropic and 400+ apps.",
-            "metric": "400+ Apps"
+        "row2": {
+            "before": "Clients who don't show up without notice. You're left with a gap in your schedule.",
+            "after": "They receive an automatic reminder 24h before. They can confirm or cancel with one click."
         },
-        "feature3": {
-            "title": "Proven ROI: 80% Savings vs Zapier",
-            "description": "Up to 80% more affordable than Zapier, Make or Power Automate with documented ROI. Transparent pricing model without artificial limits.",
-            "metric": "80% Savings vs Others"
+        "row3": {
+            "before": "You spend hours making invoices by hand, chasing payments and organizing paperwork.",
+            "after": "Invoices are generated and sent automatically on the spot. Archived instantly. Zero paperwork."
         },
-        "feature4": {
-            "title": "Visual No-Code Editor: Workflows Without Programming",
-            "description": "Intuitive drag-and-drop interface to create complex AI workflows without code. Real-time visual debugging, integrated testing.",
-            "metric": "Zero-Code UI"
+        "row4": {
+            "before": "Messages on WhatsApp, Instagram, email... and you always miss an important one.",
+            "after": "Everything arrives on one screen. Reply from one place without losing any conversation."
         },
-        "feature5": {
-            "title": "Enterprise Security: GDPR & Encryption",
-            "description": "Self-hosted deployment on your infrastructure. GDPR & ISO compliant. End-to-end encryption, complete audit logs.",
-            "metric": "GDPR Compliant"
-        },
-        "feature6": {
-            "title": "Enterprise Scalability: Guaranteed Performance",
-            "description": "Unlimited horizontal scalability with distributed architecture. 99.9% high availability, multi-zone redundancy.",
-            "metric": "99.9% Uptime"
-        }
+        "example": "A bakery in Almenar was receiving 15 orders a day via WhatsApp. Some got lost, others were noted down wrong. Now, every order is registered automatically, clients get instant confirmation, and they haven't lost a single order in 6 months.",
+        "cta": "I want to see how this would work for my business →"
     },
-    "advantages": {
-        "tag": "ADVANTAGES",
-        "title": "Competitive Advantages: Why VBG Labs Leads in AI Automation",
-        "description": "Proven experience implementing automations that generate measurable results and guaranteed return on investment.",
-        "adv1": {
-            "title": "Official N8N Certification",
-            "description": "N8N-certified team with direct access to priority technical support. Continuous training on latest features and best practices.",
-            "metric": "Official Certificate"
+    "results": {
+        "tag": "REAL RESULTS",
+        "title": "We don't promise miracles. We show you data.",
+        "description": "Documented results from local businesses like yours.",
+        "r1": {
+            "title": "Hours saved per month",
+            "description": "Time our clients reclaim to dedicate to what really matters: selling, creating, serving."
         },
-        "adv2": {
-            "title": "Proven Track Record",
-            "description": "+50 automations successfully implemented in the last 2 years. Average ROI of 248% in 12 months. 98% customer satisfaction.",
-            "metric": "50+ Projects"
+        "r2": {
+            "title": "Lost orders",
+            "description": "Every order, appointment or message is registered automatically. Nothing is lost, nothing is forgotten."
         },
-        "adv3": {
-            "title": "Agile Methodology",
-            "description": "Short 2-week iterations. Incremental deployments. Constant feedback. First productive automation in less than 30 days.",
-            "metric": "30 Days Go-Live"
+        "r3": {
+            "title": "Fewer no-shows",
+            "description": "Automatic reminders that reduce cancellations without you lifting a finger."
         },
-        "adv4": {
-            "title": "Local Technical Support",
-            "description": "Technical team in Lleida available in Catalan, Spanish and English. Response in less than 2 hours. 24/7 support for critical incidents.",
-            "metric": "2h Response Time"
+        "r4": {
+            "title": "Google reviews",
+            "description": "After every service, an automatic message asks for a review. More reviews = more new clients."
         },
-        "adv5": {
-            "title": "Analytics & Monitoring",
-            "description": "Customized dashboards with key metrics. Proactive alerts. Monthly impact reports. Identification of optimization opportunities.",
-            "metric": "Real-Time Dashboards"
-        },
-        "adv6": {
-            "title": "Training & Enablement",
-            "description": "Complete training for your internal team. Comprehensive documentation. Monthly Q&A sessions. Guaranteed knowledge transfer.",
-            "metric": "Full Training Included"
-        }
+        "trust": "We use flexible and scalable technology to make it happen. You don't need to know how it works inside — we take care of everything.",
+        "cta": "Let's talk about your business →"
     },
     "footer": {
         "description": "Specialized consultancy in business process automation through N8N and Artificial Intelligence. We transform operations with measurable and scalable solutions.",
