@@ -1,0 +1,166 @@
+{
+  "nav": {
+    "services": "Serveis",
+    "transformation": "Transformació",
+    "results": "Resultats",
+    "contact": "Contacte",
+    "cta": "Sol·licitar Consulta"
+  },
+  "hero": {
+    "badge": "EXPERTS CERTIFICATS EN N8N",
+    "title1": "Automatització Empresarial Intel·ligent amb IA",
+    "title2": "Agentic AI Workflows amb ",
+    "highlight": "ROI Mesurable",
+    "location": "Servint empreses de Lleida i Catalunya",
+    "description": "Transformem processos operatius en autonomous AI workflows amb N8N que optimitzen recursos, redueixen errors 95% i escalen el teu negoci amb automatització intel·ligent i GEO optimization.",
+    "cta1": "Agendar Consultoria",
+    "cta2": "Conèixer Solucions"
+  },
+  "stats": {
+    "hours": "Hores Estalviades Mensualment",
+    "costs": "Reducció de Costos Operatius",
+    "speed": "Millora en Velocitat de Processos",
+    "roi": "ROI Documentat a 3 Anys"
+  },
+  "services": {
+    "tag": "SERVEIS",
+    "title": "Serveis d'Automatització Intel·ligent amb IA per al Teu Negoci",
+    "description": "Solucions d'automatització empresarial amb AI agents i N8N workflows per estalviar temps, eliminar errors i oferir servei professional 24/7 als teus clients.",
+    "service1": {
+      "title": "Gestió Automàtica de Comandes",
+      "description": "Reb comandes per WhatsApp, web o telèfon i que es registrin automàticament. Confirmació instant al client, avís a tu, i tot organitzat sense perdre res.",
+      "metric": "✨ Zero errors, zero caos",
+      "ideal": "💡 Ideal per: Pastisseries, fleques, restaurants"
+    },
+    "service2": {
+      "title": "Assistent Virtual 24/7 amb AI Agents",
+      "description": "AI agent intel·ligent amb processament de llenguatge natural que respon clients automàticament: horaris, preus, disponibilitat, ubicació. Automatització conversacional que només escala consultes complexes a atenció humana.",
+      "metric": "✨ 70% menys interrupcions",
+      "ideal": "💡 Ideal per: Perruqueries, tallers, clíniques"
+    },
+    "service3": {
+      "title": "Recordatoris i Avisos Intel·ligents",
+      "description": "Envia recordatoris de cites automàticament 24h abans. Avisa quan una comanda està llesta. Gestiona cancel·lacions sense que hagis de fer res.",
+      "metric": "✨ 50% menys absències",
+      "ideal": "💡 Ideal per: Barberies, fisio, tallers"
+    },
+    "service4": {
+      "title": "Factures Automàtiques al Moment",
+      "description": "Genera factures PDF des de qualsevol comanda o servei. S'envien automàticament al client i s'arxiven a Drive. Zero temps perdut en paperassa.",
+      "metric": "✨ Facturació instantània",
+      "ideal": "💡 Ideal per: Tots els negocis"
+    },
+    "service5": {
+      "title": "Més Ressenyes a Google Maps",
+      "description": "Després de cada venda o servei, un missatge automàtic demana una ressenya amb enllaç directe. Més visibilitat, més clients nous.",
+      "metric": "✨ +200% més ressenyes",
+      "ideal": "💡 Ideal per: Restaurants, botigues, serveis"
+    },
+    "service6": {
+      "title": "Tots els Missatges en Un Sol Lloc",
+      "description": "WhatsApp, Instagram, Facebook, email... tot en una única pantalla. Respon des d'un lloc i no perdis cap conversa important amb clients.",
+      "metric": "✨ Atenció perfecta",
+      "ideal": "💡 Ideal per: Botigues, comerços"
+    }
+  },
+  "transformation": {
+    "tag": "TRANSFORMACIÓ",
+    "title": "Això és el que canvia al teu negoci",
+    "description": "Compara el teu dia a dia actual amb com podria ser demà. Sense complicacions, sense tecnicismes.",
+    "labelBefore": "🔴 Abans",
+    "labelAfter": "🟢 Després",
+    "row1": {
+      "before": "Perds comandes perquè no vas veure el WhatsApp a temps.",
+      "after": "Cada comanda es registra, confirma i organitza automàticament. Cap comanda perduda, mai més."
+    },
+    "row2": {
+      "before": "Clients que no es presenten a la cita sense avisar. Et quedes amb un forat a l'agenda.",
+      "after": "Reben un recordatori automàtic 24h abans. Poden confirmar o cancel·lar amb un clic."
+    },
+    "row3": {
+      "before": "Passes hores fent factures a mà, perseguint cobraments i organitzant papers.",
+      "after": "Les factures es generen i envien soles al moment. S'arxiven automàticament. Zero paperassa."
+    },
+    "row4": {
+      "before": "Missatges a WhatsApp, Instagram, email... i sempre se'n perd algun d'important.",
+      "after": "Tot arriba a una pantalla. Respon des d'un sol lloc sense perdre cap conversa."
+    },
+    "example": "Una fleca d'Almenar rebia 15 comandes al dia per WhatsApp. Algunes es perdien, altres s'anotaven malament. Ara, cada comanda es registra sola, el client rep confirmació instantània, i no han perdut ni una sola comanda en 6 mesos.",
+    "cta": "Vull veure com funcionaria al meu negoci →"
+  },
+  "results": {
+    "tag": "RESULTATS REALS",
+    "title": "No et prometem miracles. Et mostrem dades.",
+    "description": "Resultats documentats d'empreses locals com la teva.",
+    "r1": {
+      "title": "Hores estalviades al mes",
+      "description": "Temps que els nostres clients recuperen per dedicar al que realment importa: vendre, crear, atendre."
+    },
+    "r2": {
+      "title": "Comandes perdudes",
+      "description": "Cada comanda, cita o missatge queda registrat automàticament. Res es perd, res s'oblida."
+    },
+    "r3": {
+      "title": "Menys absències a cites",
+      "description": "Recordatoris automàtics que redueixen cancel·lacions sense que tu hagis de fer res."
+    },
+    "r4": {
+      "title": "Ressenyes a Google",
+      "description": "Després de cada servei, un missatge automàtic demana opinió. Més ressenyes = més clients nous."
+    },
+    "trust": "Usem tecnologia flexible i escalable per fer-ho possible. Tu no has de saber com funciona per dins — nosaltres ens n'encarreguem.",
+    "cta": "Parlem del teu negoci →"
+  },
+  "footer": {
+    "description": "Consultoria especialitzada en automatització de processos empresarials mitjançant N8N i Intel·ligència Artificial. Transformem operacions amb solucions mesurables i escalables.",
+    "location": "📍 Amb seu a Almenar, Lleida 25126\nServint empreses de tot Catalunya",
+    "rights": "Tots els drets reservats.",
+    "developed": "Desenvolupat amb excel·lència a Almenar, Lleida"
+  },
+  "contact": {
+    "tag": "CONTACTE",
+    "title": "Comença la Teva Transformació Digital amb AI Automation",
+    "description": "Explica'ns les teves necessitats i t'ajudarem a trobar la millor solució d'automatització per al teu negoci.",
+    "infoTitle": "Estem aquí per ajudar-te",
+    "infoDescription": "Responent consultes en menys de 2 hores. Disponibles en català, castellà i anglès per empreses de tot Catalunya.",
+    "locationLabel": "Ubicació",
+    "locationValue": "Almenar, Lleida 25126<br>Catalunya, Espanya",
+    "emailLabel": "Email",
+    "hoursLabel": "Horari d'Atenció",
+    "hoursValue": "Dilluns - Divendres<br>09:00 - 18:00",
+    "responseLabel": "Temps de Resposta",
+    "responseValue": "< 2 hores laborables",
+    "formTitle": "Sol·licita una consulta gratuïta",
+    "formSubtitle": "Et respondrem en menys de 2 hores laborables",
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "El teu nom complet",
+      "company": "Empresa",
+      "companyPlaceholder": "Nom de l'empresa",
+      "email": "Email",
+      "emailPlaceholder": "email@exemple.com",
+      "phone": "Telèfon",
+      "phonePlaceholder": "+34 600 000 000",
+      "service": "Servei d'interès",
+      "serviceDefault": "Selecciona una opció",
+      "serviceOrders": "Gestió automàtica de comandes",
+      "serviceChatbot": "Assistent virtual / Chatbot",
+      "serviceReminders": "Recordatoris i avisos",
+      "serviceInvoicing": "Facturació automàtica",
+      "serviceReviews": "Ressenyes Google Maps",
+      "serviceMessages": "Centralització missatges",
+      "serviceOther": "Altre / No estic segur",
+      "message": "Missatge",
+      "messagePlaceholder": "Explica'ns les teves necessitats...",
+      "privacy": "Accepto la política de privacitat i el tractament de les meves dades per rebre informació sobre serveis.",
+      "submit": "Enviar Sol·licitud",
+      "sending": "Enviant...",
+      "success": "Missatge enviat correctament! Et contactarem aviat.",
+      "error": "Hi ha hagut un error. Si us plau, torna a intentar-ho."
+    }
+  },
+  "meta": {
+    "title": "VBG Labs - Automatització Empresarial N8N a Lleida | Almenar",
+    "description": "Consultoria especialitzada en automatització de processos empresarials amb N8N i Intel·ligència Artificial a Lleida."
+  }
+}

@@ -1,0 +1,166 @@
+{
+    "nav": {
+        "services": "Servicios",
+        "transformation": "Transformación",
+        "results": "Resultados",
+        "contact": "Contacto",
+        "cta": "Solicitar Consulta"
+    },
+    "hero": {
+        "badge": "EXPERTOS CERTIFICADOS EN N8N",
+        "title1": "Automatización Empresarial Inteligente con IA",
+        "title2": "Agentic AI Workflows con ",
+        "highlight": "ROI Medible",
+        "location": "Sirviendo empresas de Lleida y Cataluña",
+        "description": "Transformamos procesos operativos en autonomous AI workflows con N8N que optimizan recursos, reducen errores 95% y escalan tu negocio con automatización inteligente.",
+        "cta1": "Agendar Consultoría",
+        "cta2": "Conocer Soluciones"
+    },
+    "stats": {
+        "hours": "Horas Ahorradas Mensualmente",
+        "costs": "Reducción de Costes Operativos",
+        "speed": "Mejora en Velocidad de Procesos",
+        "roi": "ROI Documentado a 3 Años"
+    },
+    "services": {
+        "tag": "SERVICIOS",
+        "title": "Servicios de Automatización Inteligente con IA para Tu Negocio",
+        "description": "Soluciones de automatización empresarial con AI agents y N8N workflows para ahorrar tiempo, eliminar errores y ofrecer servicio profesional 24/7 a tus clientes.",
+        "service1": {
+            "title": "Gestión Automática de Pedidos",
+            "description": "Recibe pedidos por WhatsApp, web o teléfono y que se registren automáticamente. Confirmación instantánea al cliente, aviso a ti, y todo organizado sin perder nada.",
+            "metric": "✨ Cero errores, cero caos",
+            "ideal": "💡 Ideal para: Pastelerías, panaderías, restaurantes"
+        },
+        "service2": {
+            "title": "Asistente Virtual 24/7 con AI Agents",
+            "description": "AI agent inteligente con procesamiento de lenguaje natural que responde clientes automáticamente: horarios, precios, disponibilidad, ubicación. Automatización conversacional que solo escala consultas complejas a atención humana.",
+            "metric": "✨ 70% menos interrupciones",
+            "ideal": "💡 Ideal para: Peluquerías, talleres, clínicas"
+        },
+        "service3": {
+            "title": "Recordatorios y Avisos Inteligentes",
+            "description": "Envía recordatorios de citas automáticamente 24h antes. Avisa cuando un pedido está listo. Gestiona cancelaciones sin que tengas que hacer nada.",
+            "metric": "✨ 50% menos ausencias",
+            "ideal": "💡 Ideal para: Barberías, fisio, talleres"
+        },
+        "service4": {
+            "title": "Facturas Automáticas al Momento",
+            "description": "Genera facturas PDF desde cualquier pedido o servicio. Se envían automáticamente al cliente y se archivan en Drive. Cero tiempo perdido en papeleo.",
+            "metric": "✨ Facturación instantánea",
+            "ideal": "💡 Ideal para: Todos los negocios"
+        },
+        "service5": {
+            "title": "Más Reseñas en Google Maps",
+            "description": "Después de cada venta o servicio, un mensaje automático pide una reseña con enlace directo. Más visibilidad, más clientes nuevos.",
+            "metric": "✨ +200% más reseñas",
+            "ideal": "💡 Ideal para: Restaurantes, tiendas, servicios"
+        },
+        "service6": {
+            "title": "Todos los Mensajes en Un Solo Lugar",
+            "description": "WhatsApp, Instagram, Facebook, email... todo en una única pantalla. Responde desde un lugar y no pierdas ninguna conversación importante con clientes.",
+            "metric": "✨ Atención perfecta",
+            "ideal": "💡 Ideal para: Tiendas, comercios"
+        }
+    },
+    "transformation": {
+        "tag": "TRANSFORMACIÓN",
+        "title": "Esto es lo que cambia en tu negocio",
+        "description": "Compara tu día a día actual con cómo podría ser mañana. Sin complicaciones, sin tecnicismos.",
+        "labelBefore": "🔴 Antes",
+        "labelAfter": "🟢 Después",
+        "row1": {
+            "before": "Pierdes pedidos porque no viste el WhatsApp a tiempo.",
+            "after": "Cada pedido se registra, confirma y organiza automáticamente. Ningún pedido perdido, nunca más."
+        },
+        "row2": {
+            "before": "Clientes que no se presentan a la cita sin avisar. Te quedas con un hueco en la agenda.",
+            "after": "Reciben un recordatorio automático 24h antes. Pueden confirmar o cancelar con un clic."
+        },
+        "row3": {
+            "before": "Pasas horas haciendo facturas a mano, persiguiendo cobros y organizando papeles.",
+            "after": "Las facturas se generan y envían solas al momento. Se archivan automáticamente. Cero papeleo."
+        },
+        "row4": {
+            "before": "Mensajes en WhatsApp, Instagram, email... y siempre se pierde alguno importante.",
+            "after": "Todo llega a una pantalla. Responde desde un solo lugar sin perder ninguna conversación."
+        },
+        "example": "Una panadería de Almenar recibía 15 pedidos al día por WhatsApp. Algunos se perdían, otros se apuntaban mal. Ahora, cada pedido se registra solo, el cliente recibe confirmación instantánea, y no han perdido ni un solo pedido en 6 meses.",
+        "cta": "Quiero ver cómo funcionaría en mi negocio →"
+    },
+    "results": {
+        "tag": "RESULTADOS REALES",
+        "title": "No te prometemos milagros. Te mostramos datos.",
+        "description": "Resultados documentados de empresas locales como la tuya.",
+        "r1": {
+            "title": "Horas ahorradas al mes",
+            "description": "Tiempo que nuestros clientes recuperan para dedicar a lo que realmente importa: vender, crear, atender."
+        },
+        "r2": {
+            "title": "Pedidos perdidos",
+            "description": "Cada pedido, cita o mensaje queda registrado automáticamente. Nada se pierde, nada se olvida."
+        },
+        "r3": {
+            "title": "Menos ausencias en citas",
+            "description": "Recordatorios automáticos que reducen cancelaciones sin que tú tengas que hacer nada."
+        },
+        "r4": {
+            "title": "Reseñas en Google",
+            "description": "Después de cada servicio, un mensaje automático pide opinión. Más reseñas = más clientes nuevos."
+        },
+        "trust": "Usamos tecnología flexible y escalable para hacerlo posible. Tú no tienes que saber cómo funciona por dentro — nosotros nos encargamos.",
+        "cta": "Hablemos de tu negocio →"
+    },
+    "footer": {
+        "description": "Consultoría especializada en automatización de procesos empresariales mediante N8N e Inteligencia Artificial. Transformamos operaciones con soluciones medibles y escalables.",
+        "location": "📍 Con sede en Almenar, Lleida 25126\nSirviendo empresas de toda Cataluña",
+        "rights": "Todos los derechos reservados.",
+        "developed": "Desarrollado con excelencia en Almenar, Lleida"
+    },
+    "contact": {
+        "tag": "CONTACTO",
+        "title": "Comienza Tu Transformación Digital con AI Automation",
+        "description": "Cuéntanos tus necesidades y te ayudaremos a encontrar la mejor solución de automatización para tu negocio.",
+        "infoTitle": "Estamos aquí para ayudarte",
+        "infoDescription": "Respondiendo consultas en menos de 2 horas. Disponibles en catalán, castellano e inglés para empresas de toda Cataluña.",
+        "locationLabel": "Ubicación",
+        "locationValue": "Almenar, Lleida 25126<br>Cataluña, España",
+        "emailLabel": "Email",
+        "hoursLabel": "Horario de Atención",
+        "hoursValue": "Lunes - Viernes<br>09:00 - 18:00",
+        "responseLabel": "Tiempo de Respuesta",
+        "responseValue": "< 2 horas laborables",
+        "formTitle": "Solicita una consulta gratuita",
+        "formSubtitle": "Te responderemos en menos de 2 horas laborables",
+        "form": {
+            "name": "Nombre",
+            "namePlaceholder": "Tu nombre completo",
+            "company": "Empresa",
+            "companyPlaceholder": "Nombre de la empresa",
+            "email": "Email",
+            "emailPlaceholder": "email@ejemplo.com",
+            "phone": "Teléfono",
+            "phonePlaceholder": "+34 600 000 000",
+            "service": "Servicio de interés",
+            "serviceDefault": "Selecciona una opción",
+            "serviceOrders": "Gestión automática de pedidos",
+            "serviceChatbot": "Asistente virtual / Chatbot",
+            "serviceReminders": "Recordatorios y avisos",
+            "serviceInvoicing": "Facturación automática",
+            "serviceReviews": "Reseñas Google Maps",
+            "serviceMessages": "Centralización mensajes",
+            "serviceOther": "Otro / No estoy seguro",
+            "message": "Mensaje",
+            "messagePlaceholder": "Cuéntanos tus necesidades...",
+            "privacy": "Acepto la política de privacidad y el tratamiento de mis datos para recibir información sobre servicios.",
+            "submit": "Enviar Solicitud",
+            "sending": "Enviando...",
+            "success": "¡Mensaje enviado correctamente! Te contactaremos pronto.",
+            "error": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
+        }
+    },
+    "meta": {
+        "title": "VBG Labs - Automatización Empresarial N8N en Lleida | Almenar",
+        "description": "Consultoría especializada en automatización de procesos empresariales con N8N e Inteligencia Artificial en Lleida."
+    }
+}
