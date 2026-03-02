@@ -287,5 +287,19 @@
         "title": "Page not found",
         "description": "The page you are looking for does not exist or has been moved. Return to the home page to explore our automation services.",
         "cta": "Back to Home"
+    },
+    "cookies": {
+        "banner": {
+            "text": "We use our own cookies for basic website functionality and analytics cookies to understand how you use it and improve it. You can accept them, reject non-essential ones, or configure your preferences.",
+            "link": "More info",
+            "accept": "Accept all",
+            "reject": "Essential only",
+            "config": "Configure",
+            "technicalTitle": "Technical cookies (necessary)",
+            "technicalDesc": "Essential for the basic operation of the website. Language, cookie preferences.",
+            "analyticsTitle": "Analytics cookies",
+            "analyticsDesc": "Help us understand how visitors use the website. Google Analytics.",
+            "save": "Save preferences"
+        }
     }
 }
