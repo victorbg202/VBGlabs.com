@@ -2,12 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vbglabs.ai/</loc>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://vbglabs.ai/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://vbglabs.ai/es/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://vbglabs.ai/en/" />
-    <lastmod>2026-02-27</lastmod>
+    <loc>https://vbglabs.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://vbglabs.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://vbglabs.com/es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://vbglabs.com/en/" />
+    <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- Legal pages excluded: noindex, follow -->
 </urlset>

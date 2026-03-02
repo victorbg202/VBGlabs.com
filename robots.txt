@@ -2,7 +2,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vbglabs.ai/sitemap.xml
+Sitemap: https://vbglabs.com/sitemap.xml
 
 # Disallow admin (future)
 Disallow: /admin/

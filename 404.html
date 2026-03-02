@@ -7,33 +7,31 @@
     <title>404 - Pàgina no trobada | VBG Labs</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/x-icon" href="/VBGlabs.ico">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Sora:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #F9FAFB;
-            color: #1F2937;
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <style>
+        .error-page {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2rem;
+            padding: 8rem 2rem 4rem;
         }
 
         .error-code {
-            font-family: 'Sora', sans-serif;
+            font-family: var(--font-heading);
             font-size: clamp(6rem, 20vw, 12rem);
             font-weight: 800;
             color: #FEE2E2;
@@ -42,16 +40,16 @@
             text-shadow: 2px 2px 0 rgba(220, 38, 38, 0.1);
         }
 
-        h1 {
-            font-family: 'Sora', sans-serif;
+        .error-page h1 {
+            font-family: var(--font-heading);
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 700;
-            color: #111827;
+            color: var(--gray-900);
             margin-bottom: 1rem;
         }
 
-        p {
-            color: #6B7280;
+        .error-page p {
+            color: var(--gray-600);
             font-size: 1.1rem;
             margin-bottom: 2rem;
             max-width: 500px;
@@ -61,7 +59,7 @@
         .btn-home {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: #DC2626;
+            background: var(--red);
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -71,7 +69,7 @@
         }
 
         .btn-home:hover {
-            background: #B91C1C;
+            background: var(--red-dark);
             transform: translateY(-3px);
             box-shadow: 0 12px 24px rgba(220, 38, 38, 0.3);
         }
@@ -79,11 +77,63 @@
 </head>
 
 <body>
-    <div class="error-code">404</div>
-    <h1>Pàgina no trobada</h1>
-    <p>La pàgina que busques no existeix o ha estat moguda. Torna a l'inici per explorar els nostres serveis
-        d'automatització.</p>
-    <a href="/" class="btn-home">Tornar a l'Inici</a>
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav id="nav">
+        <div class="nav-container">
+            <a href="/" class="logo">VBG<span> Labs</span></a>
+            <ul class="nav-links">
+                <li><a href="/#services" data-i18n="nav.services">Serveis</a></li>
+                <li><a href="/#transformation" data-i18n="nav.transformation">Transformació</a></li>
+                <li><a href="/#results" data-i18n="nav.results">Resultats</a></li>
+                <li><a href="/#contact" data-i18n="nav.contact">Contacte</a></li>
+            </ul>
+            <div class="lang-selector">
+                <button class="lang-btn" data-lang="ca">CA</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+            <a href="/#contact" class="nav-cta-desktop" data-i18n="nav.cta">Sol·licitar Consulta</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/#services" data-i18n="nav.services">Serveis</a>
+        <a href="/#transformation" data-i18n="nav.transformation">Transformació</a>
+        <a href="/#results" data-i18n="nav.results">Resultats</a>
+        <a href="/#contact" class="nav-cta" data-i18n="nav.contact">Contacte</a>
+    </div>
+
+    <!-- ==================== 404 CONTENT ==================== -->
+    <main class="error-page">
+        <div class="error-code">404</div>
+        <h1 data-i18n="error.title">Pàgina no trobada</h1>
+        <p data-i18n="error.description">La pàgina que busques no existeix o ha estat moguda. Torna a l'inici per
+            explorar els nostres serveis d'automatització.</p>
+        <a href="/" class="btn-home" data-i18n="error.cta">Tornar a l'Inici</a>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-bottom">
+                <p>&copy; 2024 VBG Labs. <span data-i18n="footer.rights">Tots els drets reservats.</span></p>
+                <div class="footer-legal">
+                    <a href="/avis-legal.html">Avís Legal</a>
+                    <a href="/politica-privacitat.html">Privacitat</a>
+                    <a href="/politica-cookies.html">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js" defer></script>
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 </body>
 
 </html>
