@@ -287,5 +287,19 @@
     "title": "Pàgina no trobada",
     "description": "La pàgina que busques no existeix o ha estat moguda. Torna a l'inici per explorar els nostres serveis d'automatització.",
     "cta": "Tornar a l'Inici"
+  },
+  "cookies": {
+    "banner": {
+      "text": "Utilitzem cookies pròpies per al funcionament bàsic del web i cookies analítiques per entendre com l'utilitzes i millorar-lo. Pots acceptar-les, rebutjar les no essencials o configurar les teves preferències.",
+      "link": "Més info",
+      "accept": "Acceptar tot",
+      "reject": "Només essencials",
+      "config": "Configurar",
+      "technicalTitle": "Cookies tècniques (necessàries)",
+      "technicalDesc": "Imprescindibles per al funcionament del web. Idioma, preferències de cookies.",
+      "analyticsTitle": "Cookies analítiques",
+      "analyticsDesc": "Ens ajuden a entendre com utilitzen la web els visitants. Google Analytics.",
+      "save": "Guardar preferències"
+    }
   }
 }

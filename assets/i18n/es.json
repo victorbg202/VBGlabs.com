@@ -287,5 +287,19 @@
         "title": "Página no encontrada",
         "description": "La página que buscas no existe o ha sido movida. Vuelve al inicio para explorar nuestros servicios de automatización.",
         "cta": "Volver al Inicio"
+    },
+    "cookies": {
+        "banner": {
+            "text": "Utilizamos cookies propias para el funcionamiento básico de la web y cookies analíticas para entender cómo la usas y mejorarla. Puedes aceptarlas, rechazar las no esenciales o configurar tus preferencias.",
+            "link": "Más info",
+            "accept": "Aceptar todo",
+            "reject": "Solo esenciales",
+            "config": "Configurar",
+            "technicalTitle": "Cookies técnicas (necesarias)",
+            "technicalDesc": "Imprescindibles para el funcionamiento de la web. Idioma, preferencias de cookies.",
+            "analyticsTitle": "Cookies analíticas",
+            "analyticsDesc": "Nos ayudan a entender cómo usan la web los visitantes. Google Analytics.",
+            "save": "Guardar preferencias"
+        }
     }
 }
