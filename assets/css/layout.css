@@ -306,3 +306,22 @@ footer {
     border-top: 1px solid var(--gray-800);
     font-size: 0.875rem;
 }
+
+.footer-legal {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 0.75rem 0;
+}
+
+.footer-legal a {
+    color: var(--gray-500);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+    color: var(--red);
+    text-decoration: underline;
+}
