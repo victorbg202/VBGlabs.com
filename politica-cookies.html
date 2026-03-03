@@ -123,7 +123,19 @@
         <div class="nav-container">
             <a href="/" class="logo">VBG<span> Labs</span></a>
             <ul class="nav-links">
-                <li><a href="/#services" data-i18n="nav.services">Serveis</a></li>
+                <li class="nav-dropdown">
+                    <a href="/#services"><span data-i18n="nav.services">Serveis</span> <span class="dropdown-arrow">▾</span></a>
+                    <div class="dropdown-menu">
+                        <a href="/serveis/" class="dropdown-header" data-i18n="servicesPage.title">Tots els Serveis</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/serveis/gestio-comandes/">📦 <span data-i18n="services.service1.title">Gestió Automàtica de Comandes</span></a>
+                        <a href="/serveis/assistent-virtual/">🤖 <span data-i18n="services.service2.title">Assistent Virtual 24/7</span></a>
+                        <a href="/serveis/recordatoris/">⏰ <span data-i18n="services.service3.title">Recordatoris Intel·ligents</span></a>
+                        <a href="/serveis/facturacio-automatica/">📄 <span data-i18n="services.service4.title">Facturació Automàtica</span></a>
+                        <a href="/serveis/ressenyes-google/">⭐ <span data-i18n="services.service5.title">Ressenyes Google</span></a>
+                        <a href="/serveis/centralitzacio/">💬 <span data-i18n="services.service6.title">Centralització Missatges</span></a>
+                    </div>
+                </li>
                 <li><a href="/#transformation" data-i18n="nav.transformation">Transformació</a></li>
                 <li><a href="/#results" data-i18n="nav.results">Resultats</a></li>
                 <li><a href="/#contact" data-i18n="nav.contact">Contacte</a></li>
@@ -143,7 +155,18 @@
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
-        <a href="/#services" data-i18n="nav.services">Serveis</a>
+        <div class="mobile-dropdown">
+            <a href="/#services" class="mobile-dropdown-toggle"><span data-i18n="nav.services">Serveis</span> <span class="dropdown-arrow">▾</span></a>
+            <div class="mobile-dropdown-content">
+                <a href="/serveis/" data-i18n="servicesPage.title">Tots els Serveis</a>
+                <a href="/serveis/gestio-comandes/">📦 <span data-i18n="services.service1.title">Gestió de Comandes</span></a>
+                <a href="/serveis/assistent-virtual/">🤖 <span data-i18n="services.service2.title">Assistent Virtual</span></a>
+                <a href="/serveis/recordatoris/">⏰ <span data-i18n="services.service3.title">Recordatoris</span></a>
+                <a href="/serveis/facturacio-automatica/">📄 <span data-i18n="services.service4.title">Facturació</span></a>
+                <a href="/serveis/ressenyes-google/">⭐ <span data-i18n="services.service5.title">Ressenyes Google</span></a>
+                <a href="/serveis/centralitzacio/">💬 <span data-i18n="services.service6.title">Centralització</span></a>
+            </div>
+        </div>
         <a href="/#transformation" data-i18n="nav.transformation">Transformació</a>
         <a href="/#results" data-i18n="nav.results">Resultats</a>
         <a href="/#contact" class="nav-cta" data-i18n="nav.contact">Contacte</a>

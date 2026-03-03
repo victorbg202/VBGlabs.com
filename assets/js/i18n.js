@@ -34,7 +34,7 @@ async function loadTranslations(lang) {
     }
 
     try {
-        const response = await fetch(`assets/i18n/${lang}.json`);
+        const response = await fetch(`/assets/i18n/${lang}.json`);
         if (!response.ok) throw new Error(`Failed to load ${lang}.json`);
         const data = await response.json();
         translationsCache[lang] = data;
