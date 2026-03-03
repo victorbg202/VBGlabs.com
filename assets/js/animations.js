@@ -18,6 +18,7 @@ function initAnimations() {
 
     const animateCounter = (element) => {
         const target = parseInt(element.getAttribute('data-target'));
+        const suffix = element.getAttribute('data-suffix') || '+';
         const duration = 2000;
         const startTime = performance.now();
 
@@ -26,20 +27,12 @@ function initAnimations() {
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const current = Math.floor(easeOutQuart * target);
 
-            if (target === 70) {
-                element.textContent = current + '%';
-            } else if (target === 10) {
-                element.textContent = current + 'x';
-            } else {
-                element.textContent = current + '+';
-            }
+            element.textContent = current + suffix;
 
             if (progress < 1) {
                 requestAnimationFrame(updateCounter);
             } else {
-                if (target === 70) element.textContent = target + '%';
-                else if (target === 10) element.textContent = target + 'x';
-                else element.textContent = target + '+';
+                element.textContent = target + suffix;
             }
         };
 
@@ -73,6 +66,32 @@ function initAnimations() {
         });
         observer.observe(statsBar);
     }
+
+    // --- Scroll-triggered fade-in animations ---
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    // Animate sections
+    document.querySelectorAll('section .section-header, section .container > *').forEach((el, i) => {
+        if (!el.classList.contains('stats-bar') && !el.closest('#hero')) {
+            el.classList.add('animate-ready');
+            el.style.transitionDelay = (i % 3) * 0.1 + 's';
+            fadeObserver.observe(el);
+        }
+    });
+
+    // Animate service cards with stagger
+    document.querySelectorAll('.service-card, .service-card-link').forEach((el, i) => {
+        el.classList.add('animate-ready');
+        el.style.transitionDelay = i * 0.08 + 's';
+        fadeObserver.observe(el);
+    });
 }
 
 window.VBGAnimations = { initAnimations };
