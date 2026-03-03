@@ -45,6 +45,18 @@ function initNavigation() {
             }
         });
     });
+
+    // --- Mobile dropdown toggle ---
+    const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
+    if (mobileDropdownToggle) {
+        mobileDropdownToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const dropdown = mobileDropdownToggle.closest('.mobile-dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('open');
+            }
+        });
+    }
 }
 
 window.VBGNavigation = { initNavigation };

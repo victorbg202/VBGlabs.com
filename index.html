@@ -319,7 +319,26 @@
         <div class="nav-container">
             <a href="#hero" class="logo">VBG<span> Labs</span></a>
             <ul class="nav-links">
-                <li><a href="#services" data-i18n="nav.services">Serveis</a></li>
+                <li class="nav-dropdown">
+                    <a href="#services"><span data-i18n="nav.services">Serveis</span> <span
+                            class="dropdown-arrow">▾</span></a>
+                    <div class="dropdown-menu">
+                        <a href="/serveis/" class="dropdown-header" data-i18n="servicesPage.title">Tots els Serveis</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/serveis/gestio-comandes/">📦 <span data-i18n="services.service1.title">Gestió
+                                Automàtica de Comandes</span></a>
+                        <a href="/serveis/assistent-virtual/">🤖 <span data-i18n="services.service2.title">Assistent
+                                Virtual 24/7</span></a>
+                        <a href="/serveis/recordatoris/">⏰ <span data-i18n="services.service3.title">Recordatoris
+                                Intel·ligents</span></a>
+                        <a href="/serveis/facturacio-automatica/">📄 <span
+                                data-i18n="services.service4.title">Facturació Automàtica</span></a>
+                        <a href="/serveis/ressenyes-google/">⭐ <span data-i18n="services.service5.title">Ressenyes
+                                Google</span></a>
+                        <a href="/serveis/centralitzacio/">💬 <span data-i18n="services.service6.title">Centralització
+                                Missatges</span></a>
+                    </div>
+                </li>
                 <li><a href="#transformation" data-i18n="nav.transformation">Transformació</a></li>
                 <li><a href="#results" data-i18n="nav.results">Resultats</a></li>
                 <li><a href="#contact" data-i18n="nav.contact">Contacte</a></li>
@@ -340,7 +359,24 @@
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#services" data-i18n="nav.services">Serveis</a>
+        <div class="mobile-dropdown">
+            <a href="#services" class="mobile-dropdown-toggle"><span data-i18n="nav.services">Serveis</span> <span
+                    class="dropdown-arrow">▾</span></a>
+            <div class="mobile-dropdown-content">
+                <a href="/serveis/" data-i18n="servicesPage.title">Tots els Serveis</a>
+                <a href="/serveis/gestio-comandes/">📦 <span data-i18n="services.service1.title">Gestió de
+                        Comandes</span></a>
+                <a href="/serveis/assistent-virtual/">🤖 <span data-i18n="services.service2.title">Assistent
+                        Virtual</span></a>
+                <a href="/serveis/recordatoris/">⏰ <span data-i18n="services.service3.title">Recordatoris</span></a>
+                <a href="/serveis/facturacio-automatica/">📄 <span
+                        data-i18n="services.service4.title">Facturació</span></a>
+                <a href="/serveis/ressenyes-google/">⭐ <span data-i18n="services.service5.title">Ressenyes
+                        Google</span></a>
+                <a href="/serveis/centralitzacio/">💬 <span
+                        data-i18n="services.service6.title">Centralització</span></a>
+            </div>
+        </div>
         <a href="#transformation" data-i18n="nav.transformation">Transformació</a>
         <a href="#results" data-i18n="nav.results">Resultats</a>
         <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contacte</a>
@@ -399,7 +435,7 @@
                 </p>
             </div>
             <div class="services-grid">
-                <div class="service-card">
+                <a href="/serveis/gestio-comandes/" class="service-card service-card-link">
                     <div class="service-icon">📦</div>
                     <h3 data-i18n="services.service1.title">Gestió Automàtica de Comandes</h3>
                     <p data-i18n="services.service1.description">Reb comandes per WhatsApp, web o telèfon i que es
@@ -408,8 +444,9 @@
                     <span class="service-metric" data-i18n="services.service1.metric">✨ Zero errors, zero caos</span>
                     <div class="service-ideal"><small data-i18n="services.service1.ideal">💡 Ideal per: Pastisseries,
                             fleques, restaurants</small></div>
-                </div>
-                <div class="service-card">
+                    <span class="service-link-label" data-i18n="servicesPage.learnMore">Saber més →</span>
+                </a>
+                <a href="/serveis/assistent-virtual/" class="service-card service-card-link">
                     <div class="service-icon">🤖</div>
                     <h3 data-i18n="services.service2.title">Assistent Virtual 24/7 amb AI Agents</h3>
                     <p data-i18n="services.service2.description">AI agent intel·ligent amb processament de llenguatge
@@ -418,8 +455,9 @@
                     <span class="service-metric" data-i18n="services.service2.metric">✨ 70% menys interrupcions</span>
                     <div class="service-ideal"><small data-i18n="services.service2.ideal">💡 Ideal per: Perruqueries,
                             tallers, clíniques</small></div>
-                </div>
-                <div class="service-card">
+                    <span class="service-link-label" data-i18n="servicesPage.learnMore">Saber més →</span>
+                </a>
+                <a href="/serveis/recordatoris/" class="service-card service-card-link">
                     <div class="service-icon">⏰</div>
                     <h3 data-i18n="services.service3.title">Recordatoris i Avisos Intel·ligents</h3>
                     <p data-i18n="services.service3.description">Envia recordatoris de cites automàticament 24h abans.
@@ -427,8 +465,9 @@
                     <span class="service-metric" data-i18n="services.service3.metric">✨ 50% menys absències</span>
                     <div class="service-ideal"><small data-i18n="services.service3.ideal">💡 Ideal per: Barberies,
                             fisio, tallers</small></div>
-                </div>
-                <div class="service-card">
+                    <span class="service-link-label" data-i18n="servicesPage.learnMore">Saber més →</span>
+                </a>
+                <a href="/serveis/facturacio-automatica/" class="service-card service-card-link">
                     <div class="service-icon">📄</div>
                     <h3 data-i18n="services.service4.title">Factures Automàtiques al Moment</h3>
                     <p data-i18n="services.service4.description">Genera factures PDF des de qualsevol comanda o servei.
@@ -436,8 +475,9 @@
                     <span class="service-metric" data-i18n="services.service4.metric">✨ Facturació instantània</span>
                     <div class="service-ideal"><small data-i18n="services.service4.ideal">💡 Ideal per: Tots els
                             negocis</small></div>
-                </div>
-                <div class="service-card">
+                    <span class="service-link-label" data-i18n="servicesPage.learnMore">Saber més →</span>
+                </a>
+                <a href="/serveis/ressenyes-google/" class="service-card service-card-link">
                     <div class="service-icon">⭐</div>
                     <h3 data-i18n="services.service5.title">Més Ressenyes a Google Maps</h3>
                     <p data-i18n="services.service5.description">Després de cada venda o servei, un missatge automàtic
@@ -445,8 +485,9 @@
                     <span class="service-metric" data-i18n="services.service5.metric">✨ +200% més ressenyes</span>
                     <div class="service-ideal"><small data-i18n="services.service5.ideal">💡 Ideal per: Restaurants,
                             botigues, serveis</small></div>
-                </div>
-                <div class="service-card">
+                    <span class="service-link-label" data-i18n="servicesPage.learnMore">Saber més →</span>
+                </a>
+                <a href="/serveis/centralitzacio/" class="service-card service-card-link">
                     <div class="service-icon">💬</div>
                     <h3 data-i18n="services.service6.title">Tots els Missatges en Un Sol Lloc</h3>
                     <p data-i18n="services.service6.description">WhatsApp, Instagram, Facebook, email... tot en una
@@ -454,7 +495,8 @@
                     <span class="service-metric" data-i18n="services.service6.metric">✨ Atenció perfecta</span>
                     <div class="service-ideal"><small data-i18n="services.service6.ideal">💡 Ideal per: Botigues,
                             comerços</small></div>
-                </div>
+                    <span class="service-link-label" data-i18n="servicesPage.learnMore">Saber més →</span>
+                </a>
             </div>
         </div>
     </section>
