@@ -1,12 +1,13 @@
 /* ==========================================================================
    VBG Labs — Navigation Module
-   Nav scroll, mobile menu, smooth scroll, mobile dropdown.
+   Nav scroll, mobile menu, smooth scroll, dropdowns (mobile + desktop touch).
    ========================================================================== */
 
 function initNavigation() {
     const nav = document.getElementById('nav');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     // --- Nav scrolled state ---
     window.addEventListener('scroll', () => {
@@ -24,7 +25,6 @@ function initNavigation() {
         // Close menu on link click — but NOT on dropdown toggle
         mobileMenu.addEventListener('click', (e) => {
             const clickedLink = e.target.closest('a');
-            // Only close if they clicked an actual navigation link (not the dropdown toggle)
             if (clickedLink && !clickedLink.classList.contains('mobile-dropdown-toggle')) {
                 mobileMenuBtn.classList.remove('active');
                 mobileMenu.classList.remove('active');
@@ -33,7 +33,7 @@ function initNavigation() {
         });
     }
 
-    // --- Mobile dropdown toggle ---
+    // --- Mobile dropdown toggle (inside mobile menu overlay) ---
     document.addEventListener('click', (e) => {
         const toggle = e.target.closest('.mobile-dropdown-toggle');
         if (toggle) {
@@ -46,9 +46,43 @@ function initNavigation() {
         }
     });
 
+    // --- Desktop dropdown: touch support for tablets ---
+    // On touch devices, the :hover CSS doesn't work reliably.
+    // We add click-to-toggle and use a CSS class instead.
+    if (isTouchDevice) {
+        document.querySelectorAll('.nav-dropdown > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Only intercept the parent dropdown link, not sub-links
+                const parent = link.closest('.nav-dropdown');
+                if (!parent) return;
+
+                const menu = parent.querySelector('.dropdown-menu');
+                if (!menu) return;
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close any other open dropdowns
+                document.querySelectorAll('.nav-dropdown.touch-open').forEach(d => {
+                    if (d !== parent) d.classList.remove('touch-open');
+                });
+
+                parent.classList.toggle('touch-open');
+            });
+        });
+
+        // Close desktop dropdown on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-dropdown.touch-open').forEach(d => {
+                    d.classList.remove('touch-open');
+                });
+            }
+        });
+    }
+
     // --- Smooth scroll for internal hash links ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        // Skip the mobile dropdown toggle
         if (anchor.classList.contains('mobile-dropdown-toggle')) return;
 
         anchor.addEventListener('click', function (e) {
@@ -62,15 +96,6 @@ function initNavigation() {
                 });
             }
         });
-    });
-
-    // --- Desktop dropdown: close on outside click ---
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-dropdown')) {
-            document.querySelectorAll('.nav-dropdown').forEach(d => {
-                d.classList.remove('open');
-            });
-        }
     });
 }
 
