@@ -1,6 +1,6 @@
 /* ==========================================================================
    VBG Labs — Navigation Module
-   Nav scroll, mobile menu, smooth scroll.
+   Nav scroll, mobile menu, smooth scroll, mobile dropdown.
    ========================================================================== */
 
 function initNavigation() {
@@ -21,18 +21,36 @@ function initNavigation() {
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Cerrar menú al hacer click en un enlace
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
+        // Close menu on link click — but NOT on dropdown toggle
+        mobileMenu.addEventListener('click', (e) => {
+            const clickedLink = e.target.closest('a');
+            // Only close if they clicked an actual navigation link (not the dropdown toggle)
+            if (clickedLink && !clickedLink.classList.contains('mobile-dropdown-toggle')) {
                 mobileMenuBtn.classList.remove('active');
                 mobileMenu.classList.remove('active');
                 document.body.style.overflow = '';
-            });
+            }
         });
     }
 
-    // --- Smooth scroll para enlaces internos ---
+    // --- Mobile dropdown toggle ---
+    document.addEventListener('click', (e) => {
+        const toggle = e.target.closest('.mobile-dropdown-toggle');
+        if (toggle) {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropdown = toggle.closest('.mobile-dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('open');
+            }
+        }
+    });
+
+    // --- Smooth scroll for internal hash links ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Skip the mobile dropdown toggle
+        if (anchor.classList.contains('mobile-dropdown-toggle')) return;
+
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
@@ -46,17 +64,14 @@ function initNavigation() {
         });
     });
 
-    // --- Mobile dropdown toggle ---
-    const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
-    if (mobileDropdownToggle) {
-        mobileDropdownToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            const dropdown = mobileDropdownToggle.closest('.mobile-dropdown');
-            if (dropdown) {
-                dropdown.classList.toggle('open');
-            }
-        });
-    }
+    // --- Desktop dropdown: close on outside click ---
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-dropdown')) {
+            document.querySelectorAll('.nav-dropdown').forEach(d => {
+                d.classList.remove('open');
+            });
+        }
+    });
 }
 
 window.VBGNavigation = { initNavigation };
