@@ -5,7 +5,7 @@
 
 /* --- Hero --- */
 #hero {
-    padding: clamp(4rem, 12vw, 12rem) var(--container-padding) clamp(1rem, 3vw, 3rem);
+    padding: clamp(6rem, 12vw, 12rem) var(--container-padding) clamp(1rem, 3vw, 3rem);
     text-align: center;
     background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
     position: relative;
