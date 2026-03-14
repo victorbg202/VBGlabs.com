@@ -854,3 +854,69 @@ a.service-card-link:hover .service-link-label {
 .form-message.show {
     display: flex;
 }
+
+/* --- Go to Top Button --- */
+.go-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 990;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s var(--ease-out), background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.go-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.go-to-top:hover {
+    background: var(--red-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+}
+
+.go-to-top:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+}
+
+.go-to-top svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Mobile: slightly smaller, closer to edge */
+@media (max-width: 480px) {
+    .go-to-top {
+        width: 44px;
+        height: 44px;
+        bottom: 1.25rem;
+        right: 1.25rem;
+    }
+
+    .go-to-top svg {
+        width: 20px;
+        height: 20px;
+    }
+}

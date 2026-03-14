@@ -97,6 +97,36 @@ function initNavigation() {
             }
         });
     });
+
+    // --- Go to Top button ---
+    initGoToTop();
+}
+
+function initGoToTop() {
+    // Create button element
+    const btn = document.createElement('button');
+    btn.className = 'go-to-top';
+    btn.setAttribute('aria-label', 'Scroll to top');
+    btn.setAttribute('title', 'Scroll to top');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+    document.body.appendChild(btn);
+
+    // Show/hide based on scroll position
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                btn.classList.toggle('visible', window.pageYOffset > 400);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Scroll to top on click
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
 window.VBGNavigation = { initNavigation };
