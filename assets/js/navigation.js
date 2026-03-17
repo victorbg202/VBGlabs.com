@@ -123,9 +123,32 @@ function initGoToTop() {
         }
     });
 
-    // Scroll to top on click
+    // Scroll to top on click — custom fast smooth scroll
     btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const startY = window.pageYOffset;
+        if (startY === 0) return;
+
+        const duration = 500; // ms — fast but visible
+        const startTime = performance.now();
+
+        // easeOutCubic: fast start, smooth deceleration
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        function scrollStep(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutCubic(progress);
+
+            window.scrollTo(0, startY * (1 - easedProgress));
+
+            if (progress < 1) {
+                requestAnimationFrame(scrollStep);
+            }
+        }
+
+        requestAnimationFrame(scrollStep);
     });
 }
 
