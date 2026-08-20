@@ -1,0 +1,75 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="home"
+  path="/404/"
+  title="404 — Pàgina no trobada"
+  description="Aquesta pàgina no existeix."
+  noindex
+>
+  <section class="section not-found">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>Aquesta pàgina no existeix</h1>
+      <p class="lede">
+        L&#39;enllaç pot estar mal escrit o la pàgina ha canviat d&#39;adreça.
+      </p>
+      <div class="not-found__actions">
+        <a href={route('home', locale)} class="btn btn-primary">Torna a l&#39;inici</a>
+        <a href={route('services', locale)} class="btn btn-outline">Veure serveis</a>
+      </div>
+
+      <div class="not-found__alt">
+        <p><a href="/es/">— En español: esta página no existe. Volver al inicio.</a></p>
+        <p><a href="/en/">— In English: this page doesn't exist. Back to home.</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .not-found h1 {
+    font-size: var(--text-3xl);
+    margin-block: var(--space-2);
+    max-width: 16ch;
+  }
+
+  .not-found .lede {
+    font-size: var(--text-md);
+    max-width: 46ch;
+  }
+
+  .not-found__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .not-found__alt {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .not-found__alt a {
+    color: var(--muted);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="about"
+  title="Sobre VBG Labs — Qui som i com treballem"
+  description="VBG Labs és una consultora tecnològica d'Almenar, Lleida. Coneix la nostra manera de treballar i per què existim."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="SOBRE NOSALTRES"
+    title="Un laboratori digital, no una agència més"
+    lede="VBG Labs neix a Almenar, Lleida, amb una idea senzilla: la tecnologia només val la pena si fa que un negoci concret funcioni millor. No al revés."
+    crumb={{ name: 'Sobre VBG Labs', path: route('about', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="PER QUÈ EXISTIM" title="Massa sovint la tecnologia es ven abans d'entendre el problema" />
+      <p>
+        Vam veure el mateix patró una vegada i una altra: negocis petits i mitjans a qui algú
+        havia intentat vendre una eina de moda sense haver-se aturat mai a entendre com
+        treballaven de veritat. El resultat sol ser el mateix — una inversió que no s&#39;acaba
+        fent servir, o que resol un problema que no era el prioritari.
+      </p>
+      <p>
+        VBG Labs existeix per fer-ho al revés: primer entendre el negoci, després decidir si
+        val la pena automatitzar, aplicar IA, formar l&#39;equip o simplement ordenar el que ja
+        hi ha. La tecnologia és un mitjà, no el punt de partida.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="COM TREBALLEM" title="Els nostres principis" />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'search', title: 'Entendre abans de proposar', description: 'Cap recomanació surt d\'una plantilla. Sempre partim de com treballa el teu equip de veritat.' },
+          { icon: 'shield', title: 'Independència tecnològica', description: 'No estem lligats a cap eina ni plataforma concreta. Triem segons el problema.' },
+          { icon: 'flag', title: 'Honestedat abans que venda', description: 'Si la millor resposta és no fer res, t\'ho diem — encara que vulguis pagar-ho.' },
+          { icon: 'automation', title: 'Capacitat de construir', description: 'No només assessorem: també implementem. VBG Facturació n\'és la prova.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="ON SOM" title="D'Almenar cap a tot Catalunya i Espanya" />
+      <p>
+        Som d&#39;Almenar, a la comarca del Segrià, Lleida. Coneixem bé el teixit d&#39;empreses
+        petites i mitjanes de la zona — botigues, tallers, despatxos professionals, gestories
+        — perquè és el context on hem crescut. Dit això, treballem amb negocis de tot
+        Catalunya i Espanya, presencialment o en remot segons el que tingui més sentit per a
+        cada projecte.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container products-block">
+      <SectionHeader
+        eyebrow="PRODUCTES PROPIS"
+        title="No només ho diem: ho construïm"
+        lede="VBG Facturació ja és un producte real i en funcionament. Postcraft és el segon, actualment en preparació. Tots dos demostren la mateixa cosa: podem passar de la idea a la implementació."
+      />
+      <div class="products-links">
+        <a href={route('invoicing', locale)} class="product-link">
+          <Icon name="invoicing" size={22} /> VBG Facturació
+        </a>
+        <a href={route('postcraft', locale)} class="product-link">
+          <Icon name="postcraft" size={22} /> Postcraft
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    title="Parlem del teu negoci"
+    lede="Explica'ns el teu cas i et diem, sense compromís, com podem ajudar-te."
+    primaryLabel="Explica'ns el teu cas"
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 720px; }
+  .bg-alt { background: var(--gray-50); }
+
+  .products-block :global(h2),
+  .products-block :global(.lede) {
+    color: var(--white);
+  }
+
+  .products-block :global(.lede) {
+    color: var(--gray-400);
+  }
+
+  .products-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .product-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.9em 1.4em;
+    border: 1.5px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    color: var(--white);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    transition: border-color var(--duration-fast) var(--ease);
+  }
+
+  .product-link:hover {
+    border-color: var(--red-300);
+    color: var(--red-300);
+  }
+</style>

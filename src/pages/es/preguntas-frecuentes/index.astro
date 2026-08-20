@@ -1,0 +1,73 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'es' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="faq"
+  title="Preguntas frecuentes"
+  description="Respuestas a las dudas más habituales sobre cómo trabaja VBG Labs, los precios orientativos y cómo tratamos los datos."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="PREGUNTAS FRECUENTES"
+    title="Dudas habituales, respuestas directas"
+    lede="Si no encuentras la respuesta que buscas, escríbenos directamente — respondemos en menos de 2 días laborables."
+    crumb={{ name: 'Preguntas frecuentes', path: route('faq', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="GENERAL" title="Sobre VBG Labs" as="h2" />
+      <FaqAccordion
+        items={[
+          { q: '¿Quiénes sois y dónde estáis?', a: 'Somos VBG Labs, una consultora tecnológica de Almenar, Lleida. Trabajamos con negocios de toda Cataluña y España, en persona o en remoto.' },
+          { q: '¿Necesito saber de IA o tecnología para trabajar con vosotros?', a: 'No. Hablamos en tu idioma, no en el nuestro. El trabajo técnico lo hacemos nosotros.' },
+          { q: '¿En qué idiomas trabajáis?', a: 'Catalán, castellano e inglés, tanto en la comunicación como en la documentación que te entregamos.' },
+          { q: '¿Trabajáis solo con empresas grandes?', a: 'No, al contrario: trabajamos sobre todo con pymes y autónomos. Es nuestro público principal.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container narrow">
+      <SectionHeader eyebrow="SERVICIOS Y PRECIOS" title="Cómo trabajamos y qué cuesta" as="h2" />
+      <FaqAccordion
+        items={[
+          { q: '¿Por dónde debería empezar?', a: 'Si no lo tienes claro, empieza por una consultoría (350–650€ + IVA). Te da un diagnóstico y una hoja de ruta antes de gastar nada en implementación.' },
+          { q: '¿Los precios que publicáis son definitivos?', a: 'Son precios orientativos para hacerte una idea. El presupuesto final depende del alcance concreto de tu caso, y siempre te lo confirmamos por escrito antes de empezar.' },
+          { q: '¿Siempre acabáis recomendando automatizarlo todo?', a: 'No. A veces la mejor recomendación es no tocar nada, o solo ordenar lo que ya tienes.' },
+          { q: '¿Cuánto tarda un proyecto típico?', a: 'Una automatización puntual suele tardar 1–3 semanas. Una consultoría, 1–2 semanas. Los proyectos de software a medida se definen caso por caso dentro de la hoja de ruta.' },
+          { q: '¿Ofrecéis mantenimiento una vez implementado?', a: 'Sí, como acompañamiento continuado opcional, desde 120€/mes + IVA.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="DATOS Y PRIVACIDAD" title="Cómo tratamos la información" as="h2" />
+      <FaqAccordion
+        items={[
+          { q: '¿Qué pasa con los datos de mi negocio?', a: 'Se usan exclusivamente para el proyecto para el que los has compartido, y nunca se comparten con terceros sin tu consentimiento. Más detalles en nuestra política de privacidad.' },
+          { q: '¿VBG Facturación comparte datos entre clientes?', a: 'No. Cada cuenta es independiente; los datos de un cliente nunca son visibles para otro.' },
+          { q: '¿Puedo pedir que elimineis mis datos?', a: 'Sí, en cualquier momento. Escribe a info@vbglabs.com con el asunto "Ejercicio de derechos RGPD".' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand locale={locale} variant="dark" title="¿No has encontrado tu respuesta?" lede="Escríbenos y te la resolvemos directamente." primaryLabel="Cuéntanos tu caso" />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+</style>

@@ -1,0 +1,65 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import Pending from '@/components/Pending.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY } from '@/data/company';
+
+const locale = 'ca' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="privacy"
+  title="Política de Privacitat"
+  description="Política de privacitat de VBG Labs: tractament de dades personals conforme al RGPD."
+  crumbName="Privacitat"
+  crumbPath={route('privacy', locale)}
+  updated="agost de 2026"
+  updatedLabel="Última actualització"
+>
+  <h2>1. Responsable del tractament</h2>
+  <table>
+    <tr><th>Camp</th><th>Dades</th></tr>
+    <tr><td>Identitat</td><td>{COMPANY.legalName}</td></tr>
+    <tr><td>NIF/CIF</td><td><Pending label="Pendent" /></td></tr>
+    <tr><td>Adreça</td><td>{COMPANY.addressLocality}, {COMPANY.addressRegion} {COMPANY.postalCode}</td></tr>
+    <tr><td>Email</td><td>{COMPANY.email}</td></tr>
+  </table>
+
+  <h2>2. Finalitat del tractament</h2>
+  <p>Les dades personals recollides a través d&#39;aquest lloc web es tracten amb les finalitats següents:</p>
+  <ul>
+    <li><strong>Gestió de consultes:</strong> respondre a les sol·licituds fetes a través del formulari de contacte.</li>
+    <li><strong>Comunicacions comercials:</strong> enviar informació sobre serveis, només amb el consentiment previ de l&#39;interessat.</li>
+    <li><strong>Gestió de la relació comercial:</strong> administrar la relació contractual derivada de la prestació de serveis, inclòs VBG Facturació.</li>
+  </ul>
+
+  <h2>3. Legitimació</h2>
+  <ul>
+    <li><strong>Consentiment de l&#39;interessat</strong> (art. 6.1.a RGPD): en enviar el formulari de contacte o acceptar rebre comunicacions comercials.</li>
+    <li><strong>Execució d&#39;un contracte</strong> (art. 6.1.b RGPD): quan les dades siguin necessàries per prestar el servei contractat, com VBG Facturació.</li>
+    <li><strong>Interès legítim</strong> (art. 6.1.f RGPD): per a l&#39;enviament de comunicacions comercials a clients existents sobre serveis similars als contractats.</li>
+  </ul>
+
+  <h2>4. Destinataris</h2>
+  <p>Les dades personals no se cedeixen a tercers, excepte obligació legal o proveïdors de serveis necessaris:</p>
+  <table>
+    <tr><th>Proveïdor</th><th>Servei</th><th>País</th></tr>
+    <tr><td><Pending label="Pendent" /></td><td>Allotjament web</td><td><Pending label="Pendent" /></td></tr>
+    <tr><td>Google LLC</td><td>Google Fonts</td><td>EUA (amb garanties adequades)</td></tr>
+    <tr><td>FormSubmit</td><td>Processament del formulari de contacte</td><td>UE</td></tr>
+  </table>
+
+  <h2>5. Drets de l&#39;interessat</h2>
+  <p>En virtut del RGPD, pots exercir els drets d&#39;accés, rectificació, supressió, portabilitat i oposició sobre les teves dades.</p>
+  <p>Per exercir aquests drets, envia un correu a {COMPANY.email} amb l&#39;assumpte «Exercici de drets RGPD».</p>
+  <p>Pots presentar una reclamació davant l&#39;Agència Espanyola de Protecció de Dades (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+
+  <h2>6. Període de conservació</h2>
+  <ul>
+    <li><strong>Dades de contacte:</strong> es conserven 12 mesos si no es formalitza cap relació comercial.</li>
+    <li><strong>Dades de clients:</strong> mentre duri la relació comercial i els terminis legals posteriors (4 anys per obligacions fiscals).</li>
+  </ul>
+
+  <h2>7. Mesures de seguretat</h2>
+  <p>S&#39;apliquen les mesures tècniques i organitzatives necessàries per protegir les dades personals contra el tractament no autoritzat o il·lícit, d&#39;acord amb l&#39;article 32 del RGPD.</p>
+</LegalLayout>

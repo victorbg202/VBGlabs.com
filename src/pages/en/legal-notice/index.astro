@@ -1,0 +1,45 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import Pending from '@/components/Pending.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY, PHONE } from '@/data/company';
+
+const locale = 'en' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="legalNotice"
+  title="Legal Notice"
+  description="VBG Labs legal notice: owner details, intellectual property and applicable law."
+  crumbName="Legal notice"
+  crumbPath={route('legalNotice', locale)}
+  updated="August 2026"
+  updatedLabel="Last updated"
+>
+  <p>This notice is provided for transparency to visitors from outside Spain. The legally binding version, under Spanish law (LSSI-CE), is the Catalan/Spanish original.</p>
+
+  <h2>1. Site owner</h2>
+  <ul>
+    <li><strong>Owner:</strong> {COMPANY.legalName} (<Pending label="Legal entity type pending" />)</li>
+    <li><strong>Tax ID:</strong> <Pending label="Pending" /></li>
+    <li><strong>Address:</strong> {COMPANY.addressLocality}, {COMPANY.addressRegion} {COMPANY.postalCode}, Catalonia, Spain</li>
+    <li><strong>Email:</strong> {COMPANY.email}</li>
+    {PHONE.enabled && <li><strong>Phone:</strong> {PHONE.display}</li>}
+    <li><strong>Activity:</strong> Technology consulting, process automation, applied AI and software development</li>
+  </ul>
+
+  <h2>2. Purpose</h2>
+  <p>This website, vbglabs.com, provides information about {COMPANY.legalName}'s consulting, automation, training and software services, and facilitates contact with prospective clients.</p>
+
+  <h2>3. Intellectual property</h2>
+  <p>All content on this website (text, images, logos, source code, graphic design) is owned by {COMPANY.legalName} or by third parties who have authorized its use, and is protected under applicable intellectual property law. Reproduction, distribution, adaptation or public communication of this content without express authorization is prohibited.</p>
+
+  <h2>4. Terms of use</h2>
+  <p>Access to the website is free and requires no prior subscription. Users agree to make appropriate use of the content and services offered, in accordance with the law, morality and public order.</p>
+
+  <h2>5. Limitation of liability</h2>
+  <p>{COMPANY.legalName} does not guarantee uninterrupted availability of the website or the absence of errors in its content, and is not liable for damages arising from service interruptions, third-party linked content, malicious software, or illegitimate or negligent use by the user.</p>
+
+  <h2>6. Applicable law</h2>
+  <p>These terms are governed by Spanish law. Disputes arising from use of this website fall under the jurisdiction of the courts of <Pending label="Pending confirmation" />.</p>
+</LegalLayout>

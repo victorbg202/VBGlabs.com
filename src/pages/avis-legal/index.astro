@@ -1,0 +1,76 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import Pending from '@/components/Pending.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY, PHONE } from '@/data/company';
+
+const locale = 'ca' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="legalNotice"
+  title="Avís Legal"
+  description="Avís legal de VBG Labs: dades del titular, propietat intel·lectual i legislació aplicable."
+  crumbName="Avís legal"
+  crumbPath={route('legalNotice', locale)}
+  updated="agost de 2026"
+  updatedLabel="Última actualització"
+>
+  <h2>1. Dades identificatives del titular</h2>
+  <p>En compliment de l&#39;article 10 de la Llei 34/2002, de Serveis de la Societat de la Informació i de Comerç Electrònic (LSSI-CE), s&#39;informa de les dades del titular:</p>
+  <ul>
+    <li><strong>Titular:</strong> {COMPANY.legalName} (<Pending label="Falta raó social / forma jurídica exacta" />)</li>
+    <li><strong>NIF/CIF:</strong> <Pending label="Pendent de facilitar" /></li>
+    <li><strong>Domicili:</strong> {COMPANY.addressLocality}, {COMPANY.addressRegion} {COMPANY.postalCode}, Catalunya</li>
+    <li><strong>Email:</strong> {COMPANY.email}</li>
+    {PHONE.enabled && <li><strong>Telèfon:</strong> {PHONE.display}</li>}
+    <li><strong>Activitat:</strong> Consultoria tecnològica, automatització de processos, intel·ligència artificial aplicada i desenvolupament de software</li>
+  </ul>
+
+  <h2>2. Objecte</h2>
+  <p>
+    Aquest lloc web, vbglabs.com, té per objecte oferir informació sobre els serveis de
+    consultoria tecnològica, automatització, formació i software propi de {COMPANY.legalName},
+    així com facilitar el contacte amb potencials clients.
+  </p>
+
+  <h2>3. Propietat intel·lectual i industrial</h2>
+  <p>
+    Tots els continguts del lloc web (textos, imatges, logotips, codi font, disseny gràfic,
+    etc.) són propietat de {COMPANY.legalName} o de tercers que n&#39;han autoritzat l&#39;ús,
+    i estan protegits per la legislació vigent en matèria de propietat intel·lectual i
+    industrial. Queda prohibida la reproducció, distribució, transformació o comunicació
+    pública dels continguts sense autorització expressa del titular.
+  </p>
+
+  <h2>4. Condicions d&#39;ús</h2>
+  <p>
+    L&#39;accés al lloc web és gratuït i no requereix subscripció prèvia. L&#39;usuari es
+    compromet a fer un ús adequat dels continguts i serveis oferts, d&#39;acord amb la llei, la
+    moral i l&#39;ordre públic.
+  </p>
+
+  <h2>5. Limitació de responsabilitat</h2>
+  <p>{COMPANY.legalName} no garanteix la disponibilitat ininterrompuda del lloc web ni la inexistència d&#39;errors en els continguts. No es fa responsable dels danys que puguin derivar-se de:</p>
+  <ul>
+    <li>Interrupcions del servei per causes tècniques o de força major</li>
+    <li>Continguts de llocs web de tercers als quals s&#39;accedeixi mitjançant enllaços</li>
+    <li>Virus o programes maliciosos en els continguts</li>
+    <li>Ús il·legítim o negligent per part de l&#39;usuari</li>
+  </ul>
+
+  <h2>6. Enllaços externs</h2>
+  <p>
+    El lloc web pot contenir enllaços a pàgines de tercers. {COMPANY.legalName} no es fa
+    responsable del contingut, les polítiques de privacitat ni les pràctiques d&#39;aquests
+    llocs web externs.
+  </p>
+
+  <h2>7. Legislació aplicable i jurisdicció</h2>
+  <p>
+    Aquestes condicions es regeixen per la legislació espanyola. Per a la resolució de
+    controvèrsies derivades de l&#39;ús d&#39;aquest lloc web seran competents els Jutjats i
+    Tribunals de <Pending label="Pendent de confirmar" />, renunciant l&#39;usuari a qualsevol
+    altre fur que li pugui correspondre.
+  </p>
+</LegalLayout>

@@ -1,0 +1,45 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'en' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="cookies"
+  title="Cookie Policy"
+  description="VBG Labs cookie policy: what cookies we use and how to manage them."
+  crumbName="Cookies"
+  crumbPath={route('cookies', locale)}
+  updated="August 2026"
+  updatedLabel="Last updated"
+>
+  <h2>1. What are cookies?</h2>
+  <p>Cookies are small text files that websites store on your device when you visit them. They're used to remember preferences and, where applicable, gather anonymous statistics about site usage.</p>
+
+  <h2>2. Cookies used on this site</h2>
+  <table>
+    <tr><th>Cookie</th><th>Type</th><th>Purpose</th><th>Duration</th></tr>
+    <tr><td>vbg-cookie-ack</td><td>Essential (localStorage, not a third-party cookie)</td><td>Remembers that you've seen the cookie notice</td><td>Until you clear your browser data</td></tr>
+  </table>
+  <p>This site currently <strong>does not use analytics or advertising cookies</strong>. If any are introduced in future (for example, to measure visits anonymously), we'll ask for your consent before activating them and update this table.</p>
+
+  <h2>3. Types of cookies</h2>
+  <h2>Essential cookies</h2>
+  <p>Required for the site's basic operation. These don't require consent.</p>
+  <h2>Analytics cookies</h2>
+  <p>Would collect anonymous statistics about site usage. Not currently active.</p>
+  <h2>Advertising cookies</h2>
+  <p>This site does not use advertising cookies.</p>
+
+  <h2>4. Managing cookies</h2>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+    <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+    <li><a href="https://support.apple.com/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+    <li><a href="https://support.microsoft.com/microsoft-edge" target="_blank" rel="noopener">Microsoft Edge</a></li>
+  </ul>
+
+  <h2>5. Updates to this policy</h2>
+  <p>This policy may be updated to reflect regulatory changes or new services, such as the future activation of analytics cookies.</p>
+</LegalLayout>

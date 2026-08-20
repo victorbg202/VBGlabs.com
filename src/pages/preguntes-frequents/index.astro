@@ -1,0 +1,73 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="faq"
+  title="Preguntes freqüents"
+  description="Respostes a els dubtes més habituals sobre com treballa VBG Labs, els preus orientatius i com tractem les dades."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="PREGUNTES FREQÜENTS"
+    title="Dubtes habituals, respostes directes"
+    lede="Si no trobes la resposta que busques, escriu-nos directament — responem en menys de 2 dies laborables."
+    crumb={{ name: 'Preguntes freqüents', path: route('faq', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="GENERAL" title="Sobre VBG Labs" as="h2" />
+      <FaqAccordion
+        items={[
+          { q: 'Qui sou i on esteu?', a: 'Som VBG Labs, una consultora tecnològica d\'Almenar, Lleida. Treballem amb negocis de tot Catalunya i Espanya, presencialment o en remot.' },
+          { q: 'Necessito saber d\'IA o tecnologia per treballar amb vosaltres?', a: 'No. Parlem en el teu idioma, no en el nostre. La feina tècnica la fem nosaltres.' },
+          { q: 'En quins idiomes treballeu?', a: 'Català, castellà i anglès, tant en la comunicació com en la documentació que et lliurem.' },
+          { q: 'Treballeu només amb empreses grans?', a: 'No, al contrari: treballem sobretot amb pimes i autònoms. És el nostre públic principal.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container narrow">
+      <SectionHeader eyebrow="SERVEIS I PREUS" title="Com treballem i què costa" as="h2" />
+      <FaqAccordion
+        items={[
+          { q: 'Per on hauria de començar?', a: 'Si no ho tens clar, comença per una consultoria (350–650€ + IVA). Et dona un diagnòstic i un full de ruta abans de gastar res en implementació.' },
+          { q: 'Els preus que publiqueu són definitius?', a: 'Són preus orientatius per fer-te una idea. El pressupost final depèn de l\'abast concret del teu cas, i sempre te\'l confirmem per escrit abans de començar.' },
+          { q: 'Sempre acabeu recomanant automatitzar-ho tot?', a: 'No. De vegades la millor recomanació és no tocar res, o només ordenar el que ja tens.' },
+          { q: 'Quant triga un projecte típic?', a: 'Una automatització puntual sol trigar 1–3 setmanes. Una consultoria, 1–2 setmanes. Els projectes de software a mida es defineixen cas per cas dins del full de ruta.' },
+          { q: 'Oferiu manteniment un cop implementat?', a: 'Sí, com a acompanyament continuat opcional, des de 120€/mes + IVA.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="DADES I PRIVADESA" title="Com tractem la informació" as="h2" />
+      <FaqAccordion
+        items={[
+          { q: 'Què passa amb les dades del meu negoci?', a: 'Es fan servir exclusivament per al projecte per al qual les has compartit, i mai es comparteixen amb tercers sense el teu consentiment. Més detalls a la nostra política de privacitat.' },
+          { q: 'VBG Facturació comparteix dades entre clients?', a: 'No. Cada compte és independent; les dades d\'un client mai són visibles per a un altre.' },
+          { q: 'Puc demanar que elimineu les meves dades?', a: 'Sí, en qualsevol moment. Escriu a info@vbglabs.com amb l\'assumpte "Exercici de drets RGPD".' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand locale={locale} variant="dark" title="No has trobat la teva resposta?" lede="Escriu-nos i te la resolem directament." primaryLabel="Explica'ns el teu cas" />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+</style>

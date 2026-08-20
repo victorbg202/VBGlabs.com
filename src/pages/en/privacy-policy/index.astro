@@ -1,0 +1,65 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import Pending from '@/components/Pending.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY } from '@/data/company';
+
+const locale = 'en' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="privacy"
+  title="Privacy Policy"
+  description="VBG Labs privacy policy: how we process personal data under GDPR."
+  crumbName="Privacy"
+  crumbPath={route('privacy', locale)}
+  updated="August 2026"
+  updatedLabel="Last updated"
+>
+  <p>This is an informational translation. The legally binding version under Spanish/EU data protection law is the Catalan/Spanish original.</p>
+
+  <h2>1. Data controller</h2>
+  <table>
+    <tr><th>Field</th><th>Details</th></tr>
+    <tr><td>Identity</td><td>{COMPANY.legalName}</td></tr>
+    <tr><td>Tax ID</td><td><Pending label="Pending" /></td></tr>
+    <tr><td>Address</td><td>{COMPANY.addressLocality}, {COMPANY.addressRegion} {COMPANY.postalCode}</td></tr>
+    <tr><td>Email</td><td>{COMPANY.email}</td></tr>
+  </table>
+
+  <h2>2. Purpose of processing</h2>
+  <ul>
+    <li><strong>Handling enquiries:</strong> responding to requests submitted through the contact form.</li>
+    <li><strong>Marketing communications:</strong> sending information about services, only with prior consent.</li>
+    <li><strong>Managing the business relationship:</strong> administering the contract for services provided, including VBG Invoicing.</li>
+  </ul>
+
+  <h2>3. Legal basis</h2>
+  <ul>
+    <li><strong>Consent</strong> (GDPR art. 6.1.a): when submitting the contact form or agreeing to receive marketing communications.</li>
+    <li><strong>Contract performance</strong> (GDPR art. 6.1.b): when data is necessary to provide a contracted service, such as VBG Invoicing.</li>
+    <li><strong>Legitimate interest</strong> (GDPR art. 6.1.f): to send marketing about similar services to existing clients.</li>
+  </ul>
+
+  <h2>4. Recipients</h2>
+  <table>
+    <tr><th>Provider</th><th>Service</th><th>Country</th></tr>
+    <tr><td><Pending label="Pending" /></td><td>Web hosting</td><td><Pending label="Pending" /></td></tr>
+    <tr><td>Google LLC</td><td>Google Fonts</td><td>US (with appropriate safeguards)</td></tr>
+    <tr><td>FormSubmit</td><td>Contact form processing</td><td>EU</td></tr>
+  </table>
+
+  <h2>5. Your rights</h2>
+  <p>Under GDPR, you can exercise your rights of access, rectification, erasure, portability and objection over your data.</p>
+  <p>To exercise these rights, email {COMPANY.email} with the subject "GDPR rights request".</p>
+  <p>You can file a complaint with the Spanish Data Protection Agency (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>) or your local supervisory authority.</p>
+
+  <h2>6. Retention period</h2>
+  <ul>
+    <li><strong>Contact data:</strong> kept for 12 months if no business relationship is formalized.</li>
+    <li><strong>Client data:</strong> for the duration of the business relationship plus applicable legal retention periods (4 years for tax obligations under Spanish law).</li>
+  </ul>
+
+  <h2>7. Security measures</h2>
+  <p>We apply the technical and organizational measures necessary to protect personal data against unauthorized or unlawful processing, in accordance with GDPR article 32.</p>
+</LegalLayout>

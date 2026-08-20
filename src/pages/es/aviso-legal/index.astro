@@ -1,0 +1,53 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import Pending from '@/components/Pending.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY, PHONE } from '@/data/company';
+
+const locale = 'es' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="legalNotice"
+  title="Aviso Legal"
+  description="Aviso legal de VBG Labs: datos del titular, propiedad intelectual y legislación aplicable."
+  crumbName="Aviso legal"
+  crumbPath={route('legalNotice', locale)}
+  updated="agosto de 2026"
+  updatedLabel="Última actualización"
+>
+  <h2>1. Datos identificativos del titular</h2>
+  <p>En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular:</p>
+  <ul>
+    <li><strong>Titular:</strong> {COMPANY.legalName} (<Pending label="Falta razón social / forma jurídica exacta" />)</li>
+    <li><strong>NIF/CIF:</strong> <Pending label="Pendiente de facilitar" /></li>
+    <li><strong>Domicilio:</strong> {COMPANY.addressLocality}, {COMPANY.addressRegion} {COMPANY.postalCode}, Cataluña</li>
+    <li><strong>Email:</strong> {COMPANY.email}</li>
+    {PHONE.enabled && <li><strong>Teléfono:</strong> {PHONE.display}</li>}
+    <li><strong>Actividad:</strong> Consultoría tecnológica, automatización de procesos, inteligencia artificial aplicada y desarrollo de software</li>
+  </ul>
+
+  <h2>2. Objeto</h2>
+  <p>Este sitio web, vbglabs.com, tiene por objeto ofrecer información sobre los servicios de consultoría tecnológica, automatización, formación y software propio de {COMPANY.legalName}, así como facilitar el contacto con potenciales clientes.</p>
+
+  <h2>3. Propiedad intelectual e industrial</h2>
+  <p>Todos los contenidos del sitio web (textos, imágenes, logotipos, código fuente, diseño gráfico, etc.) son propiedad de {COMPANY.legalName} o de terceros que han autorizado su uso, y están protegidos por la legislación vigente en materia de propiedad intelectual e industrial. Queda prohibida la reproducción, distribución, transformación o comunicación pública de los contenidos sin autorización expresa del titular.</p>
+
+  <h2>4. Condiciones de uso</h2>
+  <p>El acceso al sitio web es gratuito y no requiere suscripción previa. El usuario se compromete a hacer un uso adecuado de los contenidos y servicios ofrecidos, de acuerdo con la ley, la moral y el orden público.</p>
+
+  <h2>5. Limitación de responsabilidad</h2>
+  <p>{COMPANY.legalName} no garantiza la disponibilidad ininterrumpida del sitio web ni la inexistencia de errores en los contenidos. No se hace responsable de los daños que puedan derivarse de:</p>
+  <ul>
+    <li>Interrupciones del servicio por causas técnicas o de fuerza mayor</li>
+    <li>Contenidos de sitios web de terceros a los que se acceda mediante enlaces</li>
+    <li>Virus o programas maliciosos en los contenidos</li>
+    <li>Uso ilegítimo o negligente por parte del usuario</li>
+  </ul>
+
+  <h2>6. Enlaces externos</h2>
+  <p>El sitio web puede contener enlaces a páginas de terceros. {COMPANY.legalName} no se hace responsable del contenido, las políticas de privacidad ni las prácticas de esos sitios web externos.</p>
+
+  <h2>7. Legislación aplicable y jurisdicción</h2>
+  <p>Estas condiciones se rigen por la legislación española. Para la resolución de controversias derivadas del uso de este sitio web serán competentes los Juzgados y Tribunales de <Pending label="Pendiente de confirmar" />, renunciando el usuario a cualquier otro fuero que pudiera corresponderle.</p>
+</LegalLayout>

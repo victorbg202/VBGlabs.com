@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY, PHONE } from '@/data/company';
+
+const locale = 'es' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="contact"
+  title="Contacto — Cuéntanos tu caso"
+  description="Escríbenos y te explicamos, sin compromiso, cómo podemos ayudar a tu negocio. Respondemos en menos de 2 días laborables."
+>
+  <section class="section">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'Contacto', path: route('contact', locale) }]} />
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p class="eyebrow">CONTACTO</p>
+          <h1>Hablemos de tu negocio</h1>
+          <p class="lede">Cuéntanos brevemente tu situación. En menos de 2 días laborables te respondemos — sin compromiso.</p>
+          <ul class="info-list">
+            <li>
+              <Icon name="mail" size={20} />
+              <div><span class="info-label">Email</span><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></div>
+            </li>
+            <li>
+              <Icon name="building" size={20} />
+              <div><span class="info-label">Ubicación</span><span>Almenar, Lleida · Cataluña</span></div>
+            </li>
+            <li>
+              <Icon name="clock" size={20} />
+              <div><span class="info-label">Horario</span><span>Lunes a viernes</span></div>
+            </li>
+            {PHONE.enabled && (
+              <li>
+                <Icon name="messages" size={20} />
+                <div><span class="info-label">Teléfono</span><a href={`tel:${PHONE.number}`}>{PHONE.display}</a></div>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div class="contact-form-card">
+          <ContactForm locale={locale} />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-3); }
+  @media (min-width: 940px) { .contact-grid { grid-template-columns: 0.8fr 1.2fr; } }
+  .contact-info h1 { font-size: var(--text-3xl); margin-block: var(--space-2); }
+  .contact-info .lede { font-size: var(--text-md); max-width: 40ch; }
+  .info-list { list-style: none; padding: 0; margin: var(--space-5) 0 0; display: flex; flex-direction: column; gap: var(--space-3); }
+  .info-list li { display: flex; align-items: flex-start; gap: 0.8em; }
+  .info-list :global(svg) { color: var(--red); flex: none; margin-top: 0.15em; }
+  .info-label { display: block; font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.15em; }
+  .info-list a { color: var(--ink); text-decoration: none; font-weight: 600; }
+  .info-list a:hover { color: var(--red); }
+  .contact-form-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-sm); }
+</style>

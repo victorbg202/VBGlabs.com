@@ -1,0 +1,63 @@
+---
+import LegalLayout from '@/components/LegalLayout.astro';
+import Pending from '@/components/Pending.astro';
+import { route } from '@/i18n/routes';
+import { COMPANY } from '@/data/company';
+
+const locale = 'es' as const;
+---
+<LegalLayout
+  locale={locale}
+  routeKey="privacy"
+  title="Política de Privacidad"
+  description="Política de privacidad de VBG Labs: tratamiento de datos personales conforme al RGPD."
+  crumbName="Privacidad"
+  crumbPath={route('privacy', locale)}
+  updated="agosto de 2026"
+  updatedLabel="Última actualización"
+>
+  <h2>1. Responsable del tratamiento</h2>
+  <table>
+    <tr><th>Campo</th><th>Datos</th></tr>
+    <tr><td>Identidad</td><td>{COMPANY.legalName}</td></tr>
+    <tr><td>NIF/CIF</td><td><Pending label="Pendiente" /></td></tr>
+    <tr><td>Dirección</td><td>{COMPANY.addressLocality}, {COMPANY.addressRegion} {COMPANY.postalCode}</td></tr>
+    <tr><td>Email</td><td>{COMPANY.email}</td></tr>
+  </table>
+
+  <h2>2. Finalidad del tratamiento</h2>
+  <ul>
+    <li><strong>Gestión de consultas:</strong> responder a las solicitudes hechas a través del formulario de contacto.</li>
+    <li><strong>Comunicaciones comerciales:</strong> enviar información sobre servicios, solo con el consentimiento previo del interesado.</li>
+    <li><strong>Gestión de la relación comercial:</strong> administrar la relación contractual derivada de la prestación de servicios, incluido VBG Facturación.</li>
+  </ul>
+
+  <h2>3. Legitimación</h2>
+  <ul>
+    <li><strong>Consentimiento del interesado</strong> (art. 6.1.a RGPD): al enviar el formulario de contacto o aceptar recibir comunicaciones comerciales.</li>
+    <li><strong>Ejecución de un contrato</strong> (art. 6.1.b RGPD): cuando los datos sean necesarios para prestar el servicio contratado, como VBG Facturación.</li>
+    <li><strong>Interés legítimo</strong> (art. 6.1.f RGPD): para el envío de comunicaciones comerciales a clientes existentes sobre servicios similares a los contratados.</li>
+  </ul>
+
+  <h2>4. Destinatarios</h2>
+  <table>
+    <tr><th>Proveedor</th><th>Servicio</th><th>País</th></tr>
+    <tr><td><Pending label="Pendiente" /></td><td>Alojamiento web</td><td><Pending label="Pendiente" /></td></tr>
+    <tr><td>Google LLC</td><td>Google Fonts</td><td>EE. UU. (con garantías adecuadas)</td></tr>
+    <tr><td>FormSubmit</td><td>Procesamiento del formulario de contacto</td><td>UE</td></tr>
+  </table>
+
+  <h2>5. Derechos del interesado</h2>
+  <p>En virtud del RGPD, puedes ejercer los derechos de acceso, rectificación, supresión, portabilidad y oposición sobre tus datos.</p>
+  <p>Para ejercer estos derechos, envía un correo a {COMPANY.email} con el asunto «Ejercicio de derechos RGPD».</p>
+  <p>Puedes presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+
+  <h2>6. Periodo de conservación</h2>
+  <ul>
+    <li><strong>Datos de contacto:</strong> se conservan 12 meses si no se formaliza ninguna relación comercial.</li>
+    <li><strong>Datos de clientes:</strong> mientras dure la relación comercial y los plazos legales posteriores (4 años por obligaciones fiscales).</li>
+  </ul>
+
+  <h2>7. Medidas de seguridad</h2>
+  <p>Se aplican las medidas técnicas y organizativas necesarias para proteger los datos personales contra el tratamiento no autorizado o ilícito, de acuerdo con el artículo 32 del RGPD.</p>
+</LegalLayout>

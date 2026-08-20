@@ -1,0 +1,95 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'en' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="about"
+  title="About VBG Labs — Who we are and how we work"
+  description="VBG Labs is a technology consultancy based in Catalonia, Spain. Here's how we work and why we exist."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="ABOUT US"
+    title="A digital lab, not another agency"
+    lede="VBG Labs started with a simple idea: technology is only worth it if it makes a specific business run better. Not the other way around."
+    crumb={{ name: 'About VBG Labs', path: route('about', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="WHY WE EXIST" title="Too often, technology gets sold before anyone understands the problem" />
+      <p>
+        We kept seeing the same pattern: small and mid-sized businesses that someone had tried
+        to sell a trendy tool to, without ever stopping to understand how they actually
+        worked. The result is usually the same — an investment that never gets used, or that
+        solves a problem that wasn't the priority in the first place.
+      </p>
+      <p>
+        VBG Labs exists to do it the other way round: understand the business first, then
+        decide whether it's worth automating, applying AI, training the team, or simply
+        tidying up what's already there. Technology is a means, not the starting point.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="HOW WE WORK" title="Our principles" />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'search', title: 'We understand before we propose', description: 'No recommendation comes from a template. We always start from how your team actually works.' },
+          { icon: 'shield', title: 'Technology independence', description: "We're not tied to any one tool or platform. We choose based on the problem." },
+          { icon: 'flag', title: 'Honesty over selling', description: "If the best answer is to do nothing, we'll tell you — even if you're willing to pay for it." },
+          { icon: 'automation', title: 'We can actually build it', description: "We don't just advise: we build too. VBG Invoicing is the proof." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="WHERE WE'RE BASED" title="Based in Catalonia, working further afield" />
+      <p>
+        VBG Labs is based in Catalonia, Spain, and grew up working with small and mid-sized
+        local businesses — shops, workshops, professional practices. That grounding shapes how
+        we work: practical, close to the people actually doing the work. We take on projects
+        across Spain and beyond, in person or remote depending on what makes sense for the work.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container products-block">
+      <SectionHeader
+        eyebrow="OUR OWN PRODUCTS"
+        title="We don't just say it — we build it"
+        lede="VBG Invoicing is already a real, working product. Postcraft is the second, currently in development. Both prove the same thing: we can take an idea all the way to a working product."
+      />
+      <div class="products-links">
+        <a href={route('invoicing', locale)} class="product-link"><Icon name="invoicing" size={22} /> VBG Invoicing</a>
+        <a href={route('postcraft', locale)} class="product-link"><Icon name="postcraft" size={22} /> Postcraft</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand locale={locale} title="Let's talk about your business" lede="Tell us your case and we'll tell you, no obligation, how we can help." primaryLabel="Tell us your case" />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 720px; }
+  .bg-alt { background: var(--gray-50); }
+  .products-block :global(h2), .products-block :global(.lede) { color: var(--white); }
+  .products-block :global(.lede) { color: var(--gray-400); }
+  .products-links { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .product-link { display: inline-flex; align-items: center; gap: 0.6em; padding: 0.9em 1.4em; border: 1.5px solid var(--gray-700); border-radius: var(--radius-md); color: var(--white); text-decoration: none; font-family: var(--font-heading); font-weight: 600; transition: border-color var(--duration-fast) var(--ease); }
+  .product-link:hover { border-color: var(--red-300); color: var(--red-300); }
+</style>
