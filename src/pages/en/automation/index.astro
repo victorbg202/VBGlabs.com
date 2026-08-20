@@ -1,0 +1,134 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'en' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="automations"
+  title="Business process automation for SMEs"
+  description="We automate processes, documents, messages and repetitive tasks. Not everything should be automated — we help you decide what's actually worth it."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="AUTOMATION"
+    title="Automate what's actually worth automating"
+    lede="Processes, documents, messages and repetitive tasks that can run on their own. The hard part isn't installing a tool — it's deciding well what's actually worth taking off your plate."
+    crumb={{ name: 'Automation', path: route('automations', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="THE PRINCIPLE" title="Not everything should be automated" as="h2" />
+      <p>
+        Some businesses come to us wanting to "automate everything," and once we look closely,
+        the real problem is something else: a poorly defined process, information that lives
+        nowhere in writing, or a task that only happens twice a month and isn't worth building
+        anything for. Automating something that doesn't work well just makes it fail faster.
+      </p>
+      <p>
+        So before proposing any automation, we look at three things: how much time is actually
+        being lost, how much error risk there is if it keeps being done by hand, and how much
+        it would cost — in time and money — to build it properly. If the numbers don't work
+        out, we'll tell you, even if you're willing to pay for it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="WHERE IT USUALLY PAYS OFF"
+        title="Common cases we work on"
+        lede="We don't work from a fixed catalog of 'products.' Every automation is designed for your specific process, but these are the kinds of work that usually have the most to gain."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'documents', title: 'Document handling', description: 'Invoices, delivery notes or contracts that arrive by email and need sorting, filing or entering into a system.' },
+          { icon: 'invoicing', title: 'Invoices and payments', description: 'From receiving them to flagging possible duplicates, approving them, and having tax reports ready.' },
+          { icon: 'messages', title: 'Customer communication', description: 'Bringing WhatsApp, email and social messages into one place, with automatic replies for repeat questions.' },
+          { icon: 'reminders', title: 'Reminders and follow-ups', description: 'Appointments, pending payments or renewals that need a timely nudge, without anyone having to remember.' },
+          { icon: 'users', title: 'Sales follow-up', description: "Knowing where every customer or deal stands without rebuilding the picture from memory each time." },
+          { icon: 'dashboard', title: 'Dashboards and reporting', description: 'Seeing how the business is doing at a glance, instead of building the report by hand every month.' },
+          { icon: 'sparkle', title: 'AI assistants', description: 'A first point of contact that answers common questions and only escalates to a person when it should.' },
+          { icon: 'automation', title: 'Tool synchronization', description: 'Getting the tools you already use to talk to each other, without copying data between them by hand.' },
+          { icon: 'consulting', title: 'Custom software', description: "When no existing tool fits well enough and it's worth building something made specifically for you." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="BEFORE AND AFTER" title="Two typical examples" lede="Typical situations, not real cases from a specific client — we don't have any published yet." />
+      <div class="ba-stack">
+        <BeforeAfterRow
+          beforeLabel="Before"
+          afterLabel="After"
+          before="Every order or question that comes in on WhatsApp gets jotted down by hand in a notebook or spreadsheet, and one occasionally slips through."
+          after="Orders register themselves as they arrive, with automatic confirmation to the customer and an instant alert to whoever needs to fulfil it."
+        />
+        <BeforeAfterRow
+          beforeLabel="Before"
+          afterLabel="After"
+          before="Every month, someone spends a couple of hours copying invoice data into a spreadsheet for the quarterly report."
+          after="Data is pulled from each invoice automatically and the report generates itself, ready for review."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="PRICING" title="Indicative pricing" />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'One-off automation', band: SERVICE_PRICING.automation, note: 'A single, well-scoped process.' },
+          { label: 'Advanced projects', band: SERVICE_PRICING.automationAdvanced, note: 'Several automations connected together.' },
+          { label: 'Custom software', band: SERVICE_PRICING.customSoftware, note: 'When something needs building from scratch.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="QUESTIONS" title="Frequently asked questions" />
+      <FaqAccordion
+        items={[
+          { q: "How do I know if my process is worth automating?", a: "If you do it more than ten times a month, if it's prone to human error, or if it depends on someone remembering, it's usually worth a look. If it happens once a month, probably not." },
+          { q: 'Do I need to change the tools I already use?', a: 'Usually not. We typically connect the tools you already have before suggesting new ones.' },
+          { q: 'How long does it take to go live?', a: 'A one-off automation usually takes 1 to 3 weeks once the scope is defined. Advanced projects depend on how many processes are involved.' },
+          { q: 'What happens if the process changes later?', a: "We deal with it when it comes up. We always document how what we build works, so it can be adjusted without starting over." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Want to know what's worth automating in your business?"
+    lede="In a 15-20 minute conversation we can tell you if it makes sense, and where we'd start."
+    primaryLabel="Tell us your case"
+    secondaryLabel="See consulting"
+    secondaryHref={route('consulting', locale)}
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+  .ba-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+</style>

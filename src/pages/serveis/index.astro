@@ -1,0 +1,97 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="services"
+  title="Serveis — Automatització, consultoria, formació i software"
+  description="Automatitzacions, consultoria d'IA, formació per a equips i VBG Facturació. Tria segons el que necessita el teu negoci ara mateix."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="SERVEIS"
+    title="Quatre maneres de treballar amb VBG Labs"
+    lede="No et venem un paquet tancat. Segons on estigui el teu negoci ara mateix, potser només necessites una consultoria, potser una automatització concreta, o potser un producte ja fet com VBG Facturació."
+    crumb={{ name: 'Serveis', path: route('services', locale) }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-4">
+        <ServiceCard
+          icon="automation"
+          title="Automatitzacions"
+          description="Processos, documents i tasques repetitives que passen a fer-se soles."
+          href={route('automations', locale)}
+          linkLabel="Veure automatitzacions"
+        />
+        <ServiceCard
+          icon="consulting"
+          title="Consultoria"
+          description="Una mirada externa i tècnica sobre com treballa el teu negoci i què val la pena canviar."
+          href={route('consulting', locale)}
+          linkLabel="Veure consultoria"
+        />
+        <ServiceCard
+          icon="training"
+          title="Formació"
+          description="Perquè el teu equip aprengui a treure profit real de la IA en el dia a dia."
+          href={route('training', locale)}
+          linkLabel="Veure formació"
+        />
+        <ServiceCard
+          icon="invoicing"
+          title="VBG Facturació"
+          description="El nostre producte propi per gestionar factures rebudes, amb IA integrada."
+          href={route('invoicing', locale)}
+          linkLabel="Veure el producte"
+          accent
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="COM TRIAR"
+        title="Si no ho tens clar, comença per una consultoria"
+        lede="Una consultoria breu (350–650€ + IVA) et dona un diagnòstic i un full de ruta priortizat abans de gastar res en implementació. A partir d'aquí decideixes si vols que ho construïm nosaltres."
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    title="No saps per on començar?"
+    lede="Explica'ns el teu cas en 15 minuts i et diem, sense compromís, per on començaríem nosaltres."
+    primaryLabel="Explica'ns el teu cas"
+  />
+</BaseLayout>
+
+<style>
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .grid-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

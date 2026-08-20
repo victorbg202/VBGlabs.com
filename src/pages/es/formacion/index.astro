@@ -1,0 +1,100 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'es' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="training"
+  title="Formación práctica en IA para equipos"
+  description="Formación de IA aplicada para que tu equipo la use de verdad: con criterio, límites claros e integrada en las tareas del día a día."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="FORMACIÓN"
+    title="Que tu equipo use la IA con criterio, no por curiosidad"
+    lede="Sesiones prácticas para que tu equipo aprenda a sacar partido real a la IA en sus tareas del día a día, entendiendo también sus límites y los riesgos de privacidad."
+    crumb={{ name: 'Formación', path: route('training', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="EL PROBLEMA" title="Tener acceso a IA no es lo mismo que saber usarla" />
+      <p>
+        Muchas empresas ya tienen ChatGPT, Copilot u herramientas similares al alcance del
+        equipo, pero nadie les ha enseñado a usarlas bien: cuándo es útil, cuándo no hay que
+        fiarse a ciegas, y qué información vale la pena no compartir nunca. El resultado suele
+        ser un uso superficial — o, peor, un uso arriesgado.
+      </p>
+      <p>
+        Nuestra formación no es una charla general sobre "qué es la IA". Es práctica, aplicada
+        a tareas reales de tu equipo, e incluye siempre un bloque sobre límites y privacidad
+        de datos.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="QUÉ CUBRIMOS" title="Contenidos de la formación" />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'sparkle', title: 'IA práctica para el día a día', description: 'Ejemplos y ejercicios con tareas reales de tu equipo, no casos genéricos.' },
+          { icon: 'shield', title: 'Uso responsable y límites', description: 'Qué puede fallar, cuándo no hay que confiar en ella y qué información no hay que poner nunca.' },
+          { icon: 'users', title: 'Integración en tareas reales', description: 'Cómo incorporarla al flujo de trabajo habitual, no como una herramienta aparte.' },
+          { icon: 'documents', title: 'Formación sobre soluciones ya implantadas', description: 'Si hemos construido una automatización para vosotros, formamos al equipo que la va a usar.' },
+          { icon: 'chart', title: 'Casos prácticos de tu sector', description: 'Adaptamos los ejercicios al tipo de negocio y a las herramientas que ya usáis.' },
+          { icon: 'flag', title: 'Materiales para consultar después', description: 'Un resumen escrito de la sesión, no solo diapositivas.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PRECIOS" title="Precio orientativo" />
+      <PriceStrip
+        locale={locale}
+        items={[{ label: 'Sesión introductoria', band: SERVICE_PRICING.training, note: 'Formato taller, para equipos pequeños o medianos.' }]}
+      />
+      <p class="note">Para programas completos de varias sesiones, cuéntanos tu caso y te explicamos opciones.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="PREGUNTAS" title="Preguntas frecuentes" />
+      <FaqAccordion
+        items={[
+          { q: '¿Cuántas personas pueden asistir a una sesión?', a: 'Las sesiones funcionan mejor con equipos pequeños o medianos, para que haya espacio para preguntas y casos concretos.' },
+          { q: '¿Hace falta tener conocimientos previos de IA?', a: 'No. Adaptamos el nivel al punto de partida real de tu equipo.' },
+          { q: '¿Es presencial u online?', a: 'Lo hablamos según lo que os venga mejor; ambas opciones funcionan bien para el formato taller.' },
+          { q: '¿Podéis formarnos específicamente sobre una herramienta que ya usamos?', a: 'Sí. Si ya utilizáis una herramienta concreta o una automatización que os hemos construido, adaptamos la formación a esa herramienta.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="¿Quieres que tu equipo aprenda a usar la IA de verdad?"
+    lede="Cuéntanos el punto de partida de tu equipo y te proponemos un formato."
+    primaryLabel="Cuéntanos tu caso"
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+  .note { font-size: var(--text-sm); color: var(--muted); margin-top: var(--space-3); }
+</style>

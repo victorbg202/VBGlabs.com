@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'es' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="services"
+  title="Servicios — Automatización, consultoría, formación y software"
+  description="Automatizaciones, consultoría de IA, formación para equipos y VBG Facturación. Elige según lo que necesita tu negocio ahora mismo."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="SERVICIOS"
+    title="Cuatro maneras de trabajar con VBG Labs"
+    lede="No te vendemos un paquete cerrado. Según dónde esté tu negocio ahora mismo, quizás solo necesitas una consultoría, quizás una automatización concreta, o quizás un producto ya hecho como VBG Facturación."
+    crumb={{ name: 'Servicios', path: route('services', locale) }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-4">
+        <ServiceCard icon="automation" title="Automatizaciones" description="Procesos, documentos y tareas repetitivas que pasan a hacerse solas." href={route('automations', locale)} linkLabel="Ver automatizaciones" />
+        <ServiceCard icon="consulting" title="Consultoría" description="Una mirada externa y técnica sobre cómo trabaja tu negocio y qué vale la pena cambiar." href={route('consulting', locale)} linkLabel="Ver consultoría" />
+        <ServiceCard icon="training" title="Formación" description="Para que tu equipo aprenda a sacar partido real a la IA en el día a día." href={route('training', locale)} linkLabel="Ver formación" />
+        <ServiceCard icon="invoicing" title="VBG Facturación" description="Nuestro producto propio para gestionar facturas recibidas, con IA integrada." href={route('invoicing', locale)} linkLabel="Ver el producto" accent />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="CÓMO ELEGIR"
+        title="Si no lo tienes claro, empieza por una consultoría"
+        lede="Una consultoría breve (350–650€ + IVA) te da un diagnóstico y una hoja de ruta priorizada antes de gastar nada en implementación. A partir de ahí decides si quieres que lo construyamos nosotros."
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    title="¿No sabes por dónde empezar?"
+    lede="Cuéntanos tu caso en 15 minutos y te decimos, sin compromiso, por dónde empezaríamos nosotros."
+    primaryLabel="Cuéntanos tu caso"
+  />
+</BaseLayout>
+
+<style>
+  .grid-4 { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+  @media (min-width: 640px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1080px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+</style>

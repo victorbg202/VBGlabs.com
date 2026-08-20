@@ -1,0 +1,89 @@
+---
+import Seo from '@/components/Seo.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import CookieBanner from '@/components/CookieBanner.astro';
+import SiteSchema from '@/components/schema/SiteSchema.astro';
+import { HTML_LANG, type Locale } from '@/i18n/locales';
+import { routeAlternates, type RouteKey } from '@/i18n/routes';
+import '@/styles/global.css';
+
+interface Props {
+  locale: Locale;
+  routeKey: RouteKey;
+  title: string;
+  description: string;
+  path?: string;
+  alternates?: { locale: Locale; path: string }[];
+  ogImage?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  /** true on the homepage of each locale, for the H1/hero landmark spacing */
+  bare?: boolean;
+}
+
+const {
+  locale,
+  routeKey,
+  title,
+  description,
+  path,
+  alternates,
+  ogImage,
+  type,
+  noindex,
+} = Astro.props;
+
+const resolvedAlternates = alternates ?? routeAlternates(routeKey);
+---
+<!DOCTYPE html>
+<html lang={HTML_LANG[locale]}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0b0b" />
+
+    <Seo
+      title={title}
+      description={description}
+      locale={locale}
+      routeKey={routeKey}
+      path={path}
+      alternates={resolvedAlternates}
+      ogImage={ogImage}
+      type={type}
+      noindex={noindex}
+    />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <SiteSchema />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">{locale === 'ca' ? 'Anar al contingut' : locale === 'es' ? 'Ir al contenido' : 'Skip to content'}</a>
+
+    <Header locale={locale} alternates={resolvedAlternates} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+    <CookieBanner locale={locale} />
+  </body>
+</html>

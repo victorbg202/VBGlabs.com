@@ -1,9 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Allow: /
-
-Sitemap: https://vbglabs.com/sitemap.xml
-
-# Disallow admin (future)
-Disallow: /admin/
-Disallow: /src/

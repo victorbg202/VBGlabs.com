@@ -1,0 +1,79 @@
+---
+/**
+ * Plain visible FAQ, native <details>/<summary> — keyboard and screen-reader
+ * accessible with zero JS. Deliberately emits no FAQPage structured data:
+ * the audit found FAQPage schema advertising four Q&As that didn't exist
+ * anywhere on the page. FAQs earn their place here for clarity and organic
+ * long-tail matching, not for a rich-result shortcut.
+ */
+interface QA {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  items: QA[];
+}
+
+const { items } = Astro.props;
+---
+<div class="faq">
+  {items.map((item) => (
+    <details class="faq__item">
+      <summary>
+        <span>{item.q}</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </summary>
+      <p set:html={item.a} />
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .faq__item {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    padding: 0.25rem var(--space-3);
+  }
+
+  .faq__item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 1rem 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--ink);
+    min-height: 44px;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary svg {
+    flex: none;
+    color: var(--red);
+    transition: transform var(--duration-fast) var(--ease);
+  }
+
+  .faq__item[open] summary svg {
+    transform: rotate(45deg);
+  }
+
+  .faq__item p {
+    padding-bottom: 1.1rem;
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+</style>

@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import StepsList from '@/components/StepsList.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="consulting"
+  title="Consultoria tecnològica i d'IA per a pimes"
+  description="Un diagnòstic extern i tècnic de com treballa el teu negoci, amb un full de ruta priortizat. Es pot contractar sol, sense implementació posterior."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="CONSULTORIA"
+    title="Una mirada externa abans de decidir res"
+    lede="Analitzem com treballa el teu negoci avui i et donem un full de ruta clar de què val la pena canviar primer. Es pot contractar sol: no cal que acabis implementant res amb nosaltres."
+    crumb={{ name: 'Consultoria', path: route('consulting', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="PER A QUI" title="Quan té sentit una consultoria" />
+      <p>
+        Si tens la sensació que el negoci podria anar més fluid però no saps ben bé per on
+        començar, o si vols una opinió tècnica independent abans de decidir invertir en un
+        projecte gran, una consultoria és el punt de partida més segur. No et proposem res
+        abans d'entendre com treballa realment el teu equip — no des d'un formulari, sinó
+        parlant amb les persones que fan la feina cada dia.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="METODOLOGIA" title="Com treballem" />
+      <StepsList
+        steps={[
+          { title: 'Entendre com treballes', description: 'Sessions curtes amb qui fa la feina cada dia, no només amb qui la gestiona.' },
+          { title: 'Detectar problemes i oportunitats', description: 'Identifiquem on es perd temps, on hi ha risc d\'error i on hi ha marge real de millora.' },
+          { title: 'Prioritzar', description: 'No tot val la pena canviar-ho. Ordenem per impacte real i esforç necessari per aconseguir-lo.' },
+          { title: 'Definir un full de ruta', description: 'Un document concret, amb fases i pressupost orientatiu per a cadascuna, perquè decideixis amb informació.' },
+          { title: 'Implementar, si vols que ho fem nosaltres', description: 'Si decideixes seguir endavant, podem construir-ho, provar-ho amb el teu equip i formar-vos.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="QUÈ REBS" title="Què t'enduus de la consultoria" />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'documents', title: 'Un diagnòstic escrit', description: 'On es perd temps i diners avui, amb exemples concrets del teu negoci.' },
+          { icon: 'flag', title: 'Prioritats clares', description: 'Què val la pena atacar primer i què pot esperar, ordenat per impacte real.' },
+          { icon: 'chart', title: 'Un full de ruta amb preus', description: 'Fases concretes amb pressupost orientatiu per a cadascuna, sense sorpreses.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="PREUS" title="Preu orientatiu" />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'Consultoria / diagnòstic', band: SERVICE_PRICING.consulting, note: 'Segons l\'abast i la mida del negoci.' },
+          { label: 'Acompanyament continuat', band: SERVICE_PRICING.ongoingSupport, note: 'Opcional, un cop implementat.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PREGUNTES" title="Preguntes freqüents" />
+      <FaqAccordion
+        items={[
+          { q: 'La consultoria m\'obliga a contractar-vos després?', a: 'No. Pots quedar-te només amb el diagnòstic i el full de ruta, i decidir tu mateix com seguir.' },
+          { q: 'Quant triga una consultoria?', a: 'Normalment entre 1 i 2 setmanes des de les primeres converses fins a tenir el full de ruta.' },
+          { q: 'Necessito preparar res abans?', a: 'No. Nosaltres portem les preguntes; tu només ens has de deixar veure com treballeu de veritat.' },
+          { q: 'Feu consultoria per a un problema molt concret, no per a tot el negoci?', a: 'Sí. Moltes consultories se centren en una àrea concreta (facturació, atenció al client, etc.) en lloc de tot el negoci.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Comencem per entendre el teu negoci"
+    lede="Una primera conversa de 15-20 minuts, sense compromís."
+    primaryLabel="Explica'ns el teu cas"
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+</style>

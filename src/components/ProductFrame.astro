@@ -1,0 +1,62 @@
+---
+/**
+ * A schematic, illustrative recreation of a VBG Facturació panel — not a
+ * screenshot. The real product screenshots referenced during this rebuild
+ * arrived as inline chat images, not as files, so there was nothing to
+ * embed pixel-for-pixel; this renders the same panel structure (dashboard
+ * stat tiles, invoice rows, status pills) as original UI, matching the
+ * site's own design language instead of faking a photograph.
+ */
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+<div class="product-frame">
+  <div class="product-frame__bar">
+    <span class="product-frame__dot" /><span class="product-frame__dot" /><span class="product-frame__dot" />
+    <span class="product-frame__title">{label}</span>
+  </div>
+  <div class="product-frame__body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .product-frame {
+    background: var(--gray-900);
+    border-radius: var(--radius-lg);
+    overflow: clip;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-800);
+  }
+
+  .product-frame__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.7rem 1rem;
+    background: var(--gray-800);
+  }
+
+  .product-frame__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-600);
+  }
+
+  .product-frame__title {
+    margin-left: 0.6rem;
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+  }
+
+  .product-frame__body {
+    background: var(--white);
+    padding: var(--space-4);
+    min-height: 200px;
+  }
+</style>

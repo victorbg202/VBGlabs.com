@@ -1,0 +1,77 @@
+---
+import { formatPriceBand, type PriceBand } from '@/data/pricing';
+import { t } from '@/i18n/ui';
+import type { Locale } from '@/i18n/locales';
+
+interface Item {
+  label: string;
+  band: PriceBand;
+  note?: string;
+}
+
+interface Props {
+  locale: Locale;
+  items: Item[];
+}
+
+const { locale, items } = Astro.props;
+const ui = t(locale);
+---
+<div class="price-strip">
+  {items.map((item) => (
+    <div class="price-strip__item">
+      <p class="price-strip__label">{item.label}</p>
+      <p class="price-strip__value tabular">{formatPriceBand(item.band, locale)}</p>
+      {item.note && <p class="price-strip__note">{item.note}</p>}
+    </div>
+  ))}
+</div>
+<p class="price-strip__disclaimer">{ui.common.priceOrientativeNote}</p>
+
+<style>
+  .price-strip {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: clip;
+  }
+
+  @media (min-width: 720px) {
+    .price-strip {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  .price-strip__item {
+    background: var(--white);
+    padding: var(--space-4);
+  }
+
+  .price-strip__label {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .price-strip__value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-md);
+    color: var(--ink);
+  }
+
+  .price-strip__note {
+    font-size: var(--text-xs);
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .price-strip__disclaimer {
+    font-size: var(--text-xs);
+    color: var(--muted);
+    margin-top: var(--space-3);
+  }
+</style>

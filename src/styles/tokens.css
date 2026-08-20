@@ -1,0 +1,109 @@
+/*
+  VBG Labs — Design tokens
+  Colors extracted directly from the brand package (export/avatar/VBG-avatar-rojo.png):
+  red = rgb(225,6,0) = #E10600, ink = rgb(11,11,11) = #0B0B0B.
+  Neutral scale is hand-tuned with a warm (red-leaning) hue bias rather than a
+  library default gray, per the audit's design direction.
+*/
+:root {
+  /* ---- Brand ---- */
+  --red-50: #fdecea;
+  --red-100: #fbd2cd;
+  --red-300: #ee6b5f;
+  --red-500: #e10600;
+  --red-600: #c50500;
+  --red-700: #9c0400;
+  --red: var(--red-500);
+  --red-ink: #4a0300;
+
+  /* deep teal — secondary accent, used for "after" states, confirmations,
+     product UI accents. Never competes with red for attention. */
+  --teal-50: #e7f3f0;
+  --teal-300: #4f9a8b;
+  --teal-500: #0c6b5a;
+  --teal-700: #084a3e;
+
+  --white: #ffffff;
+  --paper: #faf9f7;
+
+  /* warm-biased neutral scale (slight red/orange hue, not pure gray) */
+  --gray-50: #f5f3f1;
+  --gray-100: #ebe7e4;
+  --gray-200: #dcd6d1;
+  --gray-300: #c5bcb5;
+  --gray-400: #a29790;
+  --gray-500: #7c716b;
+  --gray-600: #5b514c;
+  --gray-700: #423a36;
+  --gray-800: #262120;
+  --gray-900: #0b0b0b; /* brand ink */
+
+  --ink: var(--gray-900);
+  --ink-soft: var(--gray-700);
+  --muted: var(--gray-500);
+  --line: var(--gray-200);
+  --line-soft: var(--gray-100);
+
+  /* semantic */
+  --ok: var(--teal-500);
+  --ok-wash: var(--teal-50);
+  --warn: #9c6b0a;
+  --warn-wash: #faf1dc;
+
+  /* ---- Typography ---- */
+  --font-heading: 'Sora', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* modular scale, ratio 1.25, base 16px — fluid between mobile and desktop */
+  --text-xs: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --text-base: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --text-md: clamp(1.1rem, 1.05rem + 0.25vw, 1.25rem);
+  --text-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5625rem);
+  --text-xl: clamp(1.5rem, 1.3rem + 1vw, 1.953rem);
+  --text-2xl: clamp(1.9rem, 1.5rem + 1.8vw, 2.441rem);
+  --text-3xl: clamp(2.3rem, 1.7rem + 2.8vw, 3.052rem);
+  --text-4xl: clamp(2.7rem, 1.8rem + 4.2vw, 3.815rem);
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* ---- Spacing (8px grid, fluid) ---- */
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: clamp(3rem, 2.4rem + 3vw, 5rem);
+  --space-8: clamp(4rem, 3rem + 5vw, 7.5rem);
+
+  --container-w: 1240px;
+  --container-pad: clamp(1.25rem, 4vw, 2.5rem);
+  --measure: 62ch;
+
+  /* ---- Shape ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration: 300ms;
+
+  --shadow-sm: 0 1px 2px rgba(11, 11, 11, 0.06);
+  --shadow-md: 0 8px 24px -8px rgba(11, 11, 11, 0.16);
+  --shadow-lg: 0 24px 48px -16px rgba(11, 11, 11, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration: 0.01ms;
+  }
+}

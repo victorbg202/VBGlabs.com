@@ -1,0 +1,73 @@
+---
+import Icon, { type IconName } from '@/components/Icon.astro';
+
+interface Item {
+  icon: IconName;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  items: Item[];
+  columns?: 2 | 3 | 4;
+}
+
+const { items, columns = 3 } = Astro.props;
+---
+<div class={`feature-grid feature-grid--${columns}`}>
+  {items.map((item) => (
+    <div class="feature">
+      <span class="feature__icon"><Icon name={item.icon} size={22} /></span>
+      <h3>{item.title}</h3>
+      <p>{item.description}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .feature-grid--2 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .feature-grid--3,
+    .feature-grid--4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .feature-grid--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .feature-grid--4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .feature__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--gray-50);
+    color: var(--red);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature h3 {
+    font-size: var(--text-base);
+    margin-bottom: 0.4rem;
+  }
+
+  .feature p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+</style>

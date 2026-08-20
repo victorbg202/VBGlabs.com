@@ -1,0 +1,66 @@
+---
+import { HTML_LANG, OG_LOCALE, SITE_URL, LOCALES } from '@/i18n/locales';
+import type { Locale } from '@/i18n/locales';
+import { routeAlternates, type RouteKey } from '@/i18n/routes';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  routeKey: RouteKey;
+  /** Override canonical path, e.g. for dynamic blog post pages not in ROUTES. */
+  path?: string;
+  /** Override hreflang alternates, e.g. for a translated blog post. */
+  alternates?: { locale: Locale; path: string }[];
+  ogImage?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  locale,
+  routeKey,
+  path,
+  alternates,
+  ogImage = `/og/og-${locale}.jpg`,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonicalPath = path ?? undefined;
+const resolvedAlternates = alternates ?? (canonicalPath ? undefined : routeAlternates(routeKey));
+const currentPath = canonicalPath ?? resolvedAlternates?.find((a) => a.locale === locale)?.path ?? '/';
+const canonicalUrl = new URL(currentPath, SITE_URL).toString();
+const fullTitle = title.includes('VBG Labs') ? title : `${title} | VBG Labs`;
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+<link rel="canonical" href={canonicalUrl} />
+
+{resolvedAlternates && resolvedAlternates.map((alt) => (
+  <link rel="alternate" hreflang={HTML_LANG[alt.locale]} href={new URL(alt.path, SITE_URL).toString()} />
+))}
+{resolvedAlternates && (
+  <link rel="alternate" hreflang="x-default" href={new URL(resolvedAlternates.find((a) => a.locale === 'ca')?.path ?? '/', SITE_URL).toString()} />
+)}
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:site_name" content="VBG Labs" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(ogImage, SITE_URL).toString()} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={OG_LOCALE[locale]} />
+{LOCALES.filter((l) => l !== locale).map((l) => (
+  <meta property="og:locale:alternate" content={OG_LOCALE[l]} />
+))}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(ogImage, SITE_URL).toString()} />

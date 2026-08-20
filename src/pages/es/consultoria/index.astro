@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import StepsList from '@/components/StepsList.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'es' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="consulting"
+  title="Consultoría tecnológica y de IA para pymes"
+  description="Un diagnóstico externo y técnico de cómo trabaja tu negocio, con una hoja de ruta priorizada. Se puede contratar sola, sin implementación posterior."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="CONSULTORÍA"
+    title="Una mirada externa antes de decidir nada"
+    lede="Analizamos cómo trabaja tu negocio hoy y te damos una hoja de ruta clara de qué vale la pena cambiar primero. Se puede contratar sola: no hace falta que acabes implementando nada con nosotros."
+    crumb={{ name: 'Consultoría', path: route('consulting', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="PARA QUIÉN" title="Cuándo tiene sentido una consultoría" />
+      <p>
+        Si tienes la sensación de que el negocio podría ir más fluido pero no sabes muy bien
+        por dónde empezar, o si quieres una opinión técnica independiente antes de decidir
+        invertir en un proyecto grande, una consultoría es el punto de partida más seguro. No
+        te proponemos nada antes de entender cómo trabaja realmente tu equipo — no desde un
+        formulario, sino hablando con las personas que hacen el trabajo cada día.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="METODOLOGÍA" title="Cómo trabajamos" />
+      <StepsList
+        steps={[
+          { title: 'Entender cómo trabajas', description: 'Sesiones cortas con quien hace el trabajo cada día, no solo con quien lo gestiona.' },
+          { title: 'Detectar problemas y oportunidades', description: 'Identificamos dónde se pierde tiempo, dónde hay riesgo de error y dónde hay margen real de mejora.' },
+          { title: 'Priorizar', description: 'No todo vale la pena cambiarlo. Ordenamos por impacto real y esfuerzo necesario para conseguirlo.' },
+          { title: 'Definir una hoja de ruta', description: 'Un documento concreto, con fases y presupuesto orientativo para cada una, para que decidas con información.' },
+          { title: 'Implementar, si quieres que lo hagamos nosotros', description: 'Si decides seguir adelante, podemos construirlo, probarlo con tu equipo y formaros.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="QUÉ RECIBES" title="Qué te llevas de la consultoría" />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'documents', title: 'Un diagnóstico escrito', description: 'Dónde se pierde tiempo y dinero hoy, con ejemplos concretos de tu negocio.' },
+          { icon: 'flag', title: 'Prioridades claras', description: 'Qué vale la pena atacar primero y qué puede esperar, ordenado por impacto real.' },
+          { icon: 'chart', title: 'Una hoja de ruta con precios', description: 'Fases concretas con presupuesto orientativo para cada una, sin sorpresas.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="PRECIOS" title="Precio orientativo" />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'Consultoría / diagnóstico', band: SERVICE_PRICING.consulting, note: 'Según el alcance y el tamaño del negocio.' },
+          { label: 'Acompañamiento continuado', band: SERVICE_PRICING.ongoingSupport, note: 'Opcional, una vez implementado.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PREGUNTAS" title="Preguntas frecuentes" />
+      <FaqAccordion
+        items={[
+          { q: '¿La consultoría me obliga a contrataros después?', a: 'No. Puedes quedarte solo con el diagnóstico y la hoja de ruta, y decidir tú mismo cómo seguir.' },
+          { q: '¿Cuánto tarda una consultoría?', a: 'Normalmente entre 1 y 2 semanas desde las primeras conversaciones hasta tener la hoja de ruta.' },
+          { q: '¿Necesito preparar algo antes?', a: 'No. Nosotros llevamos las preguntas; tú solo tienes que dejarnos ver cómo trabajáis de verdad.' },
+          { q: '¿Hacéis consultoría para un problema muy concreto, no para todo el negocio?', a: 'Sí. Muchas consultorías se centran en un área concreta (facturación, atención al cliente, etc.) en lugar de todo el negocio.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Empecemos por entender tu negocio"
+    lede="Una primera conversación de 15-20 minutos, sin compromiso."
+    primaryLabel="Cuéntanos tu caso"
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+</style>

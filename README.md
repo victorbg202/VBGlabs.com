@@ -1,2 +1,0 @@
-# VBGlabs.com
-

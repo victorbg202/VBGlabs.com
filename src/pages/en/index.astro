@@ -1,0 +1,298 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomeHero from '@/components/HomeHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
+import ProductFrame from '@/components/ProductFrame.astro';
+import InvoicingPanels from '@/components/InvoicingPanels.astro';
+import StepsList from '@/components/StepsList.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+import { getCollection } from 'astro:content';
+
+const locale = 'en' as const;
+
+const posts = (await getCollection('blog', (p) => p.data.lang === locale && !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout
+  locale={locale}
+  routeKey="home"
+  title="VBG Labs — Practical automation, AI and custom software for SMEs"
+  description="Technology consultancy based in Catalonia, Spain. Automation, AI consulting, training and custom software for small and medium businesses. First conversation, no obligation."
+>
+  <HomeHero
+    locale={locale}
+    eyebrow="AUTOMATION · APPLIED AI · CUSTOM SOFTWARE"
+    title="Practical technology so your business runs better."
+    lede="We help small and medium businesses simplify processes, take repetitive work off their plate, and apply AI where it actually earns its keep. We start by understanding the business — the technology comes second, never first."
+    ctaPrimary="Tell us your case"
+    ctaSecondary="See what we can do"
+    note="First conversation, no obligation."
+  />
+
+  <section class="section" id="what-we-do">
+    <div class="container">
+      <SectionHeader
+        eyebrow="WHO WE ARE"
+        title="A digital lab that starts with your business, not with the technology"
+        lede="VBG Labs is a technology consultancy based in Catalonia, Spain. We combine consulting, automation, applied AI and software development — and we also build our own products, like VBG Invoicing."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'search', title: 'We understand before we propose', description: 'No recommendation comes from a template. We look at how your team actually works first.' },
+          { icon: 'automation', title: 'We build, not just advise', description: 'We can stay with you from diagnosis through implementation and training.' },
+          { icon: 'shield', title: 'Not tied to one tool', description: 'We use whatever technology solves the problem best — not whatever we have to sell.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="WHAT WE DO"
+        title="Three ways to make the business run more smoothly"
+        lede="We don't sell a fixed package: we choose between automation, consulting and training based on what will actually move you forward."
+      />
+      <div class="grid-3">
+        <ServiceCard
+          icon="automation"
+          title="Automation"
+          description="Processes, documents, messages and repetitive tasks that can run on their own, without you having to watch over them."
+          href={route('automations', locale)}
+          linkLabel="How it works"
+        />
+        <ServiceCard
+          icon="consulting"
+          title="Consulting"
+          description="An outside, technical view of how your business runs today, and what's worth changing first."
+          href={route('consulting', locale)}
+          linkLabel="How it works"
+        />
+        <ServiceCard
+          icon="training"
+          title="Training"
+          description="Your team learns to get real value from AI — not just to play with it."
+          href={route('training', locale)}
+          linkLabel="How it works"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="COMMON SITUATIONS"
+        title="Situations we see often"
+        lede="We're a company just starting out — we don't have published client cases yet. The examples below are typical situations we work on, not guaranteed results for any specific business."
+      />
+      <div class="ba-stack">
+        <BeforeAfterRow
+          beforeLabel="Before"
+          afterLabel="After"
+          before="Documents arrive by email, get downloaded one by one, and the data gets typed in by hand."
+          after="Documents sort themselves, and only the cases that genuinely need it reach a human for review."
+        />
+        <BeforeAfterRow
+          beforeLabel="Before"
+          afterLabel="After"
+          before="A customer asks the same question on WhatsApp, Instagram and email — and you answer it three times."
+          after="Every conversation lands in one place, with the context of what's already been said."
+        />
+        <BeforeAfterRow
+          beforeLabel="Before"
+          afterLabel="After"
+          before="Appointment or payment reminders go out one at a time, whenever someone remembers."
+          after="Reminders go out on their own, at the right time, without anyone having to think about it."
+        />
+        <BeforeAfterRow
+          beforeLabel="Before"
+          afterLabel="After"
+          before="Business information lives scattered across emails, notes and WhatsApp chats."
+          after="Everything sits in one place, easy to check whenever it's needed."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark product-showcase">
+    <div class="container product-showcase__grid">
+      <div>
+        <p class="eyebrow">OUR OWN PRODUCT</p>
+        <h2>VBG Invoicing: no received invoice gets lost again</h2>
+        <p class="lede">
+          VBG Labs' first product. A dashboard that centralizes, reviews and organizes the
+          invoices you receive, with an AI assistant on hand to find any figure in seconds.
+        </p>
+        <ul class="showcase-list">
+          <li><Icon name="dashboard" size={18} /> A dashboard with the status of every invoice this month</li>
+          <li><Icon name="shield" size={18} /> Possible-duplicate detection before you pay twice</li>
+          <li><Icon name="chart" size={18} /> Tax reports ready to file</li>
+          <li><Icon name="sparkle" size={18} /> An AI assistant that finds any invoice just by asking</li>
+        </ul>
+        <div class="showcase-actions">
+          <a href={route('invoicing', locale)} class="btn btn-primary">See VBG Invoicing</a>
+          <a href={route('contact', locale)} class="btn btn-outline">Request a demo</a>
+        </div>
+      </div>
+      <ProductFrame label="app.vbgfacturacion.com">
+        <InvoicingPanels
+          variant="dashboard"
+          labels={{ thisMonth: 'Invoices this month', correct: 'Correct', pending: 'Pending review', supplier: 'Supplier', amount: 'Amount', status: 'To review', okStatus: 'Correct', reviewTitle: '', reviewNote: '', reportTitle: '', vat: '', withholding: '' }}
+        />
+      </ProductFrame>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container how-grid">
+      <SectionHeader
+        eyebrow="HOW WE WORK"
+        title="Five steps, no surprises"
+        lede="The same method whether you hire just a consulting session or we end up building everything."
+      />
+      <StepsList
+        steps={[
+          { title: 'Understand how you work', description: 'We talk to the people doing the work day to day, not only whoever manages it.' },
+          { title: 'Spot problems and opportunities', description: 'We find where time is lost, where errors are likely, and where the real room for improvement is.' },
+          { title: 'Prioritize', description: "Not everything is worth automating. We rank by real impact against the effort it takes." },
+          { title: 'Set a roadmap', description: 'A concrete plan, with phases and an indicative budget, so you can decide with real information.' },
+          { title: 'Implement (if it makes sense)', description: "If you decide to go ahead, we build, test with your team, and train whoever will use it." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="WHY VBG LABS"
+        title="Consulting, delivery, training and our own products — under one roof"
+        lede="That combination is what sets us apart: most firms in this space only do one of these things."
+      />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'users', title: 'A close working relationship', description: 'We understand the business and talk in plain language, without unnecessary jargon.' },
+          { icon: 'flag', title: 'A practical view', description: "We don't propose technology because it's trendy. We propose what solves the real problem." },
+          { icon: 'training', title: 'We stay with you', description: 'We can be there from analysis through rollout and training your team to use it.' },
+          { icon: 'automation', title: 'We can actually build it', description: "We don't just advise: we build too. VBG Invoicing is the proof." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PRICING" title="Indicative pricing" lede="Every project is different; these are starting points to give you a sense of scale." />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'Consulting', band: SERVICE_PRICING.consulting },
+          { label: 'Automation', band: SERVICE_PRICING.automation },
+          { label: 'Training', band: SERVICE_PRICING.training },
+          { label: 'VBG Invoicing', band: { min: 14.9, max: null, unit: 'month' } },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--dark postcraft-teaser">
+    <div class="container postcraft-teaser__grid">
+      <div>
+        <span class="soon-badge">Coming soon</span>
+        <h2>Postcraft: VBG Labs' second product</h2>
+        <p class="lede">
+          A platform to plan and generate social media content that understands each brand's
+          voice and style. Currently in the works.
+        </p>
+        <a href={route('postcraft', locale)} class="btn btn-outline">Learn more</a>
+      </div>
+      <div class="postcraft-mark" aria-hidden="true">
+        <img src="/brand/vbg-isotype-white.webp" width="64" height="64" alt="" />
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <SectionHeader eyebrow="BLOG" title="Worth a closer look" lede="Practical articles, no filler, about automation and applied AI for real businesses." />
+        <div class="grid-2">
+          {posts.map((post) => (
+            <BlogCard
+              href={`${route('blog', locale)}${post.data.slug}/`}
+              category={post.data.category}
+              title={post.data.title}
+              description={post.data.description}
+              date={dateFmt.format(post.data.date)}
+              readLabel="Read"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="COMMON QUESTIONS" title="Frequently asked questions" />
+      <FaqAccordion
+        items={[
+          { q: 'Do I need to know about AI or tech to work with you?', a: 'No. We speak your language, not ours. We handle the technical side.' },
+          { q: 'How much does a first consultation cost?', a: 'The first conversation is free, no obligation. From there, a scoped consulting engagement runs 350–650€ + VAT depending on the scope.' },
+          { q: 'Do you always end up recommending automating everything?', a: "No. Sometimes the best advice is to leave things alone, or just tidy up what you already have. Not everything is worth automating." },
+          { q: 'Do you only work with businesses in Spain?', a: "We're based in Catalonia and know the local market well, but we work with businesses anywhere." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="red"
+    eyebrow="LET'S START"
+    title="Let's talk about your business"
+    lede="No obligation. In 15-20 minutes we'll know if — and how — we can help."
+    primaryLabel="Tell us your case"
+    secondaryLabel="See all services"
+    secondaryHref={route('services', locale)}
+  />
+</BaseLayout>
+
+<style>
+  .grid-3 { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+  @media (min-width: 720px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+  .grid-2 { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+  @media (min-width: 640px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+  .bg-alt { background: var(--gray-50); }
+  .ba-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+  .product-showcase__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); align-items: center; }
+  @media (min-width: 940px) { .product-showcase__grid { grid-template-columns: 1fr 1fr; } }
+  .product-showcase h2 { color: var(--white); font-size: var(--text-2xl); margin-block: var(--space-2); max-width: 16ch; }
+  .product-showcase .lede { color: var(--gray-400); max-width: 44ch; }
+  .showcase-list { list-style: none; padding: 0; margin: var(--space-4) 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .showcase-list li { display: flex; align-items: center; gap: 0.7em; font-size: var(--text-sm); color: var(--gray-200); }
+  .showcase-list :global(svg) { color: var(--red-300); flex: none; }
+  .showcase-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .how-grid :global(.section-header) { max-width: 640px; }
+  .soon-badge { display: inline-block; font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); background: var(--red-300); padding: 0.3em 0.9em; border-radius: var(--radius-pill); margin-bottom: var(--space-3); }
+  .postcraft-teaser__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); align-items: center; }
+  @media (min-width: 780px) { .postcraft-teaser__grid { grid-template-columns: 1fr auto; } }
+  .postcraft-teaser h2 { color: var(--white); font-size: var(--text-2xl); margin-bottom: var(--space-2); max-width: 18ch; }
+  .postcraft-teaser .lede { color: var(--gray-400); max-width: 46ch; margin-bottom: var(--space-4); }
+  .postcraft-mark { width: 140px; height: 140px; border-radius: 50%; background: var(--gray-800); display: grid; place-items: center; justify-self: center; }
+</style>

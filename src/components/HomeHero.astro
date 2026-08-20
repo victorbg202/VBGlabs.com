@@ -1,0 +1,245 @@
+---
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+import type { Locale } from '@/i18n/locales';
+
+interface Props {
+  locale: Locale;
+  eyebrow: string;
+  title: string;
+  lede: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  note: string;
+}
+
+const { locale, eyebrow, title, lede, ctaPrimary, ctaSecondary, note } = Astro.props;
+---
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p class="lede">{lede}</p>
+      <div class="hero__actions">
+        <a href={route('contact', locale)} class="btn btn-primary">{ctaPrimary}</a>
+        <a href={`#${locale === 'ca' ? 'que-fem' : locale === 'es' ? 'que-hacemos' : 'what-we-do'}`} class="btn btn-outline">{ctaSecondary}</a>
+      </div>
+      <p class="hero__note"><Icon name="check" size={15} /> {note}</p>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="flow-card flow-card--1">
+        <Icon name="messages" size={18} />
+        <span class="flow-bar" />
+      </div>
+      <div class="flow-card flow-card--2">
+        <Icon name="documents" size={18} />
+        <span class="flow-bar flow-bar--short" />
+      </div>
+      <div class="flow-card flow-card--3">
+        <Icon name="reminders" size={18} />
+        <span class="flow-bar" />
+      </div>
+      <div class="flow-core">
+        <img src="/brand/vbg-isotype-white.webp" width="30" height="30" alt="" />
+      </div>
+      <div class="flow-result">
+        <Icon name="check" size={16} />
+        <span class="flow-bar flow-bar--light" />
+      </div>
+      <div class="flow-result flow-result--2">
+        <Icon name="check" size={16} />
+        <span class="flow-bar flow-bar--light flow-bar--short" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-6) var(--space-7);
+    overflow: clip;
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 980px) {
+    .hero__grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .hero__copy h1 {
+    font-size: var(--text-4xl);
+    margin-block: var(--space-2);
+    max-width: 15ch;
+  }
+
+  .hero__copy .lede {
+    font-size: var(--text-md);
+    max-width: 46ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .hero__note {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .hero__note svg {
+    color: var(--ok);
+    flex: none;
+  }
+
+  /* ---- visual: abstract "messy in, organized out" composition ---- */
+  .hero__visual {
+    position: relative;
+    height: 360px;
+    display: none;
+  }
+
+  @media (min-width: 720px) {
+    .hero__visual {
+      display: block;
+    }
+  }
+
+  .flow-card,
+  .flow-result {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 0.7em 1em;
+    box-shadow: var(--shadow-sm);
+    width: 168px;
+    color: var(--ink-soft);
+    opacity: 0;
+    animation: flow-in 0.7s var(--ease) forwards;
+  }
+
+  .flow-bar {
+    height: 8px;
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 4px;
+  }
+
+  .flow-bar--short {
+    flex: 0.55;
+  }
+
+  .flow-bar--light {
+    background: var(--teal-50);
+  }
+
+  .flow-card--1 {
+    top: 8%;
+    left: 0;
+    animation-delay: 0.1s;
+  }
+
+  .flow-card--2 {
+    top: 38%;
+    left: 6%;
+    animation-delay: 0.28s;
+  }
+
+  .flow-card--3 {
+    top: 68%;
+    left: 0;
+    animation-delay: 0.46s;
+  }
+
+  .flow-core {
+    position: absolute;
+    top: 50%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    animation: flow-core-in 0.7s var(--ease) forwards;
+    animation-delay: 0.5s;
+  }
+
+  .flow-result {
+    background: var(--white);
+    border-color: var(--teal-50);
+    width: 150px;
+    color: var(--teal-700);
+  }
+
+  .flow-result :global(svg) {
+    color: var(--ok);
+    flex: none;
+  }
+
+  .flow-result {
+    right: 0;
+    left: auto;
+    top: 22%;
+    animation-delay: 0.75s;
+  }
+
+  .flow-result--2 {
+    top: 62%;
+    animation-delay: 0.9s;
+  }
+
+  @keyframes flow-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes flow-core-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-card,
+    .flow-result,
+    .flow-core {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>

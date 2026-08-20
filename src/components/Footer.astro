@@ -1,0 +1,179 @@
+---
+import { t } from '@/i18n/ui';
+import type { Locale } from '@/i18n/locales';
+import { route } from '@/i18n/routes';
+import { COMPANY, PHONE, SOCIAL_PROFILES } from '@/data/company';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = t(locale);
+const year = new Date().getFullYear();
+
+const serviceLinks = [
+  { href: route('automations', locale), label: ui.nav.automations },
+  { href: route('consulting', locale), label: ui.nav.consulting },
+  { href: route('training', locale), label: ui.nav.training },
+  { href: route('invoicing', locale), label: ui.nav.invoicing },
+];
+
+const companyLinks = [
+  { href: route('about', locale), label: ui.nav.about },
+  { href: route('blog', locale), label: ui.nav.blog },
+  { href: route('faq', locale), label: locale === 'ca' ? 'Preguntes freqüents' : locale === 'es' ? 'Preguntas frecuentes' : 'FAQ' },
+  { href: route('contact', locale), label: ui.nav.contact },
+];
+---
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a href={route('home', locale)} class="footer__logo">
+        <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" />
+        <span>VBG<em>Labs</em></span>
+      </a>
+      <p class="footer__tagline">{ui.footer.tagline}</p>
+      <p class="footer__location">{ui.footer.location}</p>
+    </div>
+
+    <div class="footer__col">
+      <h2>{ui.footer.servicesTitle}</h2>
+      <ul>
+        {serviceLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2>{ui.footer.companyTitle}</h2>
+      <ul>
+        {companyLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2>{ui.footer.contactTitle}</h2>
+      <ul>
+        <li><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></li>
+        {PHONE.enabled && <li><a href={`tel:${PHONE.number}`}>{PHONE.display}</a></li>}
+        {SOCIAL_PROFILES.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; {year} VBG Labs. {ui.footer.rights}</p>
+    <nav aria-label={ui.footer.legalTitle} class="footer__legal">
+      <a href={route('legalNotice', locale)}>{ui.footer.legalNotice}</a>
+      <a href={route('privacy', locale)}>{ui.footer.privacy}</a>
+      <a href={route('cookies', locale)}>{ui.footer.cookies}</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--gray-400);
+    padding-block: var(--space-6) var(--space-4);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  @media (min-width: 720px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+  }
+
+  .footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    text-decoration: none;
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .footer__logo em {
+    font-style: normal;
+    color: var(--red-300);
+  }
+
+  .footer__tagline {
+    color: var(--gray-200);
+    font-size: var(--text-md);
+    max-width: 32ch;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__location {
+    font-size: var(--text-sm);
+    color: var(--gray-500);
+  }
+
+  .footer__col h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: var(--space-3);
+    font-weight: 600;
+  }
+
+  .footer__col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer__col a {
+    text-decoration: none;
+    color: var(--gray-300);
+    font-size: var(--text-sm);
+  }
+
+  .footer__col a:hover {
+    color: var(--white);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-4);
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--gray-400);
+  }
+
+  .footer__legal {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .footer__legal a {
+    color: var(--gray-400);
+    text-decoration: none;
+  }
+
+  .footer__legal a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,430 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomeHero from '@/components/HomeHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
+import ProductFrame from '@/components/ProductFrame.astro';
+import InvoicingPanels from '@/components/InvoicingPanels.astro';
+import StepsList from '@/components/StepsList.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+import { getCollection } from 'astro:content';
+
+const locale = 'ca' as const;
+
+const posts = (await getCollection('blog', (p) => p.data.lang === locale && !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+const dateFmt = new Intl.DateTimeFormat('ca-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout
+  locale={locale}
+  routeKey="home"
+  title="VBG Labs — Automatització, IA i software a mida per a pimes"
+  description="Consultora tecnològica a Almenar, Lleida. Automatitzacions, consultoria d'IA, formació i software a mida per a pimes i autònoms. Primera conversa sense compromís."
+>
+  <HomeHero
+    locale={locale}
+    eyebrow="AUTOMATITZACIÓ · IA · SOFTWARE A MIDA"
+    title="Tecnologia pràctica perquè el teu negoci treballi millor."
+    lede="Ajudem pimes i autònoms a simplificar processos, treure de sobre la feina repetitiva i aplicar intel·ligència artificial amb criteri. Primer entenem el negoci. Després decidim quina tecnologia té sentit — mai a l'inrevés."
+    ctaPrimary="Explica'ns el teu cas"
+    ctaSecondary="Descobreix què podem fer"
+    note="Primera conversa sense compromís."
+  />
+
+  <section class="section" id="que-fem">
+    <div class="container">
+      <SectionHeader
+        eyebrow="QUI SOM"
+        title="Un laboratori digital que comença pel teu negoci, no per la tecnologia"
+        lede="VBG Labs és una consultora tecnològica d'Almenar, Lleida. Combinem consultoria, automatització, intel·ligència artificial aplicada i desenvolupament de software — i també construïm els nostres propis productes, com VBG Facturació."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'search', title: 'Entenem abans de proposar', description: 'Cap recomanació surt d’una plantilla. Primer mirem com treballa el teu equip realment.' },
+          { icon: 'automation', title: 'Construïm, no només assessorem', description: 'Podem acompanyar-te des del diagnòstic fins a la implementació i la formació de l’equip.' },
+          { icon: 'shield', title: 'Sense lligams a una eina', description: 'Fem servir la tecnologia que millor resol el problema — no la que ens interessa vendre.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="QUÈ FEM"
+        title="Tres maneres de fer que el negoci vagi més fluid"
+        lede="No venem un paquet tancat: triem entre automatització, consultoria i formació segons el que realment et farà anar més ràpid."
+      />
+      <div class="grid-3">
+        <ServiceCard
+          icon="automation"
+          title="Automatitzacions"
+          description="Processos, documents, missatges i tasques repetitives que es poden fer soles, sense que hi hagis d’estar al damunt."
+          href={route('automations', locale)}
+          linkLabel="Com funciona"
+        />
+        <ServiceCard
+          icon="consulting"
+          title="Consultoria"
+          description="Una mirada externa i tècnica sobre com treballa el teu negoci avui, i què val la pena canviar primer."
+          href={route('consulting', locale)}
+          linkLabel="Com funciona"
+        />
+        <ServiceCard
+          icon="training"
+          title="Formació"
+          description="Que el teu equip aprengui a treure profit real de la IA, no només a fer-la servir per curiositat."
+          href={route('training', locale)}
+          linkLabel="Com funciona"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="EXEMPLES HABITUALS"
+        title="Situacions que veiem sovint"
+        lede="Som una empresa que comença: encara no tenim casos de clients publicats. Els exemples següents són situacions habituals del tipus de feina que fem, no resultats garantits per a cap negoci concret."
+      />
+      <div class="ba-stack">
+        <BeforeAfterRow
+          beforeLabel="Abans"
+          afterLabel="Després"
+          before="Reps documents per correu, els descarregues un per un i n’copies les dades a mà."
+          after="Els documents es classifiquen sols i només arriben a revisió humana els casos que ho necessiten de veritat."
+        />
+        <BeforeAfterRow
+          beforeLabel="Abans"
+          afterLabel="Després"
+          before="Un client pregunta el mateix per WhatsApp, Instagram i correu — i acabes responent tres vegades."
+          after="Totes les converses arriben a un sol lloc, amb el context del que ja s’ha parlat."
+        />
+        <BeforeAfterRow
+          beforeLabel="Abans"
+          afterLabel="Després"
+          before="Envies els recordatoris de cites o pagaments un per un, quan te’n recordes."
+          after="Els recordatoris surten sols, a l’hora adequada, sense que hi hagis de pensar."
+        />
+        <BeforeAfterRow
+          beforeLabel="Abans"
+          afterLabel="Després"
+          before="La informació del negoci viu repartida entre correus, notes i xats de WhatsApp."
+          after="Tot queda centralitzat en un sol lloc, fàcil de consultar quan cal."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark product-showcase">
+    <div class="container product-showcase__grid">
+      <div>
+        <p class="eyebrow">PRODUCTE PROPI</p>
+        <h2>VBG Facturació: cap factura rebuda es torna a perdre</h2>
+        <p class="lede">
+          El primer producte propi de VBG Labs. Un panell que centralitza, revisa i organitza les
+          factures que reps, amb un assistent d’IA a mà per trobar qualsevol dada en segons.
+        </p>
+        <ul class="showcase-list">
+          <li><Icon name="dashboard" size={18} /> Dashboard amb l’estat de totes les factures del mes</li>
+          <li><Icon name="shield" size={18} /> Detecció de possibles duplicats abans de pagar-los</li>
+          <li><Icon name="chart" size={18} /> Informes fiscals (IVA, IRPF) llestos per presentar</li>
+          <li><Icon name="sparkle" size={18} /> Assistent IA per trobar qualsevol factura preguntant-li</li>
+        </ul>
+        <div class="showcase-actions">
+          <a href={route('invoicing', locale)} class="btn btn-primary">Descobreix VBG Facturació</a>
+          <a href={route('contact', locale)} class="btn btn-outline">Sol·licita una demo</a>
+        </div>
+      </div>
+      <ProductFrame label="app.vbgfacturacio.com">
+        <InvoicingPanels
+          variant="dashboard"
+          labels={{
+            thisMonth: 'Factures aquest mes',
+            correct: 'Correctes',
+            pending: 'Pendents revisió',
+            supplier: 'Proveïdor',
+            amount: 'Import',
+            status: 'A revisar',
+            okStatus: 'Correcta',
+            reviewTitle: '',
+            reviewNote: '',
+            reportTitle: '',
+            vat: '',
+            withholding: '',
+          }}
+        />
+      </ProductFrame>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container how-grid">
+      <SectionHeader
+        eyebrow="COM TREBALLEM"
+        title="Cinc passos, sense sorpreses"
+        lede="El mateix mètode tant si contractes només una consultoria com si acabem implementant-ho tot."
+      />
+      <StepsList
+        steps={[
+          { title: 'Entendre com treballes', description: 'Parlem amb qui fa la feina cada dia, no només amb qui la gestiona.' },
+          { title: 'Detectar problemes i oportunitats', description: 'Identifiquem on es perd temps, on hi ha risc d’error i on hi ha marge real de millora.' },
+          { title: 'Prioritzar', description: 'No tot val la pena automatitzar-ho. Ordenem per impacte real i esforç necessari.' },
+          { title: 'Definir un full de ruta', description: 'Un pla concret, amb fases i pressupost orientatiu, perquè decideixis amb informació.' },
+          { title: 'Implementar (si toca)', description: 'Si decideixes seguir, construïm, provem amb el teu equip i formem qui l’hagi de fer servir.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="PER QUÈ VBG LABS"
+        title="Consultoria, implementació, formació i producte propi — sota un mateix sostre"
+        lede="És la combinació que ens diferencia: la majoria d’empreses del sector només fan una d’aquestes coses."
+      />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'users', title: 'Tracte proper', description: 'Entenem el negoci i parlem en un llenguatge comprensible, sense tecnicismes innecessaris.' },
+          { icon: 'flag', title: 'Visió pràctica', description: 'No proposem tecnologia perquè estigui de moda. Proposem el que resol el problema real.' },
+          { icon: 'training', title: 'Acompanyament', description: 'Podem ser-hi des de l’anàlisi fins a la implantació i la formació de l’equip.' },
+          { icon: 'automation', title: 'Capacitat d’execució', description: 'No només recomanem: també construïm. VBG Facturació n’és la prova.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PREUS" title="Preus orientatius" lede="Cada projecte és diferent; aquests són punts de partida per fer-te una idea." />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'Consultoria', band: SERVICE_PRICING.consulting },
+          { label: 'Automatitzacions', band: SERVICE_PRICING.automation },
+          { label: 'Formació', band: SERVICE_PRICING.training },
+          { label: 'VBG Facturació', band: { min: 14.9, max: null, unit: 'month' } },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--dark postcraft-teaser">
+    <div class="container postcraft-teaser__grid">
+      <div>
+        <span class="soon-badge">Pròximament</span>
+        <h2>Postcraft: el segon producte de VBG Labs</h2>
+        <p class="lede">
+          Una plataforma per planificar i generar contingut de xarxes socials entenent la veu i
+          l’estil de cada marca. Ara mateix en preparació.
+        </p>
+        <a href={route('postcraft', locale)} class="btn btn-outline">Saber-ne més</a>
+      </div>
+      <div class="postcraft-mark" aria-hidden="true">
+        <img src="/brand/vbg-isotype-white.webp" width="64" height="64" alt="" />
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <SectionHeader eyebrow="BLOG" title="Per pensar-hi una mica més" lede="Articles pràctics, sense farciment, sobre automatització i IA aplicada a negocis reals." />
+        <div class="grid-2">
+          {posts.map((post) => (
+            <BlogCard
+              href={`${route('blog', locale)}${post.data.slug}/`}
+              category={post.data.category}
+              title={post.data.title}
+              description={post.data.description}
+              date={dateFmt.format(post.data.date)}
+              readLabel="Llegir"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="DUBTES HABITUALS" title="Preguntes freqüents" />
+      <FaqAccordion
+        items={[
+          { q: 'Necessito saber d’IA o tecnologia per treballar amb vosaltres?', a: 'No. Parlem en el teu idioma, no en el nostre. La feina tècnica la fem nosaltres.' },
+          { q: 'Quant costa una primera consulta?', a: 'La primera conversa és sense compromís. A partir d’aquí, una consultoria orientada té un preu de 350–650€ + IVA segons l’abast.' },
+          { q: 'Sempre acabeu recomanant automatitzar-ho tot?', a: 'No. De vegades la millor recomanació és no tocar res, o només ordenar el que ja tens. No tot val la pena automatitzar-ho.' },
+          { q: 'Treballeu només amb empreses de Lleida?', a: 'Som d’Almenar i coneixem bé el teixit empresarial de Lleida i Catalunya, però treballem amb negocis de tot Espanya.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="red"
+    eyebrow="COMENCEM"
+    title="Parlem del teu negoci"
+    lede="Sense compromís. En 15-20 minuts sabrem si podem ajudar-te i com."
+    primaryLabel="Explica'ns el teu cas"
+    secondaryLabel="Veure tots els serveis"
+    secondaryHref={route('services', locale)}
+  />
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .bg-alt {
+    background: var(--gray-50);
+  }
+
+  .ba-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .product-showcase__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 940px) {
+    .product-showcase__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .product-showcase h2 {
+    color: var(--white);
+    font-size: var(--text-2xl);
+    margin-block: var(--space-2);
+    max-width: 16ch;
+  }
+
+  .product-showcase .lede {
+    color: var(--gray-400);
+    max-width: 44ch;
+  }
+
+  .showcase-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-4) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .showcase-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    font-size: var(--text-sm);
+    color: var(--gray-200);
+  }
+
+  .showcase-list :global(svg) {
+    color: var(--red-300);
+    flex: none;
+  }
+
+  .showcase-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .how-grid :global(.section-header) {
+    max-width: 640px;
+  }
+
+  .soon-badge {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--red-300);
+    padding: 0.3em 0.9em;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-3);
+  }
+
+  .postcraft-teaser__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  @media (min-width: 780px) {
+    .postcraft-teaser__grid {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .postcraft-teaser h2 {
+    color: var(--white);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+    max-width: 18ch;
+  }
+
+  .postcraft-teaser .lede {
+    color: var(--gray-400);
+    max-width: 46ch;
+    margin-bottom: var(--space-4);
+  }
+
+  .postcraft-mark {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--gray-800);
+    display: grid;
+    place-items: center;
+    justify-self: center;
+  }
+</style>

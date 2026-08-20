@@ -1,0 +1,94 @@
+---
+import Icon, { type IconName } from '@/components/Icon.astro';
+
+interface Props {
+  icon: IconName;
+  title: string;
+  description: string;
+  href: string;
+  linkLabel: string;
+  accent?: boolean;
+}
+
+const { icon, title, description, href, linkLabel, accent = false } = Astro.props;
+---
+<a href={href} class={`service-card ${accent ? 'service-card--accent' : ''}`}>
+  <span class="service-card__icon"><Icon name={icon} size={26} /></span>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="service-card__link">
+    {linkLabel}
+    <Icon name="arrow-right" size={15} />
+  </span>
+</a>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: inherit;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    transition: border-color var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+  }
+
+  .service-card:hover {
+    border-color: var(--ink);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-card--accent {
+    border-color: var(--red);
+    background: linear-gradient(180deg, var(--red-50), var(--white) 40%);
+  }
+
+  .service-card__icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-md);
+    background: var(--gray-50);
+    color: var(--ink);
+    margin-bottom: var(--space-1);
+  }
+
+  .service-card--accent .service-card__icon {
+    background: var(--white);
+    color: var(--red);
+  }
+
+  .service-card h3 {
+    font-size: var(--text-md);
+  }
+
+  .service-card p {
+    color: var(--muted);
+    font-size: var(--text-sm);
+    flex: 1;
+  }
+
+  .service-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--red);
+    margin-top: var(--space-1);
+  }
+
+  .service-card__link svg {
+    transition: transform var(--duration-fast) var(--ease);
+  }
+
+  .service-card:hover .service-card__link svg {
+    transform: translateX(3px);
+  }
+</style>

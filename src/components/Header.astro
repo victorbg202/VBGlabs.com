@@ -1,0 +1,437 @@
+---
+import { t } from '@/i18n/ui';
+import type { Locale } from '@/i18n/locales';
+import { LOCALE_SHORT } from '@/i18n/locales';
+import { route } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  alternates: { locale: Locale; path: string }[];
+}
+
+const { locale, alternates } = Astro.props;
+const ui = t(locale);
+
+const primaryLinks = [
+  { href: route('automations', locale), label: ui.nav.automations },
+  { href: route('consulting', locale), label: ui.nav.consulting },
+  { href: route('training', locale), label: ui.nav.training },
+];
+---
+<header class="header" id="site-header">
+  <div class="header__bar container">
+    <a href={route('home', locale)} class="header__logo" aria-label="VBG Labs — inici">
+      <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" />
+      <span>VBG<em>Labs</em></span>
+    </a>
+
+    <nav class="header__nav" aria-label={ui.nav.menuLabel}>
+      <ul class="header__links">
+        <li class="header__dropdown">
+          <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu">
+            {ui.nav.services}
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="header__dropdown-menu" id="services-menu">
+            <a href={route('services', locale)} class="header__dropdown-all">{ui.nav.allServices}</a>
+            {primaryLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+            <a href={route('invoicing', locale)}>{ui.nav.invoicing}</a>
+          </div>
+        </li>
+        <li><a href={route('invoicing', locale)}>{ui.nav.invoicing}</a></li>
+        <li><a href={route('postcraft', locale)}>{ui.nav.postcraft}</a></li>
+        <li><a href={route('blog', locale)}>{ui.nav.blog}</a></li>
+        <li><a href={route('about', locale)}>{ui.nav.about}</a></li>
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <label class="header__lang">
+        <span class="visually-hidden">{ui.nav.langLabel}</span>
+        <select id="lang-switch" data-alternates={JSON.stringify(alternates)}>
+          {alternates.map((a) => (
+            <option value={a.path} selected={a.locale === locale}>{LOCALE_SHORT[a.locale]}</option>
+          ))}
+        </select>
+      </label>
+      <a href={route('contact', locale)} class="btn btn-primary header__cta">{ui.nav.cta}</a>
+      <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label={ui.nav.menuLabel}>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" inert>
+  <nav aria-label={ui.nav.menuLabel} class="mobile-menu__nav">
+    <a href={route('services', locale)} class="mobile-menu__section">{ui.nav.allServices}</a>
+    {primaryLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+    <a href={route('invoicing', locale)}>{ui.nav.invoicing}</a>
+    <a href={route('postcraft', locale)}>{ui.nav.postcraft}</a>
+    <a href={route('blog', locale)}>{ui.nav.blog}</a>
+    <a href={route('about', locale)}>{ui.nav.about}</a>
+    <a href={route('faq', locale)}>{locale === 'ca' ? 'Preguntes freqüents' : locale === 'es' ? 'Preguntas frecuentes' : 'FAQ'}</a>
+    <a href={route('contact', locale)} class="btn btn-primary mobile-menu__cta">{ui.nav.cta}</a>
+  </nav>
+</div>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 249, 247, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    height: 76px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--ink);
+    flex: none;
+  }
+
+  .header__logo em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .header__mark {
+    flex: none;
+  }
+
+  .header__nav {
+    flex: 1;
+    display: none;
+    min-width: 0;
+  }
+
+  .header__links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .header__links > li > a,
+  .header__dropdown-btn {
+    text-decoration: none;
+    color: var(--ink-soft);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    background: none;
+    border: none;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.4em 0;
+  }
+
+  .header__links > li > a:hover,
+  .header__dropdown-btn:hover {
+    color: var(--ink);
+  }
+
+  .header__dropdown {
+    position: relative;
+  }
+
+  .header__dropdown-menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  }
+
+  .header__dropdown-menu a {
+    padding: 0.6em 0.8em;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: var(--text-sm);
+  }
+
+  .header__dropdown-menu a:hover {
+    background: var(--gray-50);
+    color: var(--ink);
+  }
+
+  .header__dropdown-all {
+    font-weight: 600;
+    color: var(--ink) !important;
+    border-bottom: 1px solid var(--line-soft);
+    border-radius: 0 !important;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (hover: hover) {
+    .header__dropdown:hover .header__dropdown-menu,
+    .header__dropdown:focus-within .header__dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  .header__dropdown-btn[aria-expanded='true'] + .header__dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: none;
+  }
+
+  .header__lang select {
+    appearance: none;
+    font: inherit;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    background: var(--gray-50);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    padding: 0.5em 1.6em 0.5em 0.9em;
+    color: var(--ink-soft);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6'%3E%3Cpath d='M1 1l3.5 3.5L8 1' stroke='%235b514c' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7em center;
+    min-height: 36px;
+  }
+
+  .header__cta {
+    display: none;
+    min-height: 40px;
+    padding: 0.7em 1.3em;
+  }
+
+  .header__burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .header__burger span {
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform var(--duration-fast) var(--ease), opacity var(--duration-fast) var(--ease);
+  }
+
+  .header__burger[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .header__burger[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header__burger[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--paper);
+    padding: 92px var(--container-pad) var(--space-5);
+    transform: translateX(100%);
+    transition: transform var(--duration) var(--ease);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .mobile-menu__nav > a {
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    padding: 0.7em 0.2em;
+    border-bottom: 1px solid var(--line-soft);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-menu__section {
+    color: var(--red) !important;
+    font-size: var(--text-sm) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  .mobile-menu__cta {
+    margin-top: var(--space-4);
+    justify-content: center;
+    border-bottom: none;
+  }
+
+  @media (min-width: 960px) {
+    .header__nav {
+      display: block;
+    }
+    .header__cta {
+      display: inline-flex;
+    }
+    .header__burger {
+      display: none;
+    }
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const burger = document.getElementById('menu-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+  const header = document.getElementById('site-header');
+
+  if (burger && menu) {
+    const focusables = () =>
+      Array.from(menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+
+    const openMenu = () => {
+      menu.removeAttribute('inert');
+      menu.classList.add('is-open');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      focusables()[0]?.focus();
+    };
+
+    const closeMenu = (returnFocus = true) => {
+      menu.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      window.setTimeout(() => menu.setAttribute('inert', ''), 250);
+      if (returnFocus) burger.focus();
+    };
+
+    burger.addEventListener('click', () => {
+      const isOpen = burger.getAttribute('aria-expanded') === 'true';
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) closeMenu(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (burger.getAttribute('aria-expanded') === 'true') closeMenu();
+    });
+
+    menu.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  // Desktop "Serveis" dropdown: keyboard + touch support via aria-expanded,
+  // in addition to the CSS :hover/:focus-within fallback for mouse users.
+  document.querySelectorAll<HTMLButtonElement>('.header__dropdown-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest('.header__dropdown')) {
+      document.querySelectorAll<HTMLButtonElement>('.header__dropdown-btn').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll<HTMLButtonElement>('.header__dropdown-btn').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+    }
+  });
+
+  // Language switch: navigate to the equivalent page in the chosen locale.
+  const langSelect = document.getElementById('lang-switch') as HTMLSelectElement | null;
+  langSelect?.addEventListener('change', () => {
+    window.location.href = langSelect.value;
+  });
+
+  // Header shadow/scrolled state
+  const headerEl = header;
+  if (headerEl) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        headerEl.classList.toggle('is-scrolled', window.scrollY > 8);
+        ticking = false;
+      });
+    });
+  }
+</script>

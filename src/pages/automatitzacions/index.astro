@@ -1,0 +1,148 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="automations"
+  title="Automatitzacions per a pimes i autònoms"
+  description="Automatitzem processos, documents, missatges i tasques repetitives del teu negoci. No tot s'ha d'automatitzar: t'ajudem a decidir què sí i què no."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="AUTOMATITZACIONS"
+    title="Automatitza el que té sentit automatitzar"
+    lede="Processos, documents, missatges i tasques repetitives que es poden fer soles. La feina no és instal·lar una eina: és decidir bé què val la pena treure't de sobre."
+    crumb={{ name: 'Automatitzacions', path: route('automations', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader
+        eyebrow="EL PRINCIPI"
+        title="No tot s'ha d'automatitzar"
+        as="h2"
+      />
+      <p>
+        Hi ha negocis que arriben demanant "vull automatitzar-ho tot" i, en mirar-ho de prop,
+        el problema real és un altre: un procés mal definit, informació que no es documenta
+        enlloc, o una tasca que només passa dues vegades al mes i no val la pena construir res
+        per a ella. Automatitzar una cosa que no funciona bé només fa que falli més ràpid.
+      </p>
+      <p>
+        Per això, abans de proposar cap automatització, mirem tres coses: quant de temps es
+        perd realment, quin risc d'error hi ha si segueix fent-se a mà, i quant costaria
+        (en temps i diners) construir-ho bé. Si els números no surten, t'ho diem — encara que
+        vulguis pagar-ho.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="ON SOL TENIR SENTIT"
+        title="Casos habituals que treballem"
+        lede="No treballem amb un catàleg tancat de 'productes'. Cada automatització es dissenya per al teu procés concret, però aquests són els tipus de feina que solen tenir més recorregut."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'documents', title: 'Gestió documental', description: 'Factures, albarans o contractes que arriben per correu i s\'han de classificar, arxivar o introduir a un sistema.' },
+          { icon: 'invoicing', title: 'Factures i pagaments', description: 'Des de rebre-les fins a detectar duplicats, aprovar-les i tenir els informes fiscals a punt.' },
+          { icon: 'messages', title: 'Comunicacions amb clients', description: 'Centralitzar WhatsApp, correu i xarxes en un sol lloc, amb respostes automàtiques per a les consultes repetitives.' },
+          { icon: 'reminders', title: 'Recordatoris i seguiments', description: 'Cites, pagaments pendents o renovacions que necessiten un avís a temps, sense que ningú se n\'hagi de recordar.' },
+          { icon: 'users', title: 'Seguiment comercial', description: 'Saber en quin punt està cada client o oportunitat sense haver-ho de reconstruir cada vegada de memòria.' },
+          { icon: 'dashboard', title: 'Dashboards i informes', description: 'Veure d\'un cop d\'ull com va el negoci, en lloc de muntar l\'informe a mà cada mes.' },
+          { icon: 'sparkle', title: 'Assistents amb IA', description: 'Un primer punt de contacte que respon preguntes habituals i només escala a una persona quan cal.' },
+          { icon: 'automation', title: 'Sincronització d\'eines', description: 'Que les eines que ja fas servir es parlin entre elles, sense haver de copiar dades d\'una a l\'altra.' },
+          { icon: 'consulting', title: 'Software a mida', description: 'Quan cap eina existent encaixa prou bé i té sentit construir alguna cosa feta expressament per a tu.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="ABANS I DESPRÉS" title="Dos exemples habituals" lede="Situacions típiques, no casos reals d'un client concret — encara no en tenim publicats." />
+      <div class="ba-stack">
+        <BeforeAfterRow
+          beforeLabel="Abans"
+          afterLabel="Després"
+          before="Cada comanda o consulta que arriba per WhatsApp s'apunta a mà en una llibreta o full de càlcul, i de tant en tant se'n perd alguna."
+          after="Les comandes es registren soles en arribar, amb confirmació automàtica al client i avís immediat per a qui les ha de preparar."
+        />
+        <BeforeAfterRow
+          beforeLabel="Abans"
+          afterLabel="Després"
+          before="Cada mes algú dedica un parell d'hores a copiar dades de factures a un Excel per fer l'informe trimestral."
+          after="Les dades s'extreuen soles de cada factura i l'informe es genera automàticament, llest per revisar."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="PREUS" title="Preus orientatius" />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'Automatització puntual', band: SERVICE_PRICING.automation, note: 'Un procés concret, ben delimitat.' },
+          { label: 'Projectes avançats', band: SERVICE_PRICING.automationAdvanced, note: 'Diverses automatitzacions connectades entre elles.' },
+          { label: 'Software a mida', band: SERVICE_PRICING.customSoftware, note: 'Quan cal construir alguna cosa des de zero.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PREGUNTES" title="Preguntes freqüents" />
+      <FaqAccordion
+        items={[
+          { q: 'Com sé si el meu procés val la pena automatitzar-lo?', a: 'Si el fas més de deu vegades al mes, si és propens a errors humans, o si depèn de què algú se&#39;n recordi, normalment val la pena mirar-ho. Si passa un cop cada mes, probablement no.' },
+          { q: 'Necessito canviar les eines que ja faig servir?', a: 'Normalment no. Solem connectar les eines que ja tens abans de proposar-te\'n de noves.' },
+          { q: 'Quant triga a estar en marxa?', a: 'Una automatització puntual sol trigar entre 1 i 3 setmanes des que es defineix l\'abast. Els projectes avançats depenen del nombre de processos implicats.' },
+          { q: 'Què passa si canvia el procés més endavant?', a: 'Ho parlem quan arribi el moment. Documentem sempre com funciona el que construïm perquè es pugui ajustar sense començar de zero.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Vols saber què val la pena automatitzar al teu negoci?"
+    lede="En una conversa de 15-20 minuts et podem dir si té sentit i per on començaríem."
+    primaryLabel="Explica'ns el teu cas"
+    secondaryLabel="Veure consultoria"
+    secondaryHref={route('consulting', locale)}
+  />
+</BaseLayout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+
+  .bg-alt {
+    background: var(--gray-50);
+  }
+
+  .ba-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'en' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="services"
+  title="Services — Automation, consulting, training and software"
+  description="Automation, AI consulting, team training and VBG Invoicing. Pick what your business actually needs right now."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="SERVICES"
+    title="Four ways to work with VBG Labs"
+    lede="We don't sell a fixed bundle. Depending on where your business is right now, you might just need a consulting session, a specific automation, or a ready-made product like VBG Invoicing."
+    crumb={{ name: 'Services', path: route('services', locale) }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-4">
+        <ServiceCard icon="automation" title="Automation" description="Processes, documents and repetitive tasks that start running on their own." href={route('automations', locale)} linkLabel="See automation" />
+        <ServiceCard icon="consulting" title="Consulting" description="An outside, technical view of how your business runs, and what's worth changing." href={route('consulting', locale)} linkLabel="See consulting" />
+        <ServiceCard icon="training" title="Training" description="So your team learns to get real value from AI, day to day." href={route('training', locale)} linkLabel="See training" />
+        <ServiceCard icon="invoicing" title="VBG Invoicing" description="Our own product for managing received invoices, with AI built in." href={route('invoicing', locale)} linkLabel="See the product" accent />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="NOT SURE WHERE TO START"
+        title="If you're not sure, start with consulting"
+        lede="A short consulting engagement (350–650€ + VAT) gets you a diagnosis and a prioritized roadmap before you spend anything on implementation. From there, you decide if you want us to build it."
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    title="Not sure where to start?"
+    lede="Tell us your case in 15 minutes and we'll tell you, no obligation, where we'd start."
+    primaryLabel="Tell us your case"
+  />
+</BaseLayout>
+
+<style>
+  .grid-4 { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+  @media (min-width: 640px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1080px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+</style>

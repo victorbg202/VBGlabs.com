@@ -1,0 +1,252 @@
+---
+/**
+ * Four illustrative panel bodies (dashboard / invoice list / review /
+ * reports) rendered inside <ProductFrame>. Original schematic UI, not a
+ * screenshot — see ProductFrame.astro for why. All figures shown are
+ * placeholder/illustrative, never presented as real customer data.
+ */
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  variant: 'dashboard' | 'invoices' | 'review' | 'reports';
+  labels: {
+    thisMonth: string;
+    correct: string;
+    pending: string;
+    supplier: string;
+    amount: string;
+    status: string;
+    okStatus: string;
+    reviewTitle: string;
+    reviewNote: string;
+    reportTitle: string;
+    vat: string;
+    withholding: string;
+  };
+}
+
+const { variant, labels } = Astro.props;
+---
+{variant === 'dashboard' && (
+  <div class="panel panel--dashboard">
+    <div class="stat-tile stat-tile--accent">
+      <span class="stat-tile__value tabular">18</span>
+      <span class="stat-tile__label">{labels.thisMonth}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-tile__value tabular">16</span>
+      <span class="stat-tile__label">{labels.correct}</span>
+    </div>
+    <div class="stat-tile stat-tile--warn">
+      <span class="stat-tile__value tabular">2</span>
+      <span class="stat-tile__label">{labels.pending}</span>
+    </div>
+    <div class="chart-row">
+      {[40, 65, 50, 80, 60, 90, 70].map((h) => <span style={`height:${h}%`} />)}
+    </div>
+  </div>
+)}
+
+{variant === 'invoices' && (
+  <div class="panel panel--invoices">
+    {[
+      { s: 'ok', n: 'FR-2026-014' },
+      { s: 'ok', n: 'FR-2026-013' },
+      { s: 'warn', n: 'FR-2026-012' },
+      { s: 'ok', n: 'FR-2026-011' },
+    ].map((row) => (
+      <div class="invoice-row">
+        <span class="invoice-row__icon"><Icon name="documents" size={16} /></span>
+        <span class="invoice-row__id tabular">{row.n}</span>
+        <span class="flow-bar" />
+        <span class={`pill ${row.s === 'ok' ? 'pill--ok' : 'pill--warn'}`}>{row.s === 'ok' ? labels.okStatus : labels.status}</span>
+      </div>
+    ))}
+  </div>
+)}
+
+{variant === 'review' && (
+  <div class="panel panel--review">
+    <div class="review-card">
+      <Icon name="shield" size={18} />
+      <div>
+        <p class="review-card__title">{labels.reviewTitle}</p>
+        <p class="review-card__note">{labels.reviewNote}</p>
+      </div>
+    </div>
+    <div class="review-actions">
+      <span class="pill pill--ok">{labels.okStatus}</span>
+      <span class="pill pill--muted">{labels.status}</span>
+    </div>
+  </div>
+)}
+
+{variant === 'reports' && (
+  <div class="panel panel--reports">
+    <p class="reports-title">{labels.reportTitle}</p>
+    <div class="reports-grid">
+      <div class="stat-tile">
+        <span class="stat-tile__value tabular">2.481€</span>
+        <span class="stat-tile__label">{labels.vat}</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-tile__value tabular">612€</span>
+        <span class="stat-tile__label">{labels.withholding}</span>
+      </div>
+    </div>
+    <div class="chart-row chart-row--muted">
+      {[30, 50, 45, 70, 55, 40].map((h) => <span style={`height:${h}%`} />)}
+    </div>
+  </div>
+)}
+
+<style>
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .panel--dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+
+  .stat-tile {
+    grid-column: span 1;
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    padding: 0.8em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+  }
+
+  .stat-tile--accent {
+    background: var(--red-50);
+  }
+
+  .stat-tile--warn {
+    background: var(--warn-wash);
+  }
+
+  .stat-tile__value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+
+  .stat-tile__label {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .chart-row {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 64px;
+    margin-top: 0.3rem;
+  }
+
+  .chart-row span {
+    flex: 1;
+    background: var(--red-300);
+    border-radius: 3px 3px 0 0;
+  }
+
+  .chart-row--muted span {
+    background: var(--teal-300);
+  }
+
+  .invoice-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.55em 0.2em;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .invoice-row__icon {
+    color: var(--gray-400);
+    flex: none;
+  }
+
+  .invoice-row__id {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    flex: none;
+  }
+
+  .flow-bar {
+    height: 6px;
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 3px;
+  }
+
+  .pill {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.25em 0.65em;
+    border-radius: var(--radius-pill);
+    flex: none;
+  }
+
+  .pill--ok {
+    background: var(--ok-wash);
+    color: var(--teal-700);
+  }
+
+  .pill--warn {
+    background: var(--warn-wash);
+    color: var(--warn);
+  }
+
+  .pill--muted {
+    background: var(--gray-100);
+    color: var(--muted);
+  }
+
+  .review-card {
+    display: flex;
+    gap: 0.8em;
+    background: var(--warn-wash);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
+    color: var(--warn);
+  }
+
+  .review-card__title {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: var(--text-sm);
+    margin-bottom: 0.2em;
+  }
+
+  .review-card__note {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .review-actions {
+    display: flex;
+    gap: 0.5em;
+  }
+
+  .reports-title {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--ink);
+  }
+
+  .reports-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+  }
+</style>

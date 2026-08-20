@@ -1,0 +1,74 @@
+---
+import { t } from '@/i18n/ui';
+import type { Locale } from '@/i18n/locales';
+import { route } from '@/i18n/routes';
+import { ANALYTICS } from '@/data/company';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = t(locale);
+---
+<div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookies" hidden data-analytics-enabled={ANALYTICS.enabled ? '1' : '0'}>
+  <div class="cookie-banner__inner container">
+    <p>{ui.cookies.text} <a href={route('cookies', locale)}>{ui.cookies.link}</a></p>
+    <button type="button" id="cookie-accept" class="btn btn-dark">{ui.cookies.accept}</button>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    z-index: 200;
+    background: var(--ink);
+    color: var(--gray-300);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .cookie-banner__inner {
+    max-width: none;
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    justify-content: space-between;
+  }
+
+  .cookie-banner p {
+    font-size: var(--text-xs);
+    margin: 0;
+    flex: 1 1 240px;
+  }
+
+  .cookie-banner a {
+    color: var(--white);
+    text-decoration: underline;
+  }
+
+  .cookie-banner button {
+    min-height: 40px;
+    padding: 0.6em 1.2em;
+    flex: none;
+  }
+</style>
+
+<script>
+  const KEY = 'vbg-cookie-ack';
+  const banner = document.getElementById('cookie-banner');
+  if (banner && !localStorage.getItem(KEY)) {
+    banner.hidden = false;
+  }
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(KEY, '1');
+    if (banner) banner.hidden = true;
+  });
+</script>

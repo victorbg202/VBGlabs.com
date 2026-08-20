@@ -1,0 +1,108 @@
+---
+import { route } from '@/i18n/routes';
+import type { Locale } from '@/i18n/locales';
+
+interface Props {
+  locale: Locale;
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  primaryLabel: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  variant?: 'dark' | 'red';
+}
+
+const {
+  locale,
+  eyebrow,
+  title,
+  lede,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+  variant = 'dark',
+} = Astro.props;
+
+const resolvedPrimaryHref = primaryHref ?? route('contact', locale);
+---
+<section class={`cta-band cta-band--${variant}`}>
+  <div class="container cta-band__inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2>{title}</h2>
+    {lede && <p class="lede">{lede}</p>}
+    <div class="cta-band__actions">
+      <a href={resolvedPrimaryHref} class="btn btn-primary">{primaryLabel}</a>
+      {secondaryLabel && secondaryHref && (
+        <a href={secondaryHref} class="btn btn-outline">{secondaryLabel}</a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding-block: var(--space-7);
+    position: relative;
+    overflow: clip;
+  }
+
+  .cta-band--dark {
+    background: var(--ink);
+    color: var(--gray-300);
+  }
+
+  .cta-band--red {
+    background: linear-gradient(135deg, var(--red-600), var(--red-500));
+    color: #fff0ef;
+  }
+
+  .cta-band__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+    position: relative;
+  }
+
+  .cta-band h2 {
+    color: var(--white);
+    font-size: var(--text-2xl);
+    max-width: 24ch;
+  }
+
+  .cta-band .lede {
+    color: inherit;
+    opacity: 0.85;
+    max-width: 48ch;
+  }
+
+  .cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .cta-band--red .btn-primary {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .cta-band--red .btn-primary:hover {
+    background: var(--gray-800);
+  }
+
+  .cta-band--red .btn-outline {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .cta-band--red .btn-outline:hover {
+    border-color: #fff;
+  }
+</style>

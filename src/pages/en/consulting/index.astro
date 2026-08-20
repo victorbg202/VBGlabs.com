@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import StepsList from '@/components/StepsList.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'en' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="consulting"
+  title="Technology and AI consulting for SMEs"
+  description="An outside, technical diagnosis of how your business runs, with a prioritized roadmap. Can be hired standalone, with no obligation to implement anything afterwards."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="CONSULTING"
+    title="An outside view before you decide anything"
+    lede="We analyze how your business runs today and give you a clear roadmap of what's worth changing first. It stands on its own — there's no obligation to have us implement anything afterwards."
+    crumb={{ name: 'Consulting', path: route('consulting', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="WHO IT'S FOR" title="When consulting makes sense" />
+      <p>
+        If you sense the business could run more smoothly but aren't sure where to start, or
+        want an independent technical opinion before committing to a large project, consulting
+        is the safest place to begin. We don't propose anything before understanding how your
+        team actually works — not from a form, but by talking to the people doing the work
+        every day.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="METHODOLOGY" title="How we work" />
+      <StepsList
+        steps={[
+          { title: 'Understand how you work', description: 'Short sessions with the people doing the work day to day, not only whoever manages it.' },
+          { title: 'Spot problems and opportunities', description: 'We find where time is lost, where errors are likely, and where the real room for improvement is.' },
+          { title: 'Prioritize', description: "Not everything is worth changing. We rank by real impact against the effort it takes." },
+          { title: 'Set a roadmap', description: 'A concrete document, with phases and an indicative budget for each, so you can decide with real information.' },
+          { title: "Implement, if you'd like us to", description: 'If you decide to go ahead, we can build it, test it with your team, and train everyone on it.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="WHAT YOU GET" title="What comes out of a consulting engagement" />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'documents', title: 'A written diagnosis', description: "Where time and money are being lost today, with concrete examples from your business." },
+          { icon: 'flag', title: 'Clear priorities', description: "What's worth tackling first and what can wait, ranked by real impact." },
+          { icon: 'chart', title: 'A priced roadmap', description: 'Concrete phases with an indicative budget for each, no surprises.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="PRICING" title="Indicative pricing" />
+      <PriceStrip
+        locale={locale}
+        items={[
+          { label: 'Consulting / diagnosis', band: SERVICE_PRICING.consulting, note: 'Depending on scope and business size.' },
+          { label: 'Ongoing support', band: SERVICE_PRICING.ongoingSupport, note: 'Optional, once implemented.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="QUESTIONS" title="Frequently asked questions" />
+      <FaqAccordion
+        items={[
+          { q: 'Does consulting commit me to hiring you afterwards?', a: 'No. You can keep just the diagnosis and roadmap, and decide for yourself how to proceed.' },
+          { q: 'How long does a consulting engagement take?', a: 'Usually 1 to 2 weeks from the first conversations to having the roadmap in hand.' },
+          { q: 'Do I need to prepare anything beforehand?', a: 'No. We bring the questions — you just need to let us see how your team actually works.' },
+          { q: 'Do you do consulting for one specific problem, not the whole business?', a: 'Yes. Many engagements focus on one area — invoicing, customer service, and so on — rather than the whole business.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Let's start by understanding your business"
+    lede="A first 15-20 minute conversation, no obligation."
+    primaryLabel="Tell us your case"
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+</style>

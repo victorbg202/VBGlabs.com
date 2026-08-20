@@ -1,0 +1,99 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import PriceStrip from '@/components/PriceStrip.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+import { SERVICE_PRICING } from '@/data/pricing';
+
+const locale = 'en' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="training"
+  title="Practical AI training for teams"
+  description="Applied AI training so your team actually uses it well: with judgment, clear limits, and built into their everyday work."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="TRAINING"
+    title="Get your team using AI with judgment, not just curiosity"
+    lede="Hands-on sessions so your team learns to get real value from AI in their day-to-day work, while understanding its limits and the privacy risks involved."
+    crumb={{ name: 'Training', path: route('training', locale) }}
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="THE PROBLEM" title="Having access to AI isn't the same as knowing how to use it" />
+      <p>
+        Plenty of companies already give their teams access to ChatGPT, Copilot or similar
+        tools, but nobody has actually taught them how to use them well: when it's useful,
+        when not to trust it blindly, and what information should never go into it. The result
+        is usually shallow use — or, worse, risky use.
+      </p>
+      <p>
+        Our training isn't a general talk about "what is AI." It's hands-on, applied to your
+        team's real tasks, and always includes a section on limits and data privacy.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="WHAT WE COVER" title="What the training includes" />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'sparkle', title: 'Practical, everyday AI', description: "Examples and exercises built around your team's real tasks, not generic ones." },
+          { icon: 'shield', title: 'Responsible use and limits', description: "What can go wrong, when not to trust it blindly, and what should never go in." },
+          { icon: 'users', title: 'Built into real work', description: 'How to fold it into the normal workflow, not treat it as a separate tool.' },
+          { icon: 'documents', title: 'Training on what we built for you', description: "If we've built an automation for you, we train the team that will use it." },
+          { icon: 'chart', title: 'Cases from your own industry', description: 'We adapt the exercises to your type of business and the tools you already use.' },
+          { icon: 'flag', title: 'Materials to keep afterwards', description: 'A written summary of the session, not just slides.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PRICING" title="Indicative pricing" />
+      <PriceStrip
+        locale={locale}
+        items={[{ label: 'Intro session', band: SERVICE_PRICING.training, note: 'Workshop format, for small to mid-sized teams.' }]}
+      />
+      <p class="note">For full multi-session programs, tell us your case and we'll walk you through the options.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="QUESTIONS" title="Frequently asked questions" />
+      <FaqAccordion
+        items={[
+          { q: 'How many people can attend a session?', a: 'Sessions work best with small to mid-sized teams, so there\'s room for questions and specific cases.' },
+          { q: 'Do we need prior AI knowledge?', a: "No. We adapt the level to wherever your team actually is." },
+          { q: 'Is it in person or online?', a: "We work that out based on what suits you — both work well for the workshop format." },
+          { q: 'Can you train us specifically on a tool we already use?', a: "Yes. If you're already using a specific tool or an automation we built for you, we tailor the training to it." },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Want your team actually using AI well?"
+    lede="Tell us where your team is starting from and we'll propose a format."
+    primaryLabel="Tell us your case"
+  />
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+  .note { font-size: var(--text-sm); color: var(--muted); margin-top: var(--space-3); }
+</style>

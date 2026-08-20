@@ -1,0 +1,55 @@
+---
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import type { Locale } from '@/i18n/locales';
+
+interface Props {
+  locale: Locale;
+  eyebrow: string;
+  title: string;
+  lede: string;
+  crumb: { name: string; path: string };
+  dark?: boolean;
+}
+
+const { locale, eyebrow, title, lede, crumb, dark = false } = Astro.props;
+---
+<section class={`page-hero ${dark ? 'page-hero--dark' : ''}`}>
+  <div class="container">
+    <Breadcrumb locale={locale} trail={[crumb]} />
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lede">{lede}</p>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-4) var(--space-6);
+    background: var(--paper);
+  }
+
+  .page-hero--dark {
+    background: var(--ink);
+    color: var(--gray-300);
+  }
+
+  .page-hero--dark :global(.breadcrumb a),
+  .page-hero--dark :global(.breadcrumb span) {
+    color: var(--gray-400);
+  }
+
+  .page-hero h1 {
+    font-size: var(--text-3xl);
+    max-width: 18ch;
+    margin-block: var(--space-2);
+  }
+
+  .page-hero--dark h1 {
+    color: var(--white);
+  }
+
+  .page-hero .lede {
+    font-size: var(--text-md);
+    max-width: 56ch;
+  }
+</style>
