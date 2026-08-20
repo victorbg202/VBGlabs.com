@@ -126,6 +126,12 @@ button {
   color: var(--white);
 }
 
+.section--dark .eyebrow {
+  /* --red-600 (tuned for light backgrounds) drops to 3.18:1 on --ink.
+     --red-300 holds 6.47:1 here. */
+  color: var(--red-300);
+}
+
 .stack {
   display: flex;
   flex-direction: column;
@@ -251,7 +257,9 @@ button {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--red);
+  /* --red measured 4.49:1 on --gray-50 (fails 4.5 by a hair). --red-600
+     holds 5.6-6.2:1 on every light surface this label appears on. */
+  color: var(--red-600);
 }
 
 .eyebrow::before {

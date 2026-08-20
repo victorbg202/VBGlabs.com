@@ -32,7 +32,11 @@
   --gray-200: #dcd6d1;
   --gray-300: #c5bcb5;
   --gray-400: #a29790;
-  --gray-500: #7c716b;
+  /* darkened from an earlier #7c716b: that value measured 4.50-4.72:1 on
+     --paper (borderline) and failed outright against --gray-50 and dark
+     surfaces — axe-core caught this across ~180 nodes. This value holds
+     ≥5.9:1 against every light surface the token is used on. */
+  --gray-500: #645b56;
   --gray-600: #5b514c;
   --gray-700: #423a36;
   --gray-800: #262120;
@@ -47,7 +51,8 @@
   /* semantic */
   --ok: var(--teal-500);
   --ok-wash: var(--teal-50);
-  --warn: #9c6b0a;
+  /* darkened from #9c6b0a (4.13:1 on --warn-wash, fails 4.5) */
+  --warn: #8a5f09;
   --warn-wash: #faf1dc;
 
   /* ---- Typography ---- */

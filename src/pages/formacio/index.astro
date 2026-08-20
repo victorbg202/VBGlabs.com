@@ -6,6 +6,7 @@ import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -91,6 +92,12 @@ const locale = 'ca' as const;
     title="Vols que el teu equip aprengui a fer servir la IA de veritat?"
     lede="Explica'ns el punt de partida del teu equip i et proposem un format."
     primaryLabel="Explica'ns el teu cas"
+  />
+
+  <ServiceSchema
+    name="Formació en IA"
+    description="Formació pràctica en intel·ligència artificial aplicada per a equips de pimes i autònoms."
+    path={route('training', locale)}
   />
 </BaseLayout>
 

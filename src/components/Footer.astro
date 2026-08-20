@@ -118,7 +118,7 @@ const companyLinks = [
 
   .footer__location {
     font-size: var(--text-sm);
-    color: var(--gray-500);
+    color: var(--gray-400);
   }
 
   .footer__col h2 {
@@ -126,7 +126,7 @@ const companyLinks = [
     font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--gray-500);
+    color: var(--gray-400);
     margin-bottom: var(--space-3);
     font-weight: 600;
   }
@@ -137,13 +137,18 @@ const companyLinks = [
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
   }
 
   .footer__col a {
     text-decoration: none;
     color: var(--gray-300);
     font-size: var(--text-sm);
+    display: inline-block;
+    /* padding (not a taller line-height) grows the tap target toward 44px
+       without changing how the link reads visually; negative margin keeps
+       the same visible gap between rows. */
+    padding-block: 0.5rem;
+    margin-block: -0.1rem;
   }
 
   .footer__col a:hover {
@@ -170,6 +175,9 @@ const companyLinks = [
   .footer__legal a {
     color: var(--gray-400);
     text-decoration: none;
+    display: inline-block;
+    padding-block: 0.5rem;
+    margin-block: -0.4rem;
   }
 
   .footer__legal a:hover {

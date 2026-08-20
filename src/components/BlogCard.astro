@@ -6,13 +6,18 @@ interface Props {
   description: string;
   date: string;
   readLabel: string;
+  /** Defaults to h3 (cards under a section h2, e.g. the home teaser).
+   *  Pass "h2" on the blog listing page, where cards follow the page's
+   *  h1 with no h2 in between. */
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { href, category, title, description, date, readLabel } = Astro.props;
+const { href, category, title, description, date, readLabel, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
 ---
 <a href={href} class="blog-card">
   <span class="blog-card__category">{category}</span>
-  <h3>{title}</h3>
+  <Heading>{title}</Heading>
   <p>{description}</p>
   <span class="blog-card__meta">
     <time>{date}</time>
@@ -49,6 +54,7 @@ const { href, category, title, description, date, readLabel } = Astro.props;
     color: var(--red);
   }
 
+  .blog-card h2,
   .blog-card h3 {
     font-size: var(--text-md);
   }
@@ -64,7 +70,7 @@ const { href, category, title, description, date, readLabel } = Astro.props;
     justify-content: space-between;
     align-items: center;
     font-size: var(--text-xs);
-    color: var(--gray-400);
+    color: var(--muted);
     margin-top: 0.3rem;
   }
 

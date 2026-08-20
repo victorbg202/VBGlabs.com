@@ -8,13 +8,18 @@ interface Props {
   href: string;
   linkLabel: string;
   accent?: boolean;
+  /** Heading level for the card title. Defaults to h3 (the common case:
+   *  cards sit under a section h2). Pass "h2" when a card grid follows
+   *  directly after the page's h1 with no h2 in between. */
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { icon, title, description, href, linkLabel, accent = false } = Astro.props;
+const { icon, title, description, href, linkLabel, accent = false, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
 ---
 <a href={href} class={`service-card ${accent ? 'service-card--accent' : ''}`}>
   <span class="service-card__icon"><Icon name={icon} size={26} /></span>
-  <h3>{title}</h3>
+  <Heading>{title}</Heading>
   <p>{description}</p>
   <span class="service-card__link">
     {linkLabel}
@@ -63,6 +68,7 @@ const { icon, title, description, href, linkLabel, accent = false } = Astro.prop
     color: var(--red);
   }
 
+  .service-card h2,
   .service-card h3 {
     font-size: var(--text-md);
   }

@@ -28,7 +28,7 @@ const dateFmt = new Intl.DateTimeFormat('ca-ES', { day: 'numeric', month: 'long'
       {posts.length > 0 ? (
         <div class="grid">
           {posts.map((post) => (
-            <BlogCard
+            <BlogCard headingLevel="h2"
               href={`${route('blog', locale)}${post.data.slug}/`}
               category={post.data.category}
               title={post.data.title}

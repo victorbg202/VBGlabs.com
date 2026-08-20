@@ -20,9 +20,10 @@ const primaryLinks = [
 ---
 <header class="header" id="site-header">
   <div class="header__bar container">
-    <a href={route('home', locale)} class="header__logo" aria-label="VBG Labs — inici">
+    <a href={route('home', locale)} class="header__logo">
       <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" />
       <span>VBG<em>Labs</em></span>
+      <span class="visually-hidden"> — {ui.common.home}</span>
     </a>
 
     <nav class="header__nav" aria-label={ui.nav.menuLabel}>

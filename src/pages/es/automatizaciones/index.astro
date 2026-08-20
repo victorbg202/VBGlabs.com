@@ -7,6 +7,7 @@ import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -124,6 +125,12 @@ const locale = 'es' as const;
     primaryLabel="Cuéntanos tu caso"
     secondaryLabel="Ver consultoría"
     secondaryHref={route('consulting', locale)}
+  />
+
+  <ServiceSchema
+    name="Automatizaciones"
+    description="Automatización de procesos, documentos, mensajes y tareas repetitivas para pymes y autónomos."
+    path={route('automations', locale)}
   />
 </BaseLayout>
 

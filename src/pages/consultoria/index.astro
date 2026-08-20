@@ -7,6 +7,7 @@ import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -101,6 +102,12 @@ const locale = 'ca' as const;
     title="Comencem per entendre el teu negoci"
     lede="Una primera conversa de 15-20 minuts, sense compromís."
     primaryLabel="Explica'ns el teu cas"
+  />
+
+  <ServiceSchema
+    name="Consultoria tecnològica"
+    description="Diagnòstic extern i full de ruta priortizat per a pimes i autònoms."
+    path={route('consulting', locale)}
   />
 </BaseLayout>
 

@@ -7,6 +7,7 @@ import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -101,6 +102,12 @@ const locale = 'en' as const;
     title="Let's start by understanding your business"
     lede="A first 15-20 minute conversation, no obligation."
     primaryLabel="Tell us your case"
+  />
+
+  <ServiceSchema
+    name="Technology consulting"
+    description="External diagnosis and a prioritized roadmap for small and medium businesses."
+    path={route('consulting', locale)}
   />
 </BaseLayout>
 

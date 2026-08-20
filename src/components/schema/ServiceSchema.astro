@@ -1,0 +1,24 @@
+---
+import { SITE_URL } from '@/i18n/locales';
+import { COMPANY } from '@/data/company';
+
+interface Props {
+  name: string;
+  description: string;
+  path: string;
+}
+
+const { name, description, path } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: name,
+  name,
+  description,
+  url: new URL(path, SITE_URL).toString(),
+  provider: { '@id': `${SITE_URL}/#organization` },
+  areaServed: COMPANY.areaServed,
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

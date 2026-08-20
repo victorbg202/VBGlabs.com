@@ -54,9 +54,19 @@ const resolvedPrimaryHref = primaryHref ?? route('contact', locale);
     color: var(--gray-300);
   }
 
+  .cta-band--dark .eyebrow {
+    /* base .eyebrow is tuned red-600, which drops to 3.18:1 on --ink */
+    color: var(--red-300);
+  }
+
   .cta-band--red {
     background: linear-gradient(135deg, var(--red-600), var(--red-500));
     color: #fff0ef;
+  }
+
+  .cta-band--red .eyebrow {
+    /* red-on-red would be near-invisible; white holds contrast here */
+    color: #fff;
   }
 
   .cta-band__inner {

@@ -6,6 +6,7 @@ import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -89,6 +90,12 @@ const locale = 'en' as const;
     title="Want your team actually using AI well?"
     lede="Tell us where your team is starting from and we'll propose a format."
     primaryLabel="Tell us your case"
+  />
+
+  <ServiceSchema
+    name="AI training"
+    description="Practical applied-AI training for small and medium business teams."
+    path={route('training', locale)}
   />
 </BaseLayout>
 

@@ -25,28 +25,28 @@ const locale = 'ca' as const;
   <section class="section">
     <div class="container">
       <div class="grid-4">
-        <ServiceCard
+        <ServiceCard headingLevel="h2"
           icon="automation"
           title="Automatitzacions"
           description="Processos, documents i tasques repetitives que passen a fer-se soles."
           href={route('automations', locale)}
           linkLabel="Veure automatitzacions"
         />
-        <ServiceCard
+        <ServiceCard headingLevel="h2"
           icon="consulting"
           title="Consultoria"
           description="Una mirada externa i tècnica sobre com treballa el teu negoci i què val la pena canviar."
           href={route('consulting', locale)}
           linkLabel="Veure consultoria"
         />
-        <ServiceCard
+        <ServiceCard headingLevel="h2"
           icon="training"
           title="Formació"
           description="Perquè el teu equip aprengui a treure profit real de la IA en el dia a dia."
           href={route('training', locale)}
           linkLabel="Veure formació"
         />
-        <ServiceCard
+        <ServiceCard headingLevel="h2"
           icon="invoicing"
           title="VBG Facturació"
           description="El nostre producte propi per gestionar factures rebudes, amb IA integrada."
