@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { route } from '@/i18n/routes';
+import { getCollection } from 'astro:content';
+
+const locale = 'ca' as const;
+const posts = (await getCollection('blog', (p) => p.data.lang === locale && !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const dateFmt = new Intl.DateTimeFormat('ca-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout
+  locale={locale}
+  routeKey="blog"
+  title="Blog — Automatització i IA aplicada, sense farciment"
+  description="Articles pràctics sobre automatització, intel·ligència artificial aplicada i gestió de negoci per a pimes i autònoms."
+>
+  <PageHero
+    locale={locale}
+    eyebrow="BLOG"
+    title="Per pensar-hi una mica més"
+    lede="Articles pràctics, sense farciment, sobre automatització i IA aplicada a negocis reals."
+    crumb={{ name: 'Blog', path: route('blog', locale) }}
+  />
+  <section class="section">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="grid">
+          {posts.map((post) => (
+            <BlogCard
+              href={`${route('blog', locale)}${post.data.slug}/`}
+              category={post.data.category}
+              title={post.data.title}
+              description={post.data.description}
+              date={dateFmt.format(post.data.date)}
+              readLabel="Llegir"
+            />
+          ))}
+        </div>
+      ) : (
+        <p>Encara no hi ha articles publicats.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

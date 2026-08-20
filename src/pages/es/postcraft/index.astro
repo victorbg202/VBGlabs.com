@@ -1,0 +1,83 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'es' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="postcraft"
+  title="Postcraft — El segundo producto de VBG Labs (próximamente)"
+  description="Postcraft será una plataforma para planificar y generar contenido de redes sociales entendiendo la voz de cada marca. Actualmente en preparación."
+>
+  <section class="hero">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'Postcraft', path: route('postcraft', locale) }]} />
+      <span class="soon-badge">Próximamente</span>
+      <h1>Postcraft</h1>
+      <p class="lede">
+        El segundo producto propio de VBG Labs: una plataforma para planificar y generar
+        contenido de redes sociales que entiende la voz, el estilo y el sector de cada marca
+        — en lugar de proponer el mismo contenido genérico para todos.
+      </p>
+      <div class="hero__actions">
+        <a href={route('contact', locale)} class="btn btn-primary">Avísame cuando esté disponible</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="LA VISIÓN"
+        title="Contenido que suena a tu marca, no a una plantilla"
+        lede="Postcraft está pensado para aprender el estilo e identidad de cada negocio — su tono, su audiencia y su sector — antes de proponer ninguna idea de contenido."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'sparkle', title: 'Conoce la voz de la marca', description: 'Aprende el estilo, el sector y la audiencia de cada negocio para proponer contenido coherente.' },
+          { icon: 'documents', title: 'Genera ideas y contenido', description: 'Propuestas de publicaciones basadas en tendencias reales del sector, no genéricas.' },
+          { icon: 'chart', title: 'Analiza el rendimiento', description: 'Gráficos claros de qué publicaciones funcionan mejor y por qué.' },
+          { icon: 'clock', title: 'Recomienda los mejores horarios', description: 'Detecta cuándo tu audiencia está más activa.' },
+          { icon: 'reminders', title: 'Programa publicaciones', description: 'Planifica el calendario de contenido sin tener que hacerlo manualmente cada día.' },
+          { icon: 'flag', title: 'Detecta lo que mejor funciona', description: 'Identifica patrones en las publicaciones con mejor rendimiento para repetirlos con criterio.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="ESTADO ACTUAL" title="En preparación" />
+      <p>
+        Postcraft todavía no está disponible. Lo estamos construyendo con la misma lógica que
+        VBG Facturación: primero que funcione bien para un caso real, después abrirlo a más
+        negocios. Si quieres ser de los primeros en probarlo, escríbenos y te avisamos en
+        cuanto esté listo.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="¿Quieres ser de los primeros en probar Postcraft?"
+    lede="Déjanos tu contacto y te avisaremos en cuanto esté disponible."
+    primaryLabel="Avísame cuando esté disponible"
+  />
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-4) var(--space-7); }
+  .soon-badge { display: inline-block; font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); background: var(--red-100); padding: 0.3em 0.9em; border-radius: var(--radius-pill); margin: var(--space-3) 0; }
+  .hero h1 { font-size: var(--text-3xl); margin-bottom: var(--space-2); }
+  .hero .lede { font-size: var(--text-md); max-width: 56ch; }
+  .hero__actions { margin-top: var(--space-4); }
+  .narrow { max-width: 700px; }
+  .bg-alt { background: var(--gray-50); }
+</style>

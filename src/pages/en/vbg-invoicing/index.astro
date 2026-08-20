@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import ProductFrame from '@/components/ProductFrame.astro';
+import InvoicingPanels from '@/components/InvoicingPanels.astro';
+import PricingPlans from '@/components/PricingPlans.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'en' as const;
+
+const panelLabels = {
+  thisMonth: 'Invoices this month', correct: 'Correct', pending: 'Pending review',
+  supplier: 'Supplier', amount: 'Amount', status: 'To review', okStatus: 'Correct',
+  reviewTitle: 'Possible duplicate detected', reviewNote: 'Same supplier and amount as an invoice already on file.',
+  reportTitle: "This quarter's tax summary", vat: 'VAT paid', withholding: 'Withholding tax',
+};
+
+const narrative = [
+  { variant: 'invoices' as const, tag: 'Receive and organize', title: 'Every invoice you receive, registered on its own', body: "It arrives by email, gets sent to you, or you upload it yourself: VBG Invoicing reads it, pulls out the data, and files it. Nothing gets lost in an inbox." },
+  { variant: 'review' as const, tag: 'Review', title: 'The system flags it; you decide', body: 'It catches possible duplicates and exceptions before they reach payment. You only review what genuinely needs a human call.' },
+  { variant: 'dashboard' as const, tag: 'See it all', title: "A dashboard with this month's real status", body: 'How many invoices there are, how many are correct, how many are waiting on review, and how much is still due — at a glance, no spreadsheet required.' },
+  { variant: 'reports' as const, tag: 'File', title: 'Tax reports ready to file', body: 'VAT paid, withholding tax and the quarterly breakdown, generated automatically from the invoices already on file.' },
+];
+---
+<BaseLayout
+  locale={locale}
+  routeKey="invoicing"
+  title="VBG Invoicing — AI-powered received-invoice management"
+  description="Centralize, review and organize the invoices you receive. Duplicate detection, tax reports, and a built-in AI assistant. From 14.90€/mo + VAT."
+>
+  <section class="hero">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'VBG Invoicing', path: route('invoicing', locale) }]} />
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">A VBG LABS PRODUCT</p>
+          <h1>VBG Invoicing</h1>
+          <p class="lede">
+            Manage the invoices you receive without losing a single one. Centralization,
+            automatic review, tax reports, and an AI assistant that finds any figure just by
+            asking.
+          </p>
+          <div class="hero__actions">
+            <a href={route('contact', locale)} class="btn btn-primary">Request a demo</a>
+            <a href="#pricing" class="btn btn-outline">See pricing</a>
+          </div>
+        </div>
+        <ProductFrame label="app.vbgfacturacion.com">
+          <InvoicingPanels variant="dashboard" labels={panelLabels} />
+        </ProductFrame>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container narrow">
+      <SectionHeader eyebrow="WHAT IT DOES (AND DOESN'T)" title="It manages the invoices you receive, not the ones you issue" as="h2" />
+      <p>
+        VBG Invoicing focuses on one specific problem: the invoices coming into your business
+        from suppliers and contractors. It centralizes them, reviews them, and gets your tax
+        reports ready. Right now it <strong>doesn't issue sales invoices</strong> to your own
+        customers — you'll keep doing that with whatever you already use, while VBG Invoicing
+        handles the received side.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="narrative">
+        {narrative.map((block, i) => (
+          <div class={`narrative__row ${i % 2 === 1 ? 'narrative__row--reverse' : ''}`}>
+            <div class="narrative__copy">
+              <span class="narrative__tag">{block.tag}</span>
+              <h3>{block.title}</h3>
+              <p>{block.body}</p>
+            </div>
+            <ProductFrame label="app.vbgfacturacion.com">
+              <InvoicingPanels variant={block.variant} labels={panelLabels} />
+            </ProductFrame>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="AI ASSISTANT" title="Ask your invoices directly" lede="A built-in assistant that answers questions about your invoices in plain language, no manual searching." />
+      <div class="assistant-demo">
+        <div class="assistant-demo__msg assistant-demo__msg--user">How much VAT have I paid this quarter?</div>
+        <div class="assistant-demo__msg assistant-demo__msg--bot"><Icon name="sparkle" size={16} /> You've paid €2,481.00 in VAT across 34 invoices this quarter. Want the breakdown by supplier?</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="WHO IT'S FOR" title="Built for anyone handling invoices every month" />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'users', title: 'Freelancers', description: "Stop piling up receipts and invoices to deal with later." },
+          { icon: 'building', title: 'Micro-businesses', description: 'Centralize invoices from every supplier in one place.' },
+          { icon: 'chart', title: 'SMEs', description: 'Tax reports ready to go, no spreadsheet required.' },
+          { icon: 'consulting', title: 'Accounting firms', description: 'Multi-company management to run several clients from one dashboard.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt" id="pricing">
+    <div class="container">
+      <SectionHeader eyebrow="PRICING" title="Simple plans, no surprises" lede="Indicative pricing to start; scoped to your real invoice volume." />
+      <PricingPlans locale={locale} planLabels={{ starter: 'Starter', pro: 'Pro', business: 'Business' }} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="QUESTIONS" title="Frequently asked questions" />
+      <FaqAccordion
+        items={[
+          { q: 'Does VBG Invoicing issue invoices to my customers?', a: "Not right now. It's focused solely on managing the invoices you receive from suppliers and contractors." },
+          { q: 'Where is my data stored?', a: 'Invoices and related data are stored privately, tied only to your account. We never share data between different customer accounts.' },
+          { q: 'Can I try it before committing?', a: "Yes. Request a demo and we'll walk through it with your real case before you decide." },
+          { q: 'What happens if I go over my plan\'s invoice limit?', a: "We'll let you know before you hit it so you can move up a tier without any interruption." },
+          { q: 'Does it work for accounting firms managing several clients?', a: 'Yes — the Business plan includes multi-company management built for exactly that.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand locale={locale} variant="red" title="Let's see it with your real invoices" lede="A 20-minute demo, no obligation." primaryLabel="Request a demo" />
+
+  <SoftwareApplicationSchema />
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-4) var(--space-7); }
+  .hero__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); align-items: center; margin-top: var(--space-3); }
+  @media (min-width: 940px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }
+  .hero h1 { font-size: var(--text-3xl); margin-block: var(--space-2); }
+  .hero .lede { font-size: var(--text-md); max-width: 48ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+  .narrative { display: flex; flex-direction: column; gap: var(--space-7); }
+  .narrative__row { display: grid; grid-template-columns: 1fr; gap: var(--space-5); align-items: center; }
+  @media (min-width: 860px) { .narrative__row { grid-template-columns: 1fr 1fr; } .narrative__row--reverse .narrative__copy { order: 2; } }
+  .narrative__tag { font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+  .narrative__copy h3 { font-size: var(--text-xl); margin-block: var(--space-2); max-width: 16ch; }
+  .narrative__copy p { color: var(--muted); font-size: var(--text-md); max-width: 44ch; }
+  .assistant-demo { display: flex; flex-direction: column; gap: var(--space-2); max-width: 560px; }
+  .assistant-demo__msg { padding: 0.9em 1.2em; border-radius: var(--radius-md); font-size: var(--text-sm); }
+  .assistant-demo__msg--user { align-self: flex-end; background: var(--red); color: #fff; border-bottom-right-radius: 4px; }
+  .assistant-demo__msg--bot { align-self: flex-start; background: var(--white); border: 1px solid var(--line); color: var(--ink-soft); border-bottom-left-radius: 4px; display: flex; align-items: flex-start; gap: 0.5em; }
+  .assistant-demo__msg--bot :global(svg) { color: var(--red); flex: none; margin-top: 0.15em; }
+</style>

@@ -1,0 +1,28 @@
+---
+import { SITE_URL } from '@/i18n/locales';
+import { INVOICING_PLANS } from '@/data/pricing';
+
+/**
+ * SoftwareApplication schema for VBG Facturació. Only the lowest list
+ * price is declared (schema.org offers a single price, not a range) —
+ * this matches the real Starter tier, not an invented "from" figure.
+ */
+const lowestPlan = INVOICING_PLANS[0];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'VBG Facturació',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: `${SITE_URL}/vbg-facturacio/`,
+  offers: {
+    '@type': 'Offer',
+    price: lowestPlan.price.toFixed(2),
+    priceCurrency: 'EUR',
+    url: `${SITE_URL}/vbg-facturacio/`,
+  },
+  provider: { '@id': `${SITE_URL}/#organization` },
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

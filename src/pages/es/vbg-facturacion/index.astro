@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import ProductFrame from '@/components/ProductFrame.astro';
+import InvoicingPanels from '@/components/InvoicingPanels.astro';
+import PricingPlans from '@/components/PricingPlans.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'es' as const;
+
+const panelLabels = {
+  thisMonth: 'Facturas este mes', correct: 'Correctas', pending: 'Pendientes revisión',
+  supplier: 'Proveedor', amount: 'Importe', status: 'A revisar', okStatus: 'Correcta',
+  reviewTitle: 'Posible duplicado detectado', reviewNote: 'Mismo proveedor e importe que una factura ya registrada.',
+  reportTitle: 'Resumen fiscal del trimestre', vat: 'IVA soportado', withholding: 'IRPF retenido',
+};
+
+const narrative = [
+  { variant: 'invoices' as const, tag: 'Recibir y organizar', title: 'Cada factura que recibes, registrada sola', body: 'Llega por correo, te la envían o la subes tú mismo: VBG Facturación la lee, extrae los datos y la deja organizada. Nada se queda perdido en una bandeja de entrada.' },
+  { variant: 'review' as const, tag: 'Revisar', title: 'El sistema avisa; tú decides', body: 'Detecta posibles duplicados e incidencias antes de que lleguen a pago. Tú solo revisas lo que de verdad necesita una decisión humana.' },
+  { variant: 'dashboard' as const, tag: 'Verlo todo', title: 'Un panel con el estado real del mes', body: 'Cuántas facturas hay, cuántas están correctas, cuántas esperan revisión y cuánto queda pendiente de pagar — de un vistazo, sin abrir ningún Excel.' },
+  { variant: 'reports' as const, tag: 'Presentar', title: 'Informes fiscales listos para presentar', body: 'IVA soportado, IRPF retenido y el desglose trimestral, generados automáticamente a partir de las facturas ya registradas.' },
+];
+---
+<BaseLayout
+  locale={locale}
+  routeKey="invoicing"
+  title="VBG Facturación — Gestión de facturas recibidas con IA"
+  description="Centraliza, revisa y organiza las facturas que recibes. Detección de duplicados, informes fiscales y un asistente IA integrado. Desde 14,90€/mes + IVA."
+>
+  <section class="hero">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'VBG Facturación', path: route('invoicing', locale) }]} />
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">PRODUCTO PROPIO DE VBG LABS</p>
+          <h1>VBG Facturación</h1>
+          <p class="lede">
+            Gestiona las facturas que recibes sin perder ninguna. Centralización, revisión
+            automática, informes fiscales y un asistente de IA para encontrar cualquier dato
+            simplemente preguntando.
+          </p>
+          <div class="hero__actions">
+            <a href={route('contact', locale)} class="btn btn-primary">Solicita una demo</a>
+            <a href="#precios" class="btn btn-outline">Ver precios</a>
+          </div>
+        </div>
+        <ProductFrame label="app.vbgfacturacion.com">
+          <InvoicingPanels variant="dashboard" labels={panelLabels} />
+        </ProductFrame>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container narrow">
+      <SectionHeader eyebrow="QUÉ HACE (Y QUÉ NO HACE)" title="Gestiona las facturas que recibes, no las que emites" as="h2" />
+      <p>
+        VBG Facturación se centra en un problema concreto: las facturas que llegan a tu
+        negocio desde proveedores y colaboradores. Las centraliza, las revisa y te deja los
+        informes fiscales a punto. Ahora mismo <strong>no emite facturas de venta</strong> a
+        tus clientes — si necesitas eso, seguirás haciéndolo con lo que ya uses, y VBG
+        Facturación se encarga de la parte de las facturas recibidas.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="narrative">
+        {narrative.map((block, i) => (
+          <div class={`narrative__row ${i % 2 === 1 ? 'narrative__row--reverse' : ''}`}>
+            <div class="narrative__copy">
+              <span class="narrative__tag">{block.tag}</span>
+              <h3>{block.title}</h3>
+              <p>{block.body}</p>
+            </div>
+            <ProductFrame label="app.vbgfacturacion.com">
+              <InvoicingPanels variant={block.variant} labels={panelLabels} />
+            </ProductFrame>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="ASISTENTE IA" title="Pregúntale directamente a tus facturas" lede="Un asistente integrado que responde sobre tus facturas en lenguaje natural, sin tener que buscar manualmente." />
+      <div class="assistant-demo">
+        <div class="assistant-demo__msg assistant-demo__msg--user">¿Cuánto IVA he soportado este trimestre?</div>
+        <div class="assistant-demo__msg assistant-demo__msg--bot"><Icon name="sparkle" size={16} /> Este trimestre has soportado 2.481,00€ de IVA en 34 facturas. ¿Quieres el desglose por proveedor?</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PARA QUIÉN" title="Pensado para quien gestiona facturas cada mes" />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'users', title: 'Autónomos', description: 'Deja de acumular tickets y facturas a la espera de hacer algo con ellos.' },
+          { icon: 'building', title: 'Micropymes', description: 'Centraliza las facturas de todos los proveedores en un solo sitio.' },
+          { icon: 'chart', title: 'Pymes', description: 'Informes fiscales a punto sin depender de un Excel.' },
+          { icon: 'consulting', title: 'Gestorías', description: 'Gestión multiempresa para llevar varios clientes desde un solo panel.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt" id="precios">
+    <div class="container">
+      <SectionHeader eyebrow="PRECIOS" title="Planes sencillos, sin sorpresas" lede="Precios orientativos para empezar; se ajustan según el volumen real de facturas." />
+      <PricingPlans locale={locale} planLabels={{ starter: 'Starter', pro: 'Pro', business: 'Business' }} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PREGUNTAS" title="Preguntas frecuentes" />
+      <FaqAccordion
+        items={[
+          { q: '¿VBG Facturación emite facturas a mis clientes?', a: 'No, ahora mismo no. Se centra exclusivamente en gestionar las facturas que recibes de proveedores y colaboradores.' },
+          { q: '¿Dónde se guardan mis datos?', a: 'Las facturas y los datos asociados se guardan de forma privada, asociados solo a tu cuenta. No compartimos datos entre cuentas de clientes distintos.' },
+          { q: '¿Puedo probarlo antes de contratarlo?', a: 'Sí. Solicita una demo y te lo enseñamos con tu caso real antes de decidir.' },
+          { q: '¿Qué pasa si supero el límite de facturas de mi plan?', a: 'Te avisamos antes de llegar para que puedas pasar al plan superior sin interrupciones.' },
+          { q: '¿Sirve para gestorías que llevan varios clientes?', a: 'Sí, el plan Business incluye gestión multiempresa pensada para gestorías.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand locale={locale} variant="red" title="Veámoslo con tus facturas reales" lede="Una demo de 20 minutos, sin compromiso." primaryLabel="Solicita una demo" />
+
+  <SoftwareApplicationSchema />
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-4) var(--space-7); }
+  .hero__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); align-items: center; margin-top: var(--space-3); }
+  @media (min-width: 940px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }
+  .hero h1 { font-size: var(--text-3xl); margin-block: var(--space-2); }
+  .hero .lede { font-size: var(--text-md); max-width: 48ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+  .narrow { max-width: 760px; }
+  .bg-alt { background: var(--gray-50); }
+  .narrative { display: flex; flex-direction: column; gap: var(--space-7); }
+  .narrative__row { display: grid; grid-template-columns: 1fr; gap: var(--space-5); align-items: center; }
+  @media (min-width: 860px) { .narrative__row { grid-template-columns: 1fr 1fr; } .narrative__row--reverse .narrative__copy { order: 2; } }
+  .narrative__tag { font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+  .narrative__copy h3 { font-size: var(--text-xl); margin-block: var(--space-2); max-width: 16ch; }
+  .narrative__copy p { color: var(--muted); font-size: var(--text-md); max-width: 44ch; }
+  .assistant-demo { display: flex; flex-direction: column; gap: var(--space-2); max-width: 560px; }
+  .assistant-demo__msg { padding: 0.9em 1.2em; border-radius: var(--radius-md); font-size: var(--text-sm); }
+  .assistant-demo__msg--user { align-self: flex-end; background: var(--red); color: #fff; border-bottom-right-radius: 4px; }
+  .assistant-demo__msg--bot { align-self: flex-start; background: var(--white); border: 1px solid var(--line); color: var(--ink-soft); border-bottom-left-radius: 4px; display: flex; align-items: flex-start; gap: 0.5em; }
+  .assistant-demo__msg--bot :global(svg) { color: var(--red); flex: none; margin-top: 0.15em; }
+</style>

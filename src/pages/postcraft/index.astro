@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'ca' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="postcraft"
+  title="Postcraft — El segon producte de VBG Labs (pròximament)"
+  description="Postcraft serà una plataforma per planificar i generar contingut de xarxes socials entenent la veu de cada marca. Actualment en preparació."
+>
+  <section class="hero">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'Postcraft', path: route('postcraft', locale) }]} />
+      <span class="soon-badge">Pròximament</span>
+      <h1>Postcraft</h1>
+      <p class="lede">
+        El segon producte propi de VBG Labs: una plataforma per planificar i generar contingut
+        de xarxes socials que entén la veu, l&#39;estil i el sector de cada marca — en lloc de
+        proposar el mateix contingut genèric per a tothom.
+      </p>
+      <div class="hero__actions">
+        <a href={route('contact', locale)} class="btn btn-primary">Avisa&#39;m quan estigui disponible</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="LA VISIÓ"
+        title="Contingut que sona a la teva marca, no a una plantilla"
+        lede="Postcraft està pensat per aprendre l'estil i la identitat de cada negoci — el seu to, la seva audiència i el seu sector — abans de proposar cap idea de contingut."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'sparkle', title: 'Coneix la veu de la marca', description: 'Aprèn l\'estil, el sector i l\'audiència de cada negoci per proposar contingut coherent.' },
+          { icon: 'documents', title: 'Genera idees i contingut', description: 'Propostes de publicacions basades en tendències reals del sector, no genèriques.' },
+          { icon: 'chart', title: 'Analitza el rendiment', description: 'Gràfics clars de quines publicacions funcionen millor i per què.' },
+          { icon: 'clock', title: 'Recomana els millors horaris', description: 'Detecta quan la teva audiència està més activa.' },
+          { icon: 'reminders', title: 'Programa publicacions', description: 'Planifica el calendari de contingut sense haver-ho de fer manualment cada dia.' },
+          { icon: 'flag', title: 'Detecta el que millor funciona', description: 'Identifica patrons en les publicacions amb més bon rendiment per repetir-los amb criteri.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="ESTAT ACTUAL" title="En preparació" />
+      <p>
+        Postcraft encara no està disponible. L&#39;estem construint amb la mateixa lògica que
+        VBG Facturació: primer que funcioni bé per a un cas real, després obrir-lo a més
+        negocis. Si vols ser dels primers a provar-lo, escriu-nos i t&#39;avisem en quant
+        estigui a punt.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Vols ser dels primers a provar Postcraft?"
+    lede="Deixa'ns el teu contacte i t'avisarem en quant estigui disponible."
+    primaryLabel="Avisa'm quan estigui disponible"
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-4) var(--space-7);
+  }
+
+  .soon-badge {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--red-100);
+    padding: 0.3em 0.9em;
+    border-radius: var(--radius-pill);
+    margin: var(--space-3) 0;
+  }
+
+  .hero h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .hero .lede {
+    font-size: var(--text-md);
+    max-width: 56ch;
+  }
+
+  .hero__actions {
+    margin-top: var(--space-4);
+  }
+
+  .narrow {
+    max-width: 700px;
+  }
+
+  .bg-alt {
+    background: var(--gray-50);
+  }
+</style>

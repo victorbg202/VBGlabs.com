@@ -1,0 +1,298 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import ProductFrame from '@/components/ProductFrame.astro';
+import InvoicingPanels from '@/components/InvoicingPanels.astro';
+import PricingPlans from '@/components/PricingPlans.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
+import Icon from '@/components/Icon.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'ca' as const;
+
+const panelLabels = {
+  thisMonth: 'Factures aquest mes', correct: 'Correctes', pending: 'Pendents revisió',
+  supplier: 'Proveïdor', amount: 'Import', status: 'A revisar', okStatus: 'Correcta',
+  reviewTitle: 'Possible duplicat detectat', reviewNote: 'Mateix proveïdor i import que una factura ja registrada.',
+  reportTitle: 'Resum fiscal del trimestre', vat: 'IVA suportat', withholding: 'IRPF retingut',
+};
+
+const narrative = [
+  {
+    variant: 'invoices' as const,
+    tag: 'Rebre i organitzar',
+    title: 'Cada factura que reps, registrada sola',
+    body: 'Arriba per correu, se t’envia o la puges tu mateix: VBG Facturació la llegeix, n’extreu les dades i la deixa organitzada. Res es queda perdut en una safata d’entrada.',
+  },
+  {
+    variant: 'review' as const,
+    tag: 'Revisar',
+    title: 'El sistema avisa; tu decideixes',
+    body: 'Detecta possibles duplicats i incidències abans que arribin a pagament. Tu només revises el que realment necessita una decisió humana.',
+  },
+  {
+    variant: 'dashboard' as const,
+    tag: 'Veure-ho tot',
+    title: 'Un panell amb l’estat real del mes',
+    body: 'Quantes factures hi ha, quantes estan correctes, quantes esperen revisió i quant hi ha pendent de pagar — d’un cop d’ull, sense obrir cap full de càlcul.',
+  },
+  {
+    variant: 'reports' as const,
+    tag: 'Presentar',
+    title: 'Informes fiscals llestos per presentar',
+    body: 'IVA suportat, IRPF retingut i el desglossament trimestral, generats automàticament a partir de les factures ja registrades.',
+  },
+];
+---
+<BaseLayout
+  locale={locale}
+  routeKey="invoicing"
+  title="VBG Facturació — Gestió de factures rebudes amb IA"
+  description="Centralitza, revisa i organitza les factures que reps. Detecció de duplicats, informes fiscals i un assistent IA integrat. Des de 14,90€/mes + IVA."
+>
+  <section class="hero">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'VBG Facturació', path: route('invoicing', locale) }]} />
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">PRODUCTE PROPI DE VBG LABS</p>
+          <h1>VBG Facturació</h1>
+          <p class="lede">
+            Gestiona les factures que reps sense perdre&#39;n cap ni una. Centralització,
+            revisió automàtica, informes fiscals i un assistent d&#39;IA per trobar
+            qualsevol dada preguntant, simplement.
+          </p>
+          <div class="hero__actions">
+            <a href={route('contact', locale)} class="btn btn-primary">Sol·licita una demo</a>
+            <a href="#preus" class="btn btn-outline">Veure preus</a>
+          </div>
+        </div>
+        <ProductFrame label="app.vbgfacturacio.com">
+          <InvoicingPanels variant="dashboard" labels={panelLabels} />
+        </ProductFrame>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container narrow">
+      <SectionHeader eyebrow="QUÈ FA (I QUÈ NO FA)" title="Gestiona les factures que reps, no les que emets" as="h2" />
+      <p>
+        VBG Facturació se centra en un problema concret: les factures que arriben al teu
+        negoci des de proveïdors i col·laboradors. Les centralitza, les revisa i et deixa els
+        informes fiscals a punt. Ara mateix <strong>no emet factures de venda</strong> als teus
+        clients — si necessites això, seguiràs fent-ho amb el que ja facis servir, i VBG
+        Facturació s&#39;encarrega de la part de les factures rebudes.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="narrative">
+        {narrative.map((block, i) => (
+          <div class={`narrative__row ${i % 2 === 1 ? 'narrative__row--reverse' : ''}`}>
+            <div class="narrative__copy">
+              <span class="narrative__tag">{block.tag}</span>
+              <h3>{block.title}</h3>
+              <p>{block.body}</p>
+            </div>
+            <ProductFrame label="app.vbgfacturacio.com">
+              <InvoicingPanels variant={block.variant} labels={panelLabels} />
+            </ProductFrame>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader eyebrow="ASSISTENT IA" title="Pregunta-li directament a les teves factures" lede="Un assistent integrat que respon sobre les teves factures en llenguatge natural, sense haver de buscar manualment." />
+      <div class="assistant-demo">
+        <div class="assistant-demo__msg assistant-demo__msg--user">
+          Quant IVA he suportat aquest trimestre?
+        </div>
+        <div class="assistant-demo__msg assistant-demo__msg--bot">
+          <Icon name="sparkle" size={16} /> Aquest trimestre has suportat 2.481,00€ d&#39;IVA en 34 factures. Vols el desglossament per proveïdor?
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PER A QUI" title="Pensat per a qui gestiona factures cada mes" />
+      <FeatureGrid
+        columns={4}
+        items={[
+          { icon: 'users', title: 'Autònoms', description: 'Deixa d\'apilar tiquets i factures a l\'espera de fer-hi alguna cosa.' },
+          { icon: 'building', title: 'Micropimes', description: 'Centralitza les factures de tots els proveïdors en un sol lloc.' },
+          { icon: 'chart', title: 'Pimes', description: 'Informes fiscals a punt sense dependre d\'un full de càlcul.' },
+          { icon: 'consulting', title: 'Gestories', description: 'Gestió multiempresa per portar diversos clients des d\'un sol panell.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt" id="preus">
+    <div class="container">
+      <SectionHeader eyebrow="PREUS" title="Plans senzills, sense sorpreses" lede="Preus orientatius per començar; s'ajusten segons el volum real de factures." />
+      <PricingPlans locale={locale} planLabels={{ starter: 'Starter', pro: 'Pro', business: 'Business' }} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeader eyebrow="PREGUNTES" title="Preguntes freqüents" />
+      <FaqAccordion
+        items={[
+          { q: 'VBG Facturació emet factures als meus clients?', a: 'No, ara mateix no. Es centra exclusivament a gestionar les factures que reps de proveïdors i col·laboradors.' },
+          { q: 'On es guarden les meves dades?', a: 'Les factures i les dades associades es guarden de manera privada, associades només al teu compte. No compartim dades entre comptes de clients diferents.' },
+          { q: 'Puc provar-ho abans de contractar-ho?', a: 'Sí. Sol·licita una demo i et l\'ensenyem amb el teu cas real abans de decidir.' },
+          { q: 'Què passa si supero el límit de factures del meu pla?', a: 'T\'avisem abans d\'arribar-hi perquè puguis passar al pla superior sense interrupcions.' },
+          { q: 'Serveix per a gestories que porten diversos clients?', a: 'Sí, el pla Business inclou gestió multiempresa pensada per a gestories.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="red"
+    title="Veiem-ho amb les teves factures reals"
+    lede="Una demo de 20 minuts, sense compromís."
+    primaryLabel="Sol·licita una demo"
+  />
+
+  <SoftwareApplicationSchema />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-4) var(--space-7);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: center;
+    margin-top: var(--space-3);
+  }
+
+  @media (min-width: 940px) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+
+  .hero h1 {
+    font-size: var(--text-3xl);
+    margin-block: var(--space-2);
+  }
+
+  .hero .lede {
+    font-size: var(--text-md);
+    max-width: 48ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .narrow {
+    max-width: 760px;
+  }
+
+  .bg-alt {
+    background: var(--gray-50);
+  }
+
+  .narrative {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-7);
+  }
+
+  .narrative__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .narrative__row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .narrative__row--reverse .narrative__copy {
+      order: 2;
+    }
+  }
+
+  .narrative__tag {
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .narrative__copy h3 {
+    font-size: var(--text-xl);
+    margin-block: var(--space-2);
+    max-width: 16ch;
+  }
+
+  .narrative__copy p {
+    color: var(--muted);
+    font-size: var(--text-md);
+    max-width: 44ch;
+  }
+
+  .assistant-demo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 560px;
+  }
+
+  .assistant-demo__msg {
+    padding: 0.9em 1.2em;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+  }
+
+  .assistant-demo__msg--user {
+    align-self: flex-end;
+    background: var(--red);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .assistant-demo__msg--bot {
+    align-self: flex-start;
+    background: var(--white);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    border-bottom-left-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
+
+  .assistant-demo__msg--bot :global(svg) {
+    color: var(--red);
+    flex: none;
+    margin-top: 0.15em;
+  }
+</style>

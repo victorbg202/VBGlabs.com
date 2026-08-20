@@ -1,0 +1,83 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { route } from '@/i18n/routes';
+
+const locale = 'en' as const;
+---
+<BaseLayout
+  locale={locale}
+  routeKey="postcraft"
+  title="Postcraft — VBG Labs' second product (coming soon)"
+  description="Postcraft will be a platform to plan and generate social media content that understands each brand's voice. Currently in development."
+>
+  <section class="hero">
+    <div class="container">
+      <Breadcrumb locale={locale} trail={[{ name: 'Postcraft', path: route('postcraft', locale) }]} />
+      <span class="soon-badge">Coming soon</span>
+      <h1>Postcraft</h1>
+      <p class="lede">
+        VBG Labs' second product: a platform to plan and generate social media content that
+        understands each brand's voice, style and industry — instead of proposing the same
+        generic content for everyone.
+      </p>
+      <div class="hero__actions">
+        <a href={route('contact', locale)} class="btn btn-primary">Notify me when it's ready</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight bg-alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="THE VISION"
+        title="Content that sounds like your brand, not a template"
+        lede="Postcraft is being built to learn each business's style and identity — its tone, audience and industry — before proposing a single piece of content."
+      />
+      <FeatureGrid
+        columns={3}
+        items={[
+          { icon: 'sparkle', title: 'Learns your brand voice', description: "Picks up on each business's style, industry and audience to propose consistent content." },
+          { icon: 'documents', title: 'Generates ideas and content', description: 'Post ideas grounded in real industry trends, not generic ones.' },
+          { icon: 'chart', title: 'Analyzes performance', description: 'Clear charts of what content works best, and why.' },
+          { icon: 'clock', title: 'Recommends the best times', description: "Spots when your audience is actually most active." },
+          { icon: 'reminders', title: 'Schedules posts', description: 'Plans the content calendar without doing it by hand every day.' },
+          { icon: 'flag', title: 'Spots what works', description: 'Finds patterns in your best-performing posts to repeat them with intent.' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <SectionHeader eyebrow="CURRENT STATUS" title="In development" />
+      <p>
+        Postcraft isn't available yet. We're building it the same way we built VBG Invoicing:
+        get it working well for one real case first, then open it up to more businesses. If
+        you'd like to be among the first to try it, get in touch and we'll let you know the
+        moment it's ready.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    locale={locale}
+    variant="dark"
+    title="Want to be among the first to try Postcraft?"
+    lede="Leave us your contact details and we'll let you know as soon as it's available."
+    primaryLabel="Notify me when it's ready"
+  />
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-4) var(--space-7); }
+  .soon-badge { display: inline-block; font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); background: var(--red-100); padding: 0.3em 0.9em; border-radius: var(--radius-pill); margin: var(--space-3) 0; }
+  .hero h1 { font-size: var(--text-3xl); margin-bottom: var(--space-2); }
+  .hero .lede { font-size: var(--text-md); max-width: 56ch; }
+  .hero__actions { margin-top: var(--space-4); }
+  .narrow { max-width: 700px; }
+  .bg-alt { background: var(--gray-50); }
+</style>
