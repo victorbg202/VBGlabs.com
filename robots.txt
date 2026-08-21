@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# OpenAI's search crawler — explicitly allowed for ChatGPT Search discovery.
+User-agent: OAI-SearchBot
+Allow: /
+
+Sitemap: https://vbglabs.com/sitemap-index.xml
