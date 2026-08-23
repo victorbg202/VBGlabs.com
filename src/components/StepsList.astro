@@ -12,7 +12,7 @@ const { steps } = Astro.props;
 ---
 <ol class="steps">
   {steps.map((step, i) => (
-    <li class="steps__item">
+    <li class="steps__item" data-reveal style={`--i:${i}`}>
       <span class="steps__num tabular">{String(i + 1).padStart(2, '0')}</span>
       <div>
         <h3>{step.title}</h3>

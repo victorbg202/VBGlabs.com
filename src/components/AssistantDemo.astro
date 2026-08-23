@@ -1,0 +1,181 @@
+---
+/**
+ * Animated mini-demo of the AI assistant on the VBG Facturació page: the
+ * user's question appears, a typing indicator plays, then the assistant's
+ * reply lands. Dramatizes the actual feature (ask your invoices a question
+ * in plain language) rather than being decoration for its own sake.
+ */
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  userMsg: string;
+  botMsg: string;
+}
+
+const { userMsg, botMsg } = Astro.props;
+---
+<div class="assistant-demo">
+  <div class="assistant-demo__msg assistant-demo__msg--user">{userMsg}</div>
+  <div class="assistant-demo__msg assistant-demo__msg--typing" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="assistant-demo__msg assistant-demo__msg--bot">
+    <Icon name="sparkle" size={16} /> {botMsg}
+  </div>
+</div>
+
+<style>
+  .assistant-demo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 560px;
+  }
+
+  .assistant-demo__msg {
+    padding: 0.9em 1.2em;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+  }
+
+  .assistant-demo__msg--user {
+    align-self: flex-end;
+    background: var(--red);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .assistant-demo__msg--bot {
+    align-self: flex-start;
+    background: var(--white);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    border-bottom-left-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
+
+  .assistant-demo__msg--bot :global(svg) {
+    color: var(--red);
+    flex: none;
+    margin-top: 0.15em;
+  }
+
+  .assistant-demo__msg--typing {
+    align-self: flex-start;
+    background: var(--white);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 1em 1.2em;
+    width: fit-content;
+  }
+
+  .assistant-demo__msg--typing span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gray-400);
+    animation: typing-bounce 1s infinite ease-in-out;
+  }
+
+  .assistant-demo__msg--typing span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .assistant-demo__msg--typing span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes typing-bounce {
+    0%, 60%, 100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    30% {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+  }
+
+  /* Sequenced entrance, gated behind html.reveal-ready so — without JS, or
+     if the observer never fires — all three simply render at once instead
+     of the user message being permanently hidden. */
+  html.reveal-ready .assistant-demo__msg--user {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+
+  html.reveal-ready .assistant-demo.is-visible .assistant-demo__msg--user {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.reveal-ready .assistant-demo__msg--typing,
+  html.reveal-ready .assistant-demo__msg--bot {
+    display: none;
+  }
+
+  html.reveal-ready .assistant-demo.show-typing .assistant-demo__msg--typing {
+    display: flex;
+  }
+
+  html.reveal-ready .assistant-demo.show-bot .assistant-demo__msg--typing {
+    display: none;
+  }
+
+  html.reveal-ready .assistant-demo.show-bot .assistant-demo__msg--bot {
+    display: flex;
+    opacity: 0;
+    animation: msg-in 0.35s var(--ease) forwards;
+  }
+
+  @keyframes msg-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.reveal-ready .assistant-demo__msg--user {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html.reveal-ready .assistant-demo__msg--typing {
+      display: none !important;
+    }
+    html.reveal-ready .assistant-demo__msg--bot {
+      display: flex !important;
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches === false && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          const demo = entry.target as HTMLElement;
+          demo.classList.add('is-visible');
+          window.setTimeout(() => demo.classList.add('show-typing'), 500);
+          window.setTimeout(() => demo.classList.add('show-bot'), 1500);
+        }
+      },
+      { threshold: 0.4 },
+    );
+    document.querySelectorAll('.assistant-demo').forEach((el) => observer.observe(el));
+  }
+</script>

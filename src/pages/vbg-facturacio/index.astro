@@ -9,7 +9,7 @@ import PricingPlans from '@/components/PricingPlans.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
-import Icon from '@/components/Icon.astro';
+import AssistantDemo from '@/components/AssistantDemo.astro';
 import { route } from '@/i18n/routes';
 
 const locale = 'ca' as const;
@@ -113,14 +113,10 @@ const narrative = [
   <section class="section section--tight bg-alt">
     <div class="container">
       <SectionHeader eyebrow="ASSISTENT IA" title="Pregunta-li directament a les teves factures" lede="Un assistent integrat que respon sobre les teves factures en llenguatge natural, sense haver de buscar manualment." />
-      <div class="assistant-demo">
-        <div class="assistant-demo__msg assistant-demo__msg--user">
-          Quant IVA he suportat aquest trimestre?
-        </div>
-        <div class="assistant-demo__msg assistant-demo__msg--bot">
-          <Icon name="sparkle" size={16} /> Aquest trimestre has suportat 2.481,00€ d&#39;IVA en 34 factures. Vols el desglossament per proveïdor?
-        </div>
-      </div>
+      <AssistantDemo
+        userMsg="Quant IVA he suportat aquest trimestre?"
+        botMsg="Aquest trimestre has suportat 2.481,00€ d'IVA en 34 factures. Vols el desglossament per proveïdor?"
+      />
     </div>
   </section>
 
@@ -259,40 +255,4 @@ const narrative = [
     max-width: 44ch;
   }
 
-  .assistant-demo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    max-width: 560px;
-  }
-
-  .assistant-demo__msg {
-    padding: 0.9em 1.2em;
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-  }
-
-  .assistant-demo__msg--user {
-    align-self: flex-end;
-    background: var(--red);
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
-
-  .assistant-demo__msg--bot {
-    align-self: flex-start;
-    background: var(--white);
-    border: 1px solid var(--line);
-    color: var(--ink-soft);
-    border-bottom-left-radius: 4px;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5em;
-  }
-
-  .assistant-demo__msg--bot :global(svg) {
-    color: var(--red);
-    flex: none;
-    margin-top: 0.15em;
-  }
 </style>

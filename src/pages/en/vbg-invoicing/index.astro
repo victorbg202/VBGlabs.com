@@ -9,7 +9,7 @@ import PricingPlans from '@/components/PricingPlans.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
-import Icon from '@/components/Icon.astro';
+import AssistantDemo from '@/components/AssistantDemo.astro';
 import { route } from '@/i18n/routes';
 
 const locale = 'en' as const;
@@ -93,10 +93,10 @@ const narrative = [
   <section class="section section--tight bg-alt">
     <div class="container">
       <SectionHeader eyebrow="AI ASSISTANT" title="Ask your invoices directly" lede="A built-in assistant that answers questions about your invoices in plain language, no manual searching." />
-      <div class="assistant-demo">
-        <div class="assistant-demo__msg assistant-demo__msg--user">How much VAT have I paid this quarter?</div>
-        <div class="assistant-demo__msg assistant-demo__msg--bot"><Icon name="sparkle" size={16} /> You've paid €2,481.00 in VAT across 34 invoices this quarter. Want the breakdown by supplier?</div>
-      </div>
+      <AssistantDemo
+        userMsg="How much VAT have I paid this quarter?"
+        botMsg="You've paid €2,481.00 in VAT across 34 invoices this quarter. Want the breakdown by supplier?"
+      />
     </div>
   </section>
 
@@ -157,9 +157,4 @@ const narrative = [
   .narrative__tag { font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
   .narrative__copy h3 { font-size: var(--text-xl); margin-block: var(--space-2); max-width: 16ch; }
   .narrative__copy p { color: var(--muted); font-size: var(--text-md); max-width: 44ch; }
-  .assistant-demo { display: flex; flex-direction: column; gap: var(--space-2); max-width: 560px; }
-  .assistant-demo__msg { padding: 0.9em 1.2em; border-radius: var(--radius-md); font-size: var(--text-sm); }
-  .assistant-demo__msg--user { align-self: flex-end; background: var(--red); color: #fff; border-bottom-right-radius: 4px; }
-  .assistant-demo__msg--bot { align-self: flex-start; background: var(--white); border: 1px solid var(--line); color: var(--ink-soft); border-bottom-left-radius: 4px; display: flex; align-items: flex-start; gap: 0.5em; }
-  .assistant-demo__msg--bot :global(svg) { color: var(--red); flex: none; margin-top: 0.15em; }
 </style>

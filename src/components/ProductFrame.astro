@@ -13,7 +13,7 @@ interface Props {
 
 const { label } = Astro.props;
 ---
-<div class="product-frame">
+<div class="product-frame" data-reveal>
   <div class="product-frame__bar">
     <span class="product-frame__dot" /><span class="product-frame__dot" /><span class="product-frame__dot" />
     <span class="product-frame__title">{label}</span>
@@ -30,6 +30,13 @@ const { label } = Astro.props;
     overflow: clip;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--gray-800);
+    transition: transform 0.4s var(--ease);
+  }
+
+  @media (hover: hover) {
+    .product-frame:hover {
+      transform: translateY(-4px);
+    }
   }
 
   .product-frame__bar {

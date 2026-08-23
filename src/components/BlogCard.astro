@@ -15,7 +15,7 @@ interface Props {
 const { href, category, title, description, date, readLabel, headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
 ---
-<a href={href} class="blog-card">
+<a href={href} class="blog-card" data-reveal>
   <span class="blog-card__category">{category}</span>
   <Heading>{title}</Heading>
   <p>{description}</p>

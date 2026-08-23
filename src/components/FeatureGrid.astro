@@ -15,8 +15,8 @@ interface Props {
 const { items, columns = 3 } = Astro.props;
 ---
 <div class={`feature-grid feature-grid--${columns}`}>
-  {items.map((item) => (
-    <div class="feature">
+  {items.map((item, i) => (
+    <div class="feature" data-reveal style={`--i:${i}`}>
       <span class="feature__icon"><Icon name={item.icon} size={22} /></span>
       <h3>{item.title}</h3>
       <p>{item.description}</p>

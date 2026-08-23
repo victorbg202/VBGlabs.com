@@ -10,7 +10,7 @@ interface Props {
 const { eyebrow, title, lede, align = 'left', as = 'h2' } = Astro.props;
 const Tag = as;
 ---
-<div class={`section-header section-header--${align}`}>
+<div class={`section-header section-header--${align}`} data-reveal>
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   <Tag>{title}</Tag>
   {lede && <p class="lede">{lede}</p>}

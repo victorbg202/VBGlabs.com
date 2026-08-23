@@ -206,6 +206,11 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
     display: none;
   }
 
+  .form-status[data-state='success'],
+  .form-status[data-state='error'] {
+    animation: status-in 0.3s var(--ease);
+  }
+
   .form-status[data-state='success'] {
     background: var(--ok-wash);
     color: var(--teal-700);
@@ -214,6 +219,37 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
   .form-status[data-state='error'] {
     background: var(--red-50);
     color: var(--red-700);
+  }
+
+  @keyframes status-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contact-form.is-invalid .field input:invalid[data-touched='true'],
+  .contact-form.is-invalid .field textarea:invalid[data-touched='true'] {
+    animation: field-shake 0.35s var(--ease);
+  }
+
+  @keyframes field-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .form-status[data-state='success'],
+    .form-status[data-state='error'],
+    .contact-form.is-invalid .field input:invalid[data-touched='true'],
+    .contact-form.is-invalid .field textarea:invalid[data-touched='true'] {
+      animation: none;
+    }
   }
 
   .contact-form__submit {
@@ -228,6 +264,7 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
 
 <script is:inline define:vars={{ successMsg: ui.form.success, errorMsg: ui.form.error, invalidEmailMsg: ui.form.invalidEmail, sendingLabel: ui.form.sending, submitLabel: ui.form.submit, formId: id }}>
   const form = document.getElementById(formId);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (form instanceof HTMLFormElement) {
     const status = form.querySelector('.form-status');
     const submitBtn = form.querySelector('.contact-form__submit');
@@ -251,6 +288,10 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
         form.querySelectorAll('input, textarea').forEach((el) => el.setAttribute('data-touched', 'true'));
         status.textContent = invalidEmailMsg;
         status.dataset.state = 'error';
+        form.classList.remove('is-invalid');
+        void form.offsetWidth; // force reflow so the shake replays on repeated invalid submits
+        form.classList.add('is-invalid');
+        form.querySelector('[data-touched="true"]:invalid')?.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
         return;
       }
 

@@ -77,3 +77,70 @@ const { items } = Astro.props;
     max-width: var(--measure);
   }
 </style>
+
+<script>
+  /**
+   * Native <details> jumps open/closed with no way to transition height via
+   * CSS alone. This animates that height with the Web Animations API while
+   * keeping <details>/<summary> as the source of truth, so the accordion
+   * still works with zero JS (just without the animation) and stays fully
+   * keyboard/screen-reader accessible.
+   */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLDetailsElement>('.faq__item').forEach((details) => {
+    const summary = details.querySelector('summary');
+    const content = details.querySelector('p');
+    if (!summary || !content || reduceMotion) return;
+
+    let animation: Animation | null = null;
+    let isClosing = false;
+    let isExpanding = false;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      details.style.overflow = 'hidden';
+
+      if (isClosing || !details.open) {
+        openDetails();
+      } else if (isExpanding || details.open) {
+        closeDetails();
+      }
+    });
+
+    function openDetails() {
+      details.style.height = `${details.offsetHeight}px`;
+      details.open = true;
+      requestAnimationFrame(() => runAnimation(true));
+    }
+
+    function closeDetails() {
+      isClosing = true;
+      const startHeight = details.offsetHeight;
+      const endHeight = (summary as HTMLElement).offsetHeight;
+      animation?.cancel();
+      animation = details.animate({ height: [`${startHeight}px`, `${endHeight}px`] }, { duration: 220, easing: 'ease' });
+      animation.onfinish = () => onAnimationFinish(false);
+      animation.oncancel = () => (isClosing = false);
+    }
+
+    function runAnimation(opening: boolean) {
+      isExpanding = opening;
+      const startHeight = details.offsetHeight;
+      const endHeight = (summary as HTMLElement).offsetHeight + (content as HTMLElement).offsetHeight;
+      animation?.cancel();
+      animation = details.animate({ height: [`${startHeight}px`, `${endHeight}px`] }, { duration: 260, easing: 'ease' });
+      animation.onfinish = () => onAnimationFinish(true);
+      animation.oncancel = () => (isExpanding = false);
+    }
+
+    function onAnimationFinish(open: boolean) {
+      details.open = open;
+      animation = null;
+      isClosing = false;
+      isExpanding = false;
+      details.style.height = '';
+      details.style.overflow = '';
+    }
+  });
+</script>

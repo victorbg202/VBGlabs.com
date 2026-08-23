@@ -15,8 +15,8 @@ const ui = t(locale);
 const name = { starter: planLabels.starter, pro: planLabels.pro, business: planLabels.business };
 ---
 <div class="plans">
-  {INVOICING_PLANS.map((plan) => (
-    <div class={`plan ${plan.highlighted ? 'plan--highlighted' : ''}`}>
+  {INVOICING_PLANS.map((plan, i) => (
+    <div class={`plan ${plan.highlighted ? 'plan--highlighted' : ''}`} data-reveal style={`--i:${i}`}>
       {plan.highlighted && <span class="plan__badge">{locale === 'ca' ? 'Més triat' : locale === 'es' ? 'Más elegido' : 'Most popular'}</span>}
       <h3>{name[plan.id]}</h3>
       <p class="plan__price">
@@ -61,11 +61,21 @@ const name = { starter: planLabels.starter, pro: planLabels.pro, business: planL
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
+    transition: transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+  }
+
+  .plan:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
   }
 
   .plan--highlighted {
     border-color: var(--red);
     box-shadow: var(--shadow-md);
+  }
+
+  .plan--highlighted:hover {
+    box-shadow: var(--shadow-lg);
   }
 
   .plan__badge {

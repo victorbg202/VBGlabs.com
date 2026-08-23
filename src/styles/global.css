@@ -279,3 +279,28 @@ button {
 .tabular {
   font-variant-numeric: tabular-nums;
 }
+
+/* ---- Scroll reveal ----
+   Progressive enhancement: elements only start hidden once the observer
+   script has actually run (html.reveal-ready). Without JS, or if
+   IntersectionObserver is unsupported, content stays fully visible —
+   never gated behind a script that might not run. */
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  transition-delay: calc(min(var(--i, 0), 5) * 80ms);
+}
+
+html.reveal-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

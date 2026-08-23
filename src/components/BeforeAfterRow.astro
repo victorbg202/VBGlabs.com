@@ -9,11 +9,11 @@ interface Props {
 const { before, after, beforeLabel, afterLabel } = Astro.props;
 ---
 <div class="ba-row">
-  <div class="ba-card ba-card--before">
+  <div class="ba-card ba-card--before" data-reveal style="--i:0">
     <span class="ba-tag">{beforeLabel}</span>
     <p>{before}</p>
   </div>
-  <div class="ba-card ba-card--after">
+  <div class="ba-card ba-card--after" data-reveal style="--i:2">
     <span class="ba-tag">{afterLabel}</span>
     <p>{after}</p>
   </div>

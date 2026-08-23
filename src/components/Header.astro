@@ -84,6 +84,12 @@ const primaryLinks = [
     background: rgba(250, 249, 247, 0.92);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line-soft);
+    box-shadow: 0 0 0 rgba(11, 11, 11, 0);
+    transition: box-shadow var(--duration) var(--ease);
+  }
+
+  .header.is-scrolled {
+    box-shadow: var(--shadow-sm);
   }
 
   .header__bar {

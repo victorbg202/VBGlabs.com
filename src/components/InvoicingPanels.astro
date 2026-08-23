@@ -42,7 +42,7 @@ const { variant, labels } = Astro.props;
       <span class="stat-tile__label">{labels.pending}</span>
     </div>
     <div class="chart-row">
-      {[40, 65, 50, 80, 60, 90, 70].map((h) => <span style={`height:${h}%`} />)}
+      {[40, 65, 50, 80, 60, 90, 70].map((h, i) => <span style={`height:${h}%; --bar-i:${i}`} />)}
     </div>
   </div>
 )}
@@ -95,7 +95,7 @@ const { variant, labels } = Astro.props;
       </div>
     </div>
     <div class="chart-row chart-row--muted">
-      {[30, 50, 45, 70, 55, 40].map((h) => <span style={`height:${h}%`} />)}
+      {[30, 50, 45, 70, 55, 40].map((h, i) => <span style={`height:${h}%; --bar-i:${i}`} />)}
     </div>
   </div>
 )}
@@ -156,6 +156,20 @@ const { variant, labels } = Astro.props;
     flex: 1;
     background: var(--red-300);
     border-radius: 3px 3px 0 0;
+    transform-origin: bottom;
+  }
+
+  /* Bars grow in once the surrounding <ProductFrame data-reveal> scrolls
+     into view — gated behind html.reveal-ready so bars stay fully visible
+     (no transform) if the reveal script never runs. */
+  html.reveal-ready :global(.product-frame) .chart-row span {
+    transform: scaleY(0);
+    transition: transform 0.5s var(--ease);
+    transition-delay: calc(min(var(--bar-i, 0), 6) * 55ms);
+  }
+
+  html.reveal-ready :global(.product-frame.is-in) .chart-row span {
+    transform: scaleY(1);
   }
 
   .chart-row--muted span {

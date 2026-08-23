@@ -29,7 +29,7 @@ const {
 const resolvedPrimaryHref = primaryHref ?? route('contact', locale);
 ---
 <section class={`cta-band cta-band--${variant}`}>
-  <div class="container cta-band__inner">
+  <div class="container cta-band__inner" data-reveal>
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h2>{title}</h2>
     {lede && <p class="lede">{lede}</p>}
