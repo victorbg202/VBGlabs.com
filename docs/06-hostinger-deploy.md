@@ -28,6 +28,10 @@ rm -rf dist
 npm run build
 cp -a dist/. .
 rm -rf dist
+git status --short   # check for stale _astro/*.<oldhash>.css|js no longer
+                      # referenced by any .html — content-hashed filenames
+                      # change on every edit, and cp never deletes; git rm
+                      # anything left over before committing
 git add -A
 git commit -m "..."
 git push origin main
@@ -36,6 +40,8 @@ git push origin main
 `cp -a dist/. .` (the trailing `/.` matters) copies the `.htaccess` dotfile
 along with everything else; `cp -r dist/* .` would silently skip it.
 
-Hostinger doesn't watch the repo for pushes automatically — after pushing,
-open hPanel → Git and use the sync/redeploy action for the repo entry (the
-"⋮" menu next to it) to pull the new commit into `public_html`.
+Hostinger has a GitHub webhook already registered on this repo (set up
+before this rebuild) that redeploys `public_html` on every push to `main`
+automatically — no manual hPanel sync needed. If a future push doesn't seem
+to take effect, check hPanel → Git → the "⋮" menu next to the repo entry for
+a manual sync/redeploy action as a fallback.
