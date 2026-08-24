@@ -1,0 +1,42 @@
+# VBG Labs — redirect map from the pre-rebuild site (commit 255f56e) to the
+# new Astro-based site. See docs/05-redirects.md for the full rationale per
+# rule. This file assumes an Apache-compatible origin (Hostinger); if the
+# host serves static files without honoring .htaccess, these rules need to
+# be recreated as Cloudflare Bulk Redirects or Hostinger hPanel redirects
+# instead — see docs/05-redirects.md for that fallback list.
+
+# ---- Block the Astro source tree ----
+# Hostinger's Git deploy has no build step: it clones this repo's `main`
+# as-is into public_html. The compiled site lives at repo root alongside
+# the Astro source (see docs/06-hostinger-deploy.md), so these rules keep
+# the source/config files from being directly fetchable over HTTP.
+RedirectMatch 403 ^/(src|docs|public)(/|$)
+<FilesMatch "^(astro\.config\.mjs|package(-lock)?\.json|tsconfig\.json|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+
+RewriteEngine On
+
+# ---- Custom 404 ----
+ErrorDocument 404 /404.html
+
+# ---- Old thin service pages -> the consolidated automations page ----
+Redirect 301 /serveis/gestio-comandes/ /automatitzacions/
+Redirect 301 /serveis/assistent-virtual/ /automatitzacions/
+Redirect 301 /serveis/recordatoris/ /automatitzacions/
+Redirect 301 /serveis/ressenyes-google/ /automatitzacions/
+Redirect 301 /serveis/centralitzacio/ /automatitzacions/
+
+# ---- Old invoicing-adjacent service page -> the real invoicing product ----
+Redirect 301 /serveis/facturacio-automatica/ /vbg-facturacio/
+
+# ---- Old unverifiable "results" page -> home (honest before/after lives there now) ----
+Redirect 301 /resultats/ /
+
+# ---- Renamed pages ----
+Redirect 301 /sobre-nosaltres/ /sobre-vbglabs/
+
+# ---- Legal pages: dropped the .html extension ----
+RedirectMatch 301 ^/avis-legal\.html$ /avis-legal/
+RedirectMatch 301 ^/politica-privacitat\.html$ /politica-privacitat/
+RedirectMatch 301 ^/politica-cookies\.html$ /politica-cookies/
