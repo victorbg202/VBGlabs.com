@@ -163,15 +163,27 @@ const { userMsg, botMsg } = Astro.props;
 
 <script>
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches === false && 'IntersectionObserver' in window) {
+    // Re-plays the user -> typing -> reply sequence every time the demo
+    // scrolls into view, in either direction, instead of once ever.
+    const timers = new WeakMap<Element, number[]>();
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          observer.unobserve(entry.target);
           const demo = entry.target as HTMLElement;
-          demo.classList.add('is-visible');
-          window.setTimeout(() => demo.classList.add('show-typing'), 500);
-          window.setTimeout(() => demo.classList.add('show-bot'), 1500);
+          const pending = timers.get(demo) ?? [];
+          pending.forEach((id) => window.clearTimeout(id));
+
+          if (entry.isIntersecting) {
+            demo.classList.remove('show-typing', 'show-bot');
+            demo.classList.add('is-visible');
+            const t1 = window.setTimeout(() => demo.classList.add('show-typing'), 500);
+            const t2 = window.setTimeout(() => demo.classList.add('show-bot'), 1500);
+            timers.set(demo, [t1, t2]);
+          } else {
+            demo.classList.remove('is-visible', 'show-typing', 'show-bot');
+            timers.set(demo, []);
+          }
         }
       },
       { threshold: 0.4 },

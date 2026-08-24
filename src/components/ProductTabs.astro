@@ -1,0 +1,266 @@
+---
+/**
+ * Click-to-explore feature tabs: the description list stays put, one shared
+ * ProductFrame swaps its panel to match whichever tab is active. Replaces
+ * the old passive "scroll past four stacked frames" narrative with
+ * something the user actually drives. Auto-advances slowly (paused on
+ * hover/focus, off entirely under prefers-reduced-motion) so a visitor who
+ * never clicks still sees the other three states.
+ */
+import ProductFrame from '@/components/ProductFrame.astro';
+import InvoicingPanels from '@/components/InvoicingPanels.astro';
+
+interface Item {
+  variant: 'dashboard' | 'invoices' | 'review' | 'reports';
+  tag: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  items: Item[];
+  frameLabel: string;
+  tablistLabel: string;
+  panelLabels: {
+    thisMonth: string;
+    correct: string;
+    pending: string;
+    supplier: string;
+    amount: string;
+    status: string;
+    okStatus: string;
+    reviewTitle: string;
+    reviewNote: string;
+    reportTitle: string;
+    vat: string;
+    withholding: string;
+  };
+}
+
+const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
+---
+<div class="product-tabs" data-reveal>
+  <div class="product-tabs__nav" role="tablist" aria-label={tablistLabel}>
+    {items.map((item, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`ptab-${i}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        aria-controls={`ppanel-${i}`}
+        tabindex={i === 0 ? 0 : -1}
+        class="product-tabs__tab"
+        data-index={i}
+      >
+        <span class="product-tabs__tag">{item.tag}</span>
+        <span class="product-tabs__title">{item.title}</span>
+        <span class="product-tabs__body">{item.body}</span>
+        <span class="product-tabs__progress"><span class="product-tabs__progress-fill"></span></span>
+      </button>
+    ))}
+  </div>
+
+  <div class="product-tabs__stage">
+    <ProductFrame label={frameLabel}>
+      {items.map((item, i) => (
+        <div class="product-tabs__panel" role="tabpanel" id={`ppanel-${i}`} aria-labelledby={`ptab-${i}`} hidden={i !== 0}>
+          <InvoicingPanels variant={item.variant} labels={panelLabels} />
+        </div>
+      ))}
+    </ProductFrame>
+  </div>
+</div>
+
+<style>
+  .product-tabs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  @media (min-width: 860px) {
+    .product-tabs {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: var(--space-6);
+    }
+
+    .product-tabs__stage {
+      position: sticky;
+      top: calc(76px + var(--space-4));
+    }
+  }
+
+  .product-tabs__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .product-tabs__tab {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1.5px solid transparent;
+    transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+  }
+
+  .product-tabs__tab:hover {
+    background: var(--gray-50);
+  }
+
+  .product-tabs__tab[aria-selected='true'] {
+    background: var(--white);
+    border-color: var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .product-tabs__tag {
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    transition: color var(--duration-fast) var(--ease);
+  }
+
+  .product-tabs__tab[aria-selected='true'] .product-tabs__tag {
+    color: var(--red);
+  }
+
+  .product-tabs__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-md);
+    color: var(--ink);
+  }
+
+  .product-tabs__body {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    max-width: 44ch;
+    display: none;
+  }
+
+  .product-tabs__tab[aria-selected='true'] .product-tabs__body {
+    display: block;
+  }
+
+  .product-tabs__progress {
+    height: 2px;
+    border-radius: 2px;
+    background: var(--line-soft);
+    overflow: hidden;
+    margin-top: 0.2rem;
+    display: none;
+  }
+
+  .product-tabs__tab[aria-selected='true'] .product-tabs__progress {
+    display: block;
+  }
+
+  .product-tabs__progress-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--red);
+  }
+
+  html.tabs-autoplay .product-tabs__tab[aria-selected='true'] .product-tabs__progress-fill {
+    animation: tab-progress 6s linear forwards;
+  }
+
+  .product-tabs__nav:hover .product-tabs__progress-fill,
+  .product-tabs__nav:focus-within .product-tabs__progress-fill {
+    animation-play-state: paused;
+  }
+
+  @keyframes tab-progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .product-tabs__panel[hidden] {
+    display: none;
+  }
+</style>
+
+<script>
+  const groups = document.querySelectorAll<HTMLElement>('.product-tabs');
+
+  if (groups.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('tabs-autoplay');
+  }
+
+  groups.forEach((group) => {
+    const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('.product-tabs__tab'));
+    const panels = Array.from(group.querySelectorAll<HTMLElement>('.product-tabs__panel'));
+    let autoplayTimer: number | null = null;
+
+    function activate(index: number, focusTab = false) {
+      tabs.forEach((tab, i) => {
+        const selected = i === index;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        if (selected && focusTab) tab.focus();
+      });
+      panels.forEach((panel, i) => {
+        panel.hidden = i !== index;
+      });
+      restartAutoplay(index);
+    }
+
+    function restartAutoplay(currentIndex: number) {
+      if (autoplayTimer) window.clearTimeout(autoplayTimer);
+      if (!document.documentElement.classList.contains('tabs-autoplay')) return;
+      autoplayTimer = window.setTimeout(() => activate((currentIndex + 1) % tabs.length), 6000);
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => activate(i));
+    });
+
+    group.querySelector('.product-tabs__nav')?.addEventListener('keydown', (e) => {
+      const key = (e as KeyboardEvent).key;
+      const current = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      if (key === 'ArrowRight' || key === 'ArrowDown') {
+        e.preventDefault();
+        activate((current + 1) % tabs.length, true);
+      } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
+        e.preventDefault();
+        activate((current - 1 + tabs.length) % tabs.length, true);
+      } else if (key === 'Home') {
+        e.preventDefault();
+        activate(0, true);
+      } else if (key === 'End') {
+        e.preventDefault();
+        activate(tabs.length - 1, true);
+      }
+    });
+
+    if (document.documentElement.classList.contains('tabs-autoplay') && 'IntersectionObserver' in window) {
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          const current = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+          if (entry.isIntersecting) {
+            restartAutoplay(current);
+          } else if (autoplayTimer) {
+            window.clearTimeout(autoplayTimer);
+          }
+        },
+        { threshold: 0.3 },
+      );
+      visibilityObserver.observe(group);
+    }
+  });
+</script>

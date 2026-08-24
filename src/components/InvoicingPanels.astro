@@ -30,15 +30,15 @@ const { variant, labels } = Astro.props;
 {variant === 'dashboard' && (
   <div class="panel panel--dashboard">
     <div class="stat-tile stat-tile--accent">
-      <span class="stat-tile__value tabular">18</span>
+      <span class="stat-tile__value tabular" data-count-to="18">0</span>
       <span class="stat-tile__label">{labels.thisMonth}</span>
     </div>
     <div class="stat-tile">
-      <span class="stat-tile__value tabular">16</span>
+      <span class="stat-tile__value tabular" data-count-to="16">0</span>
       <span class="stat-tile__label">{labels.correct}</span>
     </div>
     <div class="stat-tile stat-tile--warn">
-      <span class="stat-tile__value tabular">2</span>
+      <span class="stat-tile__value tabular" data-count-to="2">0</span>
       <span class="stat-tile__label">{labels.pending}</span>
     </div>
     <div class="chart-row">
@@ -264,3 +264,47 @@ const { variant, labels } = Astro.props;
     gap: var(--space-2);
   }
 </style>
+
+<script>
+  // Illustrative dashboard tile counts animate up whenever their panel
+  // becomes visible, and reset so they replay if you scroll away and back.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const animate = (el: HTMLElement, to: number) => {
+      const duration = 700;
+      const start = performance.now();
+      const step = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        el.textContent = String(Math.round(to * easeOut(progress)));
+        if (progress < 1 && el.dataset.counting === 'true') {
+          requestAnimationFrame(step);
+        }
+      };
+      el.dataset.counting = 'true';
+      requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const el = entry.target as HTMLElement;
+          const to = Number(el.dataset.countTo);
+          if (entry.isIntersecting) {
+            animate(el, to);
+          } else {
+            el.dataset.counting = 'false';
+            el.textContent = '0';
+          }
+        }
+      },
+      { threshold: 0.6 },
+    );
+
+    document.querySelectorAll<HTMLElement>('[data-count-to]').forEach((el) => observer.observe(el));
+  } else {
+    document.querySelectorAll<HTMLElement>('[data-count-to]').forEach((el) => {
+      el.textContent = el.dataset.countTo ?? el.textContent;
+    });
+  }
+</script>

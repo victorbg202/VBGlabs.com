@@ -90,13 +90,12 @@ const resolvedAlternates = alternates ?? routeAlternates(routeKey);
       if ('IntersectionObserver' in window) {
         document.documentElement.classList.add('reveal-ready');
 
+        // Toggles both ways: elements re-animate every time they cross into
+        // or out of view, scrolling up or down, rather than firing once.
         const observer = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                observer.unobserve(entry.target);
-              }
+              entry.target.classList.toggle('is-in', entry.isIntersecting);
             }
           },
           { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },

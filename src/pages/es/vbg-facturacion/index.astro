@@ -10,6 +10,7 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
 import AssistantDemo from '@/components/AssistantDemo.astro';
+import ProductTabs from '@/components/ProductTabs.astro';
 import { route } from '@/i18n/routes';
 
 const locale = 'es' as const;
@@ -73,20 +74,12 @@ const narrative = [
 
   <section class="section">
     <div class="container">
-      <div class="narrative">
-        {narrative.map((block, i) => (
-          <div class={`narrative__row ${i % 2 === 1 ? 'narrative__row--reverse' : ''}`}>
-            <div class="narrative__copy">
-              <span class="narrative__tag">{block.tag}</span>
-              <h3>{block.title}</h3>
-              <p>{block.body}</p>
-            </div>
-            <ProductFrame label="app.vbgfacturacion.com">
-              <InvoicingPanels variant={block.variant} labels={panelLabels} />
-            </ProductFrame>
-          </div>
-        ))}
-      </div>
+      <ProductTabs
+        items={narrative}
+        frameLabel="app.vbgfacturacion.com"
+        tablistLabel="Funciones de VBG Facturación"
+        panelLabels={panelLabels}
+      />
     </div>
   </section>
 
@@ -151,10 +144,4 @@ const narrative = [
   .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
   .narrow { max-width: 760px; }
   .bg-alt { background: var(--gray-50); }
-  .narrative { display: flex; flex-direction: column; gap: var(--space-7); }
-  .narrative__row { display: grid; grid-template-columns: 1fr; gap: var(--space-5); align-items: center; }
-  @media (min-width: 860px) { .narrative__row { grid-template-columns: 1fr 1fr; } .narrative__row--reverse .narrative__copy { order: 2; } }
-  .narrative__tag { font-family: var(--font-heading); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
-  .narrative__copy h3 { font-size: var(--text-xl); margin-block: var(--space-2); max-width: 16ch; }
-  .narrative__copy p { color: var(--muted); font-size: var(--text-md); max-width: 44ch; }
 </style>
