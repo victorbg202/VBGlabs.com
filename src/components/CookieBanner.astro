@@ -11,10 +11,24 @@ interface Props {
 const { locale } = Astro.props;
 const ui = t(locale);
 ---
-<div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookies" hidden data-analytics-enabled={ANALYTICS.enabled ? '1' : '0'}>
+<div
+  class="cookie-banner"
+  id="cookie-banner"
+  role="dialog"
+  aria-labelledby="cookie-banner-title"
+  aria-describedby="cookie-banner-description"
+  hidden
+  data-analytics-enabled={ANALYTICS.enabled ? '1' : '0'}
+>
   <div class="cookie-banner__inner container">
-    <p>{ui.cookies.text} <a href={route('cookies', locale)}>{ui.cookies.link}</a></p>
-    <button type="button" id="cookie-accept" class="btn btn-dark">{ui.cookies.accept}</button>
+    <div class="cookie-banner__copy">
+      <p class="cookie-banner__title" id="cookie-banner-title">{ui.cookies.title}</p>
+      <p id="cookie-banner-description">{ui.cookies.text} <a href={route('cookies', locale)}>{ui.cookies.link}</a></p>
+    </div>
+    <div class="cookie-banner__actions">
+      <button type="button" id="cookie-reject" class="btn cookie-banner__choice">{ui.cookies.reject}</button>
+      <button type="button" id="cookie-accept" class="btn cookie-banner__choice">{ui.cookies.accept}</button>
+    </div>
   </div>
 </div>
 
@@ -29,7 +43,7 @@ const ui = t(locale);
     color: var(--gray-300);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
-    max-width: 640px;
+    max-width: 880px;
     margin-inline: auto;
   }
 
@@ -38,15 +52,26 @@ const ui = t(locale);
     padding: var(--space-3) var(--space-4);
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     gap: var(--space-3);
     justify-content: space-between;
+  }
+
+  .cookie-banner__copy {
+    flex: 1 1 360px;
   }
 
   .cookie-banner p {
     font-size: var(--text-xs);
     margin: 0;
-    flex: 1 1 240px;
+  }
+
+  .cookie-banner .cookie-banner__title {
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    margin-bottom: 0.35rem;
   }
 
   .cookie-banner a {
@@ -54,21 +79,107 @@ const ui = t(locale);
     text-decoration: underline;
   }
 
-  .cookie-banner button {
+  .cookie-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .cookie-banner .cookie-banner__choice {
+    background: transparent;
+    border-color: var(--gray-400);
+    color: var(--white);
     min-height: 44px;
     padding: 0.6em 1.2em;
     flex: none;
   }
+
+  .cookie-banner .cookie-banner__choice:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--ink);
+  }
+
+  @media (max-width: 560px) {
+    .cookie-banner__actions,
+    .cookie-banner .cookie-banner__choice {
+      width: 100%;
+    }
+  }
 </style>
 
-<script>
-  const KEY = 'vbg-cookie-ack';
-  const banner = document.getElementById('cookie-banner');
-  if (banner && !localStorage.getItem(KEY)) {
-    banner.hidden = false;
-  }
-  document.getElementById('cookie-accept')?.addEventListener('click', () => {
-    localStorage.setItem(KEY, '1');
-    if (banner) banner.hidden = true;
-  });
+<script
+  is:inline
+  define:vars={{
+    analyticsEnabled: ANALYTICS.enabled,
+    consentKey: ANALYTICS.consent.key,
+    consentVersion: ANALYTICS.consent.version,
+    consentMaxAgeMs: ANALYTICS.consent.maxAgeDays * 24 * 60 * 60 * 1000,
+  }}
+>
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
 </script>

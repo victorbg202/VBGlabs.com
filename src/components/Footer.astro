@@ -2,7 +2,7 @@
 import { t } from '@/i18n/ui';
 import type { Locale } from '@/i18n/locales';
 import { route } from '@/i18n/routes';
-import { COMPANY, PHONE, SOCIAL_PROFILES } from '@/data/company';
+import { ANALYTICS, COMPANY, PHONE, SOCIAL_PROFILES } from '@/data/company';
 
 interface Props {
   locale: Locale;
@@ -67,6 +67,11 @@ const companyLinks = [
       <a href={route('legalNotice', locale)}>{ui.footer.legalNotice}</a>
       <a href={route('privacy', locale)}>{ui.footer.privacy}</a>
       <a href={route('cookies', locale)}>{ui.footer.cookies}</a>
+      {ANALYTICS.enabled && (
+        <button type="button" data-cookie-settings>
+          {locale === 'ca' ? 'Configurar cookies' : locale === 'es' ? 'Configurar cookies' : 'Cookie settings'}
+        </button>
+      )}
     </nav>
   </div>
 </footer>
@@ -172,7 +177,8 @@ const companyLinks = [
     flex-wrap: wrap;
   }
 
-  .footer__legal a {
+  .footer__legal a,
+  .footer__legal button {
     color: var(--gray-400);
     text-decoration: none;
     display: inline-block;
@@ -180,7 +186,16 @@ const companyLinks = [
     margin-block: -0.4rem;
   }
 
-  .footer__legal a:hover {
+  .footer__legal button {
+    appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .footer__legal a:hover,
+  .footer__legal button:hover {
     color: var(--white);
     text-decoration: underline;
   }

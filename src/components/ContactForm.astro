@@ -310,6 +310,13 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
         if (!res.ok) throw new Error('bad status');
         status.textContent = successMsg;
         status.dataset.state = 'success';
+        const interest = form.querySelector('select[name="interest"]');
+        window.vbgTrackEvent?.('generate_lead', {
+          lead_source: 'website_contact_form',
+          service_interest: interest instanceof HTMLSelectElement && interest.value ? interest.value : 'unspecified',
+          form_id: form.id,
+          page_language: document.documentElement.lang,
+        });
         form.reset();
       } catch {
         status.textContent = errorMsg;
