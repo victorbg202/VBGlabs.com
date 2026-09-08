@@ -13,7 +13,7 @@ const locale = 'en' as const;
   description="VBG Labs privacy policy: how we process personal data under GDPR."
   crumbName="Privacy"
   crumbPath={route('privacy', locale)}
-  updated="August 2026"
+  updated="September 2026"
   updatedLabel="Last updated"
 >
   <p>This is an informational translation. The legally binding version under Spanish/EU data protection law is the Catalan/Spanish original.</p>
@@ -32,11 +32,13 @@ const locale = 'en' as const;
     <li><strong>Handling enquiries:</strong> responding to requests submitted through the contact form.</li>
     <li><strong>Marketing communications:</strong> sending information about services, only with prior consent.</li>
     <li><strong>Managing the business relationship:</strong> administering the contract for services provided, including VBG Invoicing.</li>
+    <li><strong>Website analytics:</strong> producing aggregate statistics about site usage in order to improve it, only when analytics cookies are accepted.</li>
   </ul>
 
   <h2>3. Legal basis</h2>
   <ul>
     <li><strong>Consent</strong> (GDPR art. 6.1.a): when submitting the contact form or agreeing to receive marketing communications.</li>
+    <li><strong>Analytics consent</strong> (GDPR art. 6.1.a): when accepting Google Analytics cookies; this can be withdrawn at any time through “Cookie settings”.</li>
     <li><strong>Contract performance</strong> (GDPR art. 6.1.b): when data is necessary to provide a contracted service, such as VBG Invoicing.</li>
     <li><strong>Legitimate interest</strong> (GDPR art. 6.1.f): to send marketing about similar services to existing clients.</li>
   </ul>
@@ -46,6 +48,7 @@ const locale = 'en' as const;
     <tr><th>Provider</th><th>Service</th><th>Country</th></tr>
     <tr><td><Pending label="Pending" /></td><td>Web hosting</td><td><Pending label="Pending" /></td></tr>
     <tr><td>Google LLC</td><td>Google Fonts</td><td>US (with appropriate safeguards)</td></tr>
+    <tr><td>Google Ireland Limited</td><td>Google Analytics 4, only with consent</td><td>Ireland/US (with applicable safeguards)</td></tr>
     <tr><td>FormSubmit</td><td>Contact form processing</td><td>EU</td></tr>
   </table>
 
@@ -58,6 +61,7 @@ const locale = 'en' as const;
   <ul>
     <li><strong>Contact data:</strong> kept for 12 months if no business relationship is formalized.</li>
     <li><strong>Client data:</strong> for the duration of the business relationship plus applicable legal retention periods (4 years for tax obligations under Spanish law).</li>
+    <li><strong>Analytics data:</strong> for the periods configured in Google Analytics and described in the <a href={route('cookies', locale)}>Cookie Policy</a>, always subject to the consent given.</li>
   </ul>
 
   <h2>7. Security measures</h2>

@@ -13,7 +13,7 @@ const locale = 'es' as const;
   description="Política de privacidad de VBG Labs: tratamiento de datos personales conforme al RGPD."
   crumbName="Privacidad"
   crumbPath={route('privacy', locale)}
-  updated="agosto de 2026"
+  updated="septiembre de 2026"
   updatedLabel="Última actualización"
 >
   <h2>1. Responsable del tratamiento</h2>
@@ -30,11 +30,13 @@ const locale = 'es' as const;
     <li><strong>Gestión de consultas:</strong> responder a las solicitudes hechas a través del formulario de contacto.</li>
     <li><strong>Comunicaciones comerciales:</strong> enviar información sobre servicios, solo con el consentimiento previo del interesado.</li>
     <li><strong>Gestión de la relación comercial:</strong> administrar la relación contractual derivada de la prestación de servicios, incluido VBG Facturación.</li>
+    <li><strong>Analítica web:</strong> elaborar estadísticas agregadas sobre el uso del sitio para mejorarlo, únicamente cuando se aceptan las cookies analíticas.</li>
   </ul>
 
   <h2>3. Legitimación</h2>
   <ul>
     <li><strong>Consentimiento del interesado</strong> (art. 6.1.a RGPD): al enviar el formulario de contacto o aceptar recibir comunicaciones comerciales.</li>
+    <li><strong>Consentimiento para analítica</strong> (art. 6.1.a RGPD): cuando se aceptan las cookies de Google Analytics; puede retirarse en cualquier momento desde «Configurar cookies».</li>
     <li><strong>Ejecución de un contrato</strong> (art. 6.1.b RGPD): cuando los datos sean necesarios para prestar el servicio contratado, como VBG Facturación.</li>
     <li><strong>Interés legítimo</strong> (art. 6.1.f RGPD): para el envío de comunicaciones comerciales a clientes existentes sobre servicios similares a los contratados.</li>
   </ul>
@@ -44,6 +46,7 @@ const locale = 'es' as const;
     <tr><th>Proveedor</th><th>Servicio</th><th>País</th></tr>
     <tr><td><Pending label="Pendiente" /></td><td>Alojamiento web</td><td><Pending label="Pendiente" /></td></tr>
     <tr><td>Google LLC</td><td>Google Fonts</td><td>EE. UU. (con garantías adecuadas)</td></tr>
+    <tr><td>Google Ireland Limited</td><td>Google Analytics 4, solo con consentimiento</td><td>Irlanda/EE. UU. (con las garantías aplicables)</td></tr>
     <tr><td>FormSubmit</td><td>Procesamiento del formulario de contacto</td><td>UE</td></tr>
   </table>
 
@@ -56,6 +59,7 @@ const locale = 'es' as const;
   <ul>
     <li><strong>Datos de contacto:</strong> se conservan 12 meses si no se formaliza ninguna relación comercial.</li>
     <li><strong>Datos de clientes:</strong> mientras dure la relación comercial y los plazos legales posteriores (4 años por obligaciones fiscales).</li>
+    <li><strong>Datos de analítica:</strong> durante los plazos configurados en Google Analytics y detallados en la <a href={route('cookies', locale)}>Política de Cookies</a>, siempre sujetos al consentimiento otorgado.</li>
   </ul>
 
   <h2>7. Medidas de seguridad</h2>

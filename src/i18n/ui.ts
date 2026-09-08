@@ -72,9 +72,11 @@ export const ui = {
       invalidEmail: 'Aquest email no sembla correcte.',
     },
     cookies: {
-      text: "Fem servir cookies pròpies imprescindibles per al funcionament del web. Encara no utilitzem cookies analítiques ni publicitàries.",
+      title: 'Tu decideixes sobre les cookies',
+      text: "Fem servir emmagatzematge essencial i, només si ho acceptes, Google Analytics per entendre com s'utilitza el web i millorar-lo. No utilitzem cookies publicitàries.",
       link: 'Més informació',
-      accept: "D'acord",
+      accept: 'Acceptar analítiques',
+      reject: 'Rebutjar',
     },
     error404: {
       eyebrow: '404',
@@ -155,9 +157,11 @@ export const ui = {
       invalidEmail: 'Este email no parece correcto.',
     },
     cookies: {
-      text: 'Usamos cookies propias imprescindibles para el funcionamiento de la web. Todavía no usamos cookies analíticas ni publicitarias.',
+      title: 'Tú decides sobre las cookies',
+      text: 'Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias.',
       link: 'Más información',
-      accept: 'De acuerdo',
+      accept: 'Aceptar analíticas',
+      reject: 'Rechazar',
     },
     error404: {
       eyebrow: '404',
@@ -238,9 +242,11 @@ export const ui = {
       invalidEmail: "That email doesn't look right.",
     },
     cookies: {
-      text: "We use essential first-party cookies for the site to work. We don't use analytics or advertising cookies yet.",
+      title: 'You choose which cookies we use',
+      text: 'We use essential storage and, only with your permission, Google Analytics to understand and improve site usage. We do not use advertising cookies.',
       link: 'More information',
-      accept: 'Got it',
+      accept: 'Accept analytics',
+      reject: 'Reject',
     },
     error404: {
       eyebrow: '404',

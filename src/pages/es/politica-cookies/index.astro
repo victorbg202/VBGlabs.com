@@ -1,8 +1,10 @@
 ---
 import LegalLayout from '@/components/LegalLayout.astro';
 import { route } from '@/i18n/routes';
+import { ANALYTICS } from '@/data/company';
 
 const locale = 'es' as const;
+const gaSessionCookie = `_ga_${ANALYTICS.id.replace(/^G-/, '')}`;
 ---
 <LegalLayout
   locale={locale}
@@ -11,7 +13,7 @@ const locale = 'es' as const;
   description="Política de cookies de VBG Labs: qué cookies usamos y cómo gestionarlas."
   crumbName="Cookies"
   crumbPath={route('cookies', locale)}
-  updated="agosto de 2026"
+  updated="septiembre de 2026"
   updatedLabel="Última actualización"
 >
   <h2>1. ¿Qué son las cookies?</h2>
@@ -19,20 +21,28 @@ const locale = 'es' as const;
 
   <h2>2. Cookies que usa este sitio web</h2>
   <table>
-    <tr><th>Cookie</th><th>Tipo</th><th>Finalidad</th><th>Duración</th></tr>
-    <tr><td>vbg-cookie-ack</td><td>Técnica (localStorage, no cookie de terceros)</td><td>Recordar que has visto el aviso de cookies</td><td>Hasta que borres los datos del navegador</td></tr>
+    <thead><tr><th>Cookie o almacenamiento</th><th>Tipo</th><th>Finalidad</th><th>Duración</th></tr></thead>
+    <tbody>
+      <tr><td>{ANALYTICS.consent.key}</td><td>Esencial (localStorage)</td><td>Guardar si has aceptado o rechazado las cookies analíticas</td><td>Hasta 24 meses</td></tr>
+      <tr><td>_ga</td><td>Analítica, de Google</td><td>Distinguir usuarios y elaborar estadísticas de uso</td><td>Hasta 2 años</td></tr>
+      <tr><td>{gaSessionCookie}</td><td>Analítica, de Google</td><td>Mantener el estado de la sesión de medición</td><td>Hasta 2 años</td></tr>
+    </tbody>
   </table>
-  <p>Actualmente este sitio web <strong>no usa cookies analíticas ni publicitarias</strong>. Si en el futuro se incorporan (por ejemplo, para medir visitas de forma anónima), se pedirá tu consentimiento antes de activarlas y se actualizará esta tabla.</p>
+  <p>Las cookies <code>_ga</code> solo se crean si pulsas «Aceptar analíticas». Si rechazas, la etiqueta de Google Analytics no se descarga y no se envían datos de medición.</p>
 
   <h2>3. Tipos de cookies</h2>
   <h2>Cookies técnicas (necesarias)</h2>
   <p>Son imprescindibles para el funcionamiento básico del sitio web. No requieren consentimiento.</p>
   <h2>Cookies analíticas</h2>
-  <p>Recogerían información estadística anónima sobre el uso del sitio web. No están activas actualmente.</p>
+  <p>Utilizamos Google Analytics 4 para conocer, de forma agregada, qué páginas se visitan, desde qué canales llegan las visitas y cómo se utiliza el sitio. La configuración mantiene desactivadas las señales publicitarias y solo carga Analytics después de obtener tu consentimiento.</p>
+  <p>El proveedor es Google Ireland Limited. Puedes consultar cómo trata Google la información en su <a href="https://policies.google.com/privacy?hl=es" target="_blank" rel="noopener">Política de Privacidad</a>.</p>
   <h2>Cookies publicitarias</h2>
   <p>Este sitio web no usa cookies publicitarias.</p>
 
   <h2>4. Cómo gestionar las cookies</h2>
+  <p>Puedes aceptar, rechazar o retirar tu consentimiento en cualquier momento. Al retirar el consentimiento se bloquea Analytics y se eliminan las cookies analíticas accesibles desde este sitio.</p>
+  <p><button type="button" class="btn btn-outline" data-cookie-settings>Configurar cookies</button></p>
+  <p>También puedes bloquear o eliminar cookies desde tu navegador:</p>
   <ul>
     <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
     <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies" target="_blank" rel="noopener">Mozilla Firefox</a></li>
@@ -41,5 +51,5 @@ const locale = 'es' as const;
   </ul>
 
   <h2>5. Actualización de esta política</h2>
-  <p>Esta política se puede actualizar para adaptarla a cambios normativos o a la incorporación de nuevos servicios, como la activación futura de cookies analíticas.</p>
+  <p>Esta política se puede actualizar para reflejar cambios normativos o modificaciones en los servicios utilizados por el sitio web.</p>
 </LegalLayout>

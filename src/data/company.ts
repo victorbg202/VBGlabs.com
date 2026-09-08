@@ -33,10 +33,13 @@ export const PHONE = {
 export const SOCIAL_PROFILES: { label: string; url: string }[] = [];
 
 export const ANALYTICS = {
-  /** No real measurement ID exists yet. When VBG Labs provides one,
-   *  set enabled: true and id to the GA4 / Plausible / Fathom ID —
-   *  the consent-gated loader in Analytics.astro already reads this. */
-  enabled: false,
+  /** Google Analytics is loaded only after explicit analytics consent. */
+  enabled: true,
   provider: 'ga4' as const,
-  id: '',
+  id: 'G-6D4DW5CPW9',
+  consent: {
+    key: 'vbg-cookie-consent',
+    version: 1,
+    maxAgeDays: 730,
+  },
 };

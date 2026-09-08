@@ -13,7 +13,7 @@ const locale = 'ca' as const;
   description="Política de privacitat de VBG Labs: tractament de dades personals conforme al RGPD."
   crumbName="Privacitat"
   crumbPath={route('privacy', locale)}
-  updated="agost de 2026"
+  updated="setembre de 2026"
   updatedLabel="Última actualització"
 >
   <h2>1. Responsable del tractament</h2>
@@ -31,11 +31,13 @@ const locale = 'ca' as const;
     <li><strong>Gestió de consultes:</strong> respondre a les sol·licituds fetes a través del formulari de contacte.</li>
     <li><strong>Comunicacions comercials:</strong> enviar informació sobre serveis, només amb el consentiment previ de l&#39;interessat.</li>
     <li><strong>Gestió de la relació comercial:</strong> administrar la relació contractual derivada de la prestació de serveis, inclòs VBG Facturació.</li>
+    <li><strong>Analítica web:</strong> elaborar estadístiques agregades sobre l&#39;ús del lloc per millorar-lo, únicament quan s&#39;accepten les cookies analítiques.</li>
   </ul>
 
   <h2>3. Legitimació</h2>
   <ul>
     <li><strong>Consentiment de l&#39;interessat</strong> (art. 6.1.a RGPD): en enviar el formulari de contacte o acceptar rebre comunicacions comercials.</li>
+    <li><strong>Consentiment per a analítica</strong> (art. 6.1.a RGPD): quan s&#39;accepten les cookies de Google Analytics; es pot retirar en qualsevol moment des de «Configurar cookies».</li>
     <li><strong>Execució d&#39;un contracte</strong> (art. 6.1.b RGPD): quan les dades siguin necessàries per prestar el servei contractat, com VBG Facturació.</li>
     <li><strong>Interès legítim</strong> (art. 6.1.f RGPD): per a l&#39;enviament de comunicacions comercials a clients existents sobre serveis similars als contractats.</li>
   </ul>
@@ -46,6 +48,7 @@ const locale = 'ca' as const;
     <tr><th>Proveïdor</th><th>Servei</th><th>País</th></tr>
     <tr><td><Pending label="Pendent" /></td><td>Allotjament web</td><td><Pending label="Pendent" /></td></tr>
     <tr><td>Google LLC</td><td>Google Fonts</td><td>EUA (amb garanties adequades)</td></tr>
+    <tr><td>Google Ireland Limited</td><td>Google Analytics 4, només amb consentiment</td><td>Irlanda/EUA (amb les garanties aplicables)</td></tr>
     <tr><td>FormSubmit</td><td>Processament del formulari de contacte</td><td>UE</td></tr>
   </table>
 
@@ -58,6 +61,7 @@ const locale = 'ca' as const;
   <ul>
     <li><strong>Dades de contacte:</strong> es conserven 12 mesos si no es formalitza cap relació comercial.</li>
     <li><strong>Dades de clients:</strong> mentre duri la relació comercial i els terminis legals posteriors (4 anys per obligacions fiscals).</li>
+    <li><strong>Dades d&#39;analítica:</strong> durant els terminis configurats a Google Analytics i detallats a la <a href={route('cookies', locale)}>Política de Cookies</a>, sempre subjectes al consentiment atorgat.</li>
   </ul>
 
   <h2>7. Mesures de seguretat</h2>

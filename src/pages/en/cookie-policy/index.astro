@@ -1,8 +1,10 @@
 ---
 import LegalLayout from '@/components/LegalLayout.astro';
 import { route } from '@/i18n/routes';
+import { ANALYTICS } from '@/data/company';
 
 const locale = 'en' as const;
+const gaSessionCookie = `_ga_${ANALYTICS.id.replace(/^G-/, '')}`;
 ---
 <LegalLayout
   locale={locale}
@@ -11,7 +13,7 @@ const locale = 'en' as const;
   description="VBG Labs cookie policy: what cookies we use and how to manage them."
   crumbName="Cookies"
   crumbPath={route('cookies', locale)}
-  updated="August 2026"
+  updated="September 2026"
   updatedLabel="Last updated"
 >
   <h2>1. What are cookies?</h2>
@@ -19,20 +21,28 @@ const locale = 'en' as const;
 
   <h2>2. Cookies used on this site</h2>
   <table>
-    <tr><th>Cookie</th><th>Type</th><th>Purpose</th><th>Duration</th></tr>
-    <tr><td>vbg-cookie-ack</td><td>Essential (localStorage, not a third-party cookie)</td><td>Remembers that you've seen the cookie notice</td><td>Until you clear your browser data</td></tr>
+    <thead><tr><th>Cookie or storage</th><th>Type</th><th>Purpose</th><th>Duration</th></tr></thead>
+    <tbody>
+      <tr><td>{ANALYTICS.consent.key}</td><td>Essential (localStorage)</td><td>Stores whether you accepted or rejected analytics cookies</td><td>Up to 24 months</td></tr>
+      <tr><td>_ga</td><td>Analytics, set by Google</td><td>Distinguishes users and produces usage statistics</td><td>Up to 2 years</td></tr>
+      <tr><td>{gaSessionCookie}</td><td>Analytics, set by Google</td><td>Maintains the measurement session state</td><td>Up to 2 years</td></tr>
+    </tbody>
   </table>
-  <p>This site currently <strong>does not use analytics or advertising cookies</strong>. If any are introduced in future (for example, to measure visits anonymously), we'll ask for your consent before activating them and update this table.</p>
+  <p>The <code>_ga</code> cookies are only created if you select “Accept analytics”. If you reject them, the Google Analytics tag is not downloaded and no measurement data is sent.</p>
 
   <h2>3. Types of cookies</h2>
   <h2>Essential cookies</h2>
   <p>Required for the site's basic operation. These don't require consent.</p>
   <h2>Analytics cookies</h2>
-  <p>Would collect anonymous statistics about site usage. Not currently active.</p>
+  <p>We use Google Analytics 4 to understand, in aggregate, which pages are visited, which channels bring visitors to the site and how the site is used. Advertising signals remain disabled, and Analytics is only loaded after you give consent.</p>
+  <p>The provider is Google Ireland Limited. See Google&#39;s <a href="https://policies.google.com/privacy?hl=en" target="_blank" rel="noopener">Privacy Policy</a> for information about its processing.</p>
   <h2>Advertising cookies</h2>
   <p>This site does not use advertising cookies.</p>
 
   <h2>4. Managing cookies</h2>
+  <p>You can accept, reject or withdraw consent at any time. Withdrawing consent blocks Analytics and removes the analytics cookies accessible from this site.</p>
+  <p><button type="button" class="btn btn-outline" data-cookie-settings>Cookie settings</button></p>
+  <p>You can also block or delete cookies through your browser:</p>
   <ul>
     <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
     <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener">Mozilla Firefox</a></li>
@@ -41,5 +51,5 @@ const locale = 'en' as const;
   </ul>
 
   <h2>5. Updates to this policy</h2>
-  <p>This policy may be updated to reflect regulatory changes or new services, such as the future activation of analytics cookies.</p>
+  <p>This policy may be updated to reflect regulatory changes or changes to the services used by the website.</p>
 </LegalLayout>

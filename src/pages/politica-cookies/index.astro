@@ -1,8 +1,10 @@
 ---
 import LegalLayout from '@/components/LegalLayout.astro';
 import { route } from '@/i18n/routes';
+import { ANALYTICS } from '@/data/company';
 
 const locale = 'ca' as const;
+const gaSessionCookie = `_ga_${ANALYTICS.id.replace(/^G-/, '')}`;
 ---
 <LegalLayout
   locale={locale}
@@ -11,7 +13,7 @@ const locale = 'ca' as const;
   description="Política de cookies de VBG Labs: quines cookies fem servir i com gestionar-les."
   crumbName="Cookies"
   crumbPath={route('cookies', locale)}
-  updated="agost de 2026"
+  updated="setembre de 2026"
   updatedLabel="Última actualització"
 >
   <h2>1. Què són les cookies?</h2>
@@ -23,25 +25,31 @@ const locale = 'ca' as const;
 
   <h2>2. Cookies que fa servir aquest lloc web</h2>
   <table>
-    <tr><th>Cookie</th><th>Tipus</th><th>Finalitat</th><th>Durada</th></tr>
-    <tr><td>vbg-cookie-ack</td><td>Tècnica (localStorage, no cookie de tercers)</td><td>Recordar que has vist l&#39;avís de cookies</td><td>Fins que esborris les dades del navegador</td></tr>
+    <thead><tr><th>Cookie o emmagatzematge</th><th>Tipus</th><th>Finalitat</th><th>Durada</th></tr></thead>
+    <tbody>
+      <tr><td>{ANALYTICS.consent.key}</td><td>Essencial (localStorage)</td><td>Desar si has acceptat o rebutjat les cookies analítiques</td><td>Fins a 24 mesos</td></tr>
+      <tr><td>_ga</td><td>Analítica, de Google</td><td>Distingir usuaris i elaborar estadístiques d&#39;ús</td><td>Fins a 2 anys</td></tr>
+      <tr><td>{gaSessionCookie}</td><td>Analítica, de Google</td><td>Mantenir l&#39;estat de la sessió de mesurament</td><td>Fins a 2 anys</td></tr>
+    </tbody>
   </table>
   <p>
-    Actualment aquest lloc web <strong>no utilitza cookies analítiques ni publicitàries</strong>.
-    Si en el futur s&#39;hi incorporen (per exemple, per mesurar visites de forma anònima), es
-    demanarà el teu consentiment abans d&#39;activar-les i s&#39;actualitzarà aquesta taula.
+    Les cookies <code>_ga</code> només es creen si prems «Acceptar analítiques». Si les rebutges,
+    l&#39;etiqueta de Google Analytics no es descarrega i no s&#39;envien dades de mesurament.
   </p>
 
   <h2>3. Tipus de cookies</h2>
   <h2>Cookies tècniques (necessàries)</h2>
   <p>Són imprescindibles per al funcionament bàsic del lloc web. No requereixen consentiment.</p>
   <h2>Cookies analítiques</h2>
-  <p>Recollirien informació estadística anònima sobre l&#39;ús del lloc web. No estan actives actualment.</p>
+  <p>Utilitzem Google Analytics 4 per conèixer, de manera agregada, quines pàgines es visiten, des de quins canals arriben les visites i com s&#39;utilitza el lloc. La configuració manté desactivats els senyals publicitaris i només carrega Analytics després d&#39;obtenir el teu consentiment.</p>
+  <p>El proveïdor és Google Ireland Limited. Pots consultar com tracta Google la informació a la seva <a href="https://policies.google.com/privacy?hl=ca" target="_blank" rel="noopener">Política de privadesa</a>.</p>
   <h2>Cookies publicitàries</h2>
   <p>Aquest lloc web no utilitza cookies publicitàries.</p>
 
   <h2>4. Com gestionar les cookies</h2>
-  <p>Pots configurar el teu navegador per bloquejar o eliminar cookies:</p>
+  <p>Pots acceptar, rebutjar o retirar el consentiment en qualsevol moment. En retirar-lo es bloqueja Analytics i s&#39;eliminen les cookies analítiques accessibles des d&#39;aquest lloc.</p>
+  <p><button type="button" class="btn btn-outline" data-cookie-settings>Configurar cookies</button></p>
+  <p>També pots bloquejar o eliminar cookies des del navegador:</p>
   <ul>
     <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
     <li><a href="https://support.mozilla.org/ca/kb/cookies-informacio-que-els-llocs-web-emmagatzemen" target="_blank" rel="noopener">Mozilla Firefox</a></li>
@@ -50,5 +58,5 @@ const locale = 'ca' as const;
   </ul>
 
   <h2>5. Actualització d&#39;aquesta política</h2>
-  <p>Aquesta política es pot actualitzar per adaptar-la a canvis normatius o a la incorporació de nous serveis, com l&#39;activació futura de cookies analítiques.</p>
+  <p>Aquesta política es pot actualitzar per reflectir canvis normatius o modificacions en els serveis utilitzats pel lloc web.</p>
 </LegalLayout>
