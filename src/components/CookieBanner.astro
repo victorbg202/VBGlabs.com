@@ -27,7 +27,7 @@ const ui = t(locale);
     </div>
     <div class="cookie-banner__actions">
       <button type="button" id="cookie-reject" class="btn cookie-banner__choice">{ui.cookies.reject}</button>
-      <button type="button" id="cookie-accept" class="btn cookie-banner__choice">{ui.cookies.accept}</button>
+      <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept">{ui.cookies.accept}</button>
     </div>
   </div>
 </div>
@@ -98,6 +98,18 @@ const ui = t(locale);
     background: var(--white);
     border-color: var(--white);
     color: var(--ink);
+  }
+
+  .cookie-banner .cookie-banner__choice--accept {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+  }
+
+  .cookie-banner .cookie-banner__choice--accept:hover {
+    background: var(--red-600);
+    border-color: var(--red-600);
+    color: var(--white);
   }
 
   @media (max-width: 560px) {

@@ -75,7 +75,7 @@ export const ui = {
       title: 'Tu decideixes sobre les cookies',
       text: "Fem servir emmagatzematge essencial i, només si ho acceptes, Google Analytics per entendre com s'utilitza el web i millorar-lo. No utilitzem cookies publicitàries.",
       link: 'Més informació',
-      accept: 'Acceptar analítiques',
+      accept: 'Acceptar',
       reject: 'Rebutjar',
     },
     error404: {
@@ -160,7 +160,7 @@ export const ui = {
       title: 'Tú decides sobre las cookies',
       text: 'Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias.',
       link: 'Más información',
-      accept: 'Aceptar analíticas',
+      accept: 'Aceptar',
       reject: 'Rechazar',
     },
     error404: {
@@ -245,7 +245,7 @@ export const ui = {
       title: 'You choose which cookies we use',
       text: 'We use essential storage and, only with your permission, Google Analytics to understand and improve site usage. We do not use advertising cookies.',
       link: 'More information',
-      accept: 'Accept analytics',
+      accept: 'Accept',
       reject: 'Reject',
     },
     error404: {
