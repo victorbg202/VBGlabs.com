@@ -1,0 +1,76 @@
+name: Build and publish site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "scripts/**"
+      - "astro.config.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vbglabs-production-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate blog translations and links
+        run: npm run validate:blog
+
+      - name: Check Astro project
+        run: npm run check
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Copy generated site to repository root
+        shell: bash
+        run: |
+          if [ -d _astro ]; then
+            while IFS= read -r -d '' file; do
+              if [ ! -e "dist/$file" ]; then
+                rm -f -- "$file"
+              fi
+            done < <(find _astro -type f -print0)
+            find _astro -depth -type d -empty -delete
+          fi
+          cp -a dist/. .
+          rm -rf dist
+
+      - name: Commit generated output
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Generated output is already current."
+            exit 0
+          fi
+          git commit -m "Build static site [skip ci]"
+          git push origin main

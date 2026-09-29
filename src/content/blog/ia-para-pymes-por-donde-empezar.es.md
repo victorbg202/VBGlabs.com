@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "ai-where-to-start"
 category: "Inteligencia artificial"
 date: 2026-06-03
-relatedSlugs: ["que-vale-la-pena-automatizar"]
+relatedSlugs: ["que-vale-la-pena-automatizar", "alfabetizacion-ia-empresas-que-documentar"]
 ---
 
 La mayoría de pymes que nos llaman para hablar de inteligencia artificial ya han probado algo. Alguien del equipo usa ChatGPT para redactar correos, alguien más ha probado un chatbot que abandonó a la semana. El problema no suele ser la herramienta — es que nadie ha decidido *para qué* vale la pena usarla, ni cómo integrarla en el día a día real del negocio.

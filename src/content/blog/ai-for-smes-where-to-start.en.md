@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "ai-where-to-start"
 category: "Artificial intelligence"
 date: 2026-06-03
-relatedSlugs: ["what-is-worth-automating"]
+relatedSlugs: ["what-is-worth-automating", "ai-literacy-businesses-what-to-document"]
 ---
 
 Most small businesses that call us to talk about AI have already tried something. Someone on the team uses ChatGPT to draft emails; someone else tried a chatbot and abandoned it within a week. The problem usually isn't the tool — it's that nobody decided *what it was actually for*, or how it should fit into the real day-to-day of the business.

@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "ai-where-to-start"
 category: "Intel·ligència artificial"
 date: 2026-06-03
-relatedSlugs: ["que-val-la-pena-automatitzar"]
+relatedSlugs: ["que-val-la-pena-automatitzar", "alfabetitzacio-ia-empreses-que-documentar"]
 ---
 
 La majoria de pimes que ens truquen per parlar d'intel·ligència artificial ja hi han provat alguna cosa. Algú de l'equip fa servir ChatGPT per redactar correus, algú altre ha provat un chatbot que va abandonar al cap d'una setmana. El problema no sol ser l'eina — és que ningú ha decidit *per a què* val la pena fer-la servir, ni com integrar-la en el dia a dia real del negoci.
