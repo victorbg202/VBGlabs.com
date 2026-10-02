@@ -1,0 +1,117 @@
+---
+title: "Quant et costa una tasca manual? Calcula si val la pena automatitzar-la"
+description: "Calcula el cost anual d'una tasca repetitiva, els errors, l'estalvi possible i el retorn d'una automatització amb una eina interactiva i un exemple complet."
+slug: "calcular-cost-tasca-manual-automatitzar"
+lang: "ca"
+translationGroup: "manual-task-cost-calculator"
+category: "Automatització"
+date: 2026-10-02
+relatedSlugs: ["que-val-la-pena-automatitzar"]
+---
+
+import TaskCostCalculator from '../../components/TaskCostCalculator.astro';
+
+Una tasca manual no costa només els minuts que triga una persona a fer-la una vegada. Cal multiplicar aquest temps per totes les repeticions de l'any, sumar-hi els errors i comparar el resultat amb el cost real d'automatitzar: desenvolupament, eines, manteniment i revisió humana.
+
+La fórmula és senzilla. La decisió no sempre ho és. Aquesta calculadora t'ajuda a posar-hi números sense donar per fet que automatitzar sigui la resposta correcta.
+
+## El càlcul ràpid en quatre passos
+
+Per obtenir una primera estimació necessites vuit dades que normalment pots recopilar en una setmana:
+
+1. minuts que requereix cada repetició;
+2. nombre de repeticions mensuals;
+3. cost total per hora de la persona que fa la tasca;
+4. errors mensuals i cost mitjà de corregir-los;
+5. cost inicial de construir o configurar l'automatització;
+6. llicències i manteniment mensual;
+7. hores de revisió humana que continuaran sent necessàries;
+8. temps durant el qual esperes utilitzar la solució.
+
+El **cost total per hora** no és només el sou net. Per a una estimació interna, incorpora el cost laboral de l'empresa i, si vols afinar, la part proporcional d'equipament, espai i gestió. No busquis una precisió falsa: és millor un rang honest que una xifra amb dos decimals basada en suposicions.
+
+La primera fórmula és:
+
+`cost anual de temps = minuts × repeticions mensuals × 12 ÷ 60 × cost per hora`
+
+Després afegeix el cost dels errors que realment puguis mesurar:
+
+`cost anual actual = cost anual de temps + errors mensuals × cost per error × 12`
+
+No hi afegeixis “oportunitats perdudes” si no pots explicar com les has calculat. Pots anotar-les a part, però no les utilitzis per forçar que el projecte sembli rendible.
+
+<TaskCostCalculator locale="ca" />
+
+## Com calcula el resultat l'eina
+
+La calculadora separa tres quantitats perquè no les barregis:
+
+- **Cost manual anual:** temps dedicat més errors corregibles.
+- **Estalvi operatiu anual:** cost manual menys revisió humana, eines i manteniment que continuaran després d'automatitzar.
+- **Balanç del primer any:** estalvi operatiu menys el cost inicial d'implantació.
+
+El retorn de la inversió indica quants mesos d'estalvi operatiu calen per recuperar el cost inicial:
+
+`mesos de retorn = cost inicial ÷ estalvi operatiu mensual`
+
+Un retorn curt no garanteix que el projecte sigui una bona idea. Només diu que, si les dades i el funcionament previst són correctes, la inversió es recuperaria aviat. Encara cal revisar risc, privadesa, dependència del proveïdor i qualitat del procés.
+
+## Exemple complet: registrar factures rebudes
+
+Imaginem una empresa que rep 180 factures al mes. Introduir, comprovar i arxivar cada factura ocupa 12 minuts de mitjana. El cost total de l'hora de la persona responsable és de 22 €. Cada mes hi ha tres incidències —un duplicat, una dada mal transcrita o un document mal classificat— que costen uns 35 € de detectar i corregir.
+
+El temps manual és de 36 hores al mes:
+
+`12 minuts × 180 factures ÷ 60 = 36 hores`
+
+Això representa 792 € mensuals de temps i 105 € en correccions. El cost anual actual és, per tant, de 10.764 €.
+
+Ara suposem una automatització inicial de 3.800 €, unes eines i manteniment de 120 € al mes i quatre hores mensuals de revisió humana. Després d'automatitzar, el cost operatiu anual seria de 2.496 €: 1.440 € d'eines i 1.056 € de revisió.
+
+L'estalvi operatiu estimat seria de 8.268 € anuals. Descomptant la implantació, el balanç del primer any seria positiu en 4.468 € i el cost inicial es recuperaria aproximadament en 5,5 mesos.
+
+És un exemple il·lustratiu, no una promesa de rendiment. Si les factures són molt diferents entre elles, les dades d'entrada són dolentes o la revisió real acaba sent de quinze hores al mes, el resultat canvia. Per això la calculadora permet modificar totes les variables.
+
+## Abans dels euros: comprova si el procés està preparat
+
+Una tasca pot semblar rendible sobre el paper i continuar sent una mala candidata. Abans de decidir, respon aquestes preguntes:
+
+- **El procés és estable?** Si cada persona el fa d'una manera diferent, primer cal acordar el procediment.
+- **Les entrades són prou consistents?** Correus, formularis o documents caòtics poden exigir més excepcions de les previstes.
+- **Hi ha una sortida correcta verificable?** Una automatització necessita una manera clara de saber si ha funcionat.
+- **Les excepcions es poden derivar a una persona?** Automatitzar el 80% senzill i revisar la resta acostuma a ser més segur que perseguir el 100%.
+- **Un error és reversible?** Enviar un esborrany a revisió no té el mateix risc que aprovar un pagament.
+- **Les dades tenen requisits de privadesa o seguretat?** El cost de protegir-les forma part del projecte.
+- **Hi ha una persona responsable?** Sense propietari, els errors i canvis futurs no tindran seguiment.
+
+Si encara no tens clar quin procés triar, la guia sobre [què val la pena automatitzar en una pime](/blog/que-val-la-pena-automatitzar/) ofereix el filtre previ: freqüència, risc i cost de construir-ho bé.
+
+## Tres possibles decisions
+
+### Automatitzar ara
+
+Té sentit quan el procés és estable, es repeteix sovint, les dades són raonablement consistents i el retorn continua sent bo després d'incloure manteniment i supervisió. Comença per un abast limitat, mesura el resultat i amplia només si funciona.
+
+### Ordenar primer
+
+És la decisió adequada quan els números semblen bons, però el procés canvia segons la persona, falten dades o hi ha massa excepcions. Definir un únic circuit, eliminar passos i millorar les entrades pot aportar una part important de l'estalvi sense construir res.
+
+### No automatitzar
+
+És una resposta perfectament vàlida quan la tasca passa poques vegades, el cost anual és baix, la implantació és difícil de mantenir o un error tindria conseqüències que no pots controlar. Una plantilla, una alerta o una instrucció millor poden ser suficients.
+
+## Què hauries de mesurar després
+
+Si tires endavant, conserva la situació inicial i compara-la al cap de 30 i 90 dies:
+
+- minuts reals per operació;
+- percentatge de casos processats sense intervenció;
+- hores de revisió i manteniment;
+- errors detectats abans i després;
+- cost mensual de les eines;
+- incidències i temps de resolució.
+
+No comptis com a estalvi les hores alliberades si només s'han convertit en esperes o interrupcions. El valor apareix quan aquest temps es dedica a una feina concreta que abans quedava pendent, quan redueix hores extraordinàries o quan permet absorbir més volum sense augmentar l'equip.
+
+La calculadora et dona una primera xifra; la decisió bona surt de combinar-la amb un procés real i dades observades. Si vols revisar un cas concret abans d'invertir, una [consultoria tecnològica](/consultoria/) pot convertir aquestes variables en un abast i un full de ruta. Si els números i el procés encaixen, a [automatitzacions](/automatitzacions/) pots veure com plantegem la implementació i la supervisió.
+

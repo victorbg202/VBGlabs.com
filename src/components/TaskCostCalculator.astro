@@ -1,0 +1,264 @@
+---
+import type { Locale } from '@/i18n/locales';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  ca: {
+    title: 'Calculadora del cost d\'una tasca manual',
+    intro: 'Canvia les dades de l\'exemple per les del teu procés. Els resultats són orientatius i no inclouen beneficis que no puguis mesurar.',
+    minutes: 'Minuts per repetició',
+    repetitions: 'Repeticions al mes',
+    hourly: 'Cost total per hora (€)',
+    errors: 'Errors al mes',
+    errorCost: 'Cost mitjà per error (€)',
+    implementation: 'Cost inicial d\'automatització (€)',
+    monthlyTools: 'Eines i manteniment al mes (€)',
+    reviewHours: 'Revisió humana al mes (hores)',
+    calculate: 'Calcular',
+    currentAnnual: 'Cost manual anual',
+    operatingSavings: 'Estalvi operatiu anual',
+    firstYear: 'Balanç del primer any',
+    payback: 'Retorn de la inversió',
+    months: 'mesos',
+    noPayback: 'No es recupera amb aquestes dades',
+    strong: 'Els números indiquen que és una candidata sòlida. Confirma també que el procés és estable i que els riscos estan controlats.',
+    review: 'Pot tenir sentit, però convé revisar l\'abast, les excepcions i si es pot començar amb una versió més petita.',
+    weak: 'Amb aquestes dades, primer simplificaria el procés o buscaria una alternativa més barata.',
+  },
+  es: {
+    title: 'Calculadora del coste de una tarea manual',
+    intro: 'Sustituye los datos del ejemplo por los de tu proceso. Los resultados son orientativos y no incluyen beneficios que no puedas medir.',
+    minutes: 'Minutos por repetición',
+    repetitions: 'Repeticiones al mes',
+    hourly: 'Coste total por hora (€)',
+    errors: 'Errores al mes',
+    errorCost: 'Coste medio por error (€)',
+    implementation: 'Coste inicial de automatización (€)',
+    monthlyTools: 'Herramientas y mantenimiento al mes (€)',
+    reviewHours: 'Revisión humana al mes (horas)',
+    calculate: 'Calcular',
+    currentAnnual: 'Coste manual anual',
+    operatingSavings: 'Ahorro operativo anual',
+    firstYear: 'Balance del primer año',
+    payback: 'Retorno de la inversión',
+    months: 'meses',
+    noPayback: 'No se recupera con estos datos',
+    strong: 'Los números indican que es una candidata sólida. Confirma también que el proceso sea estable y que los riesgos estén controlados.',
+    review: 'Puede tener sentido, pero conviene revisar el alcance, las excepciones y si se puede empezar con una versión más pequeña.',
+    weak: 'Con estos datos, primero simplificaría el proceso o buscaría una alternativa más barata.',
+  },
+  en: {
+    title: 'Manual task cost calculator',
+    intro: 'Replace the example values with data from your process. Results are indicative and exclude benefits you cannot measure.',
+    minutes: 'Minutes per repetition',
+    repetitions: 'Repetitions per month',
+    hourly: 'Fully loaded hourly cost (€)',
+    errors: 'Errors per month',
+    errorCost: 'Average cost per error (€)',
+    implementation: 'Initial automation cost (€)',
+    monthlyTools: 'Tools and maintenance per month (€)',
+    reviewHours: 'Human review per month (hours)',
+    calculate: 'Calculate',
+    currentAnnual: 'Annual manual cost',
+    operatingSavings: 'Annual operating savings',
+    firstYear: 'First-year balance',
+    payback: 'Payback period',
+    months: 'months',
+    noPayback: 'No payback with these inputs',
+    strong: 'The numbers point to a strong candidate. Also confirm that the process is stable and its risks are controlled.',
+    review: 'It may be worthwhile, but review the scope, exceptions and whether a smaller first version would be enough.',
+    weak: 'With these inputs, simplify the process first or look for a lower-cost option.',
+  },
+}[locale];
+---
+
+<section
+  class="task-calculator"
+  data-task-calculator
+  data-locale={locale}
+  data-months={copy.months}
+  data-no-payback={copy.noPayback}
+  data-strong={copy.strong}
+  data-review={copy.review}
+  data-weak={copy.weak}
+  aria-labelledby={`calculator-title-${locale}`}
+>
+  <div class="task-calculator__header">
+    <h2 id={`calculator-title-${locale}`}>{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </div>
+
+  <div class="task-calculator__grid">
+    <label>{copy.minutes}<input name="minutes" type="number" min="0" step="1" value="12" inputmode="decimal" /></label>
+    <label>{copy.repetitions}<input name="repetitions" type="number" min="0" step="1" value="180" inputmode="decimal" /></label>
+    <label>{copy.hourly}<input name="hourly" type="number" min="0" step="0.5" value="22" inputmode="decimal" /></label>
+    <label>{copy.errors}<input name="errors" type="number" min="0" step="1" value="3" inputmode="decimal" /></label>
+    <label>{copy.errorCost}<input name="errorCost" type="number" min="0" step="1" value="35" inputmode="decimal" /></label>
+    <label>{copy.implementation}<input name="implementation" type="number" min="0" step="50" value="3800" inputmode="decimal" /></label>
+    <label>{copy.monthlyTools}<input name="monthlyTools" type="number" min="0" step="5" value="120" inputmode="decimal" /></label>
+    <label>{copy.reviewHours}<input name="reviewHours" type="number" min="0" step="0.5" value="4" inputmode="decimal" /></label>
+  </div>
+
+  <button class="btn btn-primary task-calculator__button" type="button" data-calculate>{copy.calculate}</button>
+
+  <div class="task-calculator__results" aria-live="polite">
+    <div><span>{copy.currentAnnual}</span><strong data-current-annual>—</strong></div>
+    <div><span>{copy.operatingSavings}</span><strong data-operating-savings>—</strong></div>
+    <div><span>{copy.firstYear}</span><strong data-first-year>—</strong></div>
+    <div><span>{copy.payback}</span><strong data-payback>—</strong></div>
+  </div>
+  <p class="task-calculator__recommendation" data-recommendation></p>
+</section>
+
+<script>
+  const setupTaskCalculators = () => {
+    document.querySelectorAll<HTMLElement>('[data-task-calculator]').forEach((root) => {
+      if (root.dataset.ready === 'true') return;
+      root.dataset.ready = 'true';
+
+      const value = (name: string) => {
+        const input = root.querySelector<HTMLInputElement>(`[name="${name}"]`);
+        return Math.max(0, Number(input?.value) || 0);
+      };
+
+      const formatMoney = (amount: number) => new Intl.NumberFormat(
+        root.dataset.locale === 'en' ? 'en-GB' : root.dataset.locale === 'es' ? 'es-ES' : 'ca-ES',
+        { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 },
+      ).format(amount);
+
+      const calculate = () => {
+        const monthlyTime = (value('minutes') * value('repetitions') / 60) * value('hourly');
+        const monthlyErrors = value('errors') * value('errorCost');
+        const annualCurrent = (monthlyTime + monthlyErrors) * 12;
+        const annualResidual = ((value('reviewHours') * value('hourly')) + value('monthlyTools')) * 12;
+        const annualOperatingSavings = annualCurrent - annualResidual;
+        const firstYear = annualOperatingSavings - value('implementation');
+        const monthlyOperatingSavings = annualOperatingSavings / 12;
+        const payback = monthlyOperatingSavings > 0 ? value('implementation') / monthlyOperatingSavings : null;
+
+        root.querySelector<HTMLElement>('[data-current-annual]')!.textContent = formatMoney(annualCurrent);
+        root.querySelector<HTMLElement>('[data-operating-savings]')!.textContent = formatMoney(annualOperatingSavings);
+        root.querySelector<HTMLElement>('[data-first-year]')!.textContent = formatMoney(firstYear);
+        root.querySelector<HTMLElement>('[data-payback]')!.textContent = payback === null
+          ? root.dataset.noPayback ?? ''
+          : `${new Intl.NumberFormat(root.dataset.locale, { maximumFractionDigits: 1 }).format(payback)} ${root.dataset.months}`;
+
+        const recommendation = root.querySelector<HTMLElement>('[data-recommendation]')!;
+        recommendation.textContent = annualOperatingSavings <= 0 || payback === null || payback > 24
+          ? root.dataset.weak ?? ''
+          : payback <= 12
+            ? root.dataset.strong ?? ''
+            : root.dataset.review ?? '';
+      };
+
+      root.querySelector('[data-calculate]')?.addEventListener('click', calculate);
+      root.querySelectorAll('input').forEach((input) => input.addEventListener('input', calculate));
+      calculate();
+    });
+  };
+
+  setupTaskCalculators();
+  document.addEventListener('astro:page-load', setupTaskCalculators);
+</script>
+
+<style>
+  .task-calculator {
+    margin-block: var(--space-5);
+    padding: clamp(1.2rem, 4vw, 2rem);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--red);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .task-calculator__header h2 {
+    margin: 0 0 0.5rem;
+    font-size: var(--text-xl);
+  }
+
+  .task-calculator__header p {
+    margin-bottom: var(--space-4);
+    color: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  .task-calculator__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .task-calculator label {
+    display: grid;
+    gap: 0.35rem;
+    color: var(--ink);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .task-calculator input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--ink);
+    font: inherit;
+  }
+
+  .task-calculator input:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--red) 28%, transparent);
+    border-color: var(--red);
+  }
+
+  .task-calculator__button {
+    margin-block: var(--space-4);
+  }
+
+  .task-calculator__results {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .task-calculator__results div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: var(--gray-50);
+  }
+
+  .task-calculator__results span {
+    color: var(--ink-soft);
+    font-size: var(--text-sm);
+  }
+
+  .task-calculator__results strong {
+    color: var(--ink);
+    text-align: right;
+  }
+
+  .task-calculator__recommendation {
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-3);
+    border-left: 3px solid var(--red);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (min-width: 640px) {
+    .task-calculator__grid,
+    .task-calculator__results {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

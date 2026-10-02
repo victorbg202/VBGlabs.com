@@ -1,0 +1,117 @@
+---
+title: "What does a manual task really cost? Calculate whether automation is worth it"
+description: "Calculate the annual cost of a repetitive task, errors, potential savings and automation payback with an interactive tool and a complete worked example."
+slug: "manual-task-cost-automation-calculator"
+lang: "en"
+translationGroup: "manual-task-cost-calculator"
+category: "Automation"
+date: 2026-10-02
+relatedSlugs: ["what-is-worth-automating"]
+---
+
+import TaskCostCalculator from '../../components/TaskCostCalculator.astro';
+
+A manual task does not cost only the few minutes someone spends completing it once. You need to multiply that time by every repetition across the year, add the cost of errors, and compare the result with the full cost of automation: implementation, tools, maintenance and human review.
+
+The arithmetic is simple. The decision is not always simple. This calculator helps you put credible numbers around it without assuming that automation must be the right answer.
+
+## A quick calculation in four steps
+
+For a useful first estimate, gather eight inputs. A week of observation is often enough:
+
+1. minutes required for each repetition;
+2. number of repetitions per month;
+3. the fully loaded hourly cost of the person doing the task;
+4. monthly errors and the average cost of correcting them;
+5. the initial cost of building or configuring the automation;
+6. monthly licences and maintenance;
+7. human review hours that will still be needed;
+8. how long you reasonably expect to use the solution.
+
+The **fully loaded hourly cost** is not simply take-home pay. For an internal estimate, include the employer's labour cost and, if useful, a proportionate share of equipment, workspace and management overhead. Avoid false precision: an honest range is more useful than a number with two decimal places built on guesses.
+
+Start with:
+
+`annual time cost = minutes × monthly repetitions × 12 ÷ 60 × hourly cost`
+
+Then add errors that can genuinely be measured:
+
+`current annual cost = annual time cost + monthly errors × cost per error × 12`
+
+Do not add “lost opportunities” unless you can explain how they were calculated. Record them separately if relevant, but do not use them to make a weak project appear profitable.
+
+<TaskCostCalculator locale="en" />
+
+## What the calculator is measuring
+
+The tool keeps three figures separate:
+
+- **Annual manual cost:** time spent plus measurable correction costs.
+- **Annual operating savings:** manual cost minus the human review, tools and maintenance that remain after automation.
+- **First-year balance:** operating savings minus the initial implementation cost.
+
+The payback period shows how many months of operating savings are required to recover the initial cost:
+
+`payback in months = initial cost ÷ monthly operating savings`
+
+A short payback does not guarantee a good project. It says only that, if the inputs and expected operation are accurate, the investment should be recovered quickly. You still need to assess risk, privacy, supplier dependency and the quality of the underlying process.
+
+## Worked example: recording received invoices
+
+Imagine a business that receives 180 supplier invoices each month. Entering, checking and filing each invoice takes an average of 12 minutes. The person responsible has a fully loaded hourly cost of €22. Three issues occur each month —perhaps a duplicate, a transcription error or a misfiled document— and each costs about €35 to identify and correct.
+
+The manual work adds up to 36 hours each month:
+
+`12 minutes × 180 invoices ÷ 60 = 36 hours`
+
+That means €792 per month in time and €105 in corrections. The current annual cost is therefore €10,764.
+
+Now assume an initial automation cost of €3,800, tools and maintenance costing €120 per month, and four hours of human review each month. After automation, the annual operating cost would be €2,496: €1,440 for tools and €1,056 for review.
+
+Estimated operating savings would be €8,268 per year. After implementation, the first-year balance would be positive by €4,468, and the initial cost would be recovered in approximately 5.5 months.
+
+This is an illustrative example, not a performance promise. The result changes if invoices vary widely, input quality is poor or actual review takes fifteen hours per month. That is why every variable in the calculator can be edited.
+
+## Before the money: check whether the process is ready
+
+A task can look profitable on paper and still be a poor automation candidate. Before deciding, answer these questions:
+
+- **Is the process stable?** If each person handles it differently, agree on the process first.
+- **Are the inputs reasonably consistent?** Chaotic emails, forms or documents may create more exceptions than expected.
+- **Can a correct output be verified?** Automation needs a clear way to determine whether it worked.
+- **Can exceptions be routed to a person?** Automating the straightforward 80% and reviewing the rest is often safer than chasing 100%.
+- **Is an error reversible?** Sending a draft for review carries less risk than approving a payment.
+- **Do the data have privacy or security requirements?** The cost of protecting them belongs in the project.
+- **Is one person accountable?** Without an owner, errors and future changes will go unmonitored.
+
+If you are still deciding which process to assess, our guide to [what is worth automating in a small business](/en/blog/what-is-worth-automating/) provides the earlier filter: frequency, risk and the cost of building the solution properly.
+
+## Three possible decisions
+
+### Automate now
+
+This makes sense when the process is stable, repeats frequently, uses reasonably consistent inputs and still shows a good return after maintenance and oversight are included. Start with a limited scope, measure the outcome and expand only if it works.
+
+### Tidy the process first
+
+Choose this route when the financial case looks promising but the process varies by person, data are missing or exceptions are too common. Agreeing one workflow, removing steps and improving inputs can deliver a substantial part of the benefit without building anything.
+
+### Do not automate
+
+This is a perfectly valid conclusion when the task is rare, its annual cost is low, the solution would be difficult to maintain or an error would create consequences you cannot control. A template, an alert or clearer instructions may be enough.
+
+## What to measure afterwards
+
+If you proceed, keep the baseline and compare it after 30 and 90 days:
+
+- actual minutes per operation;
+- percentage of cases completed without intervention;
+- review and maintenance hours;
+- errors before and after;
+- monthly tool costs;
+- incidents and resolution time.
+
+Do not treat released hours as savings if they simply become waiting time or interruptions. Value appears when that capacity is assigned to work that was previously delayed, reduces overtime, or allows the business to handle more volume without adding staff.
+
+The calculator gives you a credible starting figure. A sound decision comes from combining it with an observed process and real data. If you want to assess a specific case before investing, a [technology consulting engagement](/en/consulting/) can turn these variables into a scope and roadmap. If the numbers and process fit, our [automation and custom software work](/en/automation/) shows how we approach implementation and oversight.
+

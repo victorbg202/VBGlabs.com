@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "worth-automating"
 category: "Automation"
 date: 2026-05-12
-relatedSlugs: ["ai-for-smes-where-to-start"]
+relatedSlugs: ["ai-for-smes-where-to-start", "manual-task-cost-automation-calculator"]
 ---
 
 When someone calls us for the first time, they almost always open with the same line: "I want to automate the business." It's a reasonable thing to say, and much too broad to act on. Automation isn't a goal — it's a tool, and like any tool, it only helps when it's pointed at the right problem.

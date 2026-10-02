@@ -1,0 +1,117 @@
+---
+title: "¿Cuánto te cuesta una tarea manual? Calcula si merece la pena automatizarla"
+description: "Calcula el coste anual de una tarea repetitiva, los errores, el ahorro posible y el retorno de una automatización con una herramienta interactiva y un ejemplo completo."
+slug: "calcular-coste-tarea-manual-automatizar"
+lang: "es"
+translationGroup: "manual-task-cost-calculator"
+category: "Automatización"
+date: 2026-10-02
+relatedSlugs: ["que-vale-la-pena-automatizar"]
+---
+
+import TaskCostCalculator from '../../components/TaskCostCalculator.astro';
+
+Una tarea manual no cuesta únicamente los minutos que una persona tarda en completarla una vez. Hay que multiplicar ese tiempo por todas las repeticiones del año, añadir los errores y comparar el resultado con el coste real de automatizar: implantación, herramientas, mantenimiento y revisión humana.
+
+La fórmula es sencilla. La decisión no siempre lo es. Esta calculadora te ayuda a poner números sobre la mesa sin asumir que automatizar sea necesariamente la respuesta correcta.
+
+## El cálculo rápido en cuatro pasos
+
+Para obtener una primera estimación necesitas ocho datos que normalmente puedes recopilar durante una semana:
+
+1. minutos que requiere cada repetición;
+2. número de repeticiones mensuales;
+3. coste total por hora de la persona que realiza la tarea;
+4. errores mensuales y coste medio de corregirlos;
+5. coste inicial de construir o configurar la automatización;
+6. licencias y mantenimiento mensual;
+7. horas de revisión humana que seguirán siendo necesarias;
+8. tiempo durante el que esperas utilizar la solución.
+
+El **coste total por hora** no es solo el salario neto. Para una estimación interna, incluye el coste laboral para la empresa y, si quieres afinar, la parte proporcional de equipamiento, espacio y gestión. No busques una precisión falsa: es preferible utilizar un rango honesto que una cifra con dos decimales basada en suposiciones.
+
+La primera fórmula es:
+
+`coste anual de tiempo = minutos × repeticiones mensuales × 12 ÷ 60 × coste por hora`
+
+Después añade el coste de los errores que realmente puedas medir:
+
+`coste anual actual = coste anual de tiempo + errores mensuales × coste por error × 12`
+
+No añadas “oportunidades perdidas” si no puedes explicar cómo las has calculado. Puedes anotarlas aparte, pero no utilizarlas para forzar que el proyecto parezca rentable.
+
+<TaskCostCalculator locale="es" />
+
+## Cómo calcula el resultado la herramienta
+
+La calculadora separa tres cantidades para evitar mezclarlas:
+
+- **Coste manual anual:** tiempo dedicado más errores corregibles.
+- **Ahorro operativo anual:** coste manual menos la revisión humana, las herramientas y el mantenimiento que continuarán después de automatizar.
+- **Balance del primer año:** ahorro operativo menos el coste inicial de implantación.
+
+El retorno de la inversión indica cuántos meses de ahorro operativo hacen falta para recuperar el coste inicial:
+
+`meses de retorno = coste inicial ÷ ahorro operativo mensual`
+
+Un retorno corto no garantiza que el proyecto sea una buena idea. Solo indica que, si los datos y el funcionamiento previsto son correctos, la inversión se recuperaría pronto. Todavía hay que revisar el riesgo, la privacidad, la dependencia del proveedor y la calidad del proceso.
+
+## Ejemplo completo: registrar facturas recibidas
+
+Imaginemos una empresa que recibe 180 facturas al mes. Introducir, comprobar y archivar cada factura ocupa 12 minutos de media. El coste total por hora de la persona responsable es de 22 €. Cada mes aparecen tres incidencias —un duplicado, un dato mal transcrito o un documento mal clasificado— que cuestan unos 35 € de detectar y corregir.
+
+El trabajo manual suma 36 horas mensuales:
+
+`12 minutos × 180 facturas ÷ 60 = 36 horas`
+
+Eso representa 792 € al mes en tiempo y 105 € en correcciones. El coste anual actual asciende, por tanto, a 10.764 €.
+
+Supongamos ahora una automatización inicial de 3.800 €, herramientas y mantenimiento de 120 € al mes y cuatro horas mensuales de revisión humana. Tras automatizar, el coste operativo anual sería de 2.496 €: 1.440 € de herramientas y 1.056 € de revisión.
+
+El ahorro operativo estimado sería de 8.268 € anuales. Descontando la implantación, el balance del primer año sería positivo en 4.468 € y el coste inicial se recuperaría aproximadamente en 5,5 meses.
+
+Es un ejemplo ilustrativo, no una promesa de rendimiento. Si las facturas son muy distintas entre sí, los datos de entrada son deficientes o la revisión real termina ocupando quince horas mensuales, el resultado cambia. Por eso la calculadora permite modificar todas las variables.
+
+## Antes de mirar los euros: comprueba si el proceso está preparado
+
+Una tarea puede parecer rentable sobre el papel y seguir siendo una mala candidata. Antes de decidir, responde a estas preguntas:
+
+- **¿El proceso es estable?** Si cada persona lo realiza de una forma distinta, primero hay que acordar el procedimiento.
+- **¿Las entradas son suficientemente consistentes?** Correos, formularios o documentos caóticos pueden generar más excepciones de las previstas.
+- **¿Existe un resultado correcto que pueda verificarse?** Una automatización necesita una forma clara de saber si ha funcionado.
+- **¿Las excepciones pueden pasar a una persona?** Automatizar el 80% sencillo y revisar el resto suele ser más seguro que perseguir el 100%.
+- **¿Un error es reversible?** Enviar un borrador a revisión no tiene el mismo riesgo que aprobar un pago.
+- **¿Los datos tienen requisitos de privacidad o seguridad?** El coste de protegerlos forma parte del proyecto.
+- **¿Hay una persona responsable?** Sin propietario, los errores y cambios futuros no tendrán seguimiento.
+
+Si aún no tienes claro qué proceso elegir, la guía sobre [qué vale la pena automatizar en una pyme](/es/blog/que-vale-la-pena-automatizar/) ofrece el filtro previo: frecuencia, riesgo y coste de construirlo bien.
+
+## Tres decisiones posibles
+
+### Automatizar ahora
+
+Tiene sentido cuando el proceso es estable, se repite con frecuencia, los datos son razonablemente consistentes y el retorno sigue siendo bueno después de incluir mantenimiento y supervisión. Empieza con un alcance limitado, mide el resultado y amplía únicamente si funciona.
+
+### Ordenar primero
+
+Es la decisión adecuada cuando los números parecen buenos, pero el proceso cambia según la persona, faltan datos o existen demasiadas excepciones. Definir un único circuito, eliminar pasos y mejorar las entradas puede aportar una parte importante del ahorro sin construir nada.
+
+### No automatizar
+
+Es una respuesta perfectamente válida cuando la tarea ocurre pocas veces, su coste anual es bajo, la implantación será difícil de mantener o un error tendría consecuencias que no puedes controlar. Una plantilla, una alerta o una instrucción mejor pueden ser suficientes.
+
+## Qué deberías medir después
+
+Si sigues adelante, conserva la situación inicial y compárala a los 30 y 90 días:
+
+- minutos reales por operación;
+- porcentaje de casos procesados sin intervención;
+- horas de revisión y mantenimiento;
+- errores detectados antes y después;
+- coste mensual de las herramientas;
+- incidencias y tiempo de resolución.
+
+No cuentes como ahorro las horas liberadas si simplemente se convierten en esperas o interrupciones. El valor aparece cuando ese tiempo se dedica a una tarea concreta que antes quedaba pendiente, cuando reduce horas extraordinarias o cuando permite absorber más volumen sin aumentar el equipo.
+
+La calculadora ofrece una primera cifra; la decisión correcta sale de combinarla con un proceso real y datos observados. Si quieres revisar un caso concreto antes de invertir, una [consultoría tecnológica](/es/consultoria/) puede convertir estas variables en un alcance y una hoja de ruta. Si los números y el proceso encajan, en [automatizaciones](/es/automatizaciones/) puedes ver cómo planteamos la implantación y la supervisión.
+

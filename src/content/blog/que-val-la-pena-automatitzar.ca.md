@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "worth-automating"
 category: "Automatització"
 date: 2026-05-12
-relatedSlugs: ["ia-per-a-pimes-per-on-comencar"]
+relatedSlugs: ["ia-per-a-pimes-per-on-comencar", "calcular-cost-tasca-manual-automatitzar"]
 ---
 
 Quan algú ens truca per primera vegada, gairebé sempre comença dient el mateix: "voldria automatitzar el negoci". És una frase raonable però massa àmplia per fer-hi res útil. Automatitzar no és un objectiu — és una eina, i com totes les eines, només serveix quan s'aplica al problema correcte.

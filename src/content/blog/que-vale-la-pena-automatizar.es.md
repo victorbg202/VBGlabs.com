@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "worth-automating"
 category: "Automatización"
 date: 2026-05-12
-relatedSlugs: ["ia-para-pymes-por-donde-empezar"]
+relatedSlugs: ["ia-para-pymes-por-donde-empezar", "calcular-coste-tarea-manual-automatizar"]
 ---
 
 Cuando alguien nos llama por primera vez, casi siempre empieza diciendo lo mismo: "quiero automatizar el negocio". Es una frase razonable, pero demasiado amplia para hacer nada útil con ella. Automatizar no es un objetivo — es una herramienta, y como todas las herramientas, solo sirve cuando se aplica al problema correcto.
