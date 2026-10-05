@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "cra-reporting-obligations-2026"
 category: "Ciberseguretat"
 date: 2026-09-30
-relatedSlugs: ["alfabetitzacio-ia-empreses-que-documentar"]
+relatedSlugs: ["alfabetitzacio-ia-empreses-que-documentar", "copies-seguretat-pimes-pla-restauracio"]
 ---
 
 Des de l'11 de setembre de 2026, els fabricants de determinats productes amb elements digitals venuts a la Unió Europea han de notificar les vulnerabilitats explotades activament i els incidents greus de seguretat. El primer avís s'ha d'enviar en un màxim de 24 hores des que l'empresa en té coneixement i la notificació completa, en 72 hores.
@@ -107,4 +107,3 @@ Si desenvolupes o comercialitzes software i encara no tens clar l'abast, una [co
 - [Comissió Europea: obligacions de notificació](https://digital-strategy.ec.europa.eu/en/policies/cra-reporting)
 - [ENISA: llançament de la Single Reporting Platform](https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched)
 - [EUR-Lex: Reglament (UE) 2024/2847](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32024R2847)
-
