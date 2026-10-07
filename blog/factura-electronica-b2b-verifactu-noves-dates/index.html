@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="ca"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && contactPaths.includes(destination.pathname)) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat | VBG Labs</title> <meta name="description" content="L'ordre publicada el 5 d'octubre activa el calendari de la factura electrònica B2B. Separem les dates vigents de la pròrroga de VERI*FACTU encara anunciada."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/blog/factura-electronica-b2b-verifactu-noves-dates/"> <link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/factura-electronica-b2b-verifactu-noves-dates/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/factura-electronica-b2b-verifactu-nuevas-fechas/"><link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/spain-b2b-e-invoicing-verifactu-new-dates/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/factura-electronica-b2b-verifactu-noves-dates/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/blog/factura-electronica-b2b-verifactu-noves-dates/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat | VBG Labs"> <meta property="og:description" content="L'ordre publicada el 5 d'octubre activa el calendari de la factura electrònica B2B. Separem les dates vigents de la pròrroga de VERI*FACTU encara anunciada."> <meta property="og:image" content="https://vbglabs.com/og/og-ca.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="ca_ES"> <meta property="og:locale:alternate" content="es_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat | VBG Labs"> <meta name="twitter:description" content="L'ordre publicada el 5 d'octubre activa el calendari de la factura electrònica B2B. Separem les dates vigents de la pròrroga de VERI*FACTU encara anunciada."> <meta name="twitter:image" content="https://vbglabs.com/og/og-ca.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.qzqtYduC.css"><style>.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Anar al contingut</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inici</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Serveis <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/serveis/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Tots els serveis</a> <a href="/automatitzacions/" data-astro-cid-nen7h5rs>Automatitzacions</a><a href="/consultoria/" data-astro-cid-nen7h5rs>Consultoria</a><a href="/formacio/" data-astro-cid-nen7h5rs>Formació</a> <a href="/vbg-facturacio/" data-astro-cid-nen7h5rs>VBG Facturació</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/vbg-facturacio/" data-astro-cid-nen7h5rs>VBG Facturació</a></li> <li data-astro-cid-nen7h5rs><a href="/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/factura-electronica-b2b-verifactu-noves-dates/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/factura-electronica-b2b-verifactu-nuevas-fechas/&quot;},{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/spain-b2b-e-invoicing-verifactu-new-dates/&quot;}]" data-astro-cid-nen7h5rs> <option value="/blog/factura-electronica-b2b-verifactu-noves-dates/" selected data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/factura-electronica-b2b-verifactu-nuevas-fechas/" data-astro-cid-nen7h5rs>ES</option><option value="/en/blog/spain-b2b-e-invoicing-verifactu-new-dates/" data-astro-cid-nen7h5rs>EN</option> </select> </label> <a href="/contacte/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Parlem</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/serveis/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Tots els serveis</a> <a href="/automatitzacions/" data-astro-cid-nen7h5rs>Automatitzacions</a><a href="/consultoria/" data-astro-cid-nen7h5rs>Consultoria</a><a href="/formacio/" data-astro-cid-nen7h5rs>Formació</a> <a href="/vbg-facturacio/" data-astro-cid-nen7h5rs>VBG Facturació</a> <a href="/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/preguntes-frequents/" data-astro-cid-nen7h5rs>Preguntes freqüents</a> <a href="/contacte/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Parlem</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>{e.addEventListener(`click`,()=>{let t=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!t))})}),document.addEventListener(`click`,e=>{e.target.closest(`.header__dropdown`)||document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))}),document.addEventListener(`keydown`,e=>{e.key===`Escape`&&document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{window.location.href=r.value});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/" data-astro-cid-ezvlwyc3>Inici</a> </li><li data-astro-cid-ezvlwyc3> <a href="/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inici","item":"https://vbglabs.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/blog/"},{"@type":"ListItem","position":3,"name":"Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat","item":"https://vbglabs.com/blog/factura-electronica-b2b-verifactu-noves-dates/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Facturació</span> <h1 data-astro-cid-cgze3hqb>Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-10-07T00:00:00.000Z" data-astro-cid-cgze3hqb>7 d’octubre del 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>La factura electrònica entre empreses ja té un calendari concret a Espanya. L’Ordre HAC/1028/2026, publicada al BOE el 5 d’octubre i en vigor des del dia 6, ha activat el còmput dels terminis: el 6 d’octubre de 2027 per a empreses i professionals amb una facturació anual superior a 8 milions d’euros, i el 6 d’octubre de 2028 per a la resta.</p>
+<p>El mateix 5 d’octubre, el Ministeri d’Hisenda va anunciar que <strong>preveu</strong> traslladar a l’octubre de 2028 les obligacions pendents dels sistemes informàtics de facturació, conegudes sovint com a VERI*FACTU. És una dada rellevant, però encara no és la norma vigent: falta aprovar i publicar la modificació corresponent.</p>
+<p>Per tant, hi ha dues idees que convé retenir: el calendari B2B ja està confirmat i la nova data de VERI*FACTU és, ara com ara, una previsió oficial. Aquest article ofereix orientació general i no substitueix l’assessorament fiscal o jurídic aplicable a cada cas.</p>
+<h2 id="què-ha-canviat-aquesta-setmana">Què ha canviat aquesta setmana</h2>
+<p>La <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2022-15818">Llei 18/2022, de creació i creixement d’empreses</a> va introduir l’obligació de facturació electrònica entre empreses i professionals. El <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295">Reial decret 238/2026</a>, publicat el març, en va desenvolupar el funcionament, però vinculava els terminis a l’ordre que regula la solució pública.</p>
+<p>Aquesta peça ja existeix. L’<a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028/con">Ordre HAC/1028/2026</a>, publicada el 5 d’octubre de 2026 i vigent des de l’endemà, regula la plataforma pública i posa en marxa el rellotge.</p>
+<table>
+<thead>
+<tr>
+<th>Assumpte</th>
+<th>Situació el 7 d’octubre de 2026</th>
+<th>Data de referència</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Factura electrònica B2B: facturació superior a 8 M€</td>
+<td>Confirmada al BOE</td>
+<td>6 d’octubre de 2027</td>
+</tr>
+<tr>
+<td>Factura electrònica B2B: resta d’empreses i professionals</td>
+<td>Confirmada al BOE</td>
+<td>6 d’octubre de 2028</td>
+</tr>
+<tr>
+<td>Adaptació dels sistemes de facturació / VERI*FACTU</td>
+<td>Hisenda ha anunciat una futura modificació</td>
+<td>Octubre de 2028, encara no vigent</td>
+</tr>
+<tr>
+<td>Terminis RRSIF publicats actualment</td>
+<td>Continuen sent la referència jurídica fins que canviï la norma</td>
+<td>1 de gener o 1 de juliol de 2027, segons el contribuent</td>
+</tr>
+</tbody>
+</table>
+<h2 id="factura-electrònica-b2b-i-verifactu-no-són-el-mateix">Factura electrònica B2B i VERI*FACTU no són el mateix</h2>
+<p>Els dos projectes afecten la facturació i per això es confonen, però resolen obligacions diferents.</p>
+<p>La <strong>factura electrònica B2B</strong> regula com s’emeten, es reben i s’intercanvien factures entre empreses i professionals. La factura ha de tenir un format estructurat —com UBL, Facturae, CII o EDIFACT— que permeti processar-ne les dades. Enviar un PDF per correu no compleix per si sol aquest model. El receptor també haurà de comunicar estats com l’acceptació o el rebuig i el pagament complet, d’acord amb el <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295">Reial decret 238/2026</a>.</p>
+<p>El <strong>Reglament dels requisits dels sistemes informàtics de facturació</strong> —RRSIF— estableix com ha de funcionar el programa que genera els registres de les factures. VERI*FACTU és, tècnicament, una de les dues modalitats previstes: remet els registres de facturació a l’Agència Tributària en el moment d’emetre’ls. L’altra modalitat els conserva al sistema amb requisits reforçats d’integritat, traçabilitat i control.</p>
+<p>Una empresa pot haver de preparar totes dues coses. Canviar el programa que emet factures no garanteix automàticament que pugui intercanviar factures B2B estructurades i gestionar-ne els estats; connectar-se a una plataforma B2B tampoc demostra, per si sol, que el sistema emissor compleixi el RRSIF.</p>
+<h2 id="quines-dates-b2b-ja-es-poden-planificar">Quines dates B2B ja es poden planificar</h2>
+<p>El termini depèn de l’import net de la xifra de negocis de l’any anterior:</p>
+<ul>
+<li><strong>Més de 8 milions d’euros:</strong> obligació a partir del 6 d’octubre de 2027, dotze mesos després de l’entrada en vigor de l’ordre.</li>
+<li><strong>Fins a 8 milions d’euros:</strong> obligació a partir del 6 d’octubre de 2028, vint-i-quatre mesos després.</li>
+</ul>
+<p>En les operacions incloses, emissor i receptor han de poder treballar amb una plataforma privada o amb la solució pública. Si el destinatari no ha identificat un punt privat de recepció, la solució pública actua com a punt per defecte. Quan s’utilitzen plataformes privades, aquestes han d’enviar una còpia fidel a la infraestructura pública, segons el reial decret i l’ordre.</p>
+<p>La norma preveu excepcions, entre altres casos per a determinades factures simplificades. Abans de comprar o configurar res, cal validar l’abast real amb l’assessoria i el proveïdor: tipus d’operacions, residència dels destinataris, volum i programes que intervenen.</p>
+<h2 id="què-passa-ara-amb-verifactu">Què passa ara amb VERI*FACTU</h2>
+<p>La <a href="https://www.hacienda.gob.es/sgt/gabsehacienda/nota-informativa-verifactu.pdf">nota informativa del Ministeri d’Hisenda del 5 d’octubre de 2026</a> diu que es preveu modificar la normativa per situar a l’octubre de 2028 les obligacions encara pendents. L’objectiu declarat és alinear el calendari dels sistemes de facturació amb el de la factura electrònica B2B.</p>
+<p>Fins que aquesta modificació no s’aprovi i es publiqui al BOE, la <a href="https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion-verifactu/nota-informativa-ampliacion-plazo-adaptacion-facturacion.html">informació vigent de l’Agència Tributària</a> continua indicant l’1 de gener de 2027 per als contribuents de l’impost sobre societats i l’1 de juliol de 2027 per a la resta.</p>
+<p>Això no significa que calgui ignorar l’anunci. Sí que convé evitar dos extrems: accelerar una compra només per por a una data que previsiblement canviarà, o aturar tot el projecte com si la pròrroga ja fos definitiva. Demana al proveïdor un pla que diferenciï què està operatiu, què depèn d’una actualització i què canviarà si el BOE confirma l’octubre de 2028.</p>
+<h2 id="un-pla-pràctic-per-no-duplicar-feina">Un pla pràctic per no duplicar feina</h2>
+<ol>
+<li><strong>Dibuixa el circuit d’emissió.</strong> Anota quin programa crea la factura, qui la revisa, com s’envia i on queda registrada.</li>
+<li><strong>Separa factures emeses i rebudes.</strong> Són processos relacionats, però tenen responsables, dades i eines diferents.</li>
+<li><strong>Confirma l’abast amb dades reals.</strong> Revisa la facturació de l’any anterior, els tipus de factura i si els destinataris actuen com a empreses o professionals a Espanya.</li>
+<li><strong>Pregunta per les dues normatives.</strong> El proveïdor ha d’explicar per separat el compliment del RRSIF i la connexió amb la factura electrònica B2B.</li>
+<li><strong>Comprova els formats i els estats.</strong> Demana quins formats estructurats admet, com rep l’acceptació o el rebuig i com comunica el pagament.</li>
+<li><strong>Conserva una sortida de dades.</strong> Defineix com exportar factures, registres i estats si canvies de plataforma.</li>
+<li><strong>Segueix el BOE, no només els anuncis comercials.</strong> La pàgina de <a href="https://www3.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion-verifactu.html">sistemes informàtics de facturació de l’AEAT</a> centralitza la informació oficial sobre el RRSIF.</li>
+</ol>
+<p>Si vols estimar l’esforç intern, la <a href="/blog/calcular-cost-tasca-manual-automatitzar/">calculadora del cost d’una tasca manual</a> permet posar xifres a la introducció, revisió i arxiu de documents abans de comparar alternatives.</p>
+<h2 id="i-la-gestió-de-factures-rebudes">I la gestió de factures rebudes?</h2>
+<p>Ordenar les factures que arriben, extreure’n les dades i preparar-les per a revisió és un problema operatiu diferent d’emetre factures conformes. <strong>VBG Facturació gestiona factures rebudes; no emet factures de venda i no és un producte de compliment VERI*FACTU.</strong> Pot ajudar a ordenar aquesta part del circuit, però no substitueix el programa emissor ni la plataforma B2B que requereixi cada negoci.</p>
+<p>Si necessites separar aquests tres fronts —emissió, intercanvi B2B i recepció—, una <a href="/consultoria/">revisió tecnològica del procés</a> pot convertir les obligacions en un mapa de sistemes, responsables i decisions sense comprar dues vegades la mateixa funció.</p>
+<h2 id="fonts-oficials">Fonts oficials</h2>
+<ul>
+<li><a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028/con">Ordre HAC/1028/2026, de 2 d’octubre</a>, BOE de 5 d’octubre de 2026.</li>
+<li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295">Reial decret 238/2026, de 25 de març</a>, desenvolupament de la factura electrònica B2B.</li>
+<li><a href="https://www.hacienda.gob.es/sgt/gabsehacienda/nota-informativa-verifactu.pdf">Nota informativa sobre la previsió d’ampliació de VERI*FACTU</a>, Ministeri d’Hisenda, 5 d’octubre de 2026.</li>
+<li><a href="https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion-verifactu/nota-informativa-ampliacion-plazo-adaptacion-facturacion.html">Terminis d’adaptació publicats per l’AEAT</a>, consultats el 7 d’octubre de 2026.</li>
+</ul>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>També et pot interessar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/blog/calcular-cost-tasca-manual-automatitzar/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automatització</span> <h3 data-astro-cid-vqljwchw="true">Quant et costa una tasca manual? Calcula si val la pena automatitzar-la</h3> <p data-astro-cid-vqljwchw>Calcula el cost anual d&#39;una tasca repetitiva, els errors, l&#39;estalvi possible i el retorn d&#39;una automatització amb una eina interactiva i un exemple complet.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>2 d’octubre del 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Llegir →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Parlem del teu negoci</h2> <p class="lede" data-astro-cid-hwvj6ntz>Sense compromís. En 15-20 minuts sabrem si podem ajudar-te.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/contacte/" class="btn btn-primary" data-astro-cid-hwvj6ntz>Explica&#39;ns el teu cas</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Factura electrònica B2B i VERI*FACTU: noves dates i què està confirmat","description":"L'ordre publicada el 5 d'octubre activa el calendari de la factura electrònica B2B. Separem les dates vigents de la pròrroga de VERI*FACTU encara anunciada.","url":"https://vbglabs.com/blog/factura-electronica-b2b-verifactu-noves-dates/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-10-07T00:00:00.000Z","dateModified":"2026-10-07T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnologia pràctica perquè el teu negoci treballi millor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Catalunya</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Serveis</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/automatitzacions/" data-astro-cid-jo6i4kqk>Automatitzacions</a></li><li data-astro-cid-jo6i4kqk><a href="/consultoria/" data-astro-cid-jo6i4kqk>Consultoria</a></li><li data-astro-cid-jo6i4kqk><a href="/formacio/" data-astro-cid-jo6i4kqk>Formació</a></li><li data-astro-cid-jo6i4kqk><a href="/vbg-facturacio/" data-astro-cid-jo6i4kqk>VBG Facturació</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/preguntes-frequents/" data-astro-cid-jo6i4kqk>Preguntes freqüents</a></li><li data-astro-cid-jo6i4kqk><a href="/contacte/" data-astro-cid-jo6i4kqk>Contacte</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacte</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Tots els drets reservats.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/avis-legal/" data-astro-cid-jo6i4kqk>Avís legal</a> <a href="/politica-privacitat/" data-astro-cid-jo6i4kqk>Privacitat</a> <a href="/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tu decideixes sobre les cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Fem servir emmagatzematge essencial i, només si ho acceptes, Google Analytics per entendre com s&#39;utilitza el web i millorar-lo. No utilitzem cookies publicitàries. <a href="/politica-cookies/" data-astro-cid-hq3mgpmn>Més informació</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rebutjar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Acceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
