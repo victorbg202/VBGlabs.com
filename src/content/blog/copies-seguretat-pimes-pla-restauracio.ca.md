@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "small-business-backups-recovery"
 category: "Ciberseguretat"
 date: 2026-10-05
-relatedSlugs: ["cyber-resilience-act-notificar-vulnerabilitats"]
+relatedSlugs: ["cyber-resilience-act-notificar-vulnerabilitats", "spf-dkim-dmarc-pimes-protegir-domini-correu"]
 ---
 
 Una còpia de seguretat no és una carpeta duplicada ni un disc que sempre està connectat. És una manera provada de recuperar la informació i reprendre la feina quan un ordinador falla, algú esborra un arxiu, un compte queda bloquejat o un atac xifra els sistemes. Per a una pime, el pla pot ser senzill: saber què és crític, quanta informació et pots permetre perdre, mantenir còpies separades i assajar la restauració.

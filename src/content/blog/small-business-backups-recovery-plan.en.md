@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "small-business-backups-recovery"
 category: "Cybersecurity"
 date: 2026-10-05
-relatedSlugs: ["cyber-resilience-act-vulnerability-reporting"]
+relatedSlugs: ["cyber-resilience-act-vulnerability-reporting", "spf-dkim-dmarc-small-business-email-domain"]
 ---
 
 A backup is not a duplicate folder or a drive that stays plugged in. It is a tested way to recover information and resume work when a computer fails, somebody deletes a file, an account is locked or an attack encrypts your systems. A small business does not need an enormous recovery programme. It needs to know what is critical, how much recent work it can afford to lose, where separate copies live and whether those copies can be restored.
