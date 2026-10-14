@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "small-business-email-authentication-spf-dkim-dmarc"
 category: "Cybersecurity"
 date: 2026-10-12
-relatedSlugs: ["small-business-backups-recovery-plan"]
+relatedSlugs: ["small-business-backups-recovery-plan", "first-ai-agent-data-breach-spain-small-business"]
 ---
 
 If your business sends email from its own domain, configure SPF, DKIM and DMARC. Together, these mechanisms help receiving servers determine which systems may send on your behalf, whether a message retains a valid signature and how authentication failures should be handled. They also make it harder to impersonate the domain in phishing campaigns.

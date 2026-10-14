@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "small-business-email-authentication-spf-dkim-dmarc"
 category: "Ciberseguretat"
 date: 2026-10-12
-relatedSlugs: ["copies-seguretat-pimes-pla-restauracio"]
+relatedSlugs: ["copies-seguretat-pimes-pla-restauracio", "primera-bretxa-dades-agent-ia-pimes"]
 ---
 
 Si envies correus amb un domini propi, configura SPF, DKIM i DMARC. Els tres mecanismes ajuden els servidors receptors a comprovar quins sistemes poden enviar en nom teu, si el missatge conserva una signatura vàlida i què han de fer quan la verificació falla. També dificulten que algú suplanti el domini en campanyes de phishing.

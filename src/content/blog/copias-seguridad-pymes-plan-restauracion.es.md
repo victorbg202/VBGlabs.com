@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "small-business-backups-recovery"
 category: "Ciberseguridad"
 date: 2026-10-05
-relatedSlugs: ["cyber-resilience-act-notificar-vulnerabilidades", "spf-dkim-dmarc-pymes-proteger-dominio-correo"]
+relatedSlugs: ["cyber-resilience-act-notificar-vulnerabilidades", "spf-dkim-dmarc-pymes-proteger-dominio-correo", "primera-brecha-datos-agente-ia-pymes"]
 ---
 
 Una copia de seguridad no es una carpeta duplicada ni un disco que siempre permanece conectado. Es una forma probada de recuperar la información y volver a trabajar cuando falla un ordenador, alguien borra un archivo, una cuenta queda bloqueada o un ataque cifra los sistemas. Para una pyme, el plan puede ser sencillo: saber qué es crítico, cuánta información puede permitirse perder, mantener copias separadas y ensayar la restauración.

@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "ai-literacy-businesses-2026"
 category: "Artificial intelligence"
 date: 2026-09-29
-relatedSlugs: ["ai-for-smes-where-to-start"]
+relatedSlugs: ["ai-for-smes-where-to-start", "first-ai-agent-data-breach-spain-small-business"]
 ---
 
 If someone in your business uses ChatGPT to draft emails, Copilot to summarise documents or a tool that classifies invoices, AI is already part of day-to-day work. The question is no longer just whether the tool works. You also need to know who uses it, what data it receives, which decisions it supports and what human oversight applies.

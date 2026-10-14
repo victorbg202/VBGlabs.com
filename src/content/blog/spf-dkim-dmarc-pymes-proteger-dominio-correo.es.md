@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "small-business-email-authentication-spf-dkim-dmarc"
 category: "Ciberseguridad"
 date: 2026-10-12
-relatedSlugs: ["copias-seguridad-pymes-plan-restauracion"]
+relatedSlugs: ["copias-seguridad-pymes-plan-restauracion", "primera-brecha-datos-agente-ia-pymes"]
 ---
 
 Si envías correos con un dominio propio, configura SPF, DKIM y DMARC. Estos mecanismos ayudan a los servidores receptores a comprobar qué sistemas pueden enviar en tu nombre, si el mensaje conserva una firma válida y qué hacer cuando la verificación falla. También dificultan que alguien suplante el dominio en campañas de phishing.
