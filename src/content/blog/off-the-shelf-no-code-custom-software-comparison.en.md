@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "standard-no-code-custom-software-comparison"
 category: "Digitalisation"
 date: 2026-10-09
-relatedSlugs: ["manual-task-cost-automation-calculator", "what-is-worth-automating"]
+relatedSlugs: ["manual-task-cost-automation-calculator", "what-is-worth-automating", "one-page-process-template-before-automation"]
 ---
 
 For a small business, the best solution is not necessarily the most customised one. Off-the-shelf software is usually the best starting point for a common process. No-code or low-code fits when existing tools need to be connected or adapted without building an entire product. Custom development becomes credible when the process is distinctive, stable and valuable enough to justify ongoing maintenance.
