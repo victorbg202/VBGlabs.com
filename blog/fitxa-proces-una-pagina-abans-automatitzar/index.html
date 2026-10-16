@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="ca"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && contactPaths.includes(destination.pathname)) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>Fitxa de procés en una pàgina: la plantilla abans d&#39;automatitzar | VBG Labs</title> <meta name="description" content="Documenta un procés en una sola pàgina, detecta excepcions i valora si està preparat per automatitzar-se amb una plantilla i una puntuació de 0 a 10."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"> <link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/ficha-proceso-una-pagina-antes-automatizar/"><link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"><link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/one-page-process-template-before-automation/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="Fitxa de procés en una pàgina: la plantilla abans d'automatitzar | VBG Labs"> <meta property="og:description" content="Documenta un procés en una sola pàgina, detecta excepcions i valora si està preparat per automatitzar-se amb una plantilla i una puntuació de 0 a 10."> <meta property="og:image" content="https://vbglabs.com/og/og-ca.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="ca_ES"> <meta property="og:locale:alternate" content="es_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Fitxa de procés en una pàgina: la plantilla abans d'automatitzar | VBG Labs"> <meta name="twitter:description" content="Documenta un procés en una sola pàgina, detecta excepcions i valora si està preparat per automatitzar-se amb una plantilla i una puntuació de 0 a 10."> <meta name="twitter:image" content="https://vbglabs.com/og/og-ca.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.qzqtYduC.css"><style>.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Anar al contingut</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inici</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Serveis <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/serveis/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Tots els serveis</a> <a href="/automatitzacions/" data-astro-cid-nen7h5rs>Automatitzacions</a><a href="/consultoria/" data-astro-cid-nen7h5rs>Consultoria</a><a href="/formacio/" data-astro-cid-nen7h5rs>Formació</a> <a href="/vbg-facturacio/" data-astro-cid-nen7h5rs>VBG Facturació</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/vbg-facturacio/" data-astro-cid-nen7h5rs>VBG Facturació</a></li> <li data-astro-cid-nen7h5rs><a href="/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/ficha-proceso-una-pagina-antes-automatizar/&quot;},{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/fitxa-proces-una-pagina-abans-automatitzar/&quot;},{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/one-page-process-template-before-automation/&quot;}]" data-astro-cid-nen7h5rs> <option value="/es/blog/ficha-proceso-una-pagina-antes-automatizar/" data-astro-cid-nen7h5rs>ES</option><option value="/blog/fitxa-proces-una-pagina-abans-automatitzar/" selected data-astro-cid-nen7h5rs>CA</option><option value="/en/blog/one-page-process-template-before-automation/" data-astro-cid-nen7h5rs>EN</option> </select> </label> <a href="/contacte/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Parlem</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/serveis/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Tots els serveis</a> <a href="/automatitzacions/" data-astro-cid-nen7h5rs>Automatitzacions</a><a href="/consultoria/" data-astro-cid-nen7h5rs>Consultoria</a><a href="/formacio/" data-astro-cid-nen7h5rs>Formació</a> <a href="/vbg-facturacio/" data-astro-cid-nen7h5rs>VBG Facturació</a> <a href="/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/preguntes-frequents/" data-astro-cid-nen7h5rs>Preguntes freqüents</a> <a href="/contacte/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Parlem</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>{e.addEventListener(`click`,()=>{let t=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!t))})}),document.addEventListener(`click`,e=>{e.target.closest(`.header__dropdown`)||document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))}),document.addEventListener(`keydown`,e=>{e.key===`Escape`&&document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{window.location.href=r.value});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/" data-astro-cid-ezvlwyc3>Inici</a> </li><li data-astro-cid-ezvlwyc3> <a href="/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>Fitxa de procés en una pàgina: la plantilla abans d&#39;automatitzar</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inici","item":"https://vbglabs.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/blog/"},{"@type":"ListItem","position":3,"name":"Fitxa de procés en una pàgina: la plantilla abans d'automatitzar","item":"https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Automatització</span> <h1 data-astro-cid-cgze3hqb>Fitxa de procés en una pàgina: la plantilla abans d&#39;automatitzar</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-10-16T00:00:00.000Z" data-astro-cid-cgze3hqb>16 d’octubre del 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>Si un procés no es pot explicar en una pàgina, encara no està preparat per automatitzar-lo. No cal un manual de cinquanta pàgines: cal saber què l’activa, quines dades necessita, qui decideix, quines excepcions apareixen i com sabrem que ha acabat bé.</p>
+<p>Aquesta fitxa serveix per descriure el procés actual, descobrir forats abans d’invertir i separar les decisions humanes dels passos repetitius. La pots completar en una reunió curta i utilitzar-la després per comparar propostes, preparar un pilot o decidir que primer cal ordenar el procés.</p>
+<h2 id="la-plantilla-copiable">La plantilla copiable</h2>
+<p>Copia aquest bloc en un document i omple’l amb les persones que fan la feina. Descriu el que passa avui, no el procés ideal que t’agradaria tenir.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>NOM DEL PROCÉS:</span></span>
+<span class="line"><span>OBJECTIU: Quin resultat de negoci ha de produir?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>INICI: Quin fet, missatge o data l'activa?</span></span>
+<span class="line"><span>FINAL: Quina evidència confirma que ha acabat bé?</span></span>
+<span class="line"><span>FREQÜÈNCIA I VOLUM: Quants casos hi ha per dia, setmana o mes?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>ENTRADES: Quines dades o documents necessita?</span></span>
+<span class="line"><span>SORTIDES: Què crea, actualitza, envia o registra?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>PASSOS ACTUALS:</span></span>
+<span class="line"><span>1.</span></span>
+<span class="line"><span>2.</span></span>
+<span class="line"><span>3.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>DECISIONS: Quines regles determinen el pas següent?</span></span>
+<span class="line"><span>EXCEPCIONS: Què surt del recorregut normal i amb quina freqüència?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>RESPONSABLE: Qui respon del resultat?</span></span>
+<span class="line"><span>PARTICIPANTS: Qui executa, revisa o aprova?</span></span>
+<span class="line"><span>SISTEMES: Correu, fulls de càlcul, ERP, CRM, carpetes, web...</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>DADES SENSIBLES I PERMISOS: Què es tracta i qui ho pot veure?</span></span>
+<span class="line"><span>ERRORS I REPROCESSOS: Què acostuma a fallar i què costa corregir-ho?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>CONTROL HUMÀ: En quin punt cal revisar, aprovar o poder aturar?</span></span>
+<span class="line"><span>PLA B: Què farem si una eina o integració falla?</span></span>
+<span class="line"><span>MÈTRICA: Temps, errors, casos pendents, termini de resposta...</span></span></code></pre>
+<p>Una resposta desconeguda no és un fracàs. És una dada útil: assenyala què s’ha de mesurar o acordar abans de construir.</p>
+<h2 id="com-completar-la-sense-convertir-la-en-burocràcia">Com completar-la sense convertir-la en burocràcia</h2>
+<h3 id="1-segueix-un-cas-real-de-principi-a-fi">1. Segueix un cas real de principi a fi</h3>
+<p>No comencis preguntant “com funciona normalment?”. Tria un cas recent i reconstrueix-lo: quin correu va arribar, qui el va obrir, què va copiar, on ho va guardar i com va saber que la tasca estava acabada. Després contrasta un segon cas diferent.</p>
+<p>Això fa visibles els passos que sovint no s’expliquen: buscar una dada en una conversa, canviar un nom de fitxer, esperar una aprovació o comprovar manualment que no existeix un duplicat.</p>
+<h3 id="2-defineix-linici-i-el-final-amb-evidències">2. Defineix l’inici i el final amb evidències</h3>
+<p>“Quan arriba una factura” és millor que “quan administració té feina”. “Factura validada, registrada i arxivada amb identificador” és millor que “quan està feta”. Un inici observable permet activar el flux; un final verificable permet saber si ha funcionat.</p>
+<p>Si un procés té diversos finals, anota’ls. Un cas pot quedar completat, rebutjat, pendent d’informació o escalat. Amagar aquests resultats només trasllada el problema a la futura automatització.</p>
+<h3 id="3-separa-accions-de-decisions">3. Separa accions de decisions</h3>
+<p>Accions com descarregar un adjunt, crear una carpeta o copiar un camp solen seguir una regla. Decisions com acceptar una factura dubtosa, prioritzar una incidència o aprovar una excepció poden requerir context i responsabilitat humana.</p>
+<p>No assumeixis que “utilitzar IA” elimina aquesta frontera. La IA pot proposar una classificació o extreure dades, però cal definir què passa quan la confiança és baixa, quina persona revisa el resultat i com es corregeix.</p>
+<h3 id="4-escriu-les-excepcions-abans-de-dibuixar-la-solució">4. Escriu les excepcions abans de dibuixar la solució</h3>
+<p>Pregunta a l’equip què passa quan falta un document, el client respon tard, hi ha dos formats diferents, un import no quadra o el sistema principal no està disponible. Agrupa les excepcions que comparteixen resposta.</p>
+<p>No cal automatitzar-les totes al primer pilot. Sí que cal detectar-les, derivar-les a una cua visible i evitar que desapareguin en un correu personal.</p>
+<h2 id="exemple-illustratiu-gestionar-una-factura-rebuda">Exemple il·lustratiu: gestionar una factura rebuda</h2>
+<p>Aquest exemple no descriu un client real. Serveix per veure el nivell de detall útil.</p>
+<ul>
+<li><strong>Objectiu:</strong> deixar una factura rebuda identificada, revisada i disponible per a la gestió administrativa.</li>
+<li><strong>Inici:</strong> arriba un correu amb un adjunt PDF a una bústia concreta.</li>
+<li><strong>Final:</strong> el document té proveïdor, data, import i estat de revisió, i queda arxivat amb un identificador únic.</li>
+<li><strong>Passos:</strong> descarregar, comprovar que és una factura, extraure camps, buscar duplicats, assignar proveïdor, revisar i registrar.</li>
+<li><strong>Decisions:</strong> és llegible?, ja existeix?, falten dades?, l’import necessita una aprovació addicional?</li>
+<li><strong>Excepcions:</strong> document protegit, diverses factures en un PDF, abonament, proveïdor nou o camp il·legible.</li>
+<li><strong>Control humà:</strong> revisar valors dubtosos i autoritzar els casos fora de regla.</li>
+<li><strong>Pla B:</strong> conservar l’original i crear una tasca pendent si l’extracció o el sistema fallen.</li>
+<li><strong>Mètrica:</strong> temps fins a revisió, percentatge d’extraccions corregides i casos pendents.</li>
+</ul>
+<p>La fitxa no decideix quina tecnologia utilitzar. Primer defineix el treball; després es pot valorar una automatització, una funció del software existent o una combinació. En el cas de factures rebudes, <a href="/vbg-facturacio/">VBG Facturació</a> cobreix organització i gestió documental, però no s’ha de confondre amb emissió de factures ni amb una solució de compliment VERI*FACTU.</p>
+<h2 id="puntuació-ràpida-està-preparat-per-a-un-pilot">Puntuació ràpida: està preparat per a un pilot?</h2>
+<p>Puntua cada criteri amb <strong>0, 1 o 2</strong>. No és un càlcul de rendibilitat ni una garantia tècnica; és una manera de detectar què falta.</p>
+<table>
+<thead>
+<tr>
+<th>Criteri</th>
+<th>0 punts</th>
+<th>1 punt</th>
+<th>2 punts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inici i final</td>
+<td>Ambigus</td>
+<td>Un dels dos és clar</td>
+<td>Tots dos són observables</td>
+</tr>
+<tr>
+<td>Entrades</td>
+<td>Canvien sense control</td>
+<td>Hi ha diversos formats coneguts</td>
+<td>Formats i camps estan definits</td>
+</tr>
+<tr>
+<td>Regles</td>
+<td>Depenen de memòria</td>
+<td>Part de les decisions està escrita</td>
+<td>Regles i responsables són clars</td>
+</tr>
+<tr>
+<td>Excepcions</td>
+<td>No es coneixen</td>
+<td>Es coneixen però no es mesuren</td>
+<td>Estan agrupades i tenen sortida</td>
+</tr>
+<tr>
+<td>Sistemes i permisos</td>
+<td>Accés incert</td>
+<td>Integració parcial o manual</td>
+<td>Accessos i límits estan verificats</td>
+</tr>
+</tbody>
+</table>
+<p>Interpreta el total amb prudència:</p>
+<ul>
+<li><strong>0–3:</strong> ordena i observa abans d’automatitzar.</li>
+<li><strong>4–7:</strong> prepara un pilot acotat amb revisió humana.</li>
+<li><strong>8–10:</strong> el procés és un bon candidat per a una prova tècnica, si també té sentit econòmic.</li>
+</ul>
+<p>Per analitzar el cost i l’estalvi potencial, utilitza la <a href="/blog/calcular-cost-tasca-manual-automatitzar/">calculadora de tasques manuals</a>. Per decidir entre una eina estàndard, no-code o desenvolupament propi, consulta la <a href="/blog/software-estandard-no-code-o-a-mida-comparativa/">comparativa de software</a>.</p>
+<h2 id="errors-habituals-en-documentar-processos">Errors habituals en documentar processos</h2>
+<ul>
+<li><strong>Fer el mapa des del despatx.</strong> La persona que executa la tasca coneix passos que no apareixen als procediments.</li>
+<li><strong>Escollir un procés massa gran.</strong> “Gestionar clients” no és un procés pilot; “registrar una sol·licitud web i assignar-ne el seguiment” sí.</li>
+<li><strong>Confondre persona i rol.</strong> Escriu “responsable comercial”, no només un nom propi.</li>
+<li><strong>Mesurar només velocitat.</strong> Inclou errors, pendents, reprocessos i qualitat del resultat.</li>
+<li><strong>Dibuixar només el camí feliç.</strong> Les excepcions determinen bona part del manteniment.</li>
+<li><strong>No definir marxa enrere.</strong> Cal saber com aturar el flux, corregir dades i continuar manualment.</li>
+</ul>
+<h2 id="quatre-resultats-possibles-i-tots-poden-ser-correctes">Quatre resultats possibles, i tots poden ser correctes</h2>
+<p>La fitxa pot conduir a automatitzar tot el recorregut, assistir només una part, millorar una funció de l’eina actual o no automatitzar. Potser el problema real és una aprovació sense responsable, dades d’entrada inconsistents o una tasca que passa massa poques vegades.</p>
+<p>Abans d’avançar, aplica també els criteris de <a href="/blog/que-val-la-pena-automatitzar/">què val la pena automatitzar</a>: repetició, estabilitat, volum i cost de l’error. Una bona automatització comença amb un procés prou clar i un objectiu mesurable, no amb una eina de moda.</p>
+<p>Si vols convertir una fitxa completada en un pilot, una <a href="/automatitzacions/">revisió d’automatització</a> pot validar accessos, excepcions, control humà i manteniment abans de construir. La mateixa pàgina serveix com a punt de partida i evita començar el projecte amb supòsits diferents.</p>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>També et pot interessar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/blog/calcular-cost-tasca-manual-automatitzar/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automatització</span> <h3 data-astro-cid-vqljwchw="true">Quant et costa una tasca manual? Calcula si val la pena automatitzar-la</h3> <p data-astro-cid-vqljwchw>Calcula el cost anual d&#39;una tasca repetitiva, els errors, l&#39;estalvi possible i el retorn d&#39;una automatització amb una eina interactiva i un exemple complet.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>2 d’octubre del 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Llegir →</span> </span> </a><a href="/blog/que-val-la-pena-automatitzar/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automatització</span> <h3 data-astro-cid-vqljwchw="true">Què val la pena automatitzar en una pime?</h3> <p data-astro-cid-vqljwchw>Un criteri concret per decidir què automatitzar primer, què pot esperar i què és millor no tocar. Sense vendre&#39;t que ho has d&#39;automatitzar tot.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>12 de maig del 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Llegir →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Parlem del teu negoci</h2> <p class="lede" data-astro-cid-hwvj6ntz>Sense compromís. En 15-20 minuts sabrem si podem ajudar-te.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/contacte/" class="btn btn-primary" data-astro-cid-hwvj6ntz>Explica&#39;ns el teu cas</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Fitxa de procés en una pàgina: la plantilla abans d'automatitzar","description":"Documenta un procés en una sola pàgina, detecta excepcions i valora si està preparat per automatitzar-se amb una plantilla i una puntuació de 0 a 10.","url":"https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-10-16T00:00:00.000Z","dateModified":"2026-10-16T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnologia pràctica perquè el teu negoci treballi millor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Catalunya</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Serveis</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/automatitzacions/" data-astro-cid-jo6i4kqk>Automatitzacions</a></li><li data-astro-cid-jo6i4kqk><a href="/consultoria/" data-astro-cid-jo6i4kqk>Consultoria</a></li><li data-astro-cid-jo6i4kqk><a href="/formacio/" data-astro-cid-jo6i4kqk>Formació</a></li><li data-astro-cid-jo6i4kqk><a href="/vbg-facturacio/" data-astro-cid-jo6i4kqk>VBG Facturació</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/preguntes-frequents/" data-astro-cid-jo6i4kqk>Preguntes freqüents</a></li><li data-astro-cid-jo6i4kqk><a href="/contacte/" data-astro-cid-jo6i4kqk>Contacte</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacte</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Tots els drets reservats.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/avis-legal/" data-astro-cid-jo6i4kqk>Avís legal</a> <a href="/politica-privacitat/" data-astro-cid-jo6i4kqk>Privacitat</a> <a href="/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tu decideixes sobre les cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Fem servir emmagatzematge essencial i, només si ho acceptes, Google Analytics per entendre com s&#39;utilitza el web i millorar-lo. No utilitzem cookies publicitàries. <a href="/politica-cookies/" data-astro-cid-hq3mgpmn>Més informació</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rebutjar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Acceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>

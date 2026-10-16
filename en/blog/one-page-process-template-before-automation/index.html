@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && contactPaths.includes(destination.pathname)) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>Document a process on one page: the template to use before automating | VBG Labs</title> <meta name="description" content="Document a process on one page, uncover exceptions and assess whether it is ready for automation with a reusable template and a 0-to-10 score."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/en/blog/one-page-process-template-before-automation/"> <link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/ficha-proceso-una-pagina-antes-automatizar/"><link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"><link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/one-page-process-template-before-automation/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/fitxa-proces-una-pagina-abans-automatitzar/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/en/blog/one-page-process-template-before-automation/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="Document a process on one page: the template to use before automating | VBG Labs"> <meta property="og:description" content="Document a process on one page, uncover exceptions and assess whether it is ready for automation with a reusable template and a 0-to-10 score."> <meta property="og:image" content="https://vbglabs.com/og/og-en.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="en_US"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="es_ES"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Document a process on one page: the template to use before automating | VBG Labs"> <meta name="twitter:description" content="Document a process on one page, uncover exceptions and assess whether it is ready for automation with a reusable template and a 0-to-10 score."> <meta name="twitter:image" content="https://vbglabs.com/og/og-en.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.qzqtYduC.css"><style>.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Skip to content</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/en/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Home</span> </a> <nav class="header__nav" aria-label="Menu" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Services <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/en/services/" class="header__dropdown-all" data-astro-cid-nen7h5rs>All services</a> <a href="/en/automation/" data-astro-cid-nen7h5rs>Automation</a><a href="/en/consulting/" data-astro-cid-nen7h5rs>Consulting</a><a href="/en/training/" data-astro-cid-nen7h5rs>Training</a> <a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a></li> <li data-astro-cid-nen7h5rs><a href="/en/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/en/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/en/about/" data-astro-cid-nen7h5rs>About VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Language</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/ficha-proceso-una-pagina-antes-automatizar/&quot;},{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/fitxa-proces-una-pagina-abans-automatitzar/&quot;},{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/one-page-process-template-before-automation/&quot;}]" data-astro-cid-nen7h5rs> <option value="/es/blog/ficha-proceso-una-pagina-antes-automatizar/" data-astro-cid-nen7h5rs>ES</option><option value="/blog/fitxa-proces-una-pagina-abans-automatitzar/" data-astro-cid-nen7h5rs>CA</option><option value="/en/blog/one-page-process-template-before-automation/" selected data-astro-cid-nen7h5rs>EN</option> </select> </label> <a href="/en/contact/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Let&#39;s talk</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menu" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/en/services/" class="mobile-menu__section" data-astro-cid-nen7h5rs>All services</a> <a href="/en/automation/" data-astro-cid-nen7h5rs>Automation</a><a href="/en/consulting/" data-astro-cid-nen7h5rs>Consulting</a><a href="/en/training/" data-astro-cid-nen7h5rs>Training</a> <a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a> <a href="/en/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/en/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/en/about/" data-astro-cid-nen7h5rs>About VBG Labs</a> <a href="/en/faq/" data-astro-cid-nen7h5rs>FAQ</a> <a href="/en/contact/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Let&#39;s talk</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>{e.addEventListener(`click`,()=>{let t=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!t))})}),document.addEventListener(`click`,e=>{e.target.closest(`.header__dropdown`)||document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))}),document.addEventListener(`keydown`,e=>{e.key===`Escape`&&document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{window.location.href=r.value});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/en/" data-astro-cid-ezvlwyc3>Home</a> </li><li data-astro-cid-ezvlwyc3> <a href="/en/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>Document a process on one page: the template to use before automating</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://vbglabs.com/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/en/blog/"},{"@type":"ListItem","position":3,"name":"Document a process on one page: the template to use before automating","item":"https://vbglabs.com/en/blog/one-page-process-template-before-automation/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Automation</span> <h1 data-astro-cid-cgze3hqb>Document a process on one page: the template to use before automating</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-10-16T00:00:00.000Z" data-astro-cid-cgze3hqb>16 October 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>If a process cannot be explained on one page, it is not ready to automate. You do not need a fifty-page manual. You need to know what starts the process, which data it requires, who makes decisions, what exceptions occur and how you will prove that it ended correctly.</p>
+<p>This worksheet describes the process as it works today, exposes gaps before money is committed and separates human decisions from repetitive steps. Complete it in a short working session, then use it to compare proposals, scope a pilot or decide that the process needs to be organised first.</p>
+<h2 id="the-copy-and-fill-template">The copy-and-fill template</h2>
+<p>Copy this block into a document and complete it with the people who do the work. Record what happens now, not the ideal process you wish you had.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>PROCESS NAME:</span></span>
+<span class="line"><span>OBJECTIVE: What business outcome should it produce?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>START: Which event, message or date triggers it?</span></span>
+<span class="line"><span>FINISH: What evidence proves it ended correctly?</span></span>
+<span class="line"><span>FREQUENCY AND VOLUME: How many cases occur each day, week or month?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>INPUTS: Which data or documents are required?</span></span>
+<span class="line"><span>OUTPUTS: What is created, updated, sent or recorded?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>CURRENT STEPS:</span></span>
+<span class="line"><span>1.</span></span>
+<span class="line"><span>2.</span></span>
+<span class="line"><span>3.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>DECISIONS: Which rules determine the next step?</span></span>
+<span class="line"><span>EXCEPTIONS: What leaves the normal path, and how often?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>OWNER: Who is accountable for the outcome?</span></span>
+<span class="line"><span>PARTICIPANTS: Who performs, reviews or approves the work?</span></span>
+<span class="line"><span>SYSTEMS: Email, spreadsheets, ERP, CRM, folders, website...</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>SENSITIVE DATA AND ACCESS: What is processed, and who may see it?</span></span>
+<span class="line"><span>ERRORS AND REWORK: What usually fails, and what does correction involve?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>HUMAN CONTROL: Where must someone review, approve or be able to stop it?</span></span>
+<span class="line"><span>FALLBACK: What happens when a tool or integration fails?</span></span>
+<span class="line"><span>MEASURE: Time, errors, outstanding cases, response deadline...</span></span></code></pre>
+<p>An unknown answer is not a failed exercise. It is useful information: something needs to be measured or agreed before anything is built.</p>
+<h2 id="complete-it-without-creating-more-bureaucracy">Complete it without creating more bureaucracy</h2>
+<h3 id="1-follow-one-real-case-from-start-to-finish">1. Follow one real case from start to finish</h3>
+<p>Do not begin with “what normally happens?”. Choose a recent case and reconstruct it: which email arrived, who opened it, what they copied, where they saved it and how they knew the task was complete. Then compare it with a second, different case.</p>
+<p>This exposes the steps people rarely mention: looking for a detail in a conversation, renaming a file, waiting for approval or manually checking for a duplicate.</p>
+<h3 id="2-define-the-start-and-finish-with-evidence">2. Define the start and finish with evidence</h3>
+<p>“When an invoice arrives” is better than “when administration has work”. “Invoice validated, recorded and filed with an identifier” is better than “when it is done”. An observable start can trigger a workflow; a verifiable finish tells you whether it worked.</p>
+<p>Record every valid end state. A case may be completed, rejected, waiting for information or escalated. Hiding those outcomes simply moves the problem into the future automation.</p>
+<h3 id="3-separate-actions-from-decisions">3. Separate actions from decisions</h3>
+<p>Actions such as downloading an attachment, creating a folder or copying a field often follow a rule. Decisions such as accepting a questionable invoice, prioritising an incident or approving an exception may need context and human accountability.</p>
+<p>Do not assume that “using AI” removes this boundary. AI may suggest a category or extract data, but the process still needs to define what happens when confidence is low, who reviews the output and how corrections are made.</p>
+<h3 id="4-write-down-exceptions-before-designing-the-solution">4. Write down exceptions before designing the solution</h3>
+<p>Ask what happens when a document is missing, a customer replies late, two formats are used, an amount does not match or the main system is unavailable. Group exceptions that can be handled in the same way.</p>
+<p>The first pilot does not need to automate every exception. It does need to detect them, route them to a visible queue and prevent them from disappearing inside someone’s personal inbox.</p>
+<h2 id="worked-example-handling-a-received-invoice">Worked example: handling a received invoice</h2>
+<p>This is an illustrative example, not a real client case. It shows the useful level of detail.</p>
+<ul>
+<li><strong>Objective:</strong> leave a received invoice identified, reviewed and available for administrative work.</li>
+<li><strong>Start:</strong> an email with a PDF attachment reaches a designated mailbox.</li>
+<li><strong>Finish:</strong> the document has a supplier, date, amount and review status, and is filed with a unique identifier.</li>
+<li><strong>Steps:</strong> download, confirm it is an invoice, extract fields, check for duplicates, assign the supplier, review and record.</li>
+<li><strong>Decisions:</strong> is it readable?, does it already exist?, is information missing?, does the amount require additional approval?</li>
+<li><strong>Exceptions:</strong> protected document, several invoices in one PDF, credit note, new supplier or unreadable field.</li>
+<li><strong>Human control:</strong> review uncertain values and authorise out-of-policy cases.</li>
+<li><strong>Fallback:</strong> preserve the original and create a pending task if extraction or the main system fails.</li>
+<li><strong>Measure:</strong> time to review, percentage of extracted values corrected and number of outstanding cases.</li>
+</ul>
+<p>The worksheet does not select a technology. It defines the work first; only then should you consider automation, an existing software feature or a combination. For received invoices, <a href="/en/vbg-invoicing/">VBG Invoicing</a> supports document organisation and management, but it is not sales-invoice issuing software or a VERI*FACTU compliance product.</p>
+<h2 id="quick-score-is-it-ready-for-a-pilot">Quick score: is it ready for a pilot?</h2>
+<p>Give each criterion <strong>0, 1 or 2 points</strong>. This is not a return-on-investment calculation or a technical guarantee. It is a way to identify missing foundations.</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>0 points</th>
+<th>1 point</th>
+<th>2 points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start and finish</td>
+<td>Ambiguous</td>
+<td>One is clear</td>
+<td>Both are observable</td>
+</tr>
+<tr>
+<td>Inputs</td>
+<td>Change without control</td>
+<td>Several known formats</td>
+<td>Formats and fields defined</td>
+</tr>
+<tr>
+<td>Rules</td>
+<td>Depend on memory</td>
+<td>Some decisions documented</td>
+<td>Rules and owners are clear</td>
+</tr>
+<tr>
+<td>Exceptions</td>
+<td>Unknown</td>
+<td>Known but not measured</td>
+<td>Grouped with defined outcomes</td>
+</tr>
+<tr>
+<td>Systems and access</td>
+<td>Access uncertain</td>
+<td>Partial or manual integration</td>
+<td>Access and limits verified</td>
+</tr>
+</tbody>
+</table>
+<p>Use the total carefully:</p>
+<ul>
+<li><strong>0–3:</strong> organise and observe before automating.</li>
+<li><strong>4–7:</strong> prepare a limited pilot with human review.</li>
+<li><strong>8–10:</strong> the process is a good candidate for a technical test, provided the economics also make sense.</li>
+</ul>
+<p>Use the <a href="/en/blog/manual-task-cost-automation-calculator/">manual task cost calculator</a> to assess cost and potential savings. When choosing among off-the-shelf software, no-code and custom development, use the <a href="/en/blog/off-the-shelf-no-code-custom-software-comparison/">software comparison</a>.</p>
+<h2 id="common-process-mapping-mistakes">Common process-mapping mistakes</h2>
+<ul>
+<li><strong>Mapping from a manager’s desk.</strong> The person doing the task knows steps that never made it into a procedure.</li>
+<li><strong>Choosing a process that is too broad.</strong> “Manage customers” is not a pilot process; “record a web enquiry and assign its follow-up” is.</li>
+<li><strong>Confusing a person with a role.</strong> Write “sales owner”, not only an individual’s name.</li>
+<li><strong>Measuring speed alone.</strong> Include errors, queues, rework and output quality.</li>
+<li><strong>Drawing only the happy path.</strong> Exceptions drive much of the maintenance burden.</li>
+<li><strong>Ignoring rollback.</strong> The team must be able to stop the flow, correct data and continue manually.</li>
+</ul>
+<h2 id="four-possible-outcomes--and-all-can-be-correct">Four possible outcomes — and all can be correct</h2>
+<p>The worksheet may lead to full automation, assistance for one step, better use of an existing feature or no automation at all. The real problem may be an approval without an owner, inconsistent input data or a task that happens too rarely.</p>
+<p>Before moving ahead, apply the criteria in <a href="/en/blog/what-is-worth-automating/">what is worth automating</a>: repetition, stability, volume and the cost of errors. Good automation starts with a sufficiently clear process and a measurable outcome, not a fashionable tool.</p>
+<p>If you want to turn a completed worksheet into a pilot, an <a href="/en/automation/">automation review</a> can validate access, exceptions, human controls and maintenance before development starts. The one-page document becomes a shared starting point and prevents the project from beginning with conflicting assumptions.</p>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>You might also like</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/en/blog/manual-task-cost-automation-calculator/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automation</span> <h3 data-astro-cid-vqljwchw="true">What does a manual task really cost? Calculate whether automation is worth it</h3> <p data-astro-cid-vqljwchw>Calculate the annual cost of a repetitive task, errors, potential savings and automation payback with an interactive tool and a complete worked example.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>2 October 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Read →</span> </span> </a><a href="/en/blog/off-the-shelf-no-code-custom-software-comparison/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Digitalisation</span> <h3 data-astro-cid-vqljwchw="true">Off-the-shelf, no-code or custom software? A practical comparison</h3> <p data-astro-cid-vqljwchw>Compare off-the-shelf software, no-code tools and custom development using a practical matrix covering cost, fit, integrations, control and maintenance.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>9 October 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Read →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Let&#39;s talk about your business</h2> <p class="lede" data-astro-cid-hwvj6ntz>No obligation. In 15-20 minutes we&#39;ll know if we can help.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/en/contact/" class="btn btn-primary" data-astro-cid-hwvj6ntz>Tell us your case</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Document a process on one page: the template to use before automating","description":"Document a process on one page, uncover exceptions and assess whether it is ready for automation with a reusable template and a 0-to-10 score.","url":"https://vbglabs.com/en/blog/one-page-process-template-before-automation/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-10-16T00:00:00.000Z","dateModified":"2026-10-16T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/en/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Practical technology so your business runs better.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Catalonia, Spain</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Services</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/en/automation/" data-astro-cid-jo6i4kqk>Automation</a></li><li data-astro-cid-jo6i4kqk><a href="/en/consulting/" data-astro-cid-jo6i4kqk>Consulting</a></li><li data-astro-cid-jo6i4kqk><a href="/en/training/" data-astro-cid-jo6i4kqk>Training</a></li><li data-astro-cid-jo6i4kqk><a href="/en/vbg-invoicing/" data-astro-cid-jo6i4kqk>VBG Invoicing</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Company</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/en/about/" data-astro-cid-jo6i4kqk>About VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/en/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/en/faq/" data-astro-cid-jo6i4kqk>FAQ</a></li><li data-astro-cid-jo6i4kqk><a href="/en/contact/" data-astro-cid-jo6i4kqk>Contact</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contact</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. All rights reserved.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/en/legal-notice/" data-astro-cid-jo6i4kqk>Legal notice</a> <a href="/en/privacy-policy/" data-astro-cid-jo6i4kqk>Privacy</a> <a href="/en/cookie-policy/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Cookie settings </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>You choose which cookies we use</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>We use essential storage and, only with your permission, Google Analytics to understand and improve site usage. We do not use advertising cookies. <a href="/en/cookie-policy/" data-astro-cid-hq3mgpmn>More information</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Reject</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Accept</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
