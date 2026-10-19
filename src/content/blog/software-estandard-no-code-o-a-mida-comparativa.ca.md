@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "standard-no-code-custom-software-comparison"
 category: "Digitalització"
 date: 2026-10-09
-relatedSlugs: ["calcular-cost-tasca-manual-automatitzar", "que-val-la-pena-automatitzar", "fitxa-proces-una-pagina-abans-automatitzar"]
+relatedSlugs: ["calcular-cost-tasca-manual-automatitzar", "que-val-la-pena-automatitzar", "fitxa-proces-una-pagina-abans-automatitzar", "implantar-crm-pime-proces-comercial"]
 ---
 
 Per a una pime, la millor solució no és necessàriament la més personalitzada. El software estàndard acostuma a ser la millor primera opció quan el procés és habitual; el no-code o low-code encaixa quan cal connectar eines o adaptar un circuit sense construir un producte sencer; i el desenvolupament a mida té sentit quan el procés és diferencial, estable i prou valuós per assumir-ne el manteniment.

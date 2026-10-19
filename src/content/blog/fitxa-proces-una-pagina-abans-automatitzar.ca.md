@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "one-page-process-template-before-automation"
 category: "Automatització"
 date: 2026-10-16
-relatedSlugs: ["que-val-la-pena-automatitzar", "calcular-cost-tasca-manual-automatitzar", "software-estandard-no-code-o-a-mida-comparativa"]
+relatedSlugs: ["que-val-la-pena-automatitzar", "calcular-cost-tasca-manual-automatitzar", "software-estandard-no-code-o-a-mida-comparativa", "implantar-crm-pime-proces-comercial"]
 ---
 
 Si un procés no es pot explicar en una pàgina, encara no està preparat per automatitzar-lo. No cal un manual de cinquanta pàgines: cal saber què l'activa, quines dades necessita, qui decideix, quines excepcions apareixen i com sabrem que ha acabat bé.

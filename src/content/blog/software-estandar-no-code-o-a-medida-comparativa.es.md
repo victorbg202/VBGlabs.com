@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "standard-no-code-custom-software-comparison"
 category: "Digitalización"
 date: 2026-10-09
-relatedSlugs: ["calcular-coste-tarea-manual-automatizar", "que-vale-la-pena-automatizar", "ficha-proceso-una-pagina-antes-automatizar"]
+relatedSlugs: ["calcular-coste-tarea-manual-automatizar", "que-vale-la-pena-automatizar", "ficha-proceso-una-pagina-antes-automatizar", "implantar-crm-pyme-proceso-comercial"]
 ---
 
 Para una pyme, la mejor solución no es necesariamente la más personalizada. El software estándar suele ser la primera opción cuando el proceso es común; el no-code o low-code encaja si hay que conectar herramientas o adaptar un circuito sin construir un producto entero; y el desarrollo a medida tiene sentido cuando el proceso es diferencial, estable y suficientemente valioso como para asumir su mantenimiento.
