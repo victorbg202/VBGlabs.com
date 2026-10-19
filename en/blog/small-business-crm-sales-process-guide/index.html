@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && contactPaths.includes(destination.pathname)) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>How to set up a CRM in a small business without overcomplicating sales | VBG Labs</title> <meta name="description" content="A practical guide to defining stages, data, ownership and metrics before introducing a CRM in a small business."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/en/blog/small-business-crm-sales-process-guide/"> <link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/implantar-crm-pime-proces-comercial/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/implantar-crm-pyme-proceso-comercial/"><link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/small-business-crm-sales-process-guide/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/implantar-crm-pime-proces-comercial/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/en/blog/small-business-crm-sales-process-guide/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="How to set up a CRM in a small business without overcomplicating sales | VBG Labs"> <meta property="og:description" content="A practical guide to defining stages, data, ownership and metrics before introducing a CRM in a small business."> <meta property="og:image" content="https://vbglabs.com/og/og-en.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="en_US"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="es_ES"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="How to set up a CRM in a small business without overcomplicating sales | VBG Labs"> <meta name="twitter:description" content="A practical guide to defining stages, data, ownership and metrics before introducing a CRM in a small business."> <meta name="twitter:image" content="https://vbglabs.com/og/og-en.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.qzqtYduC.css"><style>.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Skip to content</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/en/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Home</span> </a> <nav class="header__nav" aria-label="Menu" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Services <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/en/services/" class="header__dropdown-all" data-astro-cid-nen7h5rs>All services</a> <a href="/en/automation/" data-astro-cid-nen7h5rs>Automation</a><a href="/en/consulting/" data-astro-cid-nen7h5rs>Consulting</a><a href="/en/training/" data-astro-cid-nen7h5rs>Training</a> <a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a></li> <li data-astro-cid-nen7h5rs><a href="/en/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/en/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/en/about/" data-astro-cid-nen7h5rs>About VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Language</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/implantar-crm-pime-proces-comercial/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/implantar-crm-pyme-proceso-comercial/&quot;},{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/small-business-crm-sales-process-guide/&quot;}]" data-astro-cid-nen7h5rs> <option value="/blog/implantar-crm-pime-proces-comercial/" data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/implantar-crm-pyme-proceso-comercial/" data-astro-cid-nen7h5rs>ES</option><option value="/en/blog/small-business-crm-sales-process-guide/" selected data-astro-cid-nen7h5rs>EN</option> </select> </label> <a href="/en/contact/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Let&#39;s talk</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menu" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/en/services/" class="mobile-menu__section" data-astro-cid-nen7h5rs>All services</a> <a href="/en/automation/" data-astro-cid-nen7h5rs>Automation</a><a href="/en/consulting/" data-astro-cid-nen7h5rs>Consulting</a><a href="/en/training/" data-astro-cid-nen7h5rs>Training</a> <a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a> <a href="/en/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/en/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/en/about/" data-astro-cid-nen7h5rs>About VBG Labs</a> <a href="/en/faq/" data-astro-cid-nen7h5rs>FAQ</a> <a href="/en/contact/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Let&#39;s talk</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>{e.addEventListener(`click`,()=>{let t=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!t))})}),document.addEventListener(`click`,e=>{e.target.closest(`.header__dropdown`)||document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))}),document.addEventListener(`keydown`,e=>{e.key===`Escape`&&document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{window.location.href=r.value});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/en/" data-astro-cid-ezvlwyc3>Home</a> </li><li data-astro-cid-ezvlwyc3> <a href="/en/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>How to set up a CRM in a small business without overcomplicating sales</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://vbglabs.com/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/en/blog/"},{"@type":"ListItem","position":3,"name":"How to set up a CRM in a small business without overcomplicating sales","item":"https://vbglabs.com/en/blog/small-business-crm-sales-process-guide/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Digitalisation</span> <h1 data-astro-cid-cgze3hqb>How to set up a CRM in a small business without overcomplicating sales</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-10-19T00:00:00.000Z" data-astro-cid-cgze3hqb>19 October 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>A CRM is useful when it helps a team see which opportunity needs attention, what has been agreed and what should happen next. If it becomes little more than a contact list that nobody maintains, the tool may not be the real problem. The business often lacks a shared sales process, a minimum data set and clear ownership.</p>
+<p>Before comparing products, define how an opportunity enters the business, which stages it can move through, what must happen before it advances and when it is considered closed. This guide sets out a small, measurable rollout that a small business can sustain without trying to build the perfect sales system on day one.</p>
+<h2 id="start-with-the-outcome-not-the-feature-list">Start with the outcome, not the feature list</h2>
+<p>“Keep every customer in one place” is a reasonable ambition, but it is hard to test. Be specific about the problem the CRM must solve during its first three months. For example:</p>
+<ul>
+<li>prevent enquiries from different channels from being lost;</li>
+<li>make ownership of every opportunity visible;</li>
+<li>show which proposals are waiting for a response;</li>
+<li>schedule the next follow-up instead of relying on memory;</li>
+<li>identify where sales tend to stall.</li>
+</ul>
+<p>Choose one main outcome and one or two measures. If follow-up is the problem, track open opportunities without a next action or the number of days since the last contact. If responsiveness is the issue, measure the time between an enquiry arriving and the first useful reply.</p>
+<p>Do not attempt to redesign marketing, sales, support, invoicing and retention at the same time. A smaller first scope makes adoption easier and helps you distinguish process problems from configuration problems.</p>
+<h2 id="map-the-sales-process-you-use-today">Map the sales process you use today</h2>
+<p>Follow two or three recent opportunities from first contact to their final outcome. Note where they came from, who handled them, what information was requested, which decisions were made and how the team knew a follow-up was due.</p>
+<p>The <a href="/en/blog/one-page-process-template-before-automation/">one-page process template</a> provides enough structure to document that journey without creating a lengthy manual. A sales process may begin with a web enquiry, phone call or referral. Its end is not always “won”: an opportunity may be lost, disqualified, deferred or waiting for information.</p>
+<p>Keep three concepts separate:</p>
+<ul>
+<li><strong>Contact:</strong> the person with whom you communicate.</li>
+<li><strong>Company or account:</strong> the organisation they belong to, where relevant.</li>
+<li><strong>Opportunity:</strong> a specific potential sale with a need, indicative value and next step.</li>
+</ul>
+<p>One company can have several contacts and multiple opportunities over time. If everything is stored in a single record or unstructured notes, it becomes difficult to reconstruct the history and analyse the sales process later.</p>
+<h2 id="use-a-few-stages-with-observable-conditions">Use a few stages with observable conditions</h2>
+<p>Five or six stages are usually enough for a first pipeline. Names will vary by business, but every stage should represent a genuine change:</p>
+<ol>
+<li><strong>New enquiry:</strong> it exists but has not yet been reviewed.</li>
+<li><strong>Qualified:</strong> there is a basic fit and the need is understood.</li>
+<li><strong>Discovery:</strong> the scope is being clarified through a call or assessment.</li>
+<li><strong>Proposal sent:</strong> the prospect has an offer or another formal next step.</li>
+<li><strong>Decision pending:</strong> a response, approval or agreed date is outstanding.</li>
+<li><strong>Won or lost:</strong> there is an outcome and its reason is recorded.</li>
+</ol>
+<p>Avoid stages based only on sentiment, such as “interested” and “very interested”. Define an entry and exit condition. An opportunity should not move to “proposal sent” because someone intends to prepare it; it should move when the proposal has actually been sent and the next follow-up date has been recorded.</p>
+<p>Do not use stages as a task list either. “Call”, “send email” and “prepare quote” are activities within a stage. Mixing status and activity makes the pipeline much less informative.</p>
+<h2 id="store-only-the-data-you-will-use">Store only the data you will use</h2>
+<p>Every required field adds friction. If nobody can explain which decision or action depends on a piece of data, it probably should not be mandatory in the first version.</p>
+<p>A minimum useful set might include:</p>
+<ul>
+<li>contact and company name;</li>
+<li>source channel and enquiry date;</li>
+<li>a one-sentence summary of the need;</li>
+<li>owner;</li>
+<li>current stage;</li>
+<li>next action and due date;</li>
+<li>indicative value, if it genuinely helps prioritisation or forecasting;</li>
+<li>reason for losing or disqualifying the opportunity.</li>
+</ul>
+<p>Use controlled options for information you want to compare, such as lead source or loss reason. Keep free text for context that does not fit a classification. Avoid copying entire conversations when a short summary and a link to the original email or document will do.</p>
+<p>Also decide who can view, edit and export the information. The ability to create dozens of fields does not mean everyone needs access to every piece of data.</p>
+<h2 id="give-every-opportunity-an-owner-and-a-next-action">Give every opportunity an owner and a next action</h2>
+<p>An opportunity without an owner easily becomes something that “someone will check”. An opportunity without a next action can remain open for months without representing real work.</p>
+<p>Use two simple rules:</p>
+<ol>
+<li>every open opportunity has one accountable owner;</li>
+<li>every active opportunity has a dated next action.</li>
+</ol>
+<p>The action should be verifiable: “send the technical example on Tuesday”, “call after the prospect’s internal meeting” or “close if there is no response after the second follow-up”. “Follow up” is too vague unless it states when and why.</p>
+<p>Decide what happens during leave, sickness or a role change. The history should belong to the business rather than remain scattered across personal inboxes, calendars and private notes.</p>
+<h2 id="configure-the-minimum-and-test-real-cases">Configure the minimum and test real cases</h2>
+<p>Do not migrate the entire history on day one. Start with open opportunities and the contacts the team needs now. Remove duplicates, agree naming conventions and keep an exportable copy before transforming data.</p>
+<p>Run the CRM with a small group or a single sales route for two or three weeks. Review the following each week:</p>
+<ul>
+<li>opportunities with no owner;</li>
+<li>records without a next action;</li>
+<li>stages interpreted differently by different people;</li>
+<li>fields that are always left empty;</li>
+<li>information the team still stores elsewhere;</li>
+<li>reminders or tasks that create noise rather than action.</li>
+</ul>
+<p>The pilot is not there to prove the product works. It is there to discover what the process needs. If the system creates duplicate work or cannot represent a common exception, adjust the scope before adding more users.</p>
+<h2 id="automate-only-after-the-process-has-settled">Automate only after the process has settled</h2>
+<p>Once stages and data are being used consistently, consider small automations: create an opportunity from a form, assign it according to a rule, flag an unanswered enquiry, create a task after a proposal is sent or update a dashboard.</p>
+<p>Keep human review for decisions such as disqualifying an opportunity, changing an important priority or sending a sensitive message. Define what happens when data is missing, a duplicate appears or an integration fails. The guide to <a href="/en/blog/what-is-worth-automating/">what is worth automating</a> helps separate repeatable steps from those that still need judgement.</p>
+<p>Before buying add-ons or building integrations, ask whether the standard CRM already solves the problem, whether a configurable layer is enough or whether the requirement is genuinely distinctive. The <a href="/en/blog/off-the-shelf-no-code-custom-software-comparison/">off-the-shelf, no-code and custom software comparison</a> provides a structured way to make that choice.</p>
+<h2 id="measure-sales-health-not-every-movement">Measure sales health, not every movement</h2>
+<p>Begin with four indicators that could trigger a decision:</p>
+<ul>
+<li>new enquiries by source;</li>
+<li>time to first useful contact;</li>
+<li>open opportunities without a next action;</li>
+<li>win, loss and disqualification rates and reasons.</li>
+</ul>
+<p>Call and email counts can provide context, but more activity does not automatically mean a better process. A dashboard should reveal where intervention is needed: a source producing poor-fit enquiries, proposals with no follow-up or a stage with an excessive wait.</p>
+<p>Review definitions monthly during the pilot. If two people interpret a metric differently, fix the definition first. A precise chart based on inconsistent data creates confidence without clarity.</p>
+<h2 id="a-manageable-30-day-rollout">A manageable 30-day rollout</h2>
+<p>In week one, set the objective, document the current process and agree the stages. In week two, define the minimum fields, permissions and ownership rules. In week three, configure the tool and add only open opportunities. In week four, review real cases, remove friction and choose one improvement to test next.</p>
+<p>By the end of the month, you should be able to answer three questions: what is open, who owns it and what happens next. If you still cannot, adding more automation or reports will not solve the underlying problem.</p>
+<p>If you need to turn your sales process into comparable requirements before choosing a tool, <a href="/en/consulting/">technology consulting</a> can help define the data, roles, integrations and pilot criteria without starting from a specific product.</p>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>You might also like</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/en/blog/off-the-shelf-no-code-custom-software-comparison/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Digitalisation</span> <h3 data-astro-cid-vqljwchw="true">Off-the-shelf, no-code or custom software? A practical comparison</h3> <p data-astro-cid-vqljwchw>Compare off-the-shelf software, no-code tools and custom development using a practical matrix covering cost, fit, integrations, control and maintenance.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>9 October 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Read →</span> </span> </a><a href="/en/blog/one-page-process-template-before-automation/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automation</span> <h3 data-astro-cid-vqljwchw="true">Document a process on one page: the template to use before automating</h3> <p data-astro-cid-vqljwchw>Document a process on one page, uncover exceptions and assess whether it is ready for automation with a reusable template and a 0-to-10 score.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>16 October 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Read →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Let&#39;s talk about your business</h2> <p class="lede" data-astro-cid-hwvj6ntz>No obligation. In 15-20 minutes we&#39;ll know if we can help.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/en/contact/" class="btn btn-primary" data-astro-cid-hwvj6ntz>Tell us your case</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to set up a CRM in a small business without overcomplicating sales","description":"A practical guide to defining stages, data, ownership and metrics before introducing a CRM in a small business.","url":"https://vbglabs.com/en/blog/small-business-crm-sales-process-guide/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-10-19T00:00:00.000Z","dateModified":"2026-10-19T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/en/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Practical technology so your business runs better.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Catalonia, Spain</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Services</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/en/automation/" data-astro-cid-jo6i4kqk>Automation</a></li><li data-astro-cid-jo6i4kqk><a href="/en/consulting/" data-astro-cid-jo6i4kqk>Consulting</a></li><li data-astro-cid-jo6i4kqk><a href="/en/training/" data-astro-cid-jo6i4kqk>Training</a></li><li data-astro-cid-jo6i4kqk><a href="/en/vbg-invoicing/" data-astro-cid-jo6i4kqk>VBG Invoicing</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Company</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/en/about/" data-astro-cid-jo6i4kqk>About VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/en/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/en/faq/" data-astro-cid-jo6i4kqk>FAQ</a></li><li data-astro-cid-jo6i4kqk><a href="/en/contact/" data-astro-cid-jo6i4kqk>Contact</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contact</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. All rights reserved.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/en/legal-notice/" data-astro-cid-jo6i4kqk>Legal notice</a> <a href="/en/privacy-policy/" data-astro-cid-jo6i4kqk>Privacy</a> <a href="/en/cookie-policy/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Cookie settings </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>You choose which cookies we use</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>We use essential storage and, only with your permission, Google Analytics to understand and improve site usage. We do not use advertising cookies. <a href="/en/cookie-policy/" data-astro-cid-hq3mgpmn>More information</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Reject</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Accept</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
