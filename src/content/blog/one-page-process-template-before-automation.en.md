@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "one-page-process-template-before-automation"
 category: "Automation"
 date: 2026-10-16
-relatedSlugs: ["what-is-worth-automating", "manual-task-cost-automation-calculator", "off-the-shelf-no-code-custom-software-comparison", "small-business-crm-sales-process-guide"]
+relatedSlugs: ["what-is-worth-automating", "manual-task-cost-automation-calculator", "off-the-shelf-no-code-custom-software-comparison", "small-business-crm-sales-process-guide", "spain-400-prefix-commercial-calls-businesses"]
 ---
 
 If a process cannot be explained on one page, it is not ready to automate. You do not need a fifty-page manual. You need to know what starts the process, which data it requires, who makes decisions, what exceptions occur and how you will prove that it ended correctly.

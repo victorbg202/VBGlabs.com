@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "one-page-process-template-before-automation"
 category: "Automatización"
 date: 2026-10-16
-relatedSlugs: ["que-vale-la-pena-automatizar", "calcular-coste-tarea-manual-automatizar", "software-estandar-no-code-o-a-medida-comparativa", "implantar-crm-pyme-proceso-comercial"]
+relatedSlugs: ["que-vale-la-pena-automatizar", "calcular-coste-tarea-manual-automatizar", "software-estandar-no-code-o-a-medida-comparativa", "implantar-crm-pyme-proceso-comercial", "prefijo-400-llamadas-comerciales-que-revisar-empresa"]
 ---
 
 Si un proceso no puede explicarse en una página, todavía no está listo para automatizarlo. No necesitas un manual de cincuenta páginas: necesitas saber qué lo activa, qué datos requiere, quién decide, qué excepciones aparecen y cómo comprobarás que ha terminado bien.

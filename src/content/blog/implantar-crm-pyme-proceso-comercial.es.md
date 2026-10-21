@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "small-business-crm-sales-process-guide"
 category: "Digitalización"
 date: 2026-10-19
-relatedSlugs: ["ficha-proceso-una-pagina-antes-automatizar", "software-estandar-no-code-o-a-medida-comparativa", "que-vale-la-pena-automatizar"]
+relatedSlugs: ["ficha-proceso-una-pagina-antes-automatizar", "software-estandar-no-code-o-a-medida-comparativa", "que-vale-la-pena-automatizar", "prefijo-400-llamadas-comerciales-que-revisar-empresa"]
 ---
 
 Un CRM aporta valor cuando ayuda al equipo a saber qué oportunidad necesita atención, qué se ha acordado y cuál es el siguiente paso. Si acaba siendo una agenda de contactos que nadie mantiene, el problema no siempre está en la herramienta: normalmente faltan un proceso comercial compartido, unos datos mínimos y responsabilidades claras.
