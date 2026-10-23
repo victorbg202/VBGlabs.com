@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "small-business-crm-sales-process-guide"
 category: "Digitalització"
 date: 2026-10-19
-relatedSlugs: ["fitxa-proces-una-pagina-abans-automatitzar", "software-estandard-no-code-o-a-mida-comparativa", "que-val-la-pena-automatitzar", "prefix-400-trucades-comercials-que-revisar-empresa"]
+relatedSlugs: ["fitxa-proces-una-pagina-abans-automatitzar", "software-estandard-no-code-o-a-mida-comparativa", "que-val-la-pena-automatitzar", "prefix-400-trucades-comercials-que-revisar-empresa", "auditar-web-checklist-convertir-visites-oportunitats"]
 ---
 
 Un CRM és útil quan ajuda l'equip a saber quina oportunitat requereix atenció, què s'ha acordat i quin és el pas següent. Si només es converteix en una llibreta de contactes que ningú actualitza, el problema no és necessàriament l'eina: sovint falten un procés comercial compartit, dades mínimes i responsabilitats clares.

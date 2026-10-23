@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "small-business-crm-sales-process-guide"
 category: "Digitalisation"
 date: 2026-10-19
-relatedSlugs: ["one-page-process-template-before-automation", "off-the-shelf-no-code-custom-software-comparison", "what-is-worth-automating", "spain-400-prefix-commercial-calls-businesses"]
+relatedSlugs: ["one-page-process-template-before-automation", "off-the-shelf-no-code-custom-software-comparison", "what-is-worth-automating", "spain-400-prefix-commercial-calls-businesses", "website-lead-generation-audit-checklist"]
 ---
 
 A CRM is useful when it helps a team see which opportunity needs attention, what has been agreed and what should happen next. If it becomes little more than a contact list that nobody maintains, the tool may not be the real problem. The business often lacks a shared sales process, a minimum data set and clear ownership.
