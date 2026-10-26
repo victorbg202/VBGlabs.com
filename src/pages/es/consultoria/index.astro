@@ -16,26 +16,24 @@ const locale = 'es' as const;
 <BaseLayout
   locale={locale}
   routeKey="consulting"
-  title="Consultoría tecnológica y de IA para pymes"
-  description="Un diagnóstico externo y técnico de cómo trabaja tu negocio, con una hoja de ruta priorizada. Se puede contratar sola, sin implementación posterior."
+  title="Consultoría de IA y automatización para pymes"
+  description="Consultoría de inteligencia artificial y automatización para pymes. Diagnóstico, prioridades y hoja de ruta con presupuesto orientativo. Almenar, Lleida."
 >
   <PageHero
     locale={locale}
     eyebrow="CONSULTORÍA"
-    title="Una mirada externa antes de decidir nada"
-    lede="Analizamos cómo trabaja tu negocio hoy y te damos una hoja de ruta clara de qué vale la pena cambiar primero. Se puede contratar sola: no hace falta que acabes implementando nada con nosotros."
+    title="Consultoría de IA para decidir qué aplicar en tu negocio"
+    lede="Detectamos dónde la IA y las automatizaciones pueden aportar valor a tu empresa. Recibes un diagnóstico y una hoja de ruta priorizada, con fases y presupuesto orientativo."
     crumb={{ name: 'Consultoría', path: route('consulting', locale) }}
+    primaryLabel="Cuéntanos tu caso"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">
     <div class="container narrow">
-      <SectionHeader eyebrow="PARA QUIÉN" title="Cuándo tiene sentido una consultoría" />
+      <SectionHeader eyebrow="PARA QUIÉN" title="Cuándo puede ayudarte una consultoría de IA" />
       <p>
-        Si tienes la sensación de que el negocio podría ir más fluido pero no sabes muy bien
-        por dónde empezar, o si quieres una opinión técnica independiente antes de decidir
-        invertir en un proyecto grande, una consultoría es el punto de partida más seguro. No
-        te proponemos nada antes de entender cómo trabaja realmente tu equipo — no desde un
-        formulario, sino hablando con las personas que hacen el trabajo cada día.
+        Si quieres aplicar IA en tu negocio pero no sabes por dónde empezar, o necesitas valorar una automatización antes de invertir, analizamos las tareas, los datos y las herramientas de tu equipo. Identificamos usos viables de la IA, sus límites y las prioridades de implantación. Puedes contratar solo el diagnóstico y la hoja de ruta, sin implementación posterior.
       </p>
     </div>
   </section>
@@ -105,8 +103,8 @@ const locale = 'es' as const;
   />
 
   <ServiceSchema
-    name="Consultoría tecnológica"
-    description="Diagnóstico externo y hoja de ruta priorizada para pymes y autónomos."
+    name="Consultoría de IA y automatización"
+    description="Diagnóstico de oportunidades de IA y automatización para pymes, con prioridades, fases y presupuesto orientativo."
     path={route('consulting', locale)}
   />
 </BaseLayout>

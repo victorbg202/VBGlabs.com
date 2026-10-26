@@ -16,26 +16,24 @@ const locale = 'en' as const;
 <BaseLayout
   locale={locale}
   routeKey="consulting"
-  title="Technology and AI consulting for SMEs"
-  description="An outside, technical diagnosis of how your business runs, with a prioritized roadmap. Can be hired standalone, with no obligation to implement anything afterwards."
+  title="AI and automation consulting for small businesses"
+  description="AI and automation consulting for SMEs. Identify suitable use cases and get a prioritised roadmap with indicative costs. Based in Almenar, Lleida."
 >
   <PageHero
     locale={locale}
     eyebrow="CONSULTING"
-    title="An outside view before you decide anything"
-    lede="We analyze how your business runs today and give you a clear roadmap of what's worth changing first. It stands on its own — there's no obligation to have us implement anything afterwards."
+    title="AI consulting to decide what your business needs"
+    lede="We identify where AI and automation could add value to your business. You get a diagnosis and a prioritised roadmap, with clear stages and indicative costs."
     crumb={{ name: 'Consulting', path: route('consulting', locale) }}
+    primaryLabel="Tell us about your project"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">
     <div class="container narrow">
-      <SectionHeader eyebrow="WHO IT'S FOR" title="When consulting makes sense" />
+      <SectionHeader eyebrow="WHO IT'S FOR" title="When AI consulting can help your business" />
       <p>
-        If you sense the business could run more smoothly but aren't sure where to start, or
-        want an independent technical opinion before committing to a large project, consulting
-        is the safest place to begin. We don't propose anything before understanding how your
-        team actually works — not from a form, but by talking to the people doing the work
-        every day.
+        If you want to use AI in your business but are unsure where to start, or need to assess an automation project before investing, we review your team’s tasks, data and tools. We identify suitable AI use cases, their limits and implementation priorities. You can hire us for the diagnosis and roadmap alone, with no obligation to proceed with implementation.
       </p>
     </div>
   </section>
@@ -105,8 +103,8 @@ const locale = 'en' as const;
   />
 
   <ServiceSchema
-    name="Technology consulting"
-    description="External diagnosis and a prioritized roadmap for small and medium businesses."
+    name="AI and automation consulting"
+    description="Assessment of AI and automation opportunities for SMEs, with priorities, stages and indicative costs."
     path={route('consulting', locale)}
   />
 </BaseLayout>

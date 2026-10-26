@@ -9,9 +9,11 @@ interface Props {
   lede: string;
   crumb: { name: string; path: string };
   dark?: boolean;
+  primaryLabel?: string;
+  primaryHref?: string;
 }
 
-const { locale, eyebrow, title, lede, crumb, dark = false } = Astro.props;
+const { locale, eyebrow, title, lede, crumb, dark = false, primaryLabel, primaryHref } = Astro.props;
 ---
 <section class={`page-hero ${dark ? 'page-hero--dark' : ''}`}>
   <div class="container">
@@ -19,6 +21,11 @@ const { locale, eyebrow, title, lede, crumb, dark = false } = Astro.props;
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
     <p class="lede">{lede}</p>
+    {primaryLabel && primaryHref && (
+      <div class="page-hero__actions">
+        <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -40,7 +47,8 @@ const { locale, eyebrow, title, lede, crumb, dark = false } = Astro.props;
 
   .page-hero h1 {
     font-size: var(--text-3xl);
-    max-width: 18ch;
+    max-width: 24ch;
+    overflow-wrap: break-word;
     margin-block: var(--space-2);
   }
 
@@ -51,6 +59,10 @@ const { locale, eyebrow, title, lede, crumb, dark = false } = Astro.props;
   .page-hero .lede {
     font-size: var(--text-md);
     max-width: 56ch;
+  }
+
+  .page-hero__actions {
+    margin-top: var(--space-3);
   }
 
   .page-hero .eyebrow,

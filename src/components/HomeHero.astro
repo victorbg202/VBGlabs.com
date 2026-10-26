@@ -76,10 +76,15 @@ const { locale, eyebrow, title, lede, ctaPrimary, ctaSecondary, note } = Astro.p
     }
   }
 
+  .hero__copy {
+    min-width: 0;
+  }
+
   .hero__copy h1 {
-    font-size: var(--text-4xl);
+    font-size: clamp(2rem, 1.4rem + 4.2vw, 3.815rem);
+    overflow-wrap: break-word;
     margin-block: var(--space-2);
-    max-width: 15ch;
+    max-width: 19ch;
   }
 
   .hero__copy .lede {

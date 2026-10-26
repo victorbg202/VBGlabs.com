@@ -16,26 +16,24 @@ const locale = 'ca' as const;
 <BaseLayout
   locale={locale}
   routeKey="consulting"
-  title="Consultoria tecnològica i d'IA per a pimes"
-  description="Un diagnòstic extern i tècnic de com treballa el teu negoci, amb un full de ruta priortizat. Es pot contractar sol, sense implementació posterior."
+  title="Consultoria d’IA i automatització per a pimes"
+  description="Consultoria d’intel·ligència artificial i automatització per a pimes. Diagnòstic, prioritats i full de ruta amb pressupost orientatiu. Almenar, Lleida."
 >
   <PageHero
     locale={locale}
     eyebrow="CONSULTORIA"
-    title="Una mirada externa abans de decidir res"
-    lede="Analitzem com treballa el teu negoci avui i et donem un full de ruta clar de què val la pena canviar primer. Es pot contractar sol: no cal que acabis implementant res amb nosaltres."
+    title="Consultoria d’IA per saber què aplicar al teu negoci"
+    lede="Detectem on la IA i les automatitzacions poden aportar valor a la teva empresa. T’emportes un diagnòstic i un full de ruta prioritzat, amb fases i pressupost orientatiu."
     crumb={{ name: 'Consultoria', path: route('consulting', locale) }}
+    primaryLabel="Explica’ns el teu cas"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">
     <div class="container narrow">
-      <SectionHeader eyebrow="PER A QUI" title="Quan té sentit una consultoria" />
+      <SectionHeader eyebrow="PER A QUI" title="Quan et pot ajudar una consultoria d’IA" />
       <p>
-        Si tens la sensació que el negoci podria anar més fluid però no saps ben bé per on
-        començar, o si vols una opinió tècnica independent abans de decidir invertir en un
-        projecte gran, una consultoria és el punt de partida més segur. No et proposem res
-        abans d'entendre com treballa realment el teu equip — no des d'un formulari, sinó
-        parlant amb les persones que fan la feina cada dia.
+        Si vols aplicar IA al negoci però no saps per on començar, o necessites valorar una automatització abans d’invertir-hi, analitzem les tasques, les dades i les eines del teu equip. Identifiquem usos viables de la IA, els seus límits i les prioritats d’implantació. Pots contractar només el diagnòstic i el full de ruta, sense implementació posterior.
       </p>
     </div>
   </section>
@@ -105,8 +103,8 @@ const locale = 'ca' as const;
   />
 
   <ServiceSchema
-    name="Consultoria tecnològica"
-    description="Diagnòstic extern i full de ruta priortizat per a pimes i autònoms."
+    name="Consultoria d’IA i automatització"
+    description="Diagnòstic d’oportunitats d’IA i automatització per a pimes, amb prioritats, fases i pressupost orientatiu."
     path={route('consulting', locale)}
   />
 </BaseLayout>

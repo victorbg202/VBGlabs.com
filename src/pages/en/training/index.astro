@@ -15,15 +15,17 @@ const locale = 'en' as const;
 <BaseLayout
   locale={locale}
   routeKey="training"
-  title="Practical AI training for teams"
-  description="Applied AI training so your team actually uses it well: with judgment, clear limits, and built into their everyday work."
+  title="Practical AI and ChatGPT training for businesses"
+  description="Hands-on AI and ChatGPT training for business teams. Exercises tailored to your work, with output review and data privacy. In person or online."
 >
   <PageHero
     locale={locale}
     eyebrow="TRAINING"
-    title="Get your team using AI with judgment, not just curiosity"
-    lede="Hands-on sessions so your team learns to get real value from AI in their day-to-day work, while understanding its limits and the privacy risks involved."
+    title="Practical AI and ChatGPT training for your team"
+    lede="Workshops tailored to your team’s tasks, helping them use ChatGPT and other AI tools in their daily work. Practical exercises cover reviewing outputs and protecting business data."
     crumb={{ name: 'Training', path: route('training', locale) }}
+    primaryLabel="Tell us about your project"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">

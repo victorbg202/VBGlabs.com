@@ -16,15 +16,17 @@ const locale = 'en' as const;
 <BaseLayout
   locale={locale}
   routeKey="automations"
-  title="Business process automation for SMEs"
-  description="We automate processes, documents, messages and repetitive tasks. Not everything should be automated — we help you decide what's actually worth it."
+  title="AI process automation for small businesses"
+  description="Business process automation for SMEs in Lleida and across Spain. Connect your existing tools and reduce manual work, using AI where it adds value."
 >
   <PageHero
     locale={locale}
     eyebrow="AUTOMATION"
-    title="Automate what's actually worth automating"
-    lede="Processes, documents, messages and repetitive tasks that can run on their own. The hard part isn't installing a tool — it's deciding well what's actually worth taking off your plate."
+    title="Business process automation to reduce manual work"
+    lede="We connect the tools you already use to classify documents, extract data and streamline communications. We use AI where it adds value, with human review for cases that need it."
     crumb={{ name: 'Automation', path: route('automations', locale) }}
+    primaryLabel="Tell us about your project"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">

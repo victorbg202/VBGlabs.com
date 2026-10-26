@@ -16,15 +16,17 @@ const locale = 'ca' as const;
 <BaseLayout
   locale={locale}
   routeKey="automations"
-  title="Automatitzacions per a pimes i autònoms"
-  description="Automatitzem processos, documents, missatges i tasques repetitives del teu negoci. No tot s'ha d'automatitzar: t'ajudem a decidir què sí i què no."
+  title="Automatització de processos amb IA per a pimes"
+  description="Automatització de processos per a pimes de Lleida i de tot Espanya. Connecta eines i redueix tasques manuals amb IA quan aporta valor."
 >
   <PageHero
     locale={locale}
     eyebrow="AUTOMATITZACIONS"
-    title="Automatitza el que té sentit automatitzar"
-    lede="Processos, documents, missatges i tasques repetitives que es poden fer soles. La feina no és instal·lar una eina: és decidir bé què val la pena treure't de sobre."
+    title="Automatització de processos per reduir feina manual"
+    lede="Connectem les eines que ja fas servir per classificar documents, extreure dades i agilitzar comunicacions. Apliquem IA quan aporta valor, amb revisió humana dels casos que ho necessiten."
     crumb={{ name: 'Automatitzacions', path: route('automations', locale) }}
+    primaryLabel="Explica’ns el teu cas"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">

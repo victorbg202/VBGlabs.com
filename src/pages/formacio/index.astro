@@ -15,15 +15,17 @@ const locale = 'ca' as const;
 <BaseLayout
   locale={locale}
   routeKey="training"
-  title="Formació pràctica en IA per a equips"
-  description="Formació d'IA aplicada perquè el teu equip l'faci servir de veritat: amb criteri, límits clars i integrada en les tasques del dia a dia."
+  title="Formació en IA i ChatGPT per a empreses"
+  description="Tallers pràctics d’IA i ChatGPT per a empreses. Exercicis adaptats al teu equip, revisió de resultats i privadesa. Formació presencial o en línia."
 >
   <PageHero
     locale={locale}
     eyebrow="FORMACIÓ"
-    title="Que el teu equip faci servir la IA amb criteri, no per curiositat"
-    lede="Sessions pràctiques perquè el teu equip aprengui a treure profit real de la IA en les seves tasques del dia a dia, entenent també els seus límits i els riscos de privadesa."
+    title="Formació pràctica en IA i ChatGPT per a empreses"
+    lede="Tallers adaptats a les tasques del teu equip per aprendre a fer servir ChatGPT i altres eines d’IA. Amb exercicis pràctics, revisió dels resultats i criteris de privadesa."
     crumb={{ name: 'Formació', path: route('training', locale) }}
+    primaryLabel="Explica’ns el teu cas"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">

@@ -16,15 +16,17 @@ const locale = 'es' as const;
 <BaseLayout
   locale={locale}
   routeKey="automations"
-  title="Automatizaciones para pymes y autónomos"
-  description="Automatizamos procesos, documentos, mensajes y tareas repetitivas de tu negocio. No todo se debe automatizar: te ayudamos a decidir qué sí y qué no."
+  title="Automatización de procesos con IA para pymes"
+  description="Automatización de procesos para pymes de Lleida y de toda España. Conecta herramientas y reduce tareas manuales con IA cuando aporta valor."
 >
   <PageHero
     locale={locale}
     eyebrow="AUTOMATIZACIONES"
-    title="Automatiza lo que tiene sentido automatizar"
-    lede="Procesos, documentos, mensajes y tareas repetitivas que pueden hacerse solas. El trabajo no es instalar una herramienta: es decidir bien qué vale la pena quitarte de encima."
+    title="Automatización de procesos para reducir trabajo manual"
+    lede="Conectamos las herramientas que ya utilizas para clasificar documentos, extraer datos y agilizar comunicaciones. Aplicamos IA cuando aporta valor, con revisión humana de los casos que la necesitan."
     crumb={{ name: 'Automatizaciones', path: route('automations', locale) }}
+    primaryLabel="Cuéntanos tu caso"
+    primaryHref={route('contact', locale)}
   />
 
   <section class="section">

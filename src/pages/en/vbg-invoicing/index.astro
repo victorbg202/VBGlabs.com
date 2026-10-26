@@ -32,8 +32,8 @@ const narrative = [
 <BaseLayout
   locale={locale}
   routeKey="invoicing"
-  title="VBG Invoicing — AI-powered received-invoice management"
-  description="Centralize, review and organize the invoices you receive. Duplicate detection, tax reports, and a built-in AI assistant. From 14.90€/mo + VAT."
+  title="VBG Invoicing: AI supplier invoice management"
+  description="Manage supplier invoices with VBG Invoicing: AI data extraction, duplicate checks and organised documents in one dashboard. Request a demo."
 >
   <section class="hero">
     <div class="container">
@@ -41,11 +41,9 @@ const narrative = [
       <div class="hero__grid">
         <div>
           <p class="eyebrow">A VBG LABS PRODUCT</p>
-          <h1>VBG Invoicing</h1>
+          <h1>Manage supplier invoices with AI</h1>
           <p class="lede">
-            Manage the invoices you receive without losing a single one. Centralization,
-            automatic review, tax reports, and an AI assistant that finds any figure just by
-            asking.
+            VBG Invoicing reads your supplier invoices, extracts their data and organises them in one dashboard. Review possible duplicates and find information with a built-in AI assistant.
           </p>
           <div class="hero__actions">
             <a href={route('contact', locale)} class="btn btn-primary">Request a demo</a>
@@ -136,8 +134,9 @@ const narrative = [
 </BaseLayout>
 
 <style>
+  .hero__grid > :global(*) { min-width: 0; }
   .hero { padding-block: var(--space-4) var(--space-7); }
-  .hero__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); align-items: center; margin-top: var(--space-3); }
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: center; margin-top: var(--space-3); }
   @media (min-width: 940px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }
   .hero h1 { font-size: var(--text-3xl); margin-block: var(--space-2); }
   .hero .lede { font-size: var(--text-md); max-width: 48ch; }

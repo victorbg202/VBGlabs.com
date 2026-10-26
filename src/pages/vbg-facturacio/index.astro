@@ -52,8 +52,8 @@ const narrative = [
 <BaseLayout
   locale={locale}
   routeKey="invoicing"
-  title="VBG Facturació — Gestió de factures rebudes amb IA"
-  description="Centralitza, revisa i organitza les factures que reps. Detecció de duplicats, informes fiscals i un assistent IA integrat. Des de 14,90€/mes + IVA."
+  title="VBG Facturació: gestió de factures rebudes amb IA"
+  description="Gestiona factures de proveïdors amb VBG Facturació: extracció de dades amb IA, revisió de duplicats i documents organitzats. Sol·licita una demo."
 >
   <section class="hero">
     <div class="container">
@@ -61,11 +61,9 @@ const narrative = [
       <div class="hero__grid">
         <div>
           <p class="eyebrow">PRODUCTE PROPI DE VBG LABS</p>
-          <h1>VBG Facturació</h1>
+          <h1>Gestiona les factures rebudes amb IA</h1>
           <p class="lede">
-            Gestiona les factures que reps sense perdre&#39;n cap ni una. Centralització,
-            revisió automàtica, informes fiscals i un assistent d&#39;IA per trobar
-            qualsevol dada preguntant, simplement.
+            VBG Facturació llegeix les factures dels teus proveïdors, n’extreu les dades i les organitza en un sol panell. Revisa possibles duplicats i consulta la informació amb un assistent d’IA.
           </p>
           <div class="hero__actions">
             <a href={route('contact', locale)} class="btn btn-primary">Sol·licita una demo</a>
@@ -162,13 +160,14 @@ const narrative = [
 </BaseLayout>
 
 <style>
+  .hero__grid > :global(*) { min-width: 0; }
   .hero {
     padding-block: var(--space-4) var(--space-7);
   }
 
   .hero__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
     align-items: center;
     margin-top: var(--space-3);
