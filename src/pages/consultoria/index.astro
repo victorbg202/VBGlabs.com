@@ -6,7 +6,7 @@ import StepsList from '@/components/StepsList.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
@@ -26,7 +26,7 @@ const locale = 'ca' as const;
     lede="Detectem on la IA i les automatitzacions poden aportar valor a la teva empresa. T’emportes un diagnòstic i un full de ruta prioritzat, amb fases i pressupost orientatiu."
     crumb={{ name: 'Consultoria', path: route('consulting', locale) }}
     primaryLabel="Explica’ns el teu cas"
-    primaryHref={route('contact', locale)}
+    primaryHref="#parlem"
   />
 
   <section class="section">
@@ -94,13 +94,7 @@ const locale = 'ca' as const;
     </div>
   </section>
 
-  <CtaBand
-    locale={locale}
-    variant="dark"
-    title="Comencem per entendre el teu negoci"
-    lede="Una primera conversa de 15-20 minuts, sense compromís."
-    primaryLabel="Explica'ns el teu cas"
-  />
+  <EnquirySection locale={locale} interest="consulting" />
 
   <ServiceSchema
     name="Consultoria d’IA i automatització"

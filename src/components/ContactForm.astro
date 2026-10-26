@@ -3,114 +3,61 @@ import { t } from '@/i18n/ui';
 import type { Locale } from '@/i18n/locales';
 import { route } from '@/i18n/routes';
 import { COMPANY } from '@/data/company';
-
+import { CONTACT_COPY, ENQUIRY_IDS, type EnquiryId, type ContactSource } from '@/data/enquiries';
 interface Props {
-  locale: Locale;
-  id?: string;
-  compact?: boolean;
-  interest?: string;
-  contextLabel?: string;
-  sourcePath?: string;
-  sector?: string;
-  messagePlaceholder?: string;
+  locale: Locale; id?: string; compact?: boolean; interest?: string; contextLabel?: string;
+  sourcePath?: string; sector?: string; messagePlaceholder?: string; sources?: ContactSource[];
+  general?: boolean; calculator?: boolean;
 }
-
-const { locale, id = 'contact-form', compact = false, interest = '', contextLabel = '', sourcePath = Astro.url.pathname, sector = '', messagePlaceholder } = Astro.props;
-const ui = t(locale);
-const validationMsg = {ca:'Revisa els camps obligatoris, el correu i l’acceptació de privacitat.',es:'Revisa los campos obligatorios, el correo y la aceptación de privacidad.',en:'Check the required fields, email address and privacy acknowledgement.'}[locale];
-
-const interestOptions: Record<Locale, { value: string; label: string }[]> = {
-  ca: [
-    { value: 'automations', label: "Automatitzacions" },
-    { value: 'consulting', label: 'Consultoria' },
-    { value: 'training', label: 'Formació' },
-    { value: 'invoicing', label: 'VBG Facturació' },
-    { value: 'postcraft', label: 'Postcraft' },
-    { value: 'other', label: 'Encara no ho sé' },
-  ],
-  es: [
-    { value: 'automations', label: 'Automatizaciones' },
-    { value: 'consulting', label: 'Consultoría' },
-    { value: 'training', label: 'Formación' },
-    { value: 'invoicing', label: 'VBG Facturación' },
-    { value: 'postcraft', label: 'Postcraft' },
-    { value: 'other', label: 'Todavía no lo sé' },
-  ],
-  en: [
-    { value: 'automations', label: 'Automation' },
-    { value: 'consulting', label: 'Consulting' },
-    { value: 'training', label: 'Training' },
-    { value: 'invoicing', label: 'VBG Invoicing' },
-    { value: 'postcraft', label: 'Postcraft' },
-    { value: 'other', label: "I'm not sure yet" },
-  ],
-};
+const {locale,id='contact-form',interest='',contextLabel='',sourcePath=Astro.url.pathname,sector='',messagePlaceholder,sources=[],general=false,calculator=false} = Astro.props;
+const ui=t(locale);
+const copy=CONTACT_COPY[locale];
+const kind:EnquiryId=ENQUIRY_IDS.includes(interest as EnquiryId)?interest as EnquiryId:'general';
+const item=copy.enquiries[kind];
+const selectedLabel=contextLabel||item.label;
 ---
-<form id={id} class:list={['contact-form',{'contact-form--compact':compact}]} action={`https://formsubmit.co/ajax/${COMPANY.email}`} method="POST" novalidate>
-  <input type="hidden" name="_subject" value={`Nova sol·licitud — ${contextLabel || 'vbglabs.com'}`} />
+<form id={id} class="contact-form contact-form--compact" action={`https://formsubmit.co/ajax/${COMPANY.email}`} method="POST" novalidate
+  data-contact-form data-general={general?'true':undefined} data-calculator-form={calculator?'true':undefined}
+  data-config={JSON.stringify({copy,kind,interest,contextLabel:selectedLabel,sourcePath,sources,messagePlaceholder})}>
+  <input type="hidden" name="_subject" value={`Nova sol·licitud — ${selectedLabel}`} />
   <input type="hidden" name="_template" value="table" />
   <input type="hidden" name="_captcha" value="true" />
   <input type="hidden" name="source_page" value={sourcePath} />
   <input type="hidden" name="page_language" value={locale} />
-  {contextLabel && <input type="hidden" name="solution_name" value={contextLabel} />}
+  <input type="hidden" name="solution_name" value={selectedLabel} />
+  <input type="hidden" name="enquiry_type" value={kind==='invoicing'?'demo':'project'} />
+  <input type="hidden" name="form_page" value={Astro.url.pathname} />
+  <input type="hidden" name="source_title" value={selectedLabel} />
   {sector && <input type="hidden" name="sector" value={sector} />}
-  {compact && <input type="hidden" name="interest" value={interest} />}
-
-  {/* Honeypot: hidden from sighted/keyboard users via CSS + tabindex,
-      labelled so screen readers understand it's not for them either. */}
-  <div class="hp" aria-hidden="true">
-    <label for={`${id}-website`}>Website</label>
-    <input type="text" id={`${id}-website`} name="_honey" tabindex="-1" autocomplete="off" />
+  {!general && <input type="hidden" name="interest" value={interest||'general'} />}
+  {calculator && <input type="hidden" name="calculator_summary" value="" />}
+  <p class="form-context" data-form-context>{copy.context}: <strong data-context-label>{selectedLabel}</strong></p>
+  <p class="form-origin" data-form-origin hidden></p>
+  <p class="form-help" data-context-body hidden></p>
+  <div class="hp" aria-hidden="true"><label for={`${id}-website`}>Website</label><input type="text" id={`${id}-website`} name="_honey" tabindex="-1" autocomplete="off" /></div>
+  <div class="field"><label for={`${id}-name`}>{ui.form.name} <span class="req">*</span></label><input type="text" id={`${id}-name`} name="name" required maxlength="120" autocomplete="name" placeholder={ui.form.namePlaceholder} /></div>
+  <div class="field"><label for={`${id}-email`}>{ui.form.email} <span class="req">*</span></label><input type="email" id={`${id}-email`} name="email" required maxlength="254" autocomplete="email" placeholder={ui.form.emailPlaceholder} /></div>
+  {general && <div class="field"><label for={`${id}-interest`}>{ui.form.interest} ({copy.optional})</label><select id={`${id}-interest`} name="interest">
+    {ENQUIRY_IDS.map(key=><option value={key} selected={key===kind}>{copy.enquiries[key].label}</option>)}
+  </select></div>}
+  <div class="field" data-optional-for="training" hidden={kind!=='training'}>
+    <label for={`${id}-participants`}>{copy.participants} ({copy.optional})</label><input type="number" id={`${id}-participants`} name="participants" min="1" max="100000" step="1" inputmode="numeric" disabled={kind!=='training'} />
   </div>
-
-  <div class="contact-form__row">
-    <div class="field">
-      <label for={`${id}-name`}>{ui.form.name} <span class="req">*</span></label>
-      <input type="text" id={`${id}-name`} name="name" required autocomplete="name" placeholder={ui.form.namePlaceholder} />
-    </div>
-    {!compact && <div class="field">
-      <label for={`${id}-company`}>{ui.form.company}</label>
-      <input type="text" id={`${id}-company`} name="company" autocomplete="organization" placeholder={ui.form.companyPlaceholder} />
-    </div>}
+  <div class="field" data-optional-for="invoicing" hidden={kind!=='invoicing'}>
+    <label for={`${id}-invoices`}>{copy.invoices} ({copy.optional})</label><input type="number" id={`${id}-invoices`} name="monthly_invoices" min="0" max="10000000" step="1" inputmode="numeric" disabled={kind!=='invoicing'} />
   </div>
-
-  <div class="contact-form__row">
-    <div class="field">
-      <label for={`${id}-email`}>{ui.form.email} <span class="req">*</span></label>
-      <input type="email" id={`${id}-email`} name="email" required autocomplete="email" placeholder={ui.form.emailPlaceholder} />
-    </div>
-    {!compact && <div class="field">
-      <label for={`${id}-phone`}>{ui.form.phone}</label>
-      <input type="tel" id={`${id}-phone`} name="phone" autocomplete="tel" placeholder={ui.form.phonePlaceholder} />
-    </div>}
-  </div>
-
-  {!compact && <div class="field">
-    <label for={`${id}-interest`}>{ui.form.interest}</label>
-    <select id={`${id}-interest`} name="interest">
-      <option value="">{ui.form.interestDefault}</option>
-      {interestOptions[locale].map((o) => <option value={o.value} selected={o.value===interest}>{o.label}</option>)}
-    </select>
-  </div>}
-
-  <div class="field">
-    <label for={`${id}-message`}>{ui.form.message} <span class="req">*</span></label>
-    <textarea id={`${id}-message`} name="message" rows="4" required placeholder={messagePlaceholder ?? ui.form.messagePlaceholder}></textarea>
-  </div>
-
-  <div class="field field--checkbox">
-    <input type="checkbox" id={`${id}-privacy`} name="privacy" value="accepted" required />
-    <label for={`${id}-privacy`}>{ui.form.privacy} <a href={route('privacy', locale)}>{ui.form.privacyLink}</a> <span class="req">*</span></label>
-  </div>
-
-  <div class="form-status" role="status" aria-live="polite"></div>
-
-  <button type="submit" class="btn btn-primary contact-form__submit">
-    <span class="btn-label">{ui.form.submit}</span>
-  </button>
+  <div class="field"><label for={`${id}-message`}>{ui.form.message} <span class="req">*</span></label><textarea id={`${id}-message`} name="message" rows="5" required maxlength="8000" placeholder={messagePlaceholder??item.prompt}></textarea></div>
+  <div class="field field--checkbox"><input type="checkbox" id={`${id}-privacy`} name="privacy" value="accepted" required /><label for={`${id}-privacy`}>{ui.form.privacy} <a href={route('privacy',locale)}>{ui.form.privacyLink}</a> <span class="req">*</span></label></div>
+  <div id={`${id}-status`} class="form-status" role="status" aria-live="polite" tabindex="-1"></div>
+  <button type="submit" class="btn btn-primary contact-form__submit"><span class="btn-label">{item.submit}</span></button>
+  <p class="form-help">{copy.response}</p>
+  <noscript><p>{copy.noScript} <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</p></noscript>
 </form>
 
 <style>
+  [hidden] { display: none !important; }
+  .form-context { font-size:var(--text-sm); color:var(--ink); }
+  .form-origin,.form-help { font-size:var(--text-sm); color:var(--muted); overflow-wrap:anywhere; }
   .contact-form {
     display: flex;
     flex-direction: column;
@@ -278,75 +225,4 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
     cursor: progress;
   }
 </style>
-
-<script is:inline define:vars={{ successMsg: ui.form.success, errorMsg: ui.form.error, validationMsg, sendingLabel: ui.form.sending, submitLabel: ui.form.submit, formId: id }}>
-  const form = document.getElementById(formId);
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (form instanceof HTMLFormElement) {
-    const status = form.querySelector('.form-status');
-    const submitBtn = form.querySelector('.contact-form__submit');
-    const label = form.querySelector('.btn-label');
-
-    form.querySelectorAll('input, textarea').forEach((el) => {
-      el.addEventListener('blur', () => el.setAttribute('data-touched', 'true'));
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!(status instanceof HTMLElement) || !(submitBtn instanceof HTMLButtonElement) || !(label instanceof HTMLElement)) return;
-
-      // Honeypot: a filled hidden field means a bot filled every input.
-      const honey = form.querySelector('input[name="_honey"]');
-      if (honey instanceof HTMLInputElement && honey.value !== '') {
-        return;
-      }
-
-      if (!form.checkValidity()) {
-        form.querySelectorAll('input, textarea').forEach((el) => el.setAttribute('data-touched', 'true'));
-        status.textContent = validationMsg;
-        status.dataset.state = 'error';
-        form.classList.remove('is-invalid');
-        void form.offsetWidth; // force reflow so the shake replays on repeated invalid submits
-        form.classList.add('is-invalid');
-        form.querySelector('[data-touched="true"]:invalid')?.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.setAttribute('aria-busy', 'true');
-      label.textContent = sendingLabel;
-      status.textContent = '';
-      status.removeAttribute('data-state');
-
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
-        if (!res.ok) throw new Error('bad status');
-        const result = await res.json();
-        if (result.success !== true && result.success !== 'true') throw new Error('submission not accepted');
-        status.textContent = successMsg;
-        status.dataset.state = 'success';
-        const interest = form.querySelector('[name="interest"]');
-        const sourcePage = form.querySelector('[name="source_page"]');
-        window.vbgTrackEvent?.('generate_lead', {
-          lead_source: 'website_contact_form',
-          service_interest: (interest instanceof HTMLSelectElement || interest instanceof HTMLInputElement) && interest.value ? interest.value : 'unspecified',
-          source_page: sourcePage instanceof HTMLInputElement ? sourcePage.value : location.pathname,
-          form_id: form.id,
-          page_language: document.documentElement.lang,
-        });
-        form.reset();
-      } catch {
-        status.textContent = errorMsg;
-        status.dataset.state = 'error';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.removeAttribute('aria-busy');
-        label.textContent = submitLabel;
-      }
-    });
-  }
-</script>
+<script>import '@/scripts/contact-form';</script>

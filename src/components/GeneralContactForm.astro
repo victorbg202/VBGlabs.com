@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import { t } from '@/i18n/ui';
+import ContactForm from '@/components/ContactForm.astro';
+import { CONTACT_COPY, blogEnquiry, type ContactSource } from '@/data/enquiries';
+import { ROUTE_KEYS, route } from '@/i18n/routes';
+import type { Locale } from '@/i18n/locales';
+import { SOLUTION_IDS, solutionPath, solutionContent } from '@/data/solutions/catalog';
+interface Props {locale:Locale;}
+const {locale}=Astro.props;
+const posts=await getCollection('blog',post=>!post.data.draft);
+const sources:ContactSource[]=posts.map(post=>({path:`${route('blog',post.data.lang)}${post.data.slug}/`,title:post.data.title,interest:blogEnquiry(post.data.translationGroup)}));
+for(const language of ['ca','es','en'] as const){
+  for(const id of SOLUTION_IDS)sources.push({path:solutionPath(id,language),title:solutionContent(id,language).name});
+  for(const key of ROUTE_KEYS){
+    const enquiryKey=key==='automations'||key==='consulting'||key==='training'||key==='invoicing'||key==='postcraft'?key:'general';
+    sources.push({path:route(key,language),title:key==='home'?'VBG Labs':key==='services'?t(language).nav.services:key==='blog'?'Blog':CONTACT_COPY[language].enquiries[enquiryKey].label,interest:enquiryKey});
+  }
+}
+---
+<ContactForm locale={locale} general sources={sources} />

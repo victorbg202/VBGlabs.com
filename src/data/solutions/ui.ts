@@ -1,4 +1,5 @@
 import type { Locale } from '@/i18n/locales';
+import { CONTACT_COPY } from '@/data/enquiries';
 const ca = {
   services:'Solucions d’IA i automatització', sectors:'Per tipus de negoci',
   catalogTitle:'Quina feina vols deixar de fer a mà?', catalogLede:'Tria la necessitat que reconeixes al teu negoci. Cada solució explica el procés, l’abast i com valorar una primera implantació.',
@@ -20,7 +21,7 @@ const ca = {
   proofCta:'Conèixer VBG Facturació', about:'Qui hi ha darrere de VBG Labs', faq:'Dubtes abans de començar',
   commonFaqs:[{q:'Quines despeses continuen després de la implantació?',a:'Depèn del circuit: pot haver-hi consum d’IA, allotjament, llicències o missatgeria. VBG Labs els gestiona i els factura separadament. Ho estimem i expliquem abans de contractar; el manteniment s’acorda segons el projecte.'},{q:'Puc contractar només el diagnòstic?',a:'Sí. La consultoria d’IA i automatització permet estudiar el procés i preparar un full de ruta sense comprometre’t a la implementació. Si ja tens un abast clar, també podem valorar directament el projecte.'}],
   related:'Solucions que poden encaixar amb aquest procés', guides:'Guies per preparar el projecte',
-  contactTitle:'Explica’ns què voldries resoldre', contactBody:'Revisarem la consulta i et respondrem en menys de dos dies laborables. La primera conversa és sense compromís.',
+  contactTitle:'Explica’ns què voldries resoldre', contactBody:CONTACT_COPY.ca.response+' '+CONTACT_COPY.ca.free,
   context:'Consulta sobre', noSensitive:'Per a aquest primer contacte, descriu el procés sense adjuntar dades sensibles ni informació de clients.',
   browse:'Veure totes les solucions', fromBlog:'Porta aquesta idea al teu negoci',
 };
@@ -46,7 +47,7 @@ const es: Copy = {
   proofCta:'Conocer VBG Facturación', about:'Quién está detrás de VBG Labs', faq:'Dudas antes de empezar',
   commonFaqs:[{q:'¿Qué gastos continúan después de la implantación?',a:'Puede haber consumo de IA, alojamiento, licencias o mensajería. VBG Labs los gestiona y factura por separado. Lo estimamos y explicamos antes de contratar; el mantenimiento se acuerda según el proyecto.'},{q:'¿Puedo contratar solo el diagnóstico?',a:'Sí. La consultoría de IA y automatización permite estudiar el proceso y preparar una hoja de ruta sin comprometerte a la implementación. Si ya tienes un alcance claro, podemos valorar directamente el proyecto.'}],
   related:'Soluciones que pueden encajar con este proceso', guides:'Guías para preparar el proyecto',
-  contactTitle:'Cuéntanos qué te gustaría resolver', contactBody:'Revisaremos la consulta y te responderemos en menos de dos días laborables. La primera conversación es sin compromiso.',
+  contactTitle:'Cuéntanos qué te gustaría resolver', contactBody:CONTACT_COPY.es.response+' '+CONTACT_COPY.es.free,
   context:'Consulta sobre', noSensitive:'Para este primer contacto, describe el proceso sin adjuntar datos sensibles ni información de clientes.',
   browse:'Ver todas las soluciones', fromBlog:'Lleva esta idea a tu negocio',
 };
@@ -71,7 +72,7 @@ const en: Copy = {
   proofCta:'Explore VBG Invoicing', about:'Meet VBG Labs', faq:'Questions before getting started',
   commonFaqs:[{q:'Which costs continue after implementation?',a:'Depending on the workflow, there may be AI usage, hosting, licence or messaging costs. VBG Labs manages and bills these separately, estimating them before agreement. Maintenance is agreed for the project.'},{q:'Can I commission just the assessment?',a:'Yes. AI and automation consulting can assess the workflow and provide a roadmap without committing you to implementation. If the scope is already clear, we can assess the project directly.'}],
   related:'Other solutions for this workflow', guides:'Guides to prepare your project',
-  contactTitle:'Tell us what you would like to solve', contactBody:'We will review your enquiry and reply in fewer than two working days. The first conversation is without obligation.',
+  contactTitle:'Tell us what you would like to solve', contactBody:CONTACT_COPY.en.response+' '+CONTACT_COPY.en.free,
   context:'Enquiry about', noSensitive:'For this first contact, describe the workflow without including sensitive data or client information.',
   browse:'Explore all solutions', fromBlog:'Apply this idea to your business',
 };

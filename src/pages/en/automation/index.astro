@@ -5,7 +5,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { route } from '@/i18n/routes';
@@ -26,7 +26,7 @@ const locale = 'en' as const;
     lede="We connect the tools you already use to classify documents, extract data and streamline communications. We use AI where it adds value, with human review for cases that need it."
     crumb={{ name: 'Automation', path: route('automations', locale) }}
     primaryLabel="Tell us about your project"
-    primaryHref={route('contact', locale)}
+    primaryHref="#parlem"
   />
 
   <section class="section">
@@ -97,15 +97,7 @@ const locale = 'en' as const;
     </div>
   </section>
 
-  <CtaBand
-    locale={locale}
-    variant="dark"
-    title="Want to know what's worth automating in your business?"
-    lede="In a 15-20 minute conversation we can tell you if it makes sense, and where we'd start."
-    primaryLabel="Tell us your case"
-    secondaryLabel="See consulting"
-    secondaryHref={route('consulting', locale)}
-  />
+  <EnquirySection locale={locale} interest="automations" />
 
   <ServiceSchema
     name="Automation"

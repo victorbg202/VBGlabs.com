@@ -5,7 +5,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
@@ -25,7 +25,7 @@ const locale = 'es' as const;
     lede="Talleres adaptados a las tareas de tu equipo para aprender a utilizar ChatGPT y otras herramientas de IA. Con ejercicios prácticos, revisión de los resultados y criterios de privacidad."
     crumb={{ name: 'Formación', path: route('training', locale) }}
     primaryLabel="Cuéntanos tu caso"
-    primaryHref={route('contact', locale)}
+    primaryHref="#parlem"
   />
 
   <section class="section">
@@ -87,13 +87,7 @@ const locale = 'es' as const;
     </div>
   </section>
 
-  <CtaBand
-    locale={locale}
-    variant="dark"
-    title="¿Quieres que tu equipo aprenda a usar la IA de verdad?"
-    lede="Cuéntanos el punto de partida de tu equipo y te proponemos un formato."
-    primaryLabel="Cuéntanos tu caso"
-  />
+  <EnquirySection locale={locale} interest="training" />
 
   <ServiceSchema
     name="Formación en IA"

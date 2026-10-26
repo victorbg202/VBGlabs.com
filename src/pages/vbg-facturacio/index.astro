@@ -7,11 +7,12 @@ import ProductFrame from '@/components/ProductFrame.astro';
 import InvoicingPanels from '@/components/InvoicingPanels.astro';
 import PricingPlans from '@/components/PricingPlans.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
 import AssistantDemo from '@/components/AssistantDemo.astro';
 import ProductTabs from '@/components/ProductTabs.astro';
 import { route } from '@/i18n/routes';
+import { CONTACT_COPY } from '@/data/enquiries';
 
 const locale = 'ca' as const;
 
@@ -66,9 +67,10 @@ const narrative = [
             VBG Facturació llegeix les factures dels teus proveïdors, n’extreu les dades i les organitza en un sol panell. Revisa possibles duplicats i consulta la informació amb un assistent d’IA.
           </p>
           <div class="hero__actions">
-            <a href={route('contact', locale)} class="btn btn-primary">Sol·licita una demo</a>
+            <a href="#parlem" class="btn btn-primary">Sol·licita una demo</a>
             <a href="#preus" class="btn btn-outline">Veure preus</a>
           </div>
+          <p class="demo-response">{CONTACT_COPY[locale].response} {CONTACT_COPY[locale].enquiries.invoicing.body}</p>
         </div>
         <ProductFrame label="app.vbgfacturacio.com">
           <InvoicingPanels variant="dashboard" labels={panelLabels} />
@@ -148,19 +150,14 @@ const narrative = [
     </div>
   </section>
 
-  <CtaBand
-    locale={locale}
-    variant="red"
-    title="Veiem-ho amb les teves factures reals"
-    lede="Una demo de 20 minuts, sense compromís."
-    primaryLabel="Sol·licita una demo"
-  />
+  <EnquirySection locale={locale} interest="invoicing" />
 
   <SoftwareApplicationSchema />
 </BaseLayout>
 
 <style>
   .hero__grid > :global(*) { min-width: 0; }
+  .demo-response { font-size:var(--text-sm); color:var(--muted); margin-top:var(--space-3); max-width:60ch; }
   .hero {
     padding-block: var(--space-4) var(--space-7);
   }

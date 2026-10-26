@@ -8,6 +8,7 @@ import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { SOLUTION_IDS, DEFINITIONS } from '@/data/solutions/catalog';
 import { SOLUTION_UI } from '@/data/solutions/ui';
 import { route } from '@/i18n/routes';
+import { CONTACT_COPY, blogEnquiry, contactHref } from '@/data/enquiries';
 import type { Locale } from '@/i18n/locales';
 import { render, type CollectionEntry } from 'astro:content';
 
@@ -16,16 +17,17 @@ interface Props {
   entry: CollectionEntry<'blog'>;
   alternates: { locale: Locale; path: string }[];
   related: CollectionEntry<'blog'>[];
-  ctaTitle: string;
-  ctaLede: string;
-  ctaLabel: string;
   readLabel: string;
   relatedTitle: string;
 }
 
-const { locale, entry, alternates, related, ctaTitle, ctaLede, ctaLabel, readLabel, relatedTitle } = Astro.props;
+const { locale, entry, alternates, related, readLabel, relatedTitle } = Astro.props;
 const { Content } = await render(entry);
 const matchingSolutions = SOLUTION_IDS.filter(id => DEFINITIONS[id].kind === 'service' && DEFINITIONS[id].guides.includes(entry.data.translationGroup)).slice(0,2);
+
+const enquiry=blogEnquiry(entry.data.translationGroup);
+const enquiryCopy=CONTACT_COPY[locale].enquiries[enquiry];
+const articlePath=`${route('blog',locale)}${entry.data.slug}/`;
 
 const dateFmt = new Intl.DateTimeFormat(locale === 'ca' ? 'ca-ES' : locale === 'es' ? 'es-ES' : 'en-GB', {
   day: 'numeric',
@@ -85,7 +87,7 @@ const dateFmt = new Intl.DateTimeFormat(locale === 'ca' ? 'ca-ES' : locale === '
   )}
 
   {matchingSolutions.length>0 && <SolutionCatalog locale={locale} ids={matchingSolutions} heading={SOLUTION_UI[locale].fromBlog} lede="" />}
-  <CtaBand locale={locale} variant="dark" title={ctaTitle} lede={ctaLede} primaryLabel={ctaLabel} />
+  <CtaBand locale={locale} variant="dark" title={enquiryCopy.title} lede={CONTACT_COPY[locale].next} primaryLabel={enquiryCopy.submit} primaryHref={contactHref(locale,enquiry,articlePath)} />
 
   <ArticleSchema
     title={entry.data.title}

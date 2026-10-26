@@ -1,6 +1,5 @@
 ---
 import { INVOICING_PLANS } from '@/data/pricing';
-import { route } from '@/i18n/routes';
 import { t } from '@/i18n/ui';
 import type { Locale } from '@/i18n/locales';
 import Icon from '@/components/Icon.astro';
@@ -30,7 +29,7 @@ const name = { starter: planLabels.starter, pro: planLabels.pro, business: planL
           <li><Icon name="check" size={16} /> {f}</li>
         ))}
       </ul>
-      <a href={route('contact', locale)} class={`btn ${plan.highlighted ? 'btn-primary' : 'btn-outline'} plan__cta`}>
+      <a href="#parlem" class={`btn ${plan.highlighted ? 'btn-primary' : 'btn-outline'} plan__cta`}>
         {ui.common.requestDemo}
       </a>
     </div>

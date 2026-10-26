@@ -431,7 +431,17 @@ const primaryLinks = [
   // Language switch: navigate to the equivalent page in the chosen locale.
   const langSelect = document.getElementById('lang-switch') as HTMLSelectElement | null;
   langSelect?.addEventListener('change', () => {
-    window.location.href = langSelect.value;
+    const destination=new URL(langSelect.value,location.origin);
+    const form=document.querySelector<HTMLFormElement>('[data-general="true"]');
+    if(form){
+      const interest=form.querySelector<HTMLSelectElement>('[name="interest"]');
+      if(interest&&Array.from(interest.options).some(option=>option.value===interest.value))destination.searchParams.set('interest',interest.value);
+      const source=form.querySelector<HTMLInputElement>('[name="source_page"]');
+      const config=JSON.parse(form.dataset.config||'{}');
+      if(source&&config.sources?.some((item:{path:string})=>item.path===source.value))destination.searchParams.set('from',source.value);
+      destination.hash='contact-form';
+    }
+    window.location.href=destination.href;
   });
 
   // Header shadow/scrolled state

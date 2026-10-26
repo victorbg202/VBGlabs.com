@@ -1,6 +1,7 @@
 ---
 import Breadcrumb from '@/components/Breadcrumb.astro';
 import type { Locale } from '@/i18n/locales';
+import { CONTACT_COPY } from '@/data/enquiries';
 
 interface Props {
   locale: Locale;
@@ -24,6 +25,7 @@ const { locale, eyebrow, title, lede, crumb, dark = false, primaryLabel, primary
     {primaryLabel && primaryHref && (
       <div class="page-hero__actions">
         <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
+      <p class="page-hero__response">{CONTACT_COPY[locale].response}</p>
       </div>
     )}
   </div>
@@ -61,6 +63,7 @@ const { locale, eyebrow, title, lede, crumb, dark = false, primaryLabel, primary
     max-width: 56ch;
   }
 
+  .page-hero__response { font-size:var(--text-sm); color:var(--muted); margin-top:var(--space-2); }
   .page-hero__actions {
     margin-top: var(--space-3);
   }

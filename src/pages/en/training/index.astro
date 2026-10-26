@@ -5,7 +5,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
@@ -25,7 +25,7 @@ const locale = 'en' as const;
     lede="Workshops tailored to your team’s tasks, helping them use ChatGPT and other AI tools in their daily work. Practical exercises cover reviewing outputs and protecting business data."
     crumb={{ name: 'Training', path: route('training', locale) }}
     primaryLabel="Tell us about your project"
-    primaryHref={route('contact', locale)}
+    primaryHref="#parlem"
   />
 
   <section class="section">
@@ -86,13 +86,7 @@ const locale = 'en' as const;
     </div>
   </section>
 
-  <CtaBand
-    locale={locale}
-    variant="dark"
-    title="Want your team actually using AI well?"
-    lede="Tell us where your team is starting from and we'll propose a format."
-    primaryLabel="Tell us your case"
-  />
+  <EnquirySection locale={locale} interest="training" />
 
   <ServiceSchema
     name="AI training"

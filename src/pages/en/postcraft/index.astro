@@ -5,6 +5,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { route } from '@/i18n/routes';
+import { contactHref } from '@/data/enquiries';
 
 const locale = 'en' as const;
 ---
@@ -25,7 +26,7 @@ const locale = 'en' as const;
         generic content for everyone.
       </p>
       <div class="hero__actions">
-        <a href={route('contact', locale)} class="btn btn-primary">Notify me when it's ready</a>
+        <a href={contactHref(locale,'postcraft',Astro.url.pathname)} class="btn btn-primary">Notify me when it's ready</a>
       </div>
     </div>
   </section>
@@ -68,6 +69,7 @@ const locale = 'en' as const;
     variant="dark"
     title="Want to be among the first to try Postcraft?"
     lede="Leave us your contact details and we'll let you know as soon as it's available."
+    primaryHref={contactHref(locale,'postcraft',Astro.url.pathname)}
     primaryLabel="Notify me when it's ready"
   />
 </BaseLayout>

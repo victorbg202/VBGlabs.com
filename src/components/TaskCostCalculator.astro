@@ -1,11 +1,14 @@
 ---
 import type { Locale } from '@/i18n/locales';
+import ContactForm from '@/components/ContactForm.astro';
+import { CONTACT_COPY } from '@/data/enquiries';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
+const contactCopy=CONTACT_COPY[locale];
 
 const copy = {
   ca: {
@@ -80,6 +83,7 @@ const copy = {
 <section
   class="task-calculator"
   data-task-calculator
+  data-input-labels={JSON.stringify(Object.fromEntries(['minutes','repetitions','hourly','errors','errorCost','implementation','monthlyTools','reviewHours'].map(key=>[key,copy[key as keyof typeof copy]])))}
   data-locale={locale}
   data-months={copy.months}
   data-no-payback={copy.noPayback}
@@ -94,14 +98,14 @@ const copy = {
   </div>
 
   <div class="task-calculator__grid">
-    <label>{copy.minutes}<input name="minutes" type="number" min="0" step="1" value="12" inputmode="decimal" /></label>
-    <label>{copy.repetitions}<input name="repetitions" type="number" min="0" step="1" value="180" inputmode="decimal" /></label>
-    <label>{copy.hourly}<input name="hourly" type="number" min="0" step="0.5" value="22" inputmode="decimal" /></label>
-    <label>{copy.errors}<input name="errors" type="number" min="0" step="1" value="3" inputmode="decimal" /></label>
-    <label>{copy.errorCost}<input name="errorCost" type="number" min="0" step="1" value="35" inputmode="decimal" /></label>
-    <label>{copy.implementation}<input name="implementation" type="number" min="0" step="50" value="3800" inputmode="decimal" /></label>
-    <label>{copy.monthlyTools}<input name="monthlyTools" type="number" min="0" step="5" value="120" inputmode="decimal" /></label>
-    <label>{copy.reviewHours}<input name="reviewHours" type="number" min="0" step="0.5" value="4" inputmode="decimal" /></label>
+    <label>{copy.minutes}<input name="minutes" type="number" min="0" max="1000000000" step="1" value="12" inputmode="decimal" /></label>
+    <label>{copy.repetitions}<input name="repetitions" type="number" min="0" max="1000000000" step="1" value="180" inputmode="decimal" /></label>
+    <label>{copy.hourly}<input name="hourly" type="number" min="0" max="1000000000" step="0.5" value="22" inputmode="decimal" /></label>
+    <label>{copy.errors}<input name="errors" type="number" min="0" max="1000000000" step="1" value="3" inputmode="decimal" /></label>
+    <label>{copy.errorCost}<input name="errorCost" type="number" min="0" max="1000000000" step="1" value="35" inputmode="decimal" /></label>
+    <label>{copy.implementation}<input name="implementation" type="number" min="0" max="1000000000" step="50" value="3800" inputmode="decimal" /></label>
+    <label>{copy.monthlyTools}<input name="monthlyTools" type="number" min="0" max="1000000000" step="5" value="120" inputmode="decimal" /></label>
+    <label>{copy.reviewHours}<input name="reviewHours" type="number" min="0" max="1000000000" step="0.5" value="4" inputmode="decimal" /></label>
   </div>
 
   <button class="btn btn-primary task-calculator__button" type="button" data-calculate>{copy.calculate}</button>
@@ -113,6 +117,16 @@ const copy = {
     <div><span>{copy.payback}</span><strong data-payback>—</strong></div>
   </div>
   <p class="task-calculator__recommendation" data-recommendation></p>
+  <details class="calculator-enquiry" id="calculator-enquiry">
+    <summary class="btn btn-primary" data-enquiry-cta>{contactCopy.calculator}</summary>
+    <div class="calculator-enquiry__body">
+      <h3>{contactCopy.calculatorTitle}</h3>
+      <p>{contactCopy.calculatorDisclosure}</p>
+      <p>{contactCopy.calculatorNote}</p>
+      <p>{contactCopy.free}</p>
+      <ContactForm locale={locale} id={`calculator-form-${locale}`} calculator interest="automations" contextLabel={copy.title} messagePlaceholder={contactCopy.enquiries.automations.prompt} />
+    </div>
+  </details>
 </section>
 
 <script>
@@ -157,8 +171,21 @@ const copy = {
       };
 
       root.querySelector('[data-calculate]')?.addEventListener('click', calculate);
-      root.querySelectorAll('input').forEach((input) => input.addEventListener('input', calculate));
+      root.querySelectorAll('.task-calculator__grid input').forEach((input) => input.addEventListener('input', calculate));
       calculate();
+      const enquiry=root.querySelector<HTMLFormElement>('[data-calculator-form]');
+      enquiry?.addEventListener('vbg:prepare-enquiry',event=>{
+        const inputs=Array.from(root.querySelectorAll<HTMLInputElement>('.task-calculator__grid input'));
+        const invalid=inputs.find(input=>!input.value.trim()||!input.checkValidity()||!Number.isFinite(Number(input.value)));
+        if(invalid){event.preventDefault();invalid.reportValidity();invalid.focus();return;}
+        calculate();
+        const labels:Record<string,string>=JSON.parse(root.dataset.inputLabels||'{}');
+        const lines=inputs.map(input=>`${labels[input.name]}: ${input.value}`);
+        root.querySelectorAll('.task-calculator__results>div').forEach(result=>lines.push(Array.from(result.children).map(child=>child.textContent?.trim()).join(': ')));
+        lines.push(root.querySelector('[data-recommendation]')?.textContent||'');
+        const field=enquiry.elements.namedItem('calculator_summary');
+        if(field instanceof HTMLInputElement)field.value=lines.join('\n');
+      });
     });
   };
 
@@ -167,6 +194,12 @@ const copy = {
 </script>
 
 <style>
+  .calculator-enquiry { margin-top:var(--space-4); scroll-margin-top:100px; }
+  .calculator-enquiry summary { cursor:pointer; width:fit-content; max-width:100%; white-space:normal; }
+  .calculator-enquiry__body { margin-top:var(--space-4); border-top:1px solid var(--line); padding-top:var(--space-4); }
+  .calculator-enquiry__body h3 { font-size:var(--text-lg); margin-bottom:var(--space-2); }
+  .calculator-enquiry__body>p { font-size:var(--text-sm); margin-bottom:var(--space-3); }
+  .calculator-enquiry__body :global(.contact-form) { margin-top:var(--space-4); }
   .task-calculator {
     margin-block: var(--space-5);
     padding: clamp(1.2rem, 4vw, 2rem);

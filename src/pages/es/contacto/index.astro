@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
-import ContactForm from '@/components/ContactForm.astro';
+import GeneralContactForm from '@/components/GeneralContactForm.astro';
+import { CONTACT_COPY } from '@/data/enquiries';
 import Icon from '@/components/Icon.astro';
 import { route } from '@/i18n/routes';
 import { COMPANY, PHONE } from '@/data/company';
@@ -12,7 +13,7 @@ const locale = 'es' as const;
   locale={locale}
   routeKey="contact"
   title="Contacto — Cuéntanos tu caso"
-  description="Escríbenos y te explicamos, sin compromiso, cómo podemos ayudar a tu negocio. Respondemos en menos de 2 días laborables."
+  description="Escríbenos y te explicamos, sin compromiso, cómo podemos ayudar a tu negocio. Respondemos en un día laborable."
 >
   <section class="section">
     <div class="container">
@@ -21,7 +22,8 @@ const locale = 'es' as const;
         <div class="contact-info">
           <p class="eyebrow">CONTACTO</p>
           <h1>Hablemos de tu negocio</h1>
-          <p class="lede">Cuéntanos brevemente tu situación. En menos de 2 días laborables te respondemos — sin compromiso.</p>
+          <p class="lede">{CONTACT_COPY[locale].response} {CONTACT_COPY[locale].next}</p>
+          <div class="contact-next"><h2>{CONTACT_COPY[locale].heading}</h2><p>{CONTACT_COPY[locale].free}</p><p>{CONTACT_COPY[locale].paid}</p></div>
           <ul class="info-list">
             <li>
               <Icon name="mail" size={20} />
@@ -44,7 +46,7 @@ const locale = 'es' as const;
           </ul>
         </div>
         <div class="contact-form-card">
-          <ContactForm locale={locale} />
+          <GeneralContactForm locale={locale} />
         </div>
       </div>
     </div>
@@ -52,6 +54,11 @@ const locale = 'es' as const;
 </BaseLayout>
 
 <style>
+  .contact-next { margin-top:var(--space-4); }
+  .contact-next h2 { font-size:var(--text-lg); margin-bottom:var(--space-2); }
+  .contact-next p { font-size:var(--text-sm); }
+  .contact-next p+p { margin-top:var(--space-3); }
+  .contact-form-card { scroll-margin-top:100px; min-width:0; }
   .contact-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-3); }
   @media (min-width: 940px) { .contact-grid { grid-template-columns: 0.8fr 1.2fr; } }
   .contact-info h1 { font-size: var(--text-3xl); margin-block: var(--space-2); }

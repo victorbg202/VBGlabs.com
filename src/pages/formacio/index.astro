@@ -5,7 +5,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
@@ -25,7 +25,7 @@ const locale = 'ca' as const;
     lede="Tallers adaptats a les tasques del teu equip per aprendre a fer servir ChatGPT i altres eines d’IA. Amb exercicis pràctics, revisió dels resultats i criteris de privadesa."
     crumb={{ name: 'Formació', path: route('training', locale) }}
     primaryLabel="Explica’ns el teu cas"
-    primaryHref={route('contact', locale)}
+    primaryHref="#parlem"
   />
 
   <section class="section">
@@ -88,13 +88,7 @@ const locale = 'ca' as const;
     </div>
   </section>
 
-  <CtaBand
-    locale={locale}
-    variant="dark"
-    title="Vols que el teu equip aprengui a fer servir la IA de veritat?"
-    lede="Explica'ns el punt de partida del teu equip i et proposem un format."
-    primaryLabel="Explica'ns el teu cas"
-  />
+  <EnquirySection locale={locale} interest="training" />
 
   <ServiceSchema
     name="Formació en IA"

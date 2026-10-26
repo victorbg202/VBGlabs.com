@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
-import ContactForm from '@/components/ContactForm.astro';
+import GeneralContactForm from '@/components/GeneralContactForm.astro';
+import { CONTACT_COPY } from '@/data/enquiries';
 import Icon from '@/components/Icon.astro';
 import { route } from '@/i18n/routes';
 import { COMPANY, PHONE } from '@/data/company';
@@ -12,7 +13,7 @@ const locale = 'ca' as const;
   locale={locale}
   routeKey="contact"
   title="Contacte — Explica'ns el teu cas"
-  description="Escriu-nos i t'expliquem, sense compromís, com podem ajudar el teu negoci. Responem en menys de 2 dies laborables."
+  description="Escriu-nos i t'expliquem, sense compromís, com podem ajudar el teu negoci. Responem en un dia laborable."
 >
   <section class="section">
     <div class="container">
@@ -21,10 +22,8 @@ const locale = 'ca' as const;
         <div class="contact-info">
           <p class="eyebrow">CONTACTE</p>
           <h1>Parlem del teu negoci</h1>
-          <p class="lede">
-            Explica&#39;ns breument la teva situació. En menys de 2 dies laborables et
-            responem — sense compromís.
-          </p>
+          <p class="lede">{CONTACT_COPY[locale].response} {CONTACT_COPY[locale].next}</p>
+          <div class="contact-next"><h2>{CONTACT_COPY[locale].heading}</h2><p>{CONTACT_COPY[locale].free}</p><p>{CONTACT_COPY[locale].paid}</p></div>
           <ul class="info-list">
             <li>
               <Icon name="mail" size={20} />
@@ -59,7 +58,7 @@ const locale = 'ca' as const;
           </ul>
         </div>
         <div class="contact-form-card">
-          <ContactForm locale={locale} />
+          <GeneralContactForm locale={locale} />
         </div>
       </div>
     </div>
@@ -67,6 +66,11 @@ const locale = 'ca' as const;
 </BaseLayout>
 
 <style>
+  .contact-next { margin-top:var(--space-4); }
+  .contact-next h2 { font-size:var(--text-lg); margin-bottom:var(--space-2); }
+  .contact-next p { font-size:var(--text-sm); }
+  .contact-next p+p { margin-top:var(--space-3); }
+  .contact-form-card { scroll-margin-top:100px; min-width:0; }
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr;

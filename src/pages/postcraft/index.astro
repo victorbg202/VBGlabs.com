@@ -5,6 +5,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { route } from '@/i18n/routes';
+import { contactHref } from '@/data/enquiries';
 
 const locale = 'ca' as const;
 ---
@@ -25,7 +26,7 @@ const locale = 'ca' as const;
         proposar el mateix contingut genèric per a tothom.
       </p>
       <div class="hero__actions">
-        <a href={route('contact', locale)} class="btn btn-primary">Avisa&#39;m quan estigui disponible</a>
+        <a href={contactHref(locale,'postcraft',Astro.url.pathname)} class="btn btn-primary">Avisa&#39;m quan estigui disponible</a>
       </div>
     </div>
   </section>
@@ -68,6 +69,7 @@ const locale = 'ca' as const;
     variant="dark"
     title="Vols ser dels primers a provar Postcraft?"
     lede="Deixa'ns el teu contacte i t'avisarem en quant estigui disponible."
+    primaryHref={contactHref(locale,'postcraft',Astro.url.pathname)}
     primaryLabel="Avisa'm quan estigui disponible"
   />
 </BaseLayout>

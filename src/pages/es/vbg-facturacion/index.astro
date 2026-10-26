@@ -7,11 +7,12 @@ import ProductFrame from '@/components/ProductFrame.astro';
 import InvoicingPanels from '@/components/InvoicingPanels.astro';
 import PricingPlans from '@/components/PricingPlans.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import EnquirySection from '@/components/EnquirySection.astro';
 import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
 import AssistantDemo from '@/components/AssistantDemo.astro';
 import ProductTabs from '@/components/ProductTabs.astro';
 import { route } from '@/i18n/routes';
+import { CONTACT_COPY } from '@/data/enquiries';
 
 const locale = 'es' as const;
 
@@ -46,9 +47,10 @@ const narrative = [
             VBG Facturación lee las facturas de tus proveedores, extrae los datos y las organiza en un solo panel. Revisa posibles duplicados y consulta la información con un asistente de IA.
           </p>
           <div class="hero__actions">
-            <a href={route('contact', locale)} class="btn btn-primary">Solicita una demo</a>
+            <a href="#parlem" class="btn btn-primary">Solicita una demo</a>
             <a href="#precios" class="btn btn-outline">Ver precios</a>
           </div>
+          <p class="demo-response">{CONTACT_COPY[locale].response} {CONTACT_COPY[locale].enquiries.invoicing.body}</p>
         </div>
         <ProductFrame label="app.vbgfacturacion.com">
           <InvoicingPanels variant="dashboard" labels={panelLabels} />
@@ -128,13 +130,14 @@ const narrative = [
     </div>
   </section>
 
-  <CtaBand locale={locale} variant="red" title="Veámoslo con tus facturas reales" lede="Una demo de 20 minutos, sin compromiso." primaryLabel="Solicita una demo" />
+  <EnquirySection locale={locale} interest="invoicing" />
 
   <SoftwareApplicationSchema />
 </BaseLayout>
 
 <style>
   .hero__grid > :global(*) { min-width: 0; }
+  .demo-response { font-size:var(--text-sm); color:var(--muted); margin-top:var(--space-3); max-width:60ch; }
   .hero { padding-block: var(--space-4) var(--space-7); }
   .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: center; margin-top: var(--space-3); }
   @media (min-width: 940px) { .hero__grid { grid-template-columns: 1.1fr 0.9fr; } }

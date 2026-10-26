@@ -134,7 +134,7 @@ const consentMaxAgeMs = ANALYTICS.consent.maxAgeDays * 24 * 60 * 60 * 1000;
 
         function linkLocation(link) {
           if (link.closest('#site-header, #mobile-menu')) return 'header';
-          if (link.closest('.hero')) return 'hero';
+          if (link.closest('.hero, .page-hero')) return 'hero';
           if (link.closest('.cta-band')) return 'cta_band';
           if (link.closest('.plan')) return 'pricing';
           if (link.closest('footer')) return 'footer';
@@ -143,6 +143,11 @@ const consentMaxAgeMs = ANALYTICS.consent.maxAgeDays * 24 * 60 * 60 * 1000;
 
         document.addEventListener('click', (event) => {
           if (!(event.target instanceof Element)) return;
+          const calculatorCta=event.target.closest('[data-enquiry-cta]');
+          if(calculatorCta){
+            window.vbgTrackEvent('cta_click',{cta_location:'calculator',destination_path:location.pathname,page_language:document.documentElement.lang});
+            return;
+          }
           const link = event.target.closest('a');
           if (!(link instanceof HTMLAnchorElement)) return;
 

@@ -16,6 +16,7 @@ import Icon from '@/components/Icon.astro';
 import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { SOLUTION_UI } from '@/data/solutions/ui';
 import { route } from '@/i18n/routes';
+import { contactHref, CONTACT_COPY } from '@/data/enquiries';
 import { SERVICE_PRICING } from '@/data/pricing';
 import { getCollection } from 'astro:content';
 
@@ -151,7 +152,7 @@ const dateFmt = new Intl.DateTimeFormat('ca-ES', { day: 'numeric', month: 'long'
         </ul>
         <div class="showcase-actions">
           <a href={route('invoicing', locale)} class="btn btn-primary">Descobreix VBG Facturació</a>
-          <a href={route('contact', locale)} class="btn btn-outline">Sol·licita una demo</a>
+          <a href={contactHref(locale,'invoicing',Astro.url.pathname)} class="btn btn-outline">Sol·licita una demo</a>
         </div>
       </div>
       <ProductFrame label="app.vbgfacturacio.com">
@@ -285,7 +286,7 @@ const dateFmt = new Intl.DateTimeFormat('ca-ES', { day: 'numeric', month: 'long'
     variant="red"
     eyebrow="COMENCEM"
     title="Parlem del teu negoci"
-    lede="Sense compromís. En 15-20 minuts sabrem si podem ajudar-te i com."
+    lede={CONTACT_COPY[locale].next}
     primaryLabel="Explica'ns el teu cas"
     secondaryLabel="Veure tots els serveis"
     secondaryHref={route('services', locale)}
