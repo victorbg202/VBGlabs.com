@@ -26,6 +26,7 @@ output to the repo root before pushing to `main`:
 ```sh
 rm -rf dist
 npm run build
+rm -rf dist/.prerender  # temporary server bundles, not public static output
 cp -a dist/. .
 rm -rf dist
 git status --short   # check for stale _astro/*.<oldhash>.css|js no longer

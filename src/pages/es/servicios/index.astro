@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { route } from '@/i18n/routes';
 
 const locale = 'es' as const;
@@ -11,14 +12,14 @@ const locale = 'es' as const;
 <BaseLayout
   locale={locale}
   routeKey="services"
-  title="Servicios — Automatización, consultoría, formación y software"
-  description="Automatizaciones, consultoría de IA, formación para equipos y VBG Facturación. Elige según lo que necesita tu negocio ahora mismo."
+  title="Servicios de IA y automatización para pymes"
+  description="Asistentes con documentos, WhatsApp, citas, informes y aplicaciones con IA. Encuentra la solución para tu negocio y consulta alcance y precios orientativos."
 >
   <PageHero
     locale={locale}
     eyebrow="SERVICIOS"
-    title="Cuatro maneras de trabajar con VBG Labs"
-    lede="No te vendemos un paquete cerrado. Según dónde esté tu negocio ahora mismo, quizás solo necesitas una consultoría, quizás una automatización concreta, o quizás un producto ya hecho como VBG Facturación."
+    title="Soluciones de IA para el trabajo de tu negocio"
+    lede="Empieza por una necesidad concreta: documentos, consultas, citas o datos. Podemos estudiar el proceso con una consultoría, implementar una solución a medida o formar a tu equipo."
     crumb={{ name: 'Servicios', path: route('services', locale) }}
   />
 
@@ -26,12 +27,15 @@ const locale = 'es' as const;
     <div class="container">
       <div class="grid-4">
         <ServiceCard headingLevel="h2" icon="automation" title="Automatizaciones" description="Procesos, documentos y tareas repetitivas que pasan a hacerse solas." href={route('automations', locale)} linkLabel="Ver automatizaciones" />
-        <ServiceCard headingLevel="h2" icon="consulting" title="Consultoría" description="Una mirada externa y técnica sobre cómo trabaja tu negocio y qué vale la pena cambiar." href={route('consulting', locale)} linkLabel="Ver consultoría" />
+        <ServiceCard headingLevel="h2" icon="consulting" title="Consultoría" description="Un diagnóstico de oportunidades de IA y automatización, con prioridades y hoja de ruta." href={route('consulting', locale)} linkLabel="Ver consultoría" />
         <ServiceCard headingLevel="h2" icon="training" title="Formación" description="Para que tu equipo aprenda a sacar partido real a la IA en el día a día." href={route('training', locale)} linkLabel="Ver formación" />
         <ServiceCard headingLevel="h2" icon="invoicing" title="VBG Facturación" description="Nuestro producto propio para gestionar facturas recibidas, con IA integrada." href={route('invoicing', locale)} linkLabel="Ver el producto" accent />
       </div>
     </div>
   </section>
+
+  <SolutionCatalog locale={locale} anchor="solucions" />
+  <SolutionCatalog locale={locale} kind="sector" anchor="sectors" />
 
   <section class="section section--tight bg-alt">
     <div class="container">

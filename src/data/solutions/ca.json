@@ -1,0 +1,626 @@
+{
+  "documents": {
+    "name": "Documents i dades amb IA",
+    "title": "Automatització documental amb IA per a pimes",
+    "description": "Extreu dades de documents, classifica arxius i envia’ls al teu sistema amb IA i revisió humana. Projectes a mida per a pimes de Lleida i tot Espanya.",
+    "h1": "Automatització documental amb IA per reduir la còpia de dades",
+    "lead": "Convertim els documents que reps en informació organitzada: llegir, extreure camps, comprovar-los i enviar-los on els necessites. Definim les excepcions que haurà de revisar una persona.",
+    "pains": [
+      "Copieu dades de PDF, albarans o formularis al mateix full de càlcul.",
+      "Els documents arriben amb formats diferents i costa trobar-los després.",
+      "Les dades incompletes es descobreixen quan algú ja les ha utilitzat."
+    ],
+    "deliverables": [
+      {
+        "title": "Lectura i extracció",
+        "text": "Identifiquem els camps útils del document i preparem una extracció amb OCR o IA segons el format, la qualitat i el volum real."
+      },
+      {
+        "title": "Validació i excepcions",
+        "text": "Acordem quins camps són obligatoris, quines comprovacions s’apliquen i quan el document passa a una safata de revisió."
+      },
+      {
+        "title": "Sortida al teu sistema",
+        "text": "Connectem el resultat amb el full, carpeta o programa acordat, comprovant-ne abans els permisos i les possibilitats d’integració."
+      }
+    ],
+    "example": {
+      "title": "D’un albarà rebut al registre de recepcions",
+      "steps": [
+        "Arriba un PDF a la carpeta d’entrada del negoci.",
+        "S’extreuen proveïdor, data i referències; les dades dubtoses passen a revisió.",
+        "Es prepara el registre i es conserva l’enllaç al document original."
+      ]
+    },
+    "requirements": [
+      "Una mostra representativa de documents, inclosos els casos difícils.",
+      "Els camps que vols recuperar i com n’identifiques una dada correcta.",
+      "La destinació de les dades i qui revisarà les incidències."
+    ],
+    "boundary": "La lectura pot fallar amb escanejos de baixa qualitat o formats nous. La validació documental no substitueix la revisió fiscal o comptable ni autoritza pagaments.",
+    "priceScope": "Referència per a una família de documents, un circuit de revisió i una destinació. Més formats o integracions poden ampliar el pressupost.",
+    "faqs": [
+      {
+        "q": "Serveix per a documents escanejats?",
+        "a": "Ho valorem amb mostres reals. La resolució, l’escriptura a mà, les taules i la variació de formats afecten l’extracció. El pilot ha de mostrar també els errors i la feina de revisió que continuarà sent necessària."
+      },
+      {
+        "q": "En què es diferencia de VBG Facturació?",
+        "a": "VBG Facturació és el producte propi per gestionar factures rebudes. Aquest servei és un projecte a mida per a altres documents o circuits. Si el producte ja encaixa amb el teu cas, t’ho proposem abans de desenvolupar res."
+      }
+    ],
+    "messagePrompt": "Quins documents reps, quantes vegades al mes i on copies les dades?"
+  },
+  "email": {
+    "name": "Correu amb IA",
+    "title": "Automatització del correu amb IA per a empreses",
+    "description": "Classifica correus, detecta peticions i prepara esborranys amb IA. Automatització a mida amb regles, supervisió i connexió amb les teves eines.",
+    "h1": "Automatització del correu amb IA per ordenar les peticions",
+    "lead": "T’ajudem a separar consultes, documents i tasques que arriben al correu. La IA pot classificar missatges i preparar respostes; tu decideixes què s’envia automàticament i què necessita aprovació.",
+    "pains": [
+      "Diverses persones revisen la mateixa bústia i es dupliquen les respostes.",
+      "Les peticions importants queden barrejades amb avisos i correus repetitius.",
+      "Després de llegir un missatge encara cal copiar-ne la informació a una altra eina."
+    ],
+    "deliverables": [
+      {
+        "title": "Classificació útil",
+        "text": "Definim categories segons el treball real: peticions de pressupost, incidències, documents pendents o consultes que s’han de derivar."
+      },
+      {
+        "title": "Respostes amb revisió",
+        "text": "Preparem esborranys a partir de la informació autoritzada i separem els casos repetitius dels que requereixen una decisió."
+      },
+      {
+        "title": "Tasques connectades",
+        "text": "Valorem com registrar la petició, assignar una persona o extreure un adjunt sense perdre el context del correu original."
+      }
+    ],
+    "example": {
+      "title": "Una consulta comercial que arriba a la bústia compartida",
+      "steps": [
+        "Entra un correu demanant informació d’un servei.",
+        "El sistema identifica la petició i prepara els punts que falten per respondre.",
+        "Una persona valida l’esborrany i queda registrada la pròxima acció."
+      ]
+    },
+    "requirements": [
+      "Les categories i els tipus de missatge més habituals.",
+      "Exemples anonimitzats de bones respostes i de casos sensibles.",
+      "Permisos sobre la bústia i una persona responsable del circuit."
+    ],
+    "boundary": "Comencem pels esborranys i les accions reversibles. Els compromisos comercials, les queixes sensibles i els canvis de dades importants requereixen regles i supervisió específiques.",
+    "priceScope": "Referència per a una bústia, categories acotades i un circuit d’acció. Les connexions addicionals i les fonts de coneixement s’avaluen a part.",
+    "faqs": [
+      {
+        "q": "La IA enviarà missatges sense que jo els vegi?",
+        "a": "Només si s’acorda expressament per a un cas delimitat. Podem començar preparant esborranys perquè l’equip els aprovi i ampliar l’automatització després de comprovar-ne el resultat."
+      },
+      {
+        "q": "Es pot connectar amb el correu que ja fem servir?",
+        "a": "Revisem el proveïdor, el tipus de compte i els permisos disponibles. La integració es concreta abans del pressupost; no cal donar per fet que totes les bústies permeten les mateixes accions."
+      }
+    ],
+    "messagePrompt": "Quina bústia utilitzeu i quines peticions us fan perdre més temps?"
+  },
+  "knowledge": {
+    "name": "Assistents amb documents",
+    "title": "Assistents d’IA amb els documents de la teva empresa",
+    "description": "Assistents interns amb IA i RAG per consultar procediments, manuals i catàlegs. Fonts identificables, permisos i proves amb preguntes del teu equip.",
+    "h1": "Un assistent d’IA que consulta els documents de la teva empresa",
+    "lead": "Construïm un punt de consulta per al teu equip a partir de manuals, procediments o catàlegs seleccionats. Preparem les fonts, els permisos i les proves perquè puguis comprovar d’on surt cada resposta.",
+    "pains": [
+      "La resposta existeix en un document, però ningú recorda en quina carpeta.",
+      "Cada incorporació depèn de preguntar les mateixes coses a la mateixa persona.",
+      "Hi ha versions contradictòries de procediments i condicions internes."
+    ],
+    "deliverables": [
+      {
+        "title": "Coneixement seleccionat",
+        "text": "Inventariem les fonts útils, distingim versions vigents i preparem la cerca documental amb RAG, sense entrenar un model des de zero."
+      },
+      {
+        "title": "Respostes comprovables",
+        "text": "Configurem la consulta amb referències als fragments recuperats i un comportament acordat quan falta informació o hi ha contradiccions."
+      },
+      {
+        "title": "Accés i avaluació",
+        "text": "Definim qui pot consultar cada font i provem el sistema amb preguntes reals, incloses les que no hauria de poder respondre."
+      }
+    ],
+    "example": {
+      "title": "Consultar un procediment intern sense recórrer totes les carpetes",
+      "steps": [
+        "Una persona pregunta com tramitar una devolució especial.",
+        "L’assistent busca en els procediments autoritzats per al seu perfil.",
+        "Mostra una resposta amb referències perquè es pugui revisar el document vigent."
+      ]
+    },
+    "requirements": [
+      "Documents digitals i una persona que n’identifiqui la versió correcta.",
+      "Perfils d’usuari i regles d’accés al coneixement.",
+      "Preguntes habituals i exemples de respostes que consideraríeu incorrectes."
+    ],
+    "boundary": "RAG ajuda a fonamentar les respostes, però no n’elimina els errors. La documentació obsoleta, els permisos i els casos sense resposta formen part de l’avaluació del projecte.",
+    "priceScope": "Referència per a una col·lecció documental acotada, un entorn de consulta i permisos definits. Múltiples fonts, perfils complexos o desplegaments especials amplien l’abast.",
+    "faqs": [
+      {
+        "q": "Cal pujar tots els documents de l’empresa?",
+        "a": "No. És millor començar amb una col·lecció vigent, útil i ben delimitada. Triem què s’ha de consultar, què s’ha d’excloure i com s’actualitzaran les fonts abans d’ampliar el sistema."
+      },
+      {
+        "q": "L’assistent pot garantir que no inventarà res?",
+        "a": "No podem prometre absència d’errors. Treballem amb fonts, referències, límits de resposta i proves amb casos reals. Les decisions importants continuen necessitant una comprovació adequada."
+      }
+    ],
+    "messagePrompt": "Quins documents hauria de consultar l’assistent i qui el faria servir?"
+  },
+  "webAssistant": {
+    "name": "Chatbots i assistents web",
+    "title": "Chatbots i assistents d’IA per al web",
+    "description": "Un assistent al teu web per respondre consultes, orientar visitants i recollir contactes amb context. Projecte a mida amb derivació a una persona.",
+    "h1": "Chatbots amb IA per orientar les visites del teu web",
+    "lead": "Ajudem els visitants a trobar el servei o la informació que necessiten. L’assistent parteix del contingut que aproves i pot recollir una consulta útil per al teu equip quan cal continuar la conversa.",
+    "pains": [
+      "Els visitants pregunten dubtes que no resolen abans de deixar el web.",
+      "Les consultes arriben sense saber quin servei o necessitat hi ha al darrere.",
+      "El formulari rep missatges que es podrien orientar amb dues preguntes."
+    ],
+    "deliverables": [
+      {
+        "title": "Informació del negoci",
+        "text": "Preparem respostes sobre serveis, condicions i preguntes freqüents a partir de fonts que tu revises i mantens."
+      },
+      {
+        "title": "Consulta qualificada",
+        "text": "Dissenyem les preguntes mínimes per entendre la necessitat i recollir només les dades que el teu equip necessita per respondre."
+      },
+      {
+        "title": "Derivació amb context",
+        "text": "Acordem com s’entrega la consulta a una persona i com actua l’assistent quan no sap la resposta o el cas queda fora del seu abast."
+      }
+    ],
+    "example": {
+      "title": "Un visitant que no sap quin servei necessita",
+      "steps": [
+        "Pregunta si podeu ajudar amb una tasca concreta del seu negoci.",
+        "L’assistent aclareix la necessitat amb preguntes breus i mostra informació aprovada.",
+        "El visitant deixa una consulta amb el context perquè una persona pugui respondre."
+      ]
+    },
+    "requirements": [
+      "Contingut revisat dels serveis i les condicions que es poden explicar.",
+      "Accés tècnic al web per integrar el component.",
+      "El canal on rebre les consultes i els criteris de derivació."
+    ],
+    "boundary": "L’assistent no ha d’inventar preus, disponibilitat ni compromisos. Reserves, pressupostos automàtics o consultes a dades privades requereixen integracions i validacions addicionals.",
+    "priceScope": "Referència per a un web, una base de coneixement acotada i un circuit de captació. Integracions amb operativa interna es pressuposten segons l’abast.",
+    "faqs": [
+      {
+        "q": "Pot funcionar al web que ja tinc?",
+        "a": "Revisem la plataforma i les possibilitats d’integració. En molts casos es pot afegir un component al web existent; no proposem refer-lo si no hi ha una necessitat real."
+      },
+      {
+        "q": "Pot donar un pressupost automàtic?",
+        "a": "Pot explicar intervals aprovats o recollir els requisits per preparar-lo. Emetre una oferta concreta exigeix regles, dades actualitzades i aprovacions definides en el projecte."
+      }
+    ],
+    "messagePrompt": "Quin web tens i quines preguntes voldries que resolgués l’assistent?"
+  },
+  "whatsapp": {
+    "name": "WhatsApp amb IA",
+    "title": "Chatbots de WhatsApp amb IA per a empreses",
+    "description": "Atenció de consultes per WhatsApp amb IA, recollida de peticions i derivació al teu equip. Integració a mida, amb costos de plataforma separats.",
+    "h1": "WhatsApp amb IA per atendre consultes amb el context del negoci",
+    "lead": "Preparem un circuit per respondre dubtes habituals, recollir peticions i passar la conversa a una persona quan cal. Definim el canal, les fonts i les condicions de connexió abans d’implantar-lo.",
+    "pains": [
+      "Les mateixes preguntes sobre serveis i horaris ocupen bona part del dia.",
+      "Les converses queden al mòbil i costa saber què està pendent.",
+      "Una petició de cita o informació es perd entre altres missatges."
+    ],
+    "deliverables": [
+      {
+        "title": "Respostes amb fonts",
+        "text": "Delimitem què pot explicar l’assistent sobre el teu negoci i com s’actualitza la informació que utilitza."
+      },
+      {
+        "title": "Peticions ben recollides",
+        "text": "Dissenyem preguntes per identificar la necessitat, preparar una sol·licitud o enviar-la al circuit de cites acordat."
+      },
+      {
+        "title": "Traspàs al teu equip",
+        "text": "Definim quan intervé una persona, quin resum rep i com s’evita que l’automatització continuï responent quan el cas ja és humà."
+      }
+    ],
+    "example": {
+      "title": "Una petició de servei fora del moment d’atenció",
+      "steps": [
+        "Un client escriu demanant un servei del catàleg.",
+        "L’assistent resol dubtes bàsics i recull les dades necessàries de la petició.",
+        "El teu equip rep el context i confirma el següent pas."
+      ]
+    },
+    "requirements": [
+      "El compte i número que vols utilitzar, per comprovar-ne l’encaix tècnic.",
+      "Les respostes autoritzades i el catàleg o serveis vigents.",
+      "Una persona de contacte per gestionar els casos derivats."
+    ],
+    "boundary": "La connexió i la missatgeria depenen de les condicions de WhatsApp i dels proveïdors escollits. Les comunicacions sortints s’han de dissenyar segons els permisos i requisits aplicables.",
+    "priceScope": "Referència per a un canal, informació acotada i un circuit de derivació. Els costos de plataforma, missatgeria i consum d’IA es facturen separadament.",
+    "faqs": [
+      {
+        "q": "Puc mantenir el número que faig servir ara?",
+        "a": "Ho comprovem segons el tipus de compte, la connexió disponible i el proveïdor. No prometem una migració o coexistència determinada abans de revisar el teu cas."
+      },
+      {
+        "q": "També confirma cites o comandes?",
+        "a": "Pot recollir la petició. Per confirmar-la ha d’estar connectat amb una font fiable de disponibilitat o estat. Aquesta integració i les regles de confirmació es defineixen expressament."
+      }
+    ],
+    "messagePrompt": "Com utilitzeu WhatsApp avui i quines consultes voldries automatitzar?"
+  },
+  "appointments": {
+    "name": "Cites i recordatoris",
+    "title": "Automatització de cites i recordatoris per a negocis",
+    "description": "Connecta peticions, agenda i recordatoris amb un circuit a mida. Menys gestió manual de cites, amb regles per als canvis i les excepcions.",
+    "h1": "Automatitza les cites i els recordatoris del teu negoci",
+    "lead": "Connectem l’entrada de peticions amb la teva agenda i els avisos acordats. Definim què es pot confirmar, com es gestionen els canvis i quan una persona ha d’intervenir.",
+    "pains": [
+      "Cada cita necessita diversos missatges per comprovar i confirmar un horari.",
+      "Els recordatoris es fan a mà i depenen que algú se’n recordi.",
+      "Els canvis arriben per canals diferents i l’agenda acaba desactualitzada."
+    ],
+    "deliverables": [
+      {
+        "title": "Un circuit de reserva",
+        "text": "Acordem serveis, durades, disponibilitat i recursos abans de connectar formulari, agenda o canal de peticions."
+      },
+      {
+        "title": "Avisos coherents",
+        "text": "Preparem confirmacions i recordatoris amb el contingut, moment i canal definits, i amb control dels possibles enviaments duplicats."
+      },
+      {
+        "title": "Canvis i excepcions",
+        "text": "Documentem cancel·lacions, reprogramacions i conflictes d’horari perquè els casos que no es poden resoldre arribin a una persona."
+      }
+    ],
+    "example": {
+      "title": "Una petició de cita que passa a una agenda compartida",
+      "steps": [
+        "Entra una petició amb el tipus de servei i les preferències del client.",
+        "El circuit comprova les regles i la disponibilitat de l’agenda connectada.",
+        "Es confirma o es deriva la petició, i es programa l’avís corresponent."
+      ]
+    },
+    "requirements": [
+      "L’agenda actual i les seves opcions d’integració.",
+      "Durades, horaris, recursos i política de canvis.",
+      "Canal dels avisos i dades mínimes necessàries per a la reserva."
+    ],
+    "boundary": "Una agenda només és fiable si el negoci hi manté la disponibilitat real. Els canals, els permisos i els casos especials s’han de validar; no prometem eliminar totes les absències.",
+    "priceScope": "Referència per a una agenda, un circuit de reserva i recordatoris acotats. Diversos centres, recursos o serveis amb regles complexes poden ampliar l’abast.",
+    "faqs": [
+      {
+        "q": "Cal substituir l’agenda que utilitzem?",
+        "a": "Primer comprovem si es pot integrar i si gestiona les regles que necessiteu. Si l’eina actual encaixa, la prioritat és connectar-la i ordenar el circuit."
+      },
+      {
+        "q": "És una plataforma de reserves ja disponible?",
+        "a": "Aquest servei és un projecte d’automatització a mida. Definim i provem el teu circuit abans de posar-lo en marxa; els exemples d’aquesta pàgina són il·lustratius."
+      }
+    ],
+    "messagePrompt": "Quina agenda utilitzeu i com gestioneu les cites, canvis i recordatoris?"
+  },
+  "followup": {
+    "name": "Seguiment de pressupostos",
+    "title": "Automatització del seguiment de pressupostos",
+    "description": "Organitza el seguiment de pressupostos amb avisos, esborranys i pròximes accions. Automatització comercial amb IA sobre les eines que ja utilitzes.",
+    "h1": "Seguiment de pressupostos sense dependre de la memòria",
+    "lead": "Connectem pressupostos enviats, respostes i pròximes accions perquè el teu equip sàpiga què està pendent. La IA pot preparar el missatge; les regles decideixen quan toca revisar-lo o enviar-lo.",
+    "pains": [
+      "Envieu un pressupost i el següent contacte depèn de recordar-se’n.",
+      "No queda clar qui ha de respondre ni quan convé tornar a escriure.",
+      "Es preparen missatges repetitius sense tenir en compte les respostes rebudes."
+    ],
+    "deliverables": [
+      {
+        "title": "Un estat compartit",
+        "text": "Identifiquem on es registra cada proposta i com distingir les pendents, acceptades, descartades o que necessiten informació."
+      },
+      {
+        "title": "Accions i missatges",
+        "text": "Preparem avisos interns o esborranys contextuals segons el servei, l’últim contacte i el temps transcorregut."
+      },
+      {
+        "title": "Regles d’aturada",
+        "text": "Definim què atura el seguiment: una resposta, una negativa, l’acceptació o una revisió manual, per evitar insistències fora de lloc."
+      }
+    ],
+    "example": {
+      "title": "Un pressupost que necessita una pròxima acció",
+      "steps": [
+        "El negoci registra una proposta enviada i el responsable.",
+        "Arriba la data acordada sense resposta i es prepara un avís amb context.",
+        "La persona revisa el missatge; qualsevol resposta actualitza o atura el circuit."
+      ]
+    },
+    "requirements": [
+      "El lloc on guardeu pressupostos i estats.",
+      "Els terminis de seguiment i qui assumeix cada oportunitat.",
+      "Plantilles aprovades i situacions en què no s’ha de contactar."
+    ],
+    "boundary": "El servei automatitza el circuit definit; no és una implantació genèrica de CRM ni una campanya de prospecció massiva. Descomptes i compromisos comercials requereixen aprovació.",
+    "priceScope": "Referència per a un circuit de pressupostos, un origen de dades i una seqüència acotada. Més canals o processos comercials s’avaluen segons el projecte.",
+    "faqs": [
+      {
+        "q": "Necessitem comprar un CRM?",
+        "a": "No necessàriament. Revisem si un full, programa o eina existent ja pot aportar els estats i les dades necessàries. El projecte se centra en el seguiment amb automatització i IA."
+      },
+      {
+        "q": "Podem començar només amb avisos interns?",
+        "a": "Sí. És una manera de validar els estats i els terminis sense enviar missatges automàtics als clients. Després es pot valorar afegir esborranys o enviaments delimitats."
+      }
+    ],
+    "messagePrompt": "On registreu els pressupostos i què passa després d’enviar-los?"
+  },
+  "reporting": {
+    "name": "Informes i anàlisi amb IA",
+    "title": "Informes i anàlisi de dades amb IA per a pimes",
+    "description": "Connecta dades del negoci i prepara informes amb IA, indicadors definits i xifres comprovables. Un projecte a mida per decidir amb més context.",
+    "h1": "Informes amb IA per entendre què està passant al negoci",
+    "lead": "Preparem un circuit que recull les dades acordades, calcula indicadors i ajuda a explicar els canvis. Separem les xifres verificables dels comentaris de la IA perquè l’informe es pugui revisar.",
+    "pains": [
+      "Cada informe exigeix copiar i unir diversos fitxers.",
+      "Les mateixes mètriques tenen definicions diferents segons qui les prepara.",
+      "Hi ha moltes xifres, però costa identificar què ha canviat i què cal revisar."
+    ],
+    "deliverables": [
+      {
+        "title": "Dades amb criteri",
+        "text": "Inventariem fonts, freqüència d’actualització i definicions dels indicadors; tractem duplicats, absències i períodes no comparables."
+      },
+      {
+        "title": "Càlculs comprovables",
+        "text": "Preparem els càlculs en un circuit controlat. Les magnituds del negoci no es deixen a la improvisació del model de llenguatge."
+      },
+      {
+        "title": "Lectura amb IA",
+        "text": "Configurem resums i preguntes sobre els indicadors disponibles, amb referències al període, la font i els límits de les dades."
+      }
+    ],
+    "example": {
+      "title": "Un resum periòdic de consultes i pressupostos",
+      "steps": [
+        "Es recullen els registres acordats del període.",
+        "Es calculen consultes rebudes, propostes enviades i estats segons una definició comuna.",
+        "La IA prepara un resum dels canvis perquè l’equip revisi les xifres i decideixi accions."
+      ]
+    },
+    "requirements": [
+      "Les fonts de dades i una mostra del seu format.",
+      "Quines decisions ha de facilitar l’informe.",
+      "La definició dels indicadors i qui en comprovarà el resultat."
+    ],
+    "boundary": "Una anàlisi no pot recuperar dades que no s’han registrat. Els comentaris de la IA poden necessitar correcció i no equivalen a assessorament financer ni a prediccions garantides.",
+    "priceScope": "Referència per a fonts i indicadors acotats, un informe i una freqüència acordada. Múltiples sistemes, històrics complexos o eines específiques poden ampliar el projecte.",
+    "faqs": [
+      {
+        "q": "Podem partir dels fulls de càlcul que ja tenim?",
+        "a": "Sí, després de revisar-ne l’estructura, la qualitat i els permisos. Sovint cal acordar una manera consistent de registrar les dades abans d’automatitzar l’informe."
+      },
+      {
+        "q": "La IA calcula totes les xifres?",
+        "a": "Els indicadors s’han de calcular i validar amb procediments controlats. La IA pot ajudar a explicar-los i explorar-los, però el text generat no substitueix la comprovació dels números."
+      }
+    ],
+    "messagePrompt": "Quines dades reuniu a mà i quina decisió voldries prendre amb l’informe?"
+  },
+  "webDevelopment": {
+    "name": "Webs amb IA i automatitzacions",
+    "title": "Desenvolupament web amb IA i automatitzacions",
+    "description": "Webs a mida que connecten consultes, dades i processos amb IA o automatitzacions. Assistents, peticions guiades i integracions per al teu negoci.",
+    "h1": "Desenvolupament web que connecta la visita amb el procés del negoci",
+    "lead": "Construïm webs amb una funció operativa: orientar amb IA, recollir peticions útils o activar un circuit intern. Definim què ha de passar després del formulari abans de dissenyar les pantalles.",
+    "pains": [
+      "El web només envia un correu i després tot es torna a introduir a mà.",
+      "El visitant ha d’explicar la mateixa necessitat diverses vegades.",
+      "Les peticions que arriben del web no tenen dades suficients per continuar."
+    ],
+    "deliverables": [
+      {
+        "title": "Recorregut orientat a una acció",
+        "text": "Dissenyem contingut i pantalles al voltant del que ha de resoldre el visitant: una consulta, una petició guiada o un procés connectat."
+      },
+      {
+        "title": "IA o automatització útil",
+        "text": "Integrem el component acordat: assistent amb informació aprovada, classificació de consultes o connexió amb l’operativa del negoci."
+      },
+      {
+        "title": "Base preparada per créixer",
+        "text": "Treballem estructura, accessibilitat, rendiment i mesurament dels passos rellevants, amb documentació del circuit implementat."
+      }
+    ],
+    "example": {
+      "title": "Un web que recull una petició amb les dades adequades",
+      "steps": [
+        "El visitant identifica el tipus de servei que necessita.",
+        "Un recorregut guiat recull els requisits i resol dubtes amb contingut aprovat.",
+        "La petició arriba classificada al circuit intern perquè una persona la valori."
+      ]
+    },
+    "requirements": [
+      "L’objectiu del web i l’acció principal que ha de facilitar.",
+      "Contingut, identitat visual i informació comercial verificable.",
+      "Les eines que cal connectar i qui gestionarà els continguts."
+    ],
+    "boundary": "Aquesta línia se centra en webs amb IA o automatitzacions. Una botiga completa, un portal amb permisos complexos o una aplicació operativa poden necessitar un abast propi.",
+    "priceScope": "Referència per a una primera versió del web amb un procés connectat o una funcionalitat d’IA definida. El nombre de pantalles, continguts i integracions condiciona el pressupost.",
+    "faqs": [
+      {
+        "q": "Podeu millorar un web existent?",
+        "a": "Sí. Revisem si la plataforma permet incorporar la funcionalitat i si el recorregut actual és aprofitable. Només proposem reconstruir-lo quan hi ha motius concrets."
+      },
+      {
+        "q": "Inclou posicionar el web al primer lloc?",
+        "a": "No es poden garantir posicions. El projecte pot incloure una estructura rastrejable, contingut útil i mesurament, però la visibilitat també depèn de la competència, la demanda i el treball posterior."
+      }
+    ],
+    "messagePrompt": "Quin web tens o vols crear, i quin procés hauria d’activar amb IA o automatització?"
+  },
+  "applications": {
+    "name": "Aplicacions d’IA a mida",
+    "title": "Aplicacions amb IA a mida per a empreses",
+    "description": "Aplicacions a mida amb IA, permisos i processos connectats. Defineix una primera versió útil per al teu equip amb abast i costos orientatius.",
+    "h1": "Aplicacions amb IA a mida per al procés que el teu equip necessita",
+    "lead": "Quan una eina existent no encaixa, definim una aplicació al voltant de la feina real: dades d’entrada, assistència d’IA, validació humana i resultats. Comencem per una primera versió amb un objectiu mesurable.",
+    "pains": [
+      "El procés salta entre fulls, correus i diverses eines sense una visió conjunta.",
+      "Les aplicacions de catàleg obliguen a mantenir massa feina paral·lela.",
+      "Cal utilitzar IA dins d’un procés amb usuaris, estats i permisos."
+    ],
+    "deliverables": [
+      {
+        "title": "Primera versió delimitada",
+        "text": "Traduïm el procés en pantalles, rols i accions. Prioritzem el recorregut que ha de funcionar abans d’afegir funcionalitats secundàries."
+      },
+      {
+        "title": "IA dins del circuit",
+        "text": "Definim què proposa o prepara el model, què valida una persona i com es tracten els errors o la falta d’informació."
+      },
+      {
+        "title": "Operació i continuïtat",
+        "text": "Acordem desplegament, accés, registre d’incidències, documentació i manteniment segons les necessitats del projecte."
+      }
+    ],
+    "example": {
+      "title": "Una aplicació per preparar i revisar expedients",
+      "steps": [
+        "Una persona incorpora documents i dades a un expedient.",
+        "La IA proposa una classificació i un resum amb els elements que cal revisar.",
+        "El responsable corregeix, aprova i fa avançar l’estat amb una traça de les accions."
+      ]
+    },
+    "requirements": [
+      "Un procés prioritari, els seus usuaris i les excepcions habituals.",
+      "Exemples de dades i del resultat que es vol obtenir.",
+      "Criteris per decidir si la primera versió resol el problema."
+    ],
+    "boundary": "Una aplicació a mida necessita evolució i manteniment. Un sistema amb molts perfils, dades sensibles o integracions pot superar el rang d’una primera versió delimitada.",
+    "priceScope": "Referència per a una primera versió amb un procés principal i una funció d’IA acotada. La complexitat dels permisos, dades i connexions determina l’abast final.",
+    "faqs": [
+      {
+        "q": "Com sabem si cal desenvolupar a mida?",
+        "a": "Primer comprovem si les eines que ja utilitzeu poden resoldre el procés. El desenvolupament té sentit quan hi ha una necessitat específica que justifica construir i mantenir una solució pròpia."
+      },
+      {
+        "q": "Què passa després del llançament?",
+        "a": "Documentem el circuit i acordem com gestionar incidències i canvis. Pots valorar manteniment mensual o suport puntual pressupostat segons l’ús i la criticitat de l’aplicació."
+      }
+    ],
+    "messagePrompt": "Quin procés hauria de resoldre l’aplicació i quantes persones hi treballarien?"
+  },
+  "professional": {
+    "name": "IA per a gestories i despatxos",
+    "title": "IA i automatització per a gestories i despatxos",
+    "description": "Automatitza documents, consultes internes i seguiments amb IA per a gestories i despatxos professionals. Processos a mida amb revisió humana.",
+    "h1": "IA per a gestories i despatxos que treballen amb molts documents",
+    "lead": "Centrem la IA en la feina que envolta cada expedient: ordenar informació, preparar dades i recuperar coneixement. El criteri professional i la revisió dels casos continuen en mans del teu equip.",
+    "pains": [
+      "La documentació dels clients arriba per diversos canals i costa saber què falta.",
+      "L’equip repeteix preguntes sobre procediments que ja estan documentats.",
+      "Els seguiments de peticions i pressupostos queden repartits entre persones."
+    ],
+    "deliverables": [
+      {
+        "title": "Entrada documental",
+        "text": "Dissenyem un circuit per classificar documents, extreure camps i deixar els casos incomplets en revisió abans d’incorporar-los a un expedient."
+      },
+      {
+        "title": "Coneixement del despatx",
+        "text": "Preparem assistents interns sobre procediments vigents, amb fonts i permisos per evitar barrejar informació de clients o àrees."
+      },
+      {
+        "title": "Seguiments visibles",
+        "text": "Acordem avisos sobre documentació pendent, pròximes accions i propostes, amb aturada quan el client respon o el cas es tanca."
+      }
+    ],
+    "example": {
+      "title": "Preparar un expedient quan falta documentació",
+      "steps": [
+        "Arriben documents d’un client al canal acordat.",
+        "El circuit els ordena i prepara una llista dels elements que requereixen revisió.",
+        "El responsable comprova l’expedient i aprova la petició de la documentació pendent."
+      ]
+    },
+    "requirements": [
+      "Un tipus d’expedient o procés per començar.",
+      "Regles per separar clients, perfils i documentació.",
+      "Una persona responsable de validar el circuit i les respostes."
+    ],
+    "boundary": "La IA no substitueix l’assessorament fiscal, jurídic o professional. La separació de dades, els permisos i les aprovacions s’han de definir per al procés concret.",
+    "priceScope": "El pressupost depèn de la solució escollida. Un circuit documental delimitat i un assistent amb diversos perfils tenen abasts diferents.",
+    "faqs": [
+      {
+        "q": "Podem començar només per una part del despatx?",
+        "a": "Sí. Un tipus de document, una consulta interna recurrent o un seguiment concret permeten validar l’encaix abans d’estendre’l a altres equips o expedients."
+      },
+      {
+        "q": "Teniu un producte per a les factures rebudes?",
+        "a": "Sí: VBG Facturació és el producte propi que podem mostrar. Per a processos diferents, estudiem un projecte a mida. Les altres situacions d’aquesta pàgina són exemples il·lustratius."
+      }
+    ],
+    "messagePrompt": "Quin tipus de despatx sou i quina tasca documental o de seguiment us ocupa més?"
+  },
+  "commerce": {
+    "name": "IA per a comerços i negocis locals",
+    "title": "IA per a comerços i negocis locals de Lleida",
+    "description": "IA i automatitzacions per a comerços i negocis locals: consultes, cites i informes. Projectes a mida des d’Almenar per a Lleida i tot Espanya.",
+    "h1": "IA per a comerços i negocis locals amb moltes tasques alhora",
+    "lead": "T’ajudem a ordenar les consultes i les peticions mentre atens el negoci. Triem un procés concret: respondre dubtes, recollir una cita o entendre les dades que ja tens, sense afegir feina innecessària.",
+    "pains": [
+      "Les preguntes sobre serveis, horaris o condicions interrompen l’atenció.",
+      "Les peticions arriben per web i WhatsApp i costa continuar-les.",
+      "Les dades de consultes i reserves no es revisen perquè preparar-les ocupa massa."
+    ],
+    "deliverables": [
+      {
+        "title": "Consultes orientades",
+        "text": "Preparem assistents web o WhatsApp amb la informació aprovada del negoci i un circuit per recollir peticions i derivar excepcions."
+      },
+      {
+        "title": "Cites i recordatoris",
+        "text": "Connectem l’agenda quan el negoci treballa amb reserves, definint durades, canvis i avisos segons les seves regles."
+      },
+      {
+        "title": "Informació per decidir",
+        "text": "Organitzem les dades disponibles de consultes o reserves i preparem informes amb indicadors definits i comentaris d’IA revisables."
+      }
+    ],
+    "example": {
+      "title": "Un negoci de serveis que rep consultes mentre atén clients",
+      "steps": [
+        "Una persona pregunta per un servei des del canal del negoci.",
+        "L’assistent explica la informació aprovada i recull la necessitat.",
+        "L’equip rep la petició amb context i confirma la cita o el següent pas."
+      ]
+    },
+    "requirements": [
+      "El servei o tasca repetitiva que vols millorar primer.",
+      "Informació comercial vigent i una persona que la mantingui.",
+      "El canal principal i les eines que ja feu servir al negoci."
+    ],
+    "boundary": "La disponibilitat de cites, l’estoc i els preus només es poden confirmar automàticament amb fonts fiables i integracions definides.",
+    "priceScope": "L’interval depèn del procés escollit, els canals i les integracions. Pots començar per un circuit petit i valorar després si té sentit ampliar-lo.",
+    "faqs": [
+      {
+        "q": "És viable per a un negoci petit?",
+        "a": "Depèn del temps que ocupa la tasca, la freqüència i el cost d’implantar i mantenir el circuit. Primer mirem aquests números; una plantilla o un canvi de procés poden ser suficients."
+      },
+      {
+        "q": "Només treballeu amb negocis de Lleida?",
+        "a": "Som d’Almenar i prioritzem la proximitat a Lleida i el Segrià. També treballem amb negocis de tot Espanya i acordem el format presencial o remot segons el projecte."
+      }
+    ],
+    "messagePrompt": "Quin negoci tens i quina tasca et fa interrompre més sovint la feina?"
+  }
+}

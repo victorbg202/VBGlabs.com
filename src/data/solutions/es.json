@@ -1,0 +1,626 @@
+{
+  "documents": {
+    "name": "Documentos y datos con IA",
+    "title": "Automatización documental con IA para pymes",
+    "description": "Extrae datos de documentos, clasifica archivos y conéctalos con tus herramientas. Automatización documental a medida con IA y revisión humana.",
+    "h1": "Automatización documental con IA para reducir la copia de datos",
+    "lead": "Convertimos los documentos que recibes en información organizada: leer, extraer campos, comprobarlos y enviarlos donde los necesitas. Definimos las excepciones que deberá revisar una persona.",
+    "pains": [
+      "Copiáis datos de PDF, albaranes o formularios a la misma hoja de cálculo.",
+      "Los documentos llegan en formatos distintos y cuesta encontrarlos después.",
+      "Los datos incompletos se descubren cuando alguien ya los ha utilizado."
+    ],
+    "deliverables": [
+      {
+        "title": "Lectura y extracción",
+        "text": "Identificamos los campos útiles y preparamos la extracción con OCR o IA según el formato, la calidad y el volumen real de documentos."
+      },
+      {
+        "title": "Validación y excepciones",
+        "text": "Acordamos campos obligatorios, comprobaciones y criterios para enviar un documento a una bandeja de revisión."
+      },
+      {
+        "title": "Salida a tu sistema",
+        "text": "Conectamos el resultado con la hoja, carpeta o programa acordado, tras comprobar permisos y posibilidades de integración."
+      }
+    ],
+    "example": {
+      "title": "De un albarán recibido al registro de recepciones",
+      "steps": [
+        "Llega un PDF a la carpeta de entrada del negocio.",
+        "Se extraen proveedor, fecha y referencias; los datos dudosos pasan a revisión.",
+        "Se prepara el registro conservando el enlace al documento original."
+      ]
+    },
+    "requirements": [
+      "Muestras representativas, incluidos los documentos difíciles.",
+      "Los campos que necesitas y cómo identificas un dato correcto.",
+      "El destino de los datos y quién revisará las incidencias."
+    ],
+    "boundary": "La lectura puede fallar con escaneos de baja calidad o formatos nuevos. La validación documental no sustituye la revisión fiscal o contable ni autoriza pagos.",
+    "priceScope": "Referencia para una familia de documentos, un circuito de revisión y un destino. Más formatos o integraciones pueden ampliar el presupuesto.",
+    "faqs": [
+      {
+        "q": "¿Sirve para documentos escaneados?",
+        "a": "Lo valoramos con muestras reales. La resolución, la escritura a mano, las tablas y la variación de formatos afectan a la extracción. El piloto debe mostrar también los errores y el trabajo de revisión que seguirá siendo necesario."
+      },
+      {
+        "q": "¿En qué se diferencia de VBG Facturación?",
+        "a": "VBG Facturación es nuestro producto para gestionar facturas recibidas. Este servicio es un proyecto a medida para otros documentos o circuitos. Si el producto ya encaja, te lo proponemos antes de desarrollar nada."
+      }
+    ],
+    "messagePrompt": "¿Qué documentos recibes, cuántas veces al mes y dónde copias sus datos?"
+  },
+  "email": {
+    "name": "Correo con IA",
+    "title": "Automatización del correo con IA para empresas",
+    "description": "Clasifica correos, detecta peticiones y prepara borradores con IA. Automatización a medida con reglas, supervisión y conexión con tus herramientas.",
+    "h1": "Automatización del correo con IA para ordenar las peticiones",
+    "lead": "Te ayudamos a separar consultas, documentos y tareas que llegan al correo. La IA puede clasificar mensajes y preparar respuestas; tú decides qué se envía automáticamente y qué necesita aprobación.",
+    "pains": [
+      "Varias personas revisan el mismo buzón y duplican respuestas.",
+      "Las peticiones importantes se mezclan con avisos y mensajes repetitivos.",
+      "Después de leer un correo todavía hay que copiar sus datos a otra herramienta."
+    ],
+    "deliverables": [
+      {
+        "title": "Clasificación útil",
+        "text": "Definimos categorías según el trabajo real: solicitudes de presupuesto, incidencias, documentos pendientes o consultas para otro responsable."
+      },
+      {
+        "title": "Respuestas con revisión",
+        "text": "Preparamos borradores con información autorizada y distinguimos los casos repetitivos de los que requieren una decisión."
+      },
+      {
+        "title": "Tareas conectadas",
+        "text": "Valoramos cómo registrar la petición, asignar una persona o extraer un adjunto conservando el contexto del correo original."
+      }
+    ],
+    "example": {
+      "title": "Una consulta comercial en el buzón compartido",
+      "steps": [
+        "Entra un correo solicitando información de un servicio.",
+        "El sistema identifica la petición y prepara los puntos que faltan para responder.",
+        "Una persona valida el borrador y queda registrada la próxima acción."
+      ]
+    },
+    "requirements": [
+      "Las categorías y tipos de mensaje más habituales.",
+      "Ejemplos anonimizados de buenas respuestas y casos sensibles.",
+      "Permisos sobre el buzón y un responsable del circuito."
+    ],
+    "boundary": "Comenzamos por borradores y acciones reversibles. Los compromisos comerciales, las quejas sensibles y los cambios importantes de datos requieren reglas y supervisión específicas.",
+    "priceScope": "Referencia para un buzón, categorías acotadas y un circuito de acción. Las conexiones adicionales y fuentes de conocimiento se evalúan aparte.",
+    "faqs": [
+      {
+        "q": "¿La IA enviará mensajes sin que yo los vea?",
+        "a": "Solo si se acuerda expresamente para un caso delimitado. Podemos empezar con borradores que apruebe el equipo y ampliar la automatización después de comprobar los resultados."
+      },
+      {
+        "q": "¿Se conecta con el correo que ya utilizamos?",
+        "a": "Revisamos el proveedor, el tipo de cuenta y los permisos disponibles. La integración se concreta antes del presupuesto: no todos los buzones permiten las mismas acciones."
+      }
+    ],
+    "messagePrompt": "¿Qué buzón utilizáis y qué peticiones os hacen perder más tiempo?"
+  },
+  "knowledge": {
+    "name": "Asistentes con documentos",
+    "title": "Asistentes de IA con los documentos de tu empresa",
+    "description": "Asistentes internos con IA y RAG para consultar procedimientos, manuales y catálogos. Fuentes identificables, permisos y pruebas con tu equipo.",
+    "h1": "Un asistente de IA que consulta los documentos de tu empresa",
+    "lead": "Construimos un punto de consulta para tu equipo con manuales, procedimientos o catálogos seleccionados. Preparamos las fuentes, los permisos y las pruebas para comprobar de dónde sale cada respuesta.",
+    "pains": [
+      "La respuesta está en un documento, pero nadie recuerda en qué carpeta.",
+      "Cada incorporación depende de hacer las mismas preguntas a la misma persona.",
+      "Hay versiones contradictorias de procedimientos y condiciones internas."
+    ],
+    "deliverables": [
+      {
+        "title": "Conocimiento seleccionado",
+        "text": "Inventariamos fuentes útiles, distinguimos versiones vigentes y preparamos la búsqueda documental con RAG, sin entrenar un modelo desde cero."
+      },
+      {
+        "title": "Respuestas comprobables",
+        "text": "Configuramos referencias a los fragmentos recuperados y el comportamiento esperado cuando falta información o existen contradicciones."
+      },
+      {
+        "title": "Acceso y evaluación",
+        "text": "Definimos quién puede consultar cada fuente y probamos preguntas reales, incluidas aquellas que el sistema no debería responder."
+      }
+    ],
+    "example": {
+      "title": "Consultar un procedimiento interno sin recorrer todas las carpetas",
+      "steps": [
+        "Una persona pregunta cómo tramitar una devolución especial.",
+        "El asistente busca en los procedimientos autorizados para su perfil.",
+        "Presenta una respuesta con referencias para revisar el documento vigente."
+      ]
+    },
+    "requirements": [
+      "Documentos digitales y alguien que identifique la versión correcta.",
+      "Perfiles de usuario y reglas de acceso al conocimiento.",
+      "Preguntas habituales y ejemplos de respuestas incorrectas."
+    ],
+    "boundary": "RAG ayuda a fundamentar las respuestas, pero no elimina los errores. La documentación obsoleta, los permisos y los casos sin respuesta forman parte de la evaluación.",
+    "priceScope": "Referencia para una colección acotada, un entorno de consulta y permisos definidos. Varias fuentes, perfiles complejos o despliegues especiales amplían el alcance.",
+    "faqs": [
+      {
+        "q": "¿Hay que subir todos los documentos de la empresa?",
+        "a": "No. Conviene empezar con una colección vigente, útil y delimitada. Elegimos qué consultar, qué excluir y cómo actualizar las fuentes antes de ampliar el sistema."
+      },
+      {
+        "q": "¿Puede garantizar que no inventará respuestas?",
+        "a": "No podemos prometer ausencia de errores. Trabajamos con fuentes, referencias, límites de respuesta y pruebas reales. Las decisiones importantes siguen necesitando una comprobación adecuada."
+      }
+    ],
+    "messagePrompt": "¿Qué documentos debería consultar el asistente y quién lo utilizaría?"
+  },
+  "webAssistant": {
+    "name": "Chatbots y asistentes web",
+    "title": "Chatbots y asistentes de IA para tu web",
+    "description": "Un asistente en tu web para responder consultas, orientar visitas y recoger contactos con contexto. Proyecto a medida con derivación a una persona.",
+    "h1": "Chatbots con IA para orientar las visitas de tu web",
+    "lead": "Ayudamos a los visitantes a encontrar el servicio o la información que necesitan. El asistente parte del contenido que apruebas y puede recoger una consulta útil cuando tu equipo deba continuar la conversación.",
+    "pains": [
+      "Los visitantes abandonan la web con dudas sobre tus servicios.",
+      "Las consultas llegan sin saber qué necesidad hay detrás.",
+      "El formulario recibe mensajes que podrían orientarse con dos preguntas."
+    ],
+    "deliverables": [
+      {
+        "title": "Información del negocio",
+        "text": "Preparamos respuestas sobre servicios, condiciones y preguntas frecuentes con fuentes que revisas y mantienes."
+      },
+      {
+        "title": "Consulta cualificada",
+        "text": "Diseñamos las preguntas mínimas para entender la necesidad y recoger solo los datos necesarios para que responda tu equipo."
+      },
+      {
+        "title": "Derivación con contexto",
+        "text": "Acordamos cómo se entrega la consulta a una persona y qué ocurre si el asistente no conoce la respuesta o el caso queda fuera de alcance."
+      }
+    ],
+    "example": {
+      "title": "Un visitante que no sabe qué servicio necesita",
+      "steps": [
+        "Pregunta si podéis ayudar con una tarea concreta de su negocio.",
+        "El asistente aclara la necesidad con preguntas breves e información aprobada.",
+        "El visitante deja una consulta con contexto para recibir una respuesta personal."
+      ]
+    },
+    "requirements": [
+      "Contenido revisado de servicios y condiciones.",
+      "Acceso técnico a la web para integrar el componente.",
+      "Canal para recibir consultas y criterios de derivación."
+    ],
+    "boundary": "El asistente no debe inventar precios, disponibilidad ni compromisos. Las reservas, ofertas automáticas y consultas a datos privados requieren integraciones y validaciones adicionales.",
+    "priceScope": "Referencia para una web, conocimiento acotado y un circuito de captación. Las integraciones con la operativa interna se presupuestan según alcance.",
+    "faqs": [
+      {
+        "q": "¿Funciona en la web que ya tengo?",
+        "a": "Revisamos la plataforma y sus posibilidades. En muchos casos se puede añadir un componente a la web existente; no proponemos rehacerla sin una necesidad real."
+      },
+      {
+        "q": "¿Puede dar un presupuesto automático?",
+        "a": "Puede explicar intervalos aprobados o recoger requisitos. Emitir una oferta concreta exige reglas, datos actualizados y aprobaciones definidas dentro del proyecto."
+      }
+    ],
+    "messagePrompt": "¿Qué web tienes y qué preguntas te gustaría que resolviera el asistente?"
+  },
+  "whatsapp": {
+    "name": "WhatsApp con IA",
+    "title": "Chatbots de WhatsApp con IA para empresas",
+    "description": "Consultas por WhatsApp con IA, recogida de peticiones y derivación a tu equipo. Integración a medida con costes de plataforma separados.",
+    "h1": "WhatsApp con IA para atender consultas con el contexto del negocio",
+    "lead": "Preparamos un circuito para responder dudas habituales, recoger peticiones y pasar la conversación a una persona cuando corresponde. Definimos canal, fuentes y condiciones de conexión antes de implantarlo.",
+    "pains": [
+      "Las mismas preguntas sobre servicios y horarios ocupan gran parte del día.",
+      "Las conversaciones quedan en el móvil y cuesta saber qué está pendiente.",
+      "Una petición de cita o información se pierde entre otros mensajes."
+    ],
+    "deliverables": [
+      {
+        "title": "Respuestas con fuentes",
+        "text": "Delimitamos qué puede explicar el asistente y cómo se actualiza la información sobre tu negocio."
+      },
+      {
+        "title": "Peticiones bien recogidas",
+        "text": "Diseñamos preguntas para identificar la necesidad, preparar una solicitud o enviarla al circuito de citas acordado."
+      },
+      {
+        "title": "Traspaso al equipo",
+        "text": "Definimos cuándo interviene una persona, qué contexto recibe y cómo se detienen las respuestas automáticas cuando asume el caso."
+      }
+    ],
+    "example": {
+      "title": "Una solicitud de servicio fuera del momento de atención",
+      "steps": [
+        "Un cliente pregunta por un servicio del catálogo.",
+        "El asistente resuelve dudas básicas y recoge los datos necesarios.",
+        "Tu equipo recibe el contexto y confirma el siguiente paso."
+      ]
+    },
+    "requirements": [
+      "La cuenta y el número que quieres utilizar para revisar su encaje técnico.",
+      "Respuestas autorizadas y catálogo o servicios vigentes.",
+      "Una persona para gestionar los casos derivados."
+    ],
+    "boundary": "La conexión y mensajería dependen de las condiciones de WhatsApp y los proveedores elegidos. Las comunicaciones salientes se diseñan según los permisos y requisitos aplicables.",
+    "priceScope": "Referencia para un canal, información acotada y un circuito de derivación. Plataforma, mensajería y consumo de IA se facturan por separado.",
+    "faqs": [
+      {
+        "q": "¿Puedo mantener mi número actual?",
+        "a": "Lo comprobamos según el tipo de cuenta, la conexión disponible y el proveedor. No prometemos una migración o coexistencia determinada sin revisar el caso."
+      },
+      {
+        "q": "¿También confirma citas o pedidos?",
+        "a": "Puede recoger la petición. Para confirmarla debe conectarse con una fuente fiable de disponibilidad o estado. La integración y las reglas de confirmación se definen expresamente."
+      }
+    ],
+    "messagePrompt": "¿Cómo utilizáis WhatsApp hoy y qué consultas queréis automatizar?"
+  },
+  "appointments": {
+    "name": "Citas y recordatorios",
+    "title": "Automatización de citas y recordatorios para negocios",
+    "description": "Conecta peticiones, agenda y recordatorios con un circuito a medida. Menos gestión manual de citas, con reglas para cambios y excepciones.",
+    "h1": "Automatiza las citas y los recordatorios de tu negocio",
+    "lead": "Conectamos las peticiones con tu agenda y los avisos acordados. Definimos qué se puede confirmar, cómo se gestionan los cambios y cuándo debe intervenir una persona.",
+    "pains": [
+      "Cada cita necesita varios mensajes para comprobar y confirmar el horario.",
+      "Los recordatorios se hacen a mano y dependen de acordarse.",
+      "Los cambios llegan por distintos canales y la agenda queda desactualizada."
+    ],
+    "deliverables": [
+      {
+        "title": "Un circuito de reserva",
+        "text": "Acordamos servicios, duraciones, disponibilidad y recursos antes de conectar formulario, agenda o canal de peticiones."
+      },
+      {
+        "title": "Avisos coherentes",
+        "text": "Preparamos confirmaciones y recordatorios con contenido, momento y canal definidos, controlando posibles envíos duplicados."
+      },
+      {
+        "title": "Cambios y excepciones",
+        "text": "Documentamos cancelaciones, reprogramaciones y conflictos para derivar a una persona los casos que no se puedan resolver."
+      }
+    ],
+    "example": {
+      "title": "Una petición que pasa a la agenda compartida",
+      "steps": [
+        "Llega una solicitud con el servicio y las preferencias del cliente.",
+        "El circuito comprueba las reglas y disponibilidad de la agenda conectada.",
+        "Se confirma o deriva la petición y se programa el aviso correspondiente."
+      ]
+    },
+    "requirements": [
+      "La agenda actual y sus opciones de integración.",
+      "Duraciones, horarios, recursos y política de cambios.",
+      "Canal de avisos y datos mínimos para reservar."
+    ],
+    "boundary": "La agenda solo es fiable si el negocio mantiene la disponibilidad real. Los canales, permisos y casos especiales se validan; no prometemos eliminar todas las ausencias.",
+    "priceScope": "Referencia para una agenda, un circuito de reserva y recordatorios acotados. Varios centros, recursos o reglas complejas pueden ampliar el alcance.",
+    "faqs": [
+      {
+        "q": "¿Tenemos que sustituir nuestra agenda?",
+        "a": "Primero comprobamos si permite integrarse y gestionar vuestras reglas. Si encaja, priorizamos conectarla y ordenar el circuito."
+      },
+      {
+        "q": "¿Es una plataforma de reservas ya disponible?",
+        "a": "Es un proyecto de automatización a medida. Definimos y probamos vuestro circuito antes de ponerlo en marcha. Los ejemplos de esta página son ilustrativos."
+      }
+    ],
+    "messagePrompt": "¿Qué agenda utilizáis y cómo gestionáis citas, cambios y recordatorios?"
+  },
+  "followup": {
+    "name": "Seguimiento de presupuestos",
+    "title": "Automatización del seguimiento de presupuestos",
+    "description": "Organiza el seguimiento de presupuestos con avisos, borradores y próximas acciones. Automatización comercial con IA sobre tus herramientas actuales.",
+    "h1": "Seguimiento de presupuestos sin depender de la memoria",
+    "lead": "Conectamos presupuestos enviados, respuestas y próximas acciones para saber qué está pendiente. La IA puede preparar el mensaje; las reglas deciden cuándo revisarlo o enviarlo.",
+    "pains": [
+      "El siguiente contacto tras enviar una propuesta depende de acordarse.",
+      "No queda claro quién debe responder ni cuándo volver a escribir.",
+      "Se repiten mensajes sin tener en cuenta las respuestas recibidas."
+    ],
+    "deliverables": [
+      {
+        "title": "Un estado compartido",
+        "text": "Identificamos dónde se registra cada propuesta y cómo distinguir las pendientes, aceptadas, descartadas o que necesitan información."
+      },
+      {
+        "title": "Acciones y mensajes",
+        "text": "Preparamos avisos internos o borradores contextuales según el servicio, el último contacto y el tiempo transcurrido."
+      },
+      {
+        "title": "Reglas de parada",
+        "text": "Definimos qué detiene el seguimiento: una respuesta, una negativa, la aceptación o una revisión manual, evitando insistencias fuera de lugar."
+      }
+    ],
+    "example": {
+      "title": "Un presupuesto que necesita una próxima acción",
+      "steps": [
+        "El negocio registra una propuesta enviada y su responsable.",
+        "Llega la fecha acordada sin respuesta y se prepara un aviso con contexto.",
+        "La persona revisa el mensaje; cualquier respuesta actualiza o detiene el circuito."
+      ]
+    },
+    "requirements": [
+      "Dónde guardáis presupuestos y estados.",
+      "Plazos de seguimiento y responsables de cada oportunidad.",
+      "Plantillas aprobadas y situaciones en que no se debe contactar."
+    ],
+    "boundary": "Automatizamos el circuito definido; no es una implantación genérica de CRM ni prospección masiva. Los descuentos y compromisos comerciales requieren aprobación.",
+    "priceScope": "Referencia para un circuito de presupuestos, un origen de datos y una secuencia acotada. Más canales o procesos se evalúan según el proyecto.",
+    "faqs": [
+      {
+        "q": "¿Necesitamos comprar un CRM?",
+        "a": "No necesariamente. Revisamos si una hoja o herramienta existente ya aporta los estados y datos necesarios. El proyecto se centra en el seguimiento con automatización e IA."
+      },
+      {
+        "q": "¿Podemos empezar solo con avisos internos?",
+        "a": "Sí. Permite validar estados y plazos sin enviar mensajes automáticos a clientes. Después se puede valorar incorporar borradores o envíos delimitados."
+      }
+    ],
+    "messagePrompt": "¿Dónde registráis los presupuestos y qué ocurre después de enviarlos?"
+  },
+  "reporting": {
+    "name": "Informes y análisis con IA",
+    "title": "Informes y análisis de datos con IA para pymes",
+    "description": "Conecta datos del negocio y prepara informes con IA, indicadores definidos y cifras comprobables. Un proyecto a medida para decidir con contexto.",
+    "h1": "Informes con IA para entender qué ocurre en el negocio",
+    "lead": "Preparamos un circuito que reúne los datos acordados, calcula indicadores y ayuda a explicar los cambios. Separamos las cifras verificables de los comentarios de la IA para revisar el informe.",
+    "pains": [
+      "Cada informe exige copiar y unir varios archivos.",
+      "Las mismas métricas se definen de manera distinta según quién las prepare.",
+      "Hay muchas cifras, pero cuesta identificar los cambios que requieren atención."
+    ],
+    "deliverables": [
+      {
+        "title": "Datos con criterio",
+        "text": "Inventariamos fuentes, frecuencia y definiciones de indicadores; tratamos duplicados, ausencias y periodos no comparables."
+      },
+      {
+        "title": "Cálculos comprobables",
+        "text": "Preparamos los cálculos en un circuito controlado. Las magnitudes del negocio no se dejan a la improvisación del modelo de lenguaje."
+      },
+      {
+        "title": "Lectura con IA",
+        "text": "Configuramos resúmenes y preguntas sobre los indicadores disponibles, con referencias al periodo, la fuente y las limitaciones de los datos."
+      }
+    ],
+    "example": {
+      "title": "Un resumen periódico de consultas y propuestas",
+      "steps": [
+        "Se recogen los registros acordados del periodo.",
+        "Se calculan consultas, propuestas y estados según una definición común.",
+        "La IA prepara un resumen para que el equipo revise las cifras y decida acciones."
+      ]
+    },
+    "requirements": [
+      "Fuentes de datos y muestras de sus formatos.",
+      "Qué decisiones debe facilitar el informe.",
+      "Definición de indicadores y responsable de comprobarlos."
+    ],
+    "boundary": "El análisis no puede recuperar datos que no se registraron. Los comentarios de la IA pueden necesitar corrección y no equivalen a asesoramiento financiero ni a predicciones garantizadas.",
+    "priceScope": "Referencia para fuentes e indicadores acotados, un informe y una frecuencia acordada. Múltiples sistemas, históricos complejos o herramientas específicas amplían el alcance.",
+    "faqs": [
+      {
+        "q": "¿Podemos partir de nuestras hojas de cálculo?",
+        "a": "Sí, tras revisar estructura, calidad y permisos. A menudo hay que acordar una forma consistente de registrar los datos antes de automatizar el informe."
+      },
+      {
+        "q": "¿La IA calcula todas las cifras?",
+        "a": "Los indicadores se calculan y validan con procedimientos controlados. La IA puede ayudar a explicarlos y explorarlos, pero el texto generado no sustituye comprobar los números."
+      }
+    ],
+    "messagePrompt": "¿Qué datos reunís a mano y qué decisión te gustaría tomar con el informe?"
+  },
+  "webDevelopment": {
+    "name": "Webs con IA y automatizaciones",
+    "title": "Desarrollo web con IA y automatizaciones",
+    "description": "Webs a medida que conectan consultas, datos y procesos con IA o automatizaciones. Asistentes, peticiones guiadas e integraciones para tu negocio.",
+    "h1": "Desarrollo web que conecta la visita con el proceso del negocio",
+    "lead": "Construimos webs con una función operativa: orientar con IA, recoger peticiones útiles o activar un circuito interno. Definimos qué debe pasar después del formulario antes de diseñar las pantallas.",
+    "pains": [
+      "La web envía un correo y después todo se vuelve a introducir a mano.",
+      "El visitante tiene que explicar su necesidad varias veces.",
+      "Las peticiones no incluyen datos suficientes para continuar."
+    ],
+    "deliverables": [
+      {
+        "title": "Recorrido orientado a una acción",
+        "text": "Diseñamos contenido y pantallas alrededor de lo que necesita resolver el visitante: una consulta, una petición guiada o un proceso conectado."
+      },
+      {
+        "title": "IA o automatización útil",
+        "text": "Integramos el componente acordado: asistente con información aprobada, clasificación de consultas o conexión con la operativa del negocio."
+      },
+      {
+        "title": "Base para crecer",
+        "text": "Trabajamos estructura, accesibilidad, rendimiento y medición de pasos relevantes, documentando el circuito implementado."
+      }
+    ],
+    "example": {
+      "title": "Una web que recoge una petición con los datos adecuados",
+      "steps": [
+        "El visitante identifica el tipo de servicio que necesita.",
+        "Un recorrido guiado recoge requisitos y resuelve dudas con contenido aprobado.",
+        "La petición llega clasificada al circuito interno para que una persona la valore."
+      ]
+    },
+    "requirements": [
+      "El objetivo de la web y la acción principal.",
+      "Contenido, identidad visual e información comercial verificable.",
+      "Herramientas a conectar y responsable de los contenidos."
+    ],
+    "boundary": "Esta línea se centra en webs con IA o automatizaciones. Una tienda completa, un portal con permisos complejos o una aplicación operativa pueden necesitar alcance propio.",
+    "priceScope": "Referencia para una primera versión de la web con un proceso conectado o una función de IA definida. Pantallas, contenidos e integraciones condicionan el presupuesto.",
+    "faqs": [
+      {
+        "q": "¿Podéis mejorar una web existente?",
+        "a": "Sí. Revisamos si la plataforma admite la función y si el recorrido es aprovechable. Solo proponemos reconstruir cuando existen motivos concretos."
+      },
+      {
+        "q": "¿Incluye posicionar la web en primer lugar?",
+        "a": "No se pueden garantizar posiciones. Puede incluir estructura rastreable, contenido útil y medición, pero la visibilidad depende también de competencia, demanda y trabajo posterior."
+      }
+    ],
+    "messagePrompt": "¿Qué web tienes o quieres crear y qué proceso debe activar con IA o automatización?"
+  },
+  "applications": {
+    "name": "Aplicaciones de IA a medida",
+    "title": "Aplicaciones con IA a medida para empresas",
+    "description": "Aplicaciones a medida con IA, permisos y procesos conectados. Define una primera versión útil para tu equipo con alcance y costes orientativos.",
+    "h1": "Aplicaciones con IA a medida para el proceso que necesita tu equipo",
+    "lead": "Cuando una herramienta existente no encaja, definimos la aplicación alrededor del trabajo real: entradas, asistencia de IA, validación humana y resultados. Empezamos con una primera versión y un objetivo medible.",
+    "pains": [
+      "El proceso salta entre hojas, correos y herramientas sin una visión conjunta.",
+      "Las aplicaciones de catálogo obligan a mantener demasiado trabajo paralelo.",
+      "Necesitáis IA dentro de un proceso con usuarios, estados y permisos."
+    ],
+    "deliverables": [
+      {
+        "title": "Primera versión delimitada",
+        "text": "Traducimos el proceso a pantallas, roles y acciones. Priorizamos el recorrido que debe funcionar antes de incorporar funciones secundarias."
+      },
+      {
+        "title": "IA dentro del circuito",
+        "text": "Definimos qué propone el modelo, qué valida una persona y cómo se tratan los errores o la falta de información."
+      },
+      {
+        "title": "Operación y continuidad",
+        "text": "Acordamos despliegue, acceso, registro de incidencias, documentación y mantenimiento según las necesidades del proyecto."
+      }
+    ],
+    "example": {
+      "title": "Una aplicación para preparar y revisar expedientes",
+      "steps": [
+        "Una persona incorpora documentos y datos a un expediente.",
+        "La IA propone una clasificación y un resumen con elementos para revisar.",
+        "El responsable corrige, aprueba y cambia el estado con un registro de las acciones."
+      ]
+    },
+    "requirements": [
+      "Un proceso prioritario, sus usuarios y excepciones habituales.",
+      "Ejemplos de datos y del resultado esperado.",
+      "Criterios para decidir si la primera versión resuelve el problema."
+    ],
+    "boundary": "Una aplicación a medida necesita evolución y mantenimiento. Muchos perfiles, datos sensibles o integraciones pueden superar el rango de una primera versión delimitada.",
+    "priceScope": "Referencia para una primera versión con un proceso principal y una función de IA acotada. Permisos, datos y conexiones determinan el alcance final.",
+    "faqs": [
+      {
+        "q": "¿Cómo sabemos si hace falta desarrollar a medida?",
+        "a": "Primero comprobamos si las herramientas existentes pueden resolver el proceso. Tiene sentido cuando existe una necesidad específica que justifica construir y mantener una solución propia."
+      },
+      {
+        "q": "¿Qué ocurre después del lanzamiento?",
+        "a": "Documentamos el circuito y acordamos cómo gestionar incidencias y cambios. Se puede valorar mantenimiento mensual o soporte puntual presupuestado según el uso y criticidad."
+      }
+    ],
+    "messagePrompt": "¿Qué proceso debe resolver la aplicación y cuántas personas trabajarían en ella?"
+  },
+  "professional": {
+    "name": "IA para gestorías y despachos",
+    "title": "IA y automatización para gestorías y despachos",
+    "description": "Automatiza documentos, consultas internas y seguimientos con IA para gestorías y despachos profesionales. Procesos a medida con revisión humana.",
+    "h1": "IA para gestorías y despachos que trabajan con muchos documentos",
+    "lead": "Centramos la IA en el trabajo que rodea cada expediente: ordenar información, preparar datos y recuperar conocimiento. El criterio profesional y la revisión de casos siguen en manos de tu equipo.",
+    "pains": [
+      "La documentación llega por varios canales y cuesta saber qué falta.",
+      "El equipo repite preguntas sobre procedimientos ya documentados.",
+      "Los seguimientos de peticiones y presupuestos quedan repartidos entre personas."
+    ],
+    "deliverables": [
+      {
+        "title": "Entrada documental",
+        "text": "Diseñamos un circuito para clasificar documentos, extraer campos y revisar los casos incompletos antes de incorporarlos a un expediente."
+      },
+      {
+        "title": "Conocimiento del despacho",
+        "text": "Preparamos asistentes internos sobre procedimientos vigentes, con fuentes y permisos para no mezclar información de clientes o áreas."
+      },
+      {
+        "title": "Seguimientos visibles",
+        "text": "Acordamos avisos de documentación pendiente, próximas acciones y propuestas, deteniéndolos cuando el cliente responde o se cierra el caso."
+      }
+    ],
+    "example": {
+      "title": "Preparar un expediente al que le falta documentación",
+      "steps": [
+        "Llegan documentos de un cliente por el canal acordado.",
+        "El circuito los ordena y prepara una lista de elementos pendientes de revisión.",
+        "El responsable comprueba el expediente y aprueba solicitar la documentación que falta."
+      ]
+    },
+    "requirements": [
+      "Un tipo de expediente o proceso para empezar.",
+      "Reglas para separar clientes, perfiles y documentación.",
+      "Un responsable de validar el circuito y las respuestas."
+    ],
+    "boundary": "La IA no sustituye el asesoramiento fiscal, jurídico o profesional. La separación de datos, los permisos y las aprobaciones se definen para cada proceso.",
+    "priceScope": "El presupuesto depende de la solución elegida. Un circuito documental delimitado y un asistente con varios perfiles tienen alcances diferentes.",
+    "faqs": [
+      {
+        "q": "¿Podemos empezar por una parte del despacho?",
+        "a": "Sí. Un tipo de documento, una consulta interna o un seguimiento concreto permiten validar el encaje antes de extenderlo a otros equipos o expedientes."
+      },
+      {
+        "q": "¿Tenéis un producto para facturas recibidas?",
+        "a": "Sí: VBG Facturación es el producto propio que podemos mostrar. Para otros procesos estudiamos un proyecto a medida. Las demás situaciones de esta página son ejemplos ilustrativos."
+      }
+    ],
+    "messagePrompt": "¿Qué tipo de despacho sois y qué tarea documental o de seguimiento os ocupa más?"
+  },
+  "commerce": {
+    "name": "IA para comercios y negocios locales",
+    "title": "IA para comercios y negocios locales de Lleida",
+    "description": "IA y automatizaciones para comercios y negocios locales: consultas, citas e informes. Proyectos a medida desde Almenar para Lleida y toda España.",
+    "h1": "IA para comercios y negocios locales con muchas tareas a la vez",
+    "lead": "Te ayudamos a ordenar consultas y peticiones mientras atiendes el negocio. Elegimos un proceso concreto: responder dudas, recoger una cita o entender los datos que ya tienes, evitando añadir trabajo innecesario.",
+    "pains": [
+      "Las preguntas sobre servicios, horarios y condiciones interrumpen la atención.",
+      "Las peticiones llegan por web y WhatsApp y cuesta continuarlas.",
+      "No revisáis datos de consultas y reservas porque prepararlos lleva demasiado tiempo."
+    ],
+    "deliverables": [
+      {
+        "title": "Consultas orientadas",
+        "text": "Preparamos asistentes web o WhatsApp con información aprobada y un circuito para recoger peticiones y derivar excepciones."
+      },
+      {
+        "title": "Citas y recordatorios",
+        "text": "Conectamos la agenda cuando el negocio trabaja con reservas, definiendo duraciones, cambios y avisos según sus reglas."
+      },
+      {
+        "title": "Información para decidir",
+        "text": "Organizamos los datos disponibles de consultas o reservas y preparamos informes con indicadores definidos y comentarios de IA revisables."
+      }
+    ],
+    "example": {
+      "title": "Un negocio de servicios que recibe consultas mientras atiende",
+      "steps": [
+        "Una persona pregunta por un servicio desde el canal del negocio.",
+        "El asistente explica la información aprobada y recoge la necesidad.",
+        "El equipo recibe la petición con contexto y confirma la cita o el siguiente paso."
+      ]
+    },
+    "requirements": [
+      "El servicio o tarea repetitiva que quieres mejorar primero.",
+      "Información comercial vigente y un responsable de mantenerla.",
+      "El canal principal y las herramientas actuales del negocio."
+    ],
+    "boundary": "Disponibilidad, existencias y precios solo se confirman automáticamente con fuentes fiables e integraciones definidas.",
+    "priceScope": "El intervalo depende del proceso, los canales y las integraciones. Se puede comenzar con un circuito pequeño y valorar después su ampliación.",
+    "faqs": [
+      {
+        "q": "¿Es viable para un negocio pequeño?",
+        "a": "Depende del tiempo que ocupa la tarea, su frecuencia y el coste de implantar y mantener el circuito. Primero revisamos esos números: una plantilla o un cambio de proceso pueden bastar."
+      },
+      {
+        "q": "¿Solo trabajáis con negocios de Lleida?",
+        "a": "Somos de Almenar y priorizamos la proximidad a Lleida y el Segrià. También trabajamos con negocios de toda España y acordamos formato presencial o remoto según el proyecto."
+      }
+    ],
+    "messagePrompt": "¿Qué negocio tienes y qué tarea te interrumpe más a menudo?"
+  }
+}

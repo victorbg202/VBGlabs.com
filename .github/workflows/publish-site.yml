@@ -51,6 +51,8 @@ jobs:
       - name: Copy generated site to repository root
         shell: bash
         run: |
+          # Temporary server bundles are not part of the public static site.
+          rm -rf dist/.prerender
           if [ -d _astro ]; then
             while IFS= read -r -d '' file; do
               if [ ! -e "dist/$file" ]; then

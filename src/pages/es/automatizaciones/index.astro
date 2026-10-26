@@ -2,12 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
-import FeatureGrid from '@/components/FeatureGrid.astro';
 import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
+import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -47,29 +47,7 @@ const locale = 'es' as const;
     </div>
   </section>
 
-  <section class="section section--tight bg-alt">
-    <div class="container">
-      <SectionHeader
-        eyebrow="DÓNDE SUELE TENER SENTIDO"
-        title="Casos habituales que trabajamos"
-        lede="No trabajamos con un catálogo cerrado de 'productos'. Cada automatización se diseña para tu proceso concreto, pero estos son los tipos de trabajo que suelen tener más recorrido."
-      />
-      <FeatureGrid
-        columns={3}
-        items={[
-          { icon: 'documents', title: 'Gestión documental', description: 'Facturas, albaranes o contratos que llegan por correo y hay que clasificar, archivar o introducir en un sistema.' },
-          { icon: 'invoicing', title: 'Facturas y pagos', description: 'Desde recibirlas hasta detectar duplicados, aprobarlas y tener los informes fiscales a punto.' },
-          { icon: 'messages', title: 'Comunicaciones con clientes', description: 'Centralizar WhatsApp, correo y redes en un solo sitio, con respuestas automáticas para las consultas repetitivas.' },
-          { icon: 'reminders', title: 'Recordatorios y seguimientos', description: 'Citas, pagos pendientes o renovaciones que necesitan un aviso a tiempo, sin que nadie tenga que acordarse.' },
-          { icon: 'users', title: 'Seguimiento comercial', description: 'Saber en qué punto está cada cliente u oportunidad sin tener que reconstruirlo de memoria cada vez.' },
-          { icon: 'dashboard', title: 'Dashboards e informes', description: 'Ver de un vistazo cómo va el negocio, en lugar de montar el informe a mano cada mes.' },
-          { icon: 'sparkle', title: 'Asistentes con IA', description: 'Un primer punto de contacto que responde preguntas habituales y solo escala a una persona cuando hace falta.' },
-          { icon: 'automation', title: 'Sincronización de herramientas', description: 'Que las herramientas que ya usas se hablen entre ellas, sin copiar datos de una a otra.' },
-          { icon: 'consulting', title: 'Software a medida', description: 'Cuando ninguna herramienta existente encaja lo bastante bien y vale la pena construir algo hecho a tu medida.' },
-        ]}
-      />
-    </div>
-  </section>
+  <SolutionCatalog locale={locale} anchor="solucions" />
 
   <section class="section">
     <div class="container">

@@ -60,7 +60,7 @@ export const ui = {
       phonePlaceholder: 'Opcional',
       interest: "T'interessa",
       interestDefault: 'Selecciona una opció',
-      message: 'Explica nʼens el cas',
+      message: 'Explica’ns el cas',
       messagePlaceholder: 'Què t’agradaria millorar o automatitzar?',
       privacy: 'He llegit i accepto la',
       privacyLink: 'política de privacitat',

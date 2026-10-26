@@ -13,6 +13,8 @@ import BlogCard from '@/components/BlogCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Icon from '@/components/Icon.astro';
+import SolutionCatalog from '@/components/SolutionCatalog.astro';
+import { SOLUTION_UI } from '@/data/solutions/ui';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 import { getCollection } from 'astro:content';
@@ -91,6 +93,10 @@ const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long'
       </div>
     </div>
   </section>
+
+  <SolutionCatalog locale={locale} ids={['documents','knowledge','whatsapp']} />
+  <div class="container"><a class="btn btn-outline" href={`${route('services',locale)}#solucions`}>{SOLUTION_UI[locale].browse}</a></div>
+
 
   <section class="section">
     <div class="container">

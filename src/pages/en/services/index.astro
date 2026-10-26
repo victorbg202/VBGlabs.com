@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { route } from '@/i18n/routes';
 
 const locale = 'en' as const;
@@ -11,14 +12,14 @@ const locale = 'en' as const;
 <BaseLayout
   locale={locale}
   routeKey="services"
-  title="Services — Automation, consulting, training and software"
-  description="Automation, AI consulting, team training and VBG Invoicing. Pick what your business actually needs right now."
+  title="AI and automation services for small businesses"
+  description="Document assistants, WhatsApp, appointments, reports and AI applications. Find a solution for your business with scope and indicative implementation costs."
 >
   <PageHero
     locale={locale}
     eyebrow="SERVICES"
-    title="Four ways to work with VBG Labs"
-    lede="We don't sell a fixed bundle. Depending on where your business is right now, you might just need a consulting session, a specific automation, or a ready-made product like VBG Invoicing."
+    title="AI solutions for your everyday business workflows"
+    lede="Start with a specific need: documents, enquiries, appointments or data. We can assess the process, build a custom solution or train your team."
     crumb={{ name: 'Services', path: route('services', locale) }}
   />
 
@@ -26,12 +27,15 @@ const locale = 'en' as const;
     <div class="container">
       <div class="grid-4">
         <ServiceCard headingLevel="h2" icon="automation" title="Automation" description="Processes, documents and repetitive tasks that start running on their own." href={route('automations', locale)} linkLabel="See automation" />
-        <ServiceCard headingLevel="h2" icon="consulting" title="Consulting" description="An outside, technical view of how your business runs, and what's worth changing." href={route('consulting', locale)} linkLabel="See consulting" />
+        <ServiceCard headingLevel="h2" icon="consulting" title="Consulting" description="An assessment of AI and automation opportunities, with clear priorities and a roadmap." href={route('consulting', locale)} linkLabel="See consulting" />
         <ServiceCard headingLevel="h2" icon="training" title="Training" description="So your team learns to get real value from AI, day to day." href={route('training', locale)} linkLabel="See training" />
         <ServiceCard headingLevel="h2" icon="invoicing" title="VBG Invoicing" description="Our own product for managing received invoices, with AI built in." href={route('invoicing', locale)} linkLabel="See the product" accent />
       </div>
     </div>
   </section>
+
+  <SolutionCatalog locale={locale} anchor="solucions" />
+  <SolutionCatalog locale={locale} kind="sector" anchor="sectors" />
 
   <section class="section section--tight bg-alt">
     <div class="container">

@@ -25,6 +25,14 @@ export const SERVICE_PRICING = {
   ongoingSupport: { min: 120, max: null, unit: 'month' } satisfies PriceBand,
 };
 
+/** Approved indicative implementation ranges; external services are billed separately. */
+export const SOLUTION_PRICING = {
+  focused: { min: 750, max: 1500, unit: 'flat' } satisfies PriceBand,
+  connected: { min: 1500, max: 3500, unit: 'flat' } satisfies PriceBand,
+  knowledge: { min: 1500, max: 4500, unit: 'flat' } satisfies PriceBand,
+  custom: { min: 2500, max: 7500, unit: 'flat' } satisfies PriceBand,
+};
+
 export type InvoicingPlan = {
   id: 'starter' | 'pro' | 'business';
   price: number; // €/month, ex VAT

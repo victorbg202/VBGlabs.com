@@ -2,12 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
-import FeatureGrid from '@/components/FeatureGrid.astro';
 import BeforeAfterRow from '@/components/BeforeAfterRow.astro';
 import PriceStrip from '@/components/PriceStrip.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import ServiceSchema from '@/components/schema/ServiceSchema.astro';
+import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { route } from '@/i18n/routes';
 import { SERVICE_PRICING } from '@/data/pricing';
 
@@ -47,29 +47,7 @@ const locale = 'en' as const;
     </div>
   </section>
 
-  <section class="section section--tight bg-alt">
-    <div class="container">
-      <SectionHeader
-        eyebrow="WHERE IT USUALLY PAYS OFF"
-        title="Common cases we work on"
-        lede="We don't work from a fixed catalog of 'products.' Every automation is designed for your specific process, but these are the kinds of work that usually have the most to gain."
-      />
-      <FeatureGrid
-        columns={3}
-        items={[
-          { icon: 'documents', title: 'Document handling', description: 'Invoices, delivery notes or contracts that arrive by email and need sorting, filing or entering into a system.' },
-          { icon: 'invoicing', title: 'Invoices and payments', description: 'From receiving them to flagging possible duplicates, approving them, and having tax reports ready.' },
-          { icon: 'messages', title: 'Customer communication', description: 'Bringing WhatsApp, email and social messages into one place, with automatic replies for repeat questions.' },
-          { icon: 'reminders', title: 'Reminders and follow-ups', description: 'Appointments, pending payments or renewals that need a timely nudge, without anyone having to remember.' },
-          { icon: 'users', title: 'Sales follow-up', description: "Knowing where every customer or deal stands without rebuilding the picture from memory each time." },
-          { icon: 'dashboard', title: 'Dashboards and reporting', description: 'Seeing how the business is doing at a glance, instead of building the report by hand every month.' },
-          { icon: 'sparkle', title: 'AI assistants', description: 'A first point of contact that answers common questions and only escalates to a person when it should.' },
-          { icon: 'automation', title: 'Tool synchronization', description: 'Getting the tools you already use to talk to each other, without copying data between them by hand.' },
-          { icon: 'consulting', title: 'Custom software', description: "When no existing tool fits well enough and it's worth building something made specifically for you." },
-        ]}
-      />
-    </div>
-  </section>
+  <SolutionCatalog locale={locale} anchor="solucions" />
 
   <section class="section">
     <div class="container">

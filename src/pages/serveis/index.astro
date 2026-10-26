@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { route } from '@/i18n/routes';
 
 const locale = 'ca' as const;
@@ -11,14 +12,14 @@ const locale = 'ca' as const;
 <BaseLayout
   locale={locale}
   routeKey="services"
-  title="Serveis — Automatització, consultoria, formació i software"
-  description="Automatitzacions, consultoria d'IA, formació per a equips i VBG Facturació. Tria segons el que necessita el teu negoci ara mateix."
+  title="Serveis d’IA i automatització per a pimes"
+  description="Assistents amb documents, WhatsApp, cites, informes i aplicacions amb IA. Troba la solució per al teu negoci i consulta’n l’abast i els preus orientatius."
 >
   <PageHero
     locale={locale}
     eyebrow="SERVEIS"
-    title="Quatre maneres de treballar amb VBG Labs"
-    lede="No et venem un paquet tancat. Segons on estigui el teu negoci ara mateix, potser només necessites una consultoria, potser una automatització concreta, o potser un producte ja fet com VBG Facturació."
+    title="Solucions d’IA per a la feina del teu negoci"
+    lede="Comença per una necessitat concreta: documents, consultes, cites o dades. Podem estudiar el procés amb una consultoria, implementar una solució a mida o formar el teu equip."
     crumb={{ name: 'Serveis', path: route('services', locale) }}
   />
 
@@ -35,7 +36,7 @@ const locale = 'ca' as const;
         <ServiceCard headingLevel="h2"
           icon="consulting"
           title="Consultoria"
-          description="Una mirada externa i tècnica sobre com treballa el teu negoci i què val la pena canviar."
+          description="Un diagnòstic d’oportunitats d’IA i automatització, amb prioritats i un full de ruta."
           href={route('consulting', locale)}
           linkLabel="Veure consultoria"
         />
@@ -58,12 +59,15 @@ const locale = 'ca' as const;
     </div>
   </section>
 
+  <SolutionCatalog locale={locale} anchor="solucions" />
+  <SolutionCatalog locale={locale} kind="sector" anchor="sectors" />
+
   <section class="section section--tight bg-alt">
     <div class="container">
       <SectionHeader
         eyebrow="COM TRIAR"
         title="Si no ho tens clar, comença per una consultoria"
-        lede="Una consultoria breu (350–650€ + IVA) et dona un diagnòstic i un full de ruta priortizat abans de gastar res en implementació. A partir d'aquí decideixes si vols que ho construïm nosaltres."
+        lede="Una consultoria breu (350–650€ + IVA) et dona un diagnòstic i un full de ruta prioritzat abans de gastar res en implementació. A partir d'aquí decideixes si vols que ho construïm nosaltres."
       />
     </div>
   </section>

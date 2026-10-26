@@ -1,0 +1,8 @@
+---
+import SolutionPage from '@/components/SolutionPage.astro';
+import { solutionPages, type SolutionId } from '@/data/solutions/catalog';
+export function getStaticPaths() { return solutionPages('es', 'service'); }
+interface Props { id: SolutionId; }
+const {id} = Astro.props;
+---
+<SolutionPage id={id} locale="es" />

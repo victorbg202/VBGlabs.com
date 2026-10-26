@@ -7,10 +7,17 @@ import { COMPANY } from '@/data/company';
 interface Props {
   locale: Locale;
   id?: string;
+  compact?: boolean;
+  interest?: string;
+  contextLabel?: string;
+  sourcePath?: string;
+  sector?: string;
+  messagePlaceholder?: string;
 }
 
-const { locale, id = 'contact-form' } = Astro.props;
+const { locale, id = 'contact-form', compact = false, interest = '', contextLabel = '', sourcePath = Astro.url.pathname, sector = '', messagePlaceholder } = Astro.props;
 const ui = t(locale);
+const validationMsg = {ca:'Revisa els camps obligatoris, el correu i l’acceptació de privacitat.',es:'Revisa los campos obligatorios, el correo y la aceptación de privacidad.',en:'Check the required fields, email address and privacy acknowledgement.'}[locale];
 
 const interestOptions: Record<Locale, { value: string; label: string }[]> = {
   ca: [
@@ -39,10 +46,15 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
   ],
 };
 ---
-<form id={id} class="contact-form" action={`https://formsubmit.co/ajax/${COMPANY.email}`} method="POST" novalidate>
-  <input type="hidden" name="_subject" value="Nova sol·licitud — vbglabs.com" />
+<form id={id} class:list={['contact-form',{'contact-form--compact':compact}]} action={`https://formsubmit.co/ajax/${COMPANY.email}`} method="POST" novalidate>
+  <input type="hidden" name="_subject" value={`Nova sol·licitud — ${contextLabel || 'vbglabs.com'}`} />
   <input type="hidden" name="_template" value="table" />
   <input type="hidden" name="_captcha" value="true" />
+  <input type="hidden" name="source_page" value={sourcePath} />
+  <input type="hidden" name="page_language" value={locale} />
+  {contextLabel && <input type="hidden" name="solution_name" value={contextLabel} />}
+  {sector && <input type="hidden" name="sector" value={sector} />}
+  {compact && <input type="hidden" name="interest" value={interest} />}
 
   {/* Honeypot: hidden from sighted/keyboard users via CSS + tabindex,
       labelled so screen readers understand it's not for them either. */}
@@ -56,10 +68,10 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
       <label for={`${id}-name`}>{ui.form.name} <span class="req">*</span></label>
       <input type="text" id={`${id}-name`} name="name" required autocomplete="name" placeholder={ui.form.namePlaceholder} />
     </div>
-    <div class="field">
+    {!compact && <div class="field">
       <label for={`${id}-company`}>{ui.form.company}</label>
       <input type="text" id={`${id}-company`} name="company" autocomplete="organization" placeholder={ui.form.companyPlaceholder} />
-    </div>
+    </div>}
   </div>
 
   <div class="contact-form__row">
@@ -67,23 +79,23 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
       <label for={`${id}-email`}>{ui.form.email} <span class="req">*</span></label>
       <input type="email" id={`${id}-email`} name="email" required autocomplete="email" placeholder={ui.form.emailPlaceholder} />
     </div>
-    <div class="field">
+    {!compact && <div class="field">
       <label for={`${id}-phone`}>{ui.form.phone}</label>
       <input type="tel" id={`${id}-phone`} name="phone" autocomplete="tel" placeholder={ui.form.phonePlaceholder} />
-    </div>
+    </div>}
   </div>
 
-  <div class="field">
+  {!compact && <div class="field">
     <label for={`${id}-interest`}>{ui.form.interest}</label>
     <select id={`${id}-interest`} name="interest">
       <option value="">{ui.form.interestDefault}</option>
-      {interestOptions[locale].map((o) => <option value={o.value}>{o.label}</option>)}
+      {interestOptions[locale].map((o) => <option value={o.value} selected={o.value===interest}>{o.label}</option>)}
     </select>
-  </div>
+  </div>}
 
   <div class="field">
     <label for={`${id}-message`}>{ui.form.message} <span class="req">*</span></label>
-    <textarea id={`${id}-message`} name="message" rows="4" required placeholder={ui.form.messagePlaceholder}></textarea>
+    <textarea id={`${id}-message`} name="message" rows="4" required placeholder={messagePlaceholder ?? ui.form.messagePlaceholder}></textarea>
   </div>
 
   <div class="field field--checkbox">
@@ -118,6 +130,10 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
     grid-template-columns: 1fr;
     gap: var(--space-3);
   }
+
+  .contact-form--compact .contact-form__row { grid-template-columns: minmax(0,1fr); }
+  .contact-form--compact .field input:not([type='checkbox']),
+  .contact-form--compact .field textarea { min-width: 0; width: 100%; }
 
   @media (min-width: 560px) {
     .contact-form__row {
@@ -186,6 +202,7 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
   }
 
   .field--checkbox label {
+    min-width: 0;
     font-weight: 400;
     font-size: var(--text-sm);
     color: var(--muted);
@@ -262,7 +279,7 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
   }
 </style>
 
-<script is:inline define:vars={{ successMsg: ui.form.success, errorMsg: ui.form.error, invalidEmailMsg: ui.form.invalidEmail, sendingLabel: ui.form.sending, submitLabel: ui.form.submit, formId: id }}>
+<script is:inline define:vars={{ successMsg: ui.form.success, errorMsg: ui.form.error, validationMsg, sendingLabel: ui.form.sending, submitLabel: ui.form.submit, formId: id }}>
   const form = document.getElementById(formId);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (form instanceof HTMLFormElement) {
@@ -286,7 +303,7 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
 
       if (!form.checkValidity()) {
         form.querySelectorAll('input, textarea').forEach((el) => el.setAttribute('data-touched', 'true'));
-        status.textContent = invalidEmailMsg;
+        status.textContent = validationMsg;
         status.dataset.state = 'error';
         form.classList.remove('is-invalid');
         void form.offsetWidth; // force reflow so the shake replays on repeated invalid submits
@@ -308,12 +325,16 @@ const interestOptions: Record<Locale, { value: string; label: string }[]> = {
           headers: { Accept: 'application/json' },
         });
         if (!res.ok) throw new Error('bad status');
+        const result = await res.json();
+        if (result.success !== true && result.success !== 'true') throw new Error('submission not accepted');
         status.textContent = successMsg;
         status.dataset.state = 'success';
-        const interest = form.querySelector('select[name="interest"]');
+        const interest = form.querySelector('[name="interest"]');
+        const sourcePage = form.querySelector('[name="source_page"]');
         window.vbgTrackEvent?.('generate_lead', {
           lead_source: 'website_contact_form',
-          service_interest: interest instanceof HTMLSelectElement && interest.value ? interest.value : 'unspecified',
+          service_interest: (interest instanceof HTMLSelectElement || interest instanceof HTMLInputElement) && interest.value ? interest.value : 'unspecified',
+          source_page: sourcePage instanceof HTMLInputElement ? sourcePage.value : location.pathname,
           form_id: form.id,
           page_language: document.documentElement.lang,
         });

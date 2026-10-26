@@ -1,0 +1,46 @@
+---
+import type { Locale } from '@/i18n/locales';
+import { SOLUTION_IDS, DEFINITIONS, solutionContent, solutionPath, type SolutionId } from '@/data/solutions/catalog';
+import { SOLUTION_UI } from '@/data/solutions/ui';
+import { SOLUTION_PRICING, formatPriceBand } from '@/data/pricing';
+interface Props { locale: Locale; kind?: 'service' | 'sector'; ids?: SolutionId[]; heading?: string; lede?: string; anchor?: string; }
+const {locale, kind='service', ids, heading, lede, anchor} = Astro.props;
+const ui = SOLUTION_UI[locale];
+const selected = ids ?? SOLUTION_IDS.filter(id => DEFINITIONS[id].kind === kind);
+---
+<section class="solution-catalog section" id={anchor}>
+  <div class="container">
+    <div class="catalog-intro">
+      <p class="eyebrow">{kind === 'sector' ? ui.sectors : ui.services}</p>
+      <h2>{heading ?? (kind === 'sector' ? ui.sectorTitle : ui.catalogTitle)}</h2>
+      {lede !== '' && <p class="lede">{lede ?? (kind === 'sector' ? ui.sectorLede : ui.catalogLede)}</p>}
+    </div>
+    <div class="solution-grid">
+      {selected.map(id => {
+        const item = solutionContent(id,locale);
+        const definition = DEFINITIONS[id];
+        return <article class="solution-card">
+          <h3><a href={solutionPath(id,locale)}>{item.name}</a></h3>
+          <p>{item.lead}</p>
+          {definition.price && <p class="solution-card__price">{formatPriceBand(SOLUTION_PRICING[definition.price],locale)}</p>}
+          <a class="solution-card__link" href={solutionPath(id,locale)}>{definition.kind === 'sector' ? ui.sectorRead : ui.read}<span aria-hidden="true"> →</span></a>
+        </article>;
+      })}
+    </div>
+  </div>
+</section>
+<style>
+  .solution-catalog { scroll-margin-top: 100px; }
+  .catalog-intro { max-width: 760px; margin-bottom: var(--space-5); }
+  .catalog-intro h2 { font-size: var(--text-2xl); margin: var(--space-2) 0; text-wrap: balance; }
+  .solution-grid { display:grid; grid-template-columns: minmax(0,1fr); gap:var(--space-3); }
+  .solution-card { min-width:0; background:var(--white); border:1px solid var(--line); border-radius:var(--radius-md); padding:var(--space-4); display:flex; flex-direction:column; align-items:flex-start; }
+  .solution-card h3 { font-size:var(--text-lg); line-height:1.3; margin-bottom:var(--space-2); overflow-wrap:break-word; }
+  .solution-card h3 a { color:var(--ink); text-decoration:none; }
+  .solution-card h3 a:hover { color:var(--red); text-decoration:underline; }
+  .solution-card > p { font-size:var(--text-sm); color:var(--ink-soft); }
+  .solution-card .solution-card__price { margin-top:auto; padding-top:var(--space-3); font-weight:600; color:var(--ink); }
+  .solution-card__link { margin-top:var(--space-3); color:var(--red); font-weight:600; font-size:var(--text-sm); }
+  @media (min-width:700px) { .solution-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (min-width:1080px) { .solution-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+</style>

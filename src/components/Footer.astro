@@ -2,6 +2,7 @@
 import { t } from '@/i18n/ui';
 import type { Locale } from '@/i18n/locales';
 import { route } from '@/i18n/routes';
+import { SOLUTION_UI } from '@/data/solutions/ui';
 import { ANALYTICS, COMPANY, PHONE, SOCIAL_PROFILES } from '@/data/company';
 
 interface Props {
@@ -13,6 +14,8 @@ const ui = t(locale);
 const year = new Date().getFullYear();
 
 const serviceLinks = [
+  { href: `${route('services', locale)}#solucions`, label: SOLUTION_UI[locale].services },
+  { href: `${route('services', locale)}#sectors`, label: SOLUTION_UI[locale].sectors },
   { href: route('automations', locale), label: ui.nav.automations },
   { href: route('consulting', locale), label: ui.nav.consulting },
   { href: route('training', locale), label: ui.nav.training },

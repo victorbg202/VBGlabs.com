@@ -1,0 +1,626 @@
+{
+  "documents": {
+    "name": "AI document processing",
+    "title": "AI document processing for small businesses",
+    "description": "Extract document data, classify files and connect them to your tools. Custom AI document automation with validation and human review.",
+    "h1": "AI document processing that reduces manual data entry",
+    "lead": "Turn incoming documents into organised information: read them, extract fields, check the results and send them to the right place. We define which exceptions a person must review.",
+    "pains": [
+      "Staff copy PDF, delivery note or form data into the same spreadsheet.",
+      "Documents arrive in different formats and are hard to find later.",
+      "Missing information is discovered only after someone has used it."
+    ],
+    "deliverables": [
+      {
+        "title": "Reading and extraction",
+        "text": "We identify useful fields and choose OCR or AI extraction based on actual document formats, quality and volume."
+      },
+      {
+        "title": "Validation and exceptions",
+        "text": "We agree required fields, checks and the conditions that send a document to a review queue."
+      },
+      {
+        "title": "Delivery to your tools",
+        "text": "We connect the output to the agreed spreadsheet, folder or application after checking permissions and integration options."
+      }
+    ],
+    "example": {
+      "title": "From an incoming delivery note to a receiving record",
+      "steps": [
+        "A PDF arrives in the business intake folder.",
+        "Supplier, date and references are extracted; uncertain data goes for review.",
+        "A record is prepared with a link back to the original document."
+      ]
+    },
+    "requirements": [
+      "Representative samples, including difficult documents.",
+      "Required fields and a definition of a correct result.",
+      "The destination system and the person responsible for exceptions."
+    ],
+    "boundary": "Poor scans and unfamiliar formats can produce errors. Document validation does not replace accounting or tax review and does not authorise payments.",
+    "priceScope": "Indicative scope: one document family, one review workflow and one destination. Extra formats or integrations may increase the project cost.",
+    "faqs": [
+      {
+        "q": "Can you process scanned documents?",
+        "a": "We assess real samples. Resolution, handwriting, tables and changing formats affect extraction. The pilot must also reveal errors and the human review that will still be needed."
+      },
+      {
+        "q": "How is this different from VBG Invoicing?",
+        "a": "VBG Invoicing is our own product for managing supplier invoices. This service covers custom document types or workflows. If the existing product already fits, we recommend it before building something new."
+      }
+    ],
+    "messagePrompt": "Which documents do you receive, how often, and where do you copy their data?"
+  },
+  "email": {
+    "name": "AI email automation",
+    "title": "AI email automation for business teams",
+    "description": "Classify emails, identify requests and prepare drafts with AI. Custom email workflows with rules, oversight and connections to your existing tools.",
+    "h1": "AI email automation that turns messages into organised requests",
+    "lead": "We help separate enquiries, documents and tasks arriving by email. AI can classify messages and prepare replies; you decide what can be sent automatically and what needs approval.",
+    "pains": [
+      "Several people check the same inbox and duplicate replies.",
+      "Important requests get mixed with alerts and repetitive messages.",
+      "After reading an email, staff still copy its information into another tool."
+    ],
+    "deliverables": [
+      {
+        "title": "Useful categories",
+        "text": "We define categories around actual work: quote requests, issues, missing documents and enquiries for another team member."
+      },
+      {
+        "title": "Drafts with oversight",
+        "text": "Replies use approved information, separating repeatable cases from messages that require a decision."
+      },
+      {
+        "title": "Connected actions",
+        "text": "We assess how to log a request, assign an owner or extract an attachment while keeping the original message context."
+      }
+    ],
+    "example": {
+      "title": "A sales enquiry in a shared inbox",
+      "steps": [
+        "An email asks for information about a service.",
+        "The system identifies the request and prepares any questions needed to answer it.",
+        "A person approves the draft and the next action is recorded."
+      ]
+    },
+    "requirements": [
+      "Common message types and useful categories.",
+      "Anonymised examples of good replies and sensitive cases.",
+      "Inbox access permissions and a workflow owner."
+    ],
+    "boundary": "Start with drafts and reversible actions. Commercial commitments, sensitive complaints and important data changes need specific rules and oversight.",
+    "priceScope": "Indicative scope: one inbox, defined categories and one action workflow. Additional connections and knowledge sources are assessed separately.",
+    "faqs": [
+      {
+        "q": "Will AI send messages without me seeing them?",
+        "a": "Only where expressly agreed for a limited use case. We can begin with drafts approved by your team and expand the automation after checking its results."
+      },
+      {
+        "q": "Can you connect our existing email?",
+        "a": "We check the provider, account type and permissions before quoting. Different inboxes do not necessarily support the same actions."
+      }
+    ],
+    "messagePrompt": "Which inbox do you use, and which requests take the most time?"
+  },
+  "knowledge": {
+    "name": "Company-document assistants",
+    "title": "AI assistants for your company documents",
+    "description": "Internal AI and RAG assistants for procedures, manuals and catalogues. Identifiable sources, access permissions and tests with your team’s questions.",
+    "h1": "An AI assistant that searches your company documents",
+    "lead": "Give your team a place to consult selected manuals, procedures and catalogues. We prepare the sources, access rules and tests so the origin of each answer can be checked.",
+    "pains": [
+      "An answer exists in a document, but nobody remembers the folder.",
+      "Every new colleague asks the same person the same questions.",
+      "Conflicting versions of internal procedures circulate."
+    ],
+    "deliverables": [
+      {
+        "title": "Selected knowledge",
+        "text": "We inventory useful sources, identify current versions and set up document retrieval with RAG rather than training a model from scratch."
+      },
+      {
+        "title": "Checkable answers",
+        "text": "We configure references to retrieved passages and agree what happens when information is missing or conflicting."
+      },
+      {
+        "title": "Access and evaluation",
+        "text": "We define who can consult each source and test real questions, including those the system should not answer."
+      }
+    ],
+    "example": {
+      "title": "Finding an internal procedure without searching every folder",
+      "steps": [
+        "A team member asks how to handle a special return.",
+        "The assistant searches procedures authorised for that user’s role.",
+        "An answer includes references so the current source document can be checked."
+      ]
+    },
+    "requirements": [
+      "Digital documents and someone who can identify the current version.",
+      "User roles and knowledge access rules.",
+      "Common questions and examples of incorrect answers."
+    ],
+    "boundary": "RAG helps ground answers but does not eliminate mistakes. Outdated sources, access rules and unanswered questions are part of the evaluation.",
+    "priceScope": "Indicative scope: a bounded document collection, one consultation environment and defined permissions. Multiple sources or complex access requirements add scope.",
+    "faqs": [
+      {
+        "q": "Do we need to upload every company document?",
+        "a": "No. Start with a useful, current and bounded collection. We decide what to include, what to exclude and how to update sources before expanding the system."
+      },
+      {
+        "q": "Can you guarantee it will never invent an answer?",
+        "a": "No. We use sources, references, answer boundaries and realistic tests. Important decisions still need an appropriate check."
+      }
+    ],
+    "messagePrompt": "Which documents should the assistant consult, and who would use it?"
+  },
+  "webAssistant": {
+    "name": "Website AI chatbots",
+    "title": "AI chatbots and assistants for your website",
+    "description": "A website assistant that answers questions, guides visitors and collects enquiries with context. Custom implementation with handover to your team.",
+    "h1": "AI chatbots that guide visitors on your website",
+    "lead": "Help visitors find the service or information they need. The assistant uses content you approve and can gather a useful enquiry when a person needs to continue the conversation.",
+    "pains": [
+      "Visitors leave with unanswered questions about your services.",
+      "Enquiries arrive without enough context to understand the need.",
+      "A couple of questions would make incoming form messages more useful."
+    ],
+    "deliverables": [
+      {
+        "title": "Approved business information",
+        "text": "We prepare answers about services, terms and common questions from sources you review and maintain."
+      },
+      {
+        "title": "Useful enquiries",
+        "text": "We design the minimum questions needed to understand the request and collect only the details your team needs to reply."
+      },
+      {
+        "title": "Handover with context",
+        "text": "We agree how enquiries reach a person and what happens when the assistant cannot answer or the case is outside its scope."
+      }
+    ],
+    "example": {
+      "title": "A visitor who does not know which service to choose",
+      "steps": [
+        "They ask whether you can help with a particular business task.",
+        "The assistant clarifies the need with brief questions and approved information.",
+        "The visitor submits an enquiry with enough context for a personal reply."
+      ]
+    },
+    "requirements": [
+      "Reviewed service information and business terms.",
+      "Technical access to integrate the assistant into the website.",
+      "An enquiry destination and handover criteria."
+    ],
+    "boundary": "The assistant must not invent prices, availability or commitments. Bookings, binding quotes and private-data enquiries require additional integrations and validation.",
+    "priceScope": "Indicative scope: one website, a bounded knowledge source and one enquiry workflow. Internal business integrations are quoted according to scope.",
+    "faqs": [
+      {
+        "q": "Can it work on my existing website?",
+        "a": "We review the platform and integration options. Often a component can be added to an existing site without rebuilding it."
+      },
+      {
+        "q": "Can it provide an automatic quote?",
+        "a": "It can explain approved price ranges or gather requirements. Issuing a specific offer requires defined rules, current data and approval conditions."
+      }
+    ],
+    "messagePrompt": "What is your website, and which questions should the assistant handle?"
+  },
+  "whatsapp": {
+    "name": "WhatsApp with AI",
+    "title": "WhatsApp AI chatbots for businesses",
+    "description": "Handle WhatsApp enquiries with AI, collect requests and hand conversations to your team. Custom integration with platform costs billed separately.",
+    "h1": "WhatsApp with AI that understands your business context",
+    "lead": "We prepare a workflow for common questions, incoming requests and human handover. Channel access, information sources and connection requirements are checked before implementation.",
+    "pains": [
+      "The same service and opening-hour questions interrupt the day.",
+      "Conversations stay on a phone and pending requests are hard to track.",
+      "An appointment or information request gets lost among other messages."
+    ],
+    "deliverables": [
+      {
+        "title": "Answers based on sources",
+        "text": "We define what the assistant can explain about your business and how its information is maintained."
+      },
+      {
+        "title": "Structured requests",
+        "text": "Questions identify the need, prepare an enquiry or send it to the agreed appointment workflow."
+      },
+      {
+        "title": "Handover to your team",
+        "text": "We define when a person takes over, what context they receive and how automated replies stop while they handle the case."
+      }
+    ],
+    "example": {
+      "title": "A service request when staff are busy",
+      "steps": [
+        "A customer asks about a service in your catalogue.",
+        "The assistant answers basic questions and collects the required details.",
+        "Your team receives the context and confirms the next step."
+      ]
+    },
+    "requirements": [
+      "Your intended account and number to assess technical compatibility.",
+      "Approved answers and current service information.",
+      "Someone responsible for handed-over conversations."
+    ],
+    "boundary": "Connection and messaging depend on WhatsApp and the chosen providers. Outgoing messages must follow applicable permission and platform requirements.",
+    "priceScope": "Indicative scope: one channel, a bounded information source and one handover workflow. Platform, messaging and AI usage costs are billed separately.",
+    "faqs": [
+      {
+        "q": "Can I keep my existing number?",
+        "a": "We assess the account type, available connection and provider. We do not promise a particular migration or coexistence arrangement before reviewing your setup."
+      },
+      {
+        "q": "Can it confirm appointments or orders?",
+        "a": "It can collect requests. Confirmation requires a reliable availability or status source, with the integration and rules expressly included in the project."
+      }
+    ],
+    "messagePrompt": "How do you use WhatsApp today, and which enquiries would you automate?"
+  },
+  "appointments": {
+    "name": "Appointments and reminders",
+    "title": "Appointment and reminder automation for businesses",
+    "description": "Connect requests, calendars and reminders with a custom workflow. Reduce manual appointment administration with defined rules for changes and exceptions.",
+    "h1": "Automate your business appointments and reminders",
+    "lead": "We connect incoming requests to your calendar and agreed notifications. We define what can be confirmed, how changes are handled and when someone must intervene.",
+    "pains": [
+      "Every appointment needs several messages to confirm a time.",
+      "Staff send reminders manually when they remember.",
+      "Changes arrive through different channels and the calendar becomes outdated."
+    ],
+    "deliverables": [
+      {
+        "title": "A booking workflow",
+        "text": "We agree services, durations, availability and resources before connecting the form, calendar or request channel."
+      },
+      {
+        "title": "Consistent notifications",
+        "text": "Confirmations and reminders use agreed content, timing and channels, with checks for duplicate sends."
+      },
+      {
+        "title": "Changes and exceptions",
+        "text": "We document cancellations, rescheduling and conflicts so cases that cannot be resolved reach a person."
+      }
+    ],
+    "example": {
+      "title": "A request reaching a shared calendar",
+      "steps": [
+        "A request arrives with the service and customer preferences.",
+        "The workflow checks rules and availability in the connected calendar.",
+        "The request is confirmed or handed over and the appropriate notification is scheduled."
+      ]
+    },
+    "requirements": [
+      "Your current calendar and integration options.",
+      "Durations, hours, resources and change policy.",
+      "Notification channel and the minimum booking details."
+    ],
+    "boundary": "A calendar is reliable only if availability is kept current. Channels, permissions and exceptional cases need validation; we cannot promise to eliminate every no-show.",
+    "priceScope": "Indicative scope: one calendar, one booking workflow and a defined reminder sequence. Multiple locations, resources or complex rules may add scope.",
+    "faqs": [
+      {
+        "q": "Do we need to replace our calendar?",
+        "a": "We first check whether it supports integration and your booking rules. If it fits, we prioritise connecting it and clarifying the workflow."
+      },
+      {
+        "q": "Is this an existing booking platform?",
+        "a": "This is a custom automation project. Your workflow is defined and tested before launch; the examples on this page are illustrative."
+      }
+    ],
+    "messagePrompt": "Which calendar do you use, and how do you handle bookings and reminders?"
+  },
+  "followup": {
+    "name": "Quote follow-up",
+    "title": "Quote follow-up automation for business teams",
+    "description": "Organise quote follow-ups with reminders, drafts and next actions. AI-assisted sales workflows connected to the tools you already use.",
+    "h1": "Quote follow-up that does not depend on remembering",
+    "lead": "Connect sent quotes, replies and next actions so your team knows what is pending. AI can prepare a message; agreed rules determine when it should be reviewed or sent.",
+    "pains": [
+      "The next contact after a quote depends on someone remembering.",
+      "Ownership and the right time to follow up are unclear.",
+      "Repeated messages ignore replies that have already arrived."
+    ],
+    "deliverables": [
+      {
+        "title": "Shared status",
+        "text": "We identify where proposals are recorded and how to distinguish pending, accepted, declined and incomplete enquiries."
+      },
+      {
+        "title": "Actions and messages",
+        "text": "We prepare internal reminders or contextual drafts based on the service, last contact and elapsed time."
+      },
+      {
+        "title": "Stop conditions",
+        "text": "A reply, refusal, acceptance or manual review must stop or change the sequence so follow-ups remain appropriate."
+      }
+    ],
+    "example": {
+      "title": "A quote that needs a next action",
+      "steps": [
+        "The business records a sent proposal and its owner.",
+        "The agreed date arrives without a reply and a contextual reminder is prepared.",
+        "A person reviews the message; incoming replies update or stop the workflow."
+      ]
+    },
+    "requirements": [
+      "Where quotes and their statuses are kept.",
+      "Follow-up timing and ownership of each enquiry.",
+      "Approved templates and situations where contact should stop."
+    ],
+    "boundary": "This automates a defined follow-up workflow, rather than generic CRM implementation or bulk prospecting. Discounts and commercial commitments require approval.",
+    "priceScope": "Indicative scope: one quote workflow, one data source and a bounded sequence. Additional channels or sales processes are assessed separately.",
+    "faqs": [
+      {
+        "q": "Do we need to buy a CRM?",
+        "a": "Not necessarily. We check whether an existing spreadsheet or application provides the required statuses and data. The project focuses on AI-assisted follow-up automation."
+      },
+      {
+        "q": "Can we start with internal reminders only?",
+        "a": "Yes. This validates statuses and timing without automatically contacting customers. Drafts or limited sending rules can be considered later."
+      }
+    ],
+    "messagePrompt": "Where do you record quotes, and what happens after sending them?"
+  },
+  "reporting": {
+    "name": "AI reporting and analysis",
+    "title": "AI reporting and data analysis for small businesses",
+    "description": "Connect business data and prepare AI-assisted reports with defined indicators and checkable figures. Custom reporting to support better-informed decisions.",
+    "h1": "AI-assisted reports that explain what is happening in your business",
+    "lead": "We prepare a workflow that gathers agreed data, calculates indicators and helps explain changes. Verifiable figures are kept separate from AI commentary so the report can be reviewed.",
+    "pains": [
+      "Each report requires copying and combining files.",
+      "Different people use different definitions of the same metric.",
+      "There are plenty of figures but little clarity about changes that need attention."
+    ],
+    "deliverables": [
+      {
+        "title": "Defined data",
+        "text": "We inventory sources, update frequency and indicator definitions, addressing duplicates, missing values and non-comparable periods."
+      },
+      {
+        "title": "Checkable calculations",
+        "text": "Metrics are calculated in a controlled workflow, rather than left to a language model to improvise."
+      },
+      {
+        "title": "AI-assisted interpretation",
+        "text": "We configure summaries and questions around available indicators, referring to their period, source and data limitations."
+      }
+    ],
+    "example": {
+      "title": "A periodic summary of enquiries and proposals",
+      "steps": [
+        "Agreed records are collected for the period.",
+        "Enquiries, proposals and statuses are calculated using shared definitions.",
+        "AI prepares a summary for staff to check the figures and decide actions."
+      ]
+    },
+    "requirements": [
+      "Data sources and representative format samples.",
+      "The decisions the report should support.",
+      "Indicator definitions and a person to check results."
+    ],
+    "boundary": "Analysis cannot recover data that was never recorded. AI commentary may require correction and is not financial advice or a guaranteed prediction.",
+    "priceScope": "Indicative scope: bounded sources and indicators, one report and an agreed update schedule. Multiple systems or complex historical data add scope.",
+    "faqs": [
+      {
+        "q": "Can we start with existing spreadsheets?",
+        "a": "Yes, after reviewing structure, quality and permissions. Often consistent data entry must be agreed before automating reporting."
+      },
+      {
+        "q": "Does AI calculate all the figures?",
+        "a": "Indicators should be calculated and validated using controlled procedures. AI helps explain and explore them; generated text does not replace checking the numbers."
+      }
+    ],
+    "messagePrompt": "Which data do you gather manually, and what decision should the report support?"
+  },
+  "webDevelopment": {
+    "name": "Websites with AI and automation",
+    "title": "Web development with AI and automation",
+    "description": "Custom websites connecting enquiries, data and workflows through AI or automation. Assistants, guided requests and integrations for your business.",
+    "h1": "Web development that connects visitors to your business workflow",
+    "lead": "We build websites with an operational purpose: AI guidance, useful enquiries or a connected internal workflow. We define what should happen after the form before designing screens.",
+    "pains": [
+      "The website sends an email and all the information is re-entered manually.",
+      "Visitors explain the same need several times.",
+      "Enquiries lack the information needed to move forward."
+    ],
+    "deliverables": [
+      {
+        "title": "An action-focused journey",
+        "text": "Content and screens are designed around the visitor’s task: a question, a guided enquiry or a connected process."
+      },
+      {
+        "title": "Useful AI or automation",
+        "text": "We integrate the agreed function: an assistant using approved information, enquiry classification or a connection to business operations."
+      },
+      {
+        "title": "A foundation for growth",
+        "text": "We work on structure, accessibility, performance and relevant measurement, documenting the implemented workflow."
+      }
+    ],
+    "example": {
+      "title": "A website collecting the right enquiry details",
+      "steps": [
+        "A visitor identifies the service they need.",
+        "A guided journey collects requirements and answers questions using approved content.",
+        "A classified request reaches the internal workflow for a person to assess."
+      ]
+    },
+    "requirements": [
+      "The website goal and its primary action.",
+      "Content, visual identity and verifiable business information.",
+      "Tools to connect and ownership of content updates."
+    ],
+    "boundary": "This service covers websites incorporating AI or automation. A full shop, a portal with complex permissions or an operational application may require its own scope.",
+    "priceScope": "Indicative scope: a first website release with one connected process or defined AI function. Screens, content and integrations affect the final quote.",
+    "faqs": [
+      {
+        "q": "Can you improve an existing website?",
+        "a": "Yes. We assess whether the platform supports the function and whether the existing journey is useful. Rebuilding is proposed only for specific reasons."
+      },
+      {
+        "q": "Does it include a first-place search ranking?",
+        "a": "Rankings cannot be guaranteed. Work can include crawlable structure, useful content and measurement, but visibility also depends on competition, demand and ongoing work."
+      }
+    ],
+    "messagePrompt": "Which website do you have or want, and what AI or automated workflow should it support?"
+  },
+  "applications": {
+    "name": "Custom AI applications",
+    "title": "Custom AI applications for business workflows",
+    "description": "Custom applications with AI, permissions and connected workflows. Define a useful first release for your team with clear scope and indicative costs.",
+    "h1": "Custom AI applications built around your team’s workflow",
+    "lead": "When existing tools do not fit, we define an application around the actual work: inputs, AI assistance, human approval and outputs. Start with a first release and a measurable goal.",
+    "pains": [
+      "The workflow jumps between spreadsheets, emails and tools without a shared view.",
+      "Off-the-shelf applications leave too much parallel manual work.",
+      "AI needs to operate inside a process with users, statuses and permissions."
+    ],
+    "deliverables": [
+      {
+        "title": "A bounded first release",
+        "text": "We turn the process into screens, roles and actions, prioritising the essential journey before secondary features."
+      },
+      {
+        "title": "AI inside the workflow",
+        "text": "We define what the model prepares, what a person approves and how errors or missing information are handled."
+      },
+      {
+        "title": "Operation and continuity",
+        "text": "We agree deployment, access, issue logging, documentation and maintenance according to project needs."
+      }
+    ],
+    "example": {
+      "title": "An application for preparing and reviewing case files",
+      "steps": [
+        "A person adds documents and information to a case file.",
+        "AI proposes a classification and summary of points needing review.",
+        "The owner corrects, approves and advances the status with an action record."
+      ]
+    },
+    "requirements": [
+      "A priority workflow, its users and common exceptions.",
+      "Sample inputs and the expected output.",
+      "Criteria to assess whether the first release solves the problem."
+    ],
+    "boundary": "Custom applications need ongoing evolution and maintenance. Many roles, sensitive data or integrations can exceed the indicative scope of a bounded first release.",
+    "priceScope": "Indicative scope: a first release with one main workflow and a defined AI function. Permissions, data and integrations determine the final scope.",
+    "faqs": [
+      {
+        "q": "How do we know custom development is needed?",
+        "a": "We first check whether existing tools can solve the process. Custom development makes sense when a specific requirement justifies building and maintaining your own solution."
+      },
+      {
+        "q": "What happens after launch?",
+        "a": "We document the workflow and agree how to handle issues and changes. Monthly maintenance or separately quoted ad-hoc support can be considered according to usage and criticality."
+      }
+    ],
+    "messagePrompt": "Which workflow should the application handle, and how many people would use it?"
+  },
+  "professional": {
+    "name": "AI for professional firms",
+    "title": "AI and automation for accounting and professional firms",
+    "description": "Custom AI workflows for documents, internal questions and follow-ups in accounting and professional firms. Defined permissions and human review.",
+    "h1": "AI for accounting and professional firms handling many documents",
+    "lead": "Focus AI on the work surrounding each case: organising information, preparing data and retrieving knowledge. Professional judgement and case review remain with your team.",
+    "pains": [
+      "Client documents arrive through several channels and missing items are hard to track.",
+      "Staff repeat questions about already documented procedures.",
+      "Request and quote follow-ups are scattered across different people."
+    ],
+    "deliverables": [
+      {
+        "title": "Document intake",
+        "text": "We design classification, field extraction and review of incomplete documents before they enter a case file."
+      },
+      {
+        "title": "Firm knowledge",
+        "text": "Internal assistants use current procedures, identifiable sources and access permissions to separate client and team information."
+      },
+      {
+        "title": "Visible follow-ups",
+        "text": "We agree reminders for missing documents, next actions and proposals, stopping them when a client replies or the case closes."
+      }
+    ],
+    "example": {
+      "title": "Preparing a case file with missing documents",
+      "steps": [
+        "Client documents arrive through the agreed channel.",
+        "The workflow organises them and prepares a list of items requiring review.",
+        "The owner checks the file and approves a request for missing documents."
+      ]
+    },
+    "requirements": [
+      "One case type or workflow to start with.",
+      "Rules separating clients, roles and documents.",
+      "An owner responsible for validating workflows and answers."
+    ],
+    "boundary": "AI does not replace tax, legal or professional advice. Data separation, access permissions and approvals must be defined for the specific workflow.",
+    "priceScope": "Pricing depends on the selected solution. A bounded document workflow and an assistant with multiple access roles have different scopes.",
+    "faqs": [
+      {
+        "q": "Can we start with just one part of the firm?",
+        "a": "Yes. One document type, recurring internal question or specific follow-up can validate the fit before expanding to more teams or cases."
+      },
+      {
+        "q": "Do you have a product for supplier invoices?",
+        "a": "Yes: VBG Invoicing is the own product we can demonstrate. Other processes are assessed as custom projects. The remaining scenarios on this page are illustrative examples."
+      }
+    ],
+    "messagePrompt": "What type of firm are you, and which document or follow-up task takes the most time?"
+  },
+  "commerce": {
+    "name": "AI for local businesses",
+    "title": "AI for shops and local businesses in Lleida",
+    "description": "AI and automation for local businesses: enquiries, appointments and reports. Custom projects from Almenar for Lleida and businesses across Spain.",
+    "h1": "AI for shops and local businesses juggling everyday tasks",
+    "lead": "Organise enquiries and requests while serving customers. We choose a specific workflow: answering questions, collecting an appointment request or understanding data you already have.",
+    "pains": [
+      "Questions about services, hours and terms interrupt customer service.",
+      "Website and WhatsApp requests are difficult to follow through.",
+      "Enquiry and booking data goes unreviewed because reports take too long."
+    ],
+    "deliverables": [
+      {
+        "title": "Guided enquiries",
+        "text": "Website or WhatsApp assistants use approved business information to collect requests and hand over exceptions."
+      },
+      {
+        "title": "Appointments and reminders",
+        "text": "For businesses taking bookings, we connect calendars with agreed rules for durations, changes and notifications."
+      },
+      {
+        "title": "Information for decisions",
+        "text": "We organise available enquiry or booking data into defined indicators and reports with reviewable AI commentary."
+      }
+    ],
+    "example": {
+      "title": "A service business receiving enquiries while serving customers",
+      "steps": [
+        "Someone asks about a service through the business channel.",
+        "The assistant explains approved information and collects the request.",
+        "Staff receive the context and confirm the appointment or next step."
+      ]
+    },
+    "requirements": [
+      "The service or recurring task you want to improve first.",
+      "Current business information and someone to maintain it.",
+      "Your main channel and existing tools."
+    ],
+    "boundary": "Availability, stock and prices can only be confirmed automatically with reliable sources and defined integrations.",
+    "priceScope": "The range depends on the workflow, channels and integrations. You can start small and assess whether expanding it makes sense.",
+    "faqs": [
+      {
+        "q": "Is this viable for a small business?",
+        "a": "It depends on task duration, frequency and implementation and running costs. We assess those figures first: a template or process change may be enough."
+      },
+      {
+        "q": "Do you only work with businesses in Lleida?",
+        "a": "We are based in Almenar and prioritise proximity to Lleida and the Segrià area. We also serve businesses across Spain, agreeing remote or in-person work according to the project."
+      }
+    ],
+    "messagePrompt": "What business do you run, and which task interrupts you most often?"
+  }
+}

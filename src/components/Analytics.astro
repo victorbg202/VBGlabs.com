@@ -149,7 +149,7 @@ const consentMaxAgeMs = ANALYTICS.consent.maxAgeDays * 24 * 60 * 60 * 1000;
           const destination = new URL(link.href, location.href);
           const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
 
-          if (destination.origin === location.origin && contactPaths.includes(destination.pathname)) {
+          if (destination.origin === location.origin && (contactPaths.includes(destination.pathname) || destination.hash === '#parlem')) {
             window.vbgTrackEvent('cta_click', {
               cta_location: linkLocation(link),
               destination_path: destination.pathname,
