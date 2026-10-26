@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && contactPaths.includes(destination.pathname)) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>RAG para pymes: cómo crear un asistente de IA con tus documentos | VBG Labs</title> <meta name="description" content="Guía práctica para saber cuándo conviene un asistente RAG, cómo preparar las fuentes, controlar permisos, probar las respuestas y empezar con un piloto útil."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/es/blog/rag-pymes-asistente-ia-documentos/"> <link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/rag-pimes-assistent-ia-documents/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/rag-pymes-asistente-ia-documentos/"><link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/rag-small-business-ai-assistant-documents/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/rag-pimes-assistent-ia-documents/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/es/blog/rag-pymes-asistente-ia-documentos/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="RAG para pymes: cómo crear un asistente de IA con tus documentos | VBG Labs"> <meta property="og:description" content="Guía práctica para saber cuándo conviene un asistente RAG, cómo preparar las fuentes, controlar permisos, probar las respuestas y empezar con un piloto útil."> <meta property="og:image" content="https://vbglabs.com/og/og-es.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="es_ES"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="RAG para pymes: cómo crear un asistente de IA con tus documentos | VBG Labs"> <meta name="twitter:description" content="Guía práctica para saber cuándo conviene un asistente RAG, cómo preparar las fuentes, controlar permisos, probar las respuestas y empezar con un piloto útil."> <meta name="twitter:image" content="https://vbglabs.com/og/og-es.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.qzqtYduC.css"><style>.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Ir al contenido</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/es/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inicio</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Servicios <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a></li> <li data-astro-cid-nen7h5rs><a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/rag-pimes-assistent-ia-documents/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/rag-pymes-asistente-ia-documentos/&quot;},{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/rag-small-business-ai-assistant-documents/&quot;}]" data-astro-cid-nen7h5rs> <option value="/blog/rag-pimes-assistent-ia-documents/" data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/rag-pymes-asistente-ia-documentos/" selected data-astro-cid-nen7h5rs>ES</option><option value="/en/blog/rag-small-business-ai-assistant-documents/" data-astro-cid-nen7h5rs>EN</option> </select> </label> <a href="/es/contacto/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Hablemos</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> <a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/es/preguntas-frecuentes/" data-astro-cid-nen7h5rs>Preguntas frecuentes</a> <a href="/es/contacto/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Hablemos</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>{e.addEventListener(`click`,()=>{let t=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!t))})}),document.addEventListener(`click`,e=>{e.target.closest(`.header__dropdown`)||document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))}),document.addEventListener(`keydown`,e=>{e.key===`Escape`&&document.querySelectorAll(`.header__dropdown-btn`).forEach(e=>e.setAttribute(`aria-expanded`,`false`))});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{window.location.href=r.value});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/es/" data-astro-cid-ezvlwyc3>Inicio</a> </li><li data-astro-cid-ezvlwyc3> <a href="/es/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>RAG para pymes: cómo crear un asistente de IA con tus documentos</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://vbglabs.com/es/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/es/blog/"},{"@type":"ListItem","position":3,"name":"RAG para pymes: cómo crear un asistente de IA con tus documentos","item":"https://vbglabs.com/es/blog/rag-pymes-asistente-ia-documentos/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Inteligencia artificial</span> <h1 data-astro-cid-cgze3hqb>RAG para pymes: cómo crear un asistente de IA con tus documentos</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-10-26T00:00:00.000Z" data-astro-cid-cgze3hqb>26 de octubre de 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>Un asistente RAG permite que una IA responda a partir de la documentación que controla tu empresa: procedimientos, manuales, catálogos, preguntas frecuentes o condiciones de servicio. Cuando recibe una consulta, busca los fragmentos relevantes, se los aporta al modelo y genera una respuesta que puede mostrar las fuentes utilizadas. Es una opción interesante cuando el conocimiento existe pero cuesta encontrarlo; no sirve para arreglar por arte de magia unos documentos desordenados ni garantiza respuestas correctas por sí sola.</p>
+<h2 id="qué-es-rag-explicado-sin-jerga">Qué es RAG, explicado sin jerga</h2>
+<p>RAG significa <em>retrieval-augmented generation</em>, o generación aumentada por recuperación. El concepto se formalizó en un <a href="https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html">trabajo presentado en NeurIPS en 2020</a>: combinar la capacidad de un modelo generativo con una memoria externa que pueda consultar.</p>
+<p>En una implementación empresarial sencilla, el recorrido es el siguiente:</p>
+<ol>
+<li>La empresa selecciona y prepara las fuentes autorizadas.</li>
+<li>El sistema divide los documentos en fragmentos y los indexa para poder buscarlos.</li>
+<li>Cuando llega una pregunta, recupera los fragmentos que probablemente contienen la respuesta.</li>
+<li>El modelo redacta la respuesta con ese contexto y muestra la procedencia, si se ha configurado así.</li>
+</ol>
+<p>A diferencia de un chat general, el asistente no depende solo del conocimiento incorporado al modelo. Tampoco hace falta entrenar un modelo desde cero cada vez que cambia un manual: normalmente se actualiza la colección documental y se vuelve a indexar. Así resulta más sencillo mantener el conocimiento al día y revisar de dónde ha salido una respuesta.</p>
+<h2 id="cuándo-puede-aportar-valor-a-una-pyme">Cuándo puede aportar valor a una pyme</h2>
+<p>Un RAG suele tener sentido cuando coinciden cuatro condiciones:</p>
+<ul>
+<li>hay preguntas repetitivas que consumen tiempo;</li>
+<li>las respuestas ya existen en documentos identificables;</li>
+<li>la documentación cambia y hay que trabajar con la versión vigente;</li>
+<li>poder citar o abrir la fuente es importante para comprobar el resultado.</li>
+</ul>
+<p>Algunos usos razonables son un asistente interno sobre procedimientos, una primera ayuda para atención al cliente, una búsqueda guiada en manuales técnicos o un apoyo para preparar respuestas comerciales a partir de un catálogo aprobado.</p>
+<p>El valor no está en “tener un chatbot”. Está en reducir el tiempo que una persona dedica a localizar información y darle una respuesta verificable con la que pueda seguir trabajando. Si estás valorando distintos procesos, la guía sobre <a href="/es/blog/ia-para-pymes-por-donde-empezar/">por dónde empezar con IA en una pyme</a> puede ayudarte a priorizarlos.</p>
+<h2 id="cuándo-no-es-la-solución-adecuada">Cuándo no es la solución adecuada</h2>
+<p>RAG no es la mejor respuesta para cualquier necesidad de información.</p>
+<p><strong>Si los datos son transaccionales y deben ser exactos al segundo</strong>, como el stock disponible o el estado actual de un pago, es preferible consultar directamente el sistema de origen mediante una integración. Un documento indexado podría estar desactualizado.</p>
+<p><strong>Si la documentación es contradictoria o no tiene responsable</strong>, el asistente solo hará más accesible el desorden existente. Primero hay que decidir qué versión es válida.</p>
+<p><strong>Si hay muy pocas consultas</strong>, quizá sea más eficiente mejorar el buscador, la estructura de carpetas o las preguntas frecuentes.</p>
+<p><strong>Si la respuesta activa decisiones sensibles</strong>, el asistente debería ayudar a una persona, no decidir o ejecutar sin controles. Aprobar un pago, interpretar un contrato o dar instrucciones con impacto en la salud no es lo mismo que localizar un procedimiento interno.</p>
+<h2 id="el-trabajo-importante-empieza-antes-del-modelo">El trabajo importante empieza antes del modelo</h2>
+<p>La calidad de un RAG depende mucho de las fuentes. Antes de programar, conviene crear un inventario con estos datos:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Pregunta práctica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fuente</td>
+<td>¿Qué documento o sistema contiene la información?</td>
+</tr>
+<tr>
+<td>Propietario</td>
+<td>¿Quién confirma que el contenido es correcto?</td>
+</tr>
+<tr>
+<td>Vigencia</td>
+<td>¿Cómo sabremos que existe una versión nueva?</td>
+</tr>
+<tr>
+<td>Acceso</td>
+<td>¿Qué perfiles pueden consultarlo?</td>
+</tr>
+<tr>
+<td>Sensibilidad</td>
+<td>¿Incluye datos personales, confidenciales o contractuales?</td>
+</tr>
+<tr>
+<td>Exclusión</td>
+<td>¿Qué no debe entrar nunca en el asistente?</td>
+</tr>
+</tbody>
+</table>
+<p>No hace falta empezar con todo el archivo de la empresa. Es mejor una colección pequeña, coherente y con responsables claros que miles de ficheros sin control. Elimina duplicados, separa los documentos históricos, conserva títulos y fechas, y transforma las tablas o PDF difíciles de leer cuando sea necesario.</p>
+<p>La <a href="/es/blog/ficha-proceso-una-pagina-antes-automatizar/">ficha de proceso de una página</a> puede ayudarte a documentar quién pregunta, qué resultado necesita y qué sucede después de recibir la respuesta.</p>
+<h2 id="define-el-contrato-de-respuesta">Define el contrato de respuesta</h2>
+<p>Un buen piloto debe concretar cómo se comportará el asistente. Por ejemplo:</p>
+<ul>
+<li>responder solo con las fuentes autorizadas;</li>
+<li>citar el documento y, si es posible, la sección utilizada;</li>
+<li>indicar con claridad cuando no encuentra información suficiente;</li>
+<li>no completar huecos con una suposición presentada como un hecho;</li>
+<li>mostrar la fecha o versión de la fuente cuando sea relevante;</li>
+<li>derivar a una persona las preguntas sensibles o fuera de alcance.</li>
+</ul>
+<p>Ese “no lo sé” es una función, no un fallo. El <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence">perfil de riesgos de la IA generativa del NIST</a> recuerda que los modelos pueden presentar información falsa con apariencia de certeza. Aportar contexto con RAG puede reducir este problema en un ámbito concreto, pero no lo elimina: hay que probar las respuestas y mantener una vía de revisión.</p>
+<h2 id="los-permisos-deben-aplicarse-antes-de-recuperar-información">Los permisos deben aplicarse antes de recuperar información</h2>
+<p>Si dirección, administración y el servicio técnico no pueden ver los mismos documentos, el asistente tampoco debería tratarlos igual. No basta con escribir en el prompt “no muestres información confidencial”.</p>
+<p>El sistema debe conocer la identidad y el perfil de la persona, filtrar las fuentes autorizadas antes de enviar contexto al modelo y registrar los accesos relevantes. También hay que decidir qué guarda el historial, durante cuánto tiempo y quién puede revisarlo. Estas decisiones deben encajar con el inventario y las reglas internas de IA; la guía sobre <a href="/es/blog/alfabetizacion-ia-empresas-que-documentar/">qué documentar cuando una empresa utiliza IA</a> ofrece una base práctica.</p>
+<h2 id="cómo-probar-un-rag-antes-de-abrirlo-a-todo-el-equipo">Cómo probar un RAG antes de abrirlo a todo el equipo</h2>
+<p>Una demo con cinco preguntas fáciles no es una validación. Prepara un conjunto de preguntas reales antes del piloto:</p>
+<ul>
+<li>preguntas directas con una respuesta clara;</li>
+<li>distintas formas de preguntar lo mismo;</li>
+<li>preguntas que exigen combinar dos fragmentos;</li>
+<li>consultas con documentos parecidos o versiones antiguas;</li>
+<li>preguntas fuera de alcance que el asistente debe rechazar;</li>
+<li>intentos de acceder a información de otro perfil.</li>
+</ul>
+<p>Para cada prueba, anota la respuesta esperada, la fuente correcta y si el asistente debería responder o abstenerse. Después revisa, como mínimo, cuatro dimensiones: si ha recuperado el documento adecuado, si la respuesta está respaldada por ese documento, si la cita resulta útil y si respeta los permisos.</p>
+<p>No te fijes solo en un porcentaje global. Un error menor en una pregunta informativa no tiene el mismo impacto que exponer una condición confidencial o inventar una excepción. Clasifica las pruebas por riesgo y define qué fallos impiden desplegar el sistema.</p>
+<h2 id="un-ejemplo-ilustrativo">Un ejemplo ilustrativo</h2>
+<p>Imaginemos una distribuidora técnica con manuales de producto, procedimientos de instalación y condiciones de devolución. El personal pierde tiempo buscando entre carpetas y a menudo termina preguntando a la misma persona experta.</p>
+<p>El primer piloto podría limitarse a una familia de productos y tres tipos de consulta. El asistente devuelve una respuesta breve, enlaza el manual y muestra la versión. Si las fuentes se contradicen o la pregunta trata una excepción comercial, deriva la consulta. Durante unas semanas, el equipo valora las respuestas y registra los vacíos documentales.</p>
+<p>El aprendizaje más valioso puede no ser técnico: quizá aparezcan manuales duplicados, criterios que solo conoce una persona o excepciones que nunca se habían escrito. Corregir esos huecos mejora tanto el asistente como el proceso real.</p>
+<h2 id="qué-determina-el-coste">Qué determina el coste</h2>
+<p>El coste no depende únicamente del modelo. En un proyecto RAG suelen pesar:</p>
+<ul>
+<li>limpieza, clasificación y actualización de contenidos;</li>
+<li>integración con carpetas, gestores documentales o aplicaciones;</li>
+<li>identidad, permisos y registro de actividad;</li>
+<li>volumen de documentos, consultas y contexto enviado al modelo;</li>
+<li>diseño de pruebas y revisión humana;</li>
+<li>monitorización, reindexación y mantenimiento.</li>
+</ul>
+<p>Por eso conviene comparar el proyecto con el coste actual de buscar, interrumpir a personas expertas, repetir respuestas y corregir errores. Un piloto acotado permite medir uso, tiempo ahorrado y calidad antes de ampliar la inversión.</p>
+<h2 id="plan-de-piloto-en-cuatro-semanas">Plan de piloto en cuatro semanas</h2>
+<p><strong>Semana 1:</strong> elige un caso de uso, identifica usuarios, preguntas y fuentes. Define también lo que queda fuera.</p>
+<p><strong>Semana 2:</strong> limpia una colección pequeña, asigna responsables y configura permisos.</p>
+<p><strong>Semana 3:</strong> construye el flujo de recuperación y respuesta. Añade citas, abstención y derivación.</p>
+<p><strong>Semana 4:</strong> ejecuta las pruebas, ábrelo a un grupo reducido y registra preguntas fallidas, fuentes ausentes e incidentes.</p>
+<p>Al terminar el piloto, la decisión no debería basarse solo en si “la demo es impresionante”. Debería responder a estas preguntas: ¿recupera la fuente correcta, reduce tiempo, respeta los accesos, sabe cuándo parar y su mantenimiento es asumible?</p>
+<h2 id="checklist-antes-de-empezar">Checklist antes de empezar</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Tenemos un problema concreto y suficientemente frecuente.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Las respuestas existen en fuentes controladas.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Cada fuente tiene responsable y criterio de vigencia.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Los permisos están definidos por perfil.</li>
+<li class="task-list-item"><input type="checkbox" disabled> El asistente cita fuentes y puede decir que no lo sabe.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Hay pruebas normales, difíciles, fuera de alcance y de permisos.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Una persona recibe las consultas sensibles o dudosas.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Mediremos calidad, uso, tiempo ahorrado y mantenimiento.</li>
+</ul>
+<p>Si quieres saber si un RAG encaja con tus documentos, la <a href="/es/consultoria/">consultoría de IA</a> puede convertir el caso de uso, las fuentes, los riesgos y los costes en un piloto concreto. Y si el caso ya está claro, podemos plantear una <a href="/es/automatizaciones/">automatización con IA</a> que conecte el modelo con la documentación y los sistemas que utiliza el equipo.</p>
+<h2 id="fuentes">Fuentes</h2>
+<ul>
+<li><a href="https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html">Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks”, NeurIPS 2020</a></li>
+<li><a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence">NIST AI 600-1: Artificial Intelligence Risk Management Framework — Generative AI Profile</a></li>
+</ul>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>También te puede interesar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/es/blog/alfabetizacion-ia-empresas-que-documentar/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Inteligencia artificial</span> <h3 data-astro-cid-vqljwchw="true">¿Tu empresa utiliza IA? Esto es lo que deberías documentar ya</h3> <p data-astro-cid-vqljwchw>Una guía práctica para ordenar el uso de la IA en la empresa: inventario, normas, formación, supervisión humana y transparencia según el AI Act.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>29 de septiembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a><a href="/es/blog/ficha-proceso-una-pagina-antes-automatizar/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automatización</span> <h3 data-astro-cid-vqljwchw="true">Ficha de proceso en una página: la plantilla antes de automatizar</h3> <p data-astro-cid-vqljwchw>Documenta un proceso en una sola página, descubre excepciones y valora si está preparado para automatizarse con una plantilla y una puntuación de 0 a 10.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>16 de octubre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Hablemos de tu negocio</h2> <p class="lede" data-astro-cid-hwvj6ntz>Sin compromiso. En 15-20 minutos sabremos si podemos ayudarte.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/es/contacto/" class="btn btn-primary" data-astro-cid-hwvj6ntz>Cuéntanos tu caso</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"RAG para pymes: cómo crear un asistente de IA con tus documentos","description":"Guía práctica para saber cuándo conviene un asistente RAG, cómo preparar las fuentes, controlar permisos, probar las respuestas y empezar con un piloto útil.","url":"https://vbglabs.com/es/blog/rag-pymes-asistente-ia-documentos/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-10-26T00:00:00.000Z","dateModified":"2026-10-26T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/es/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnología práctica para que tu negocio funcione mejor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Cataluña</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Servicios</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/automatizaciones/" data-astro-cid-jo6i4kqk>Automatizaciones</a></li><li data-astro-cid-jo6i4kqk><a href="/es/consultoria/" data-astro-cid-jo6i4kqk>Consultoría</a></li><li data-astro-cid-jo6i4kqk><a href="/es/formacion/" data-astro-cid-jo6i4kqk>Formación</a></li><li data-astro-cid-jo6i4kqk><a href="/es/vbg-facturacion/" data-astro-cid-jo6i4kqk>VBG Facturación</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/es/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/es/preguntas-frecuentes/" data-astro-cid-jo6i4kqk>Preguntas frecuentes</a></li><li data-astro-cid-jo6i4kqk><a href="/es/contacto/" data-astro-cid-jo6i4kqk>Contacto</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacto</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Todos los derechos reservados.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/es/aviso-legal/" data-astro-cid-jo6i4kqk>Aviso legal</a> <a href="/es/politica-privacidad/" data-astro-cid-jo6i4kqk>Privacidad</a> <a href="/es/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tú decides sobre las cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias. <a href="/es/politica-cookies/" data-astro-cid-hq3mgpmn>Más información</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rechazar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Aceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
