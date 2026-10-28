@@ -11,6 +11,7 @@ import EnquirySection from '@/components/EnquirySection.astro';
 import SoftwareApplicationSchema from '@/components/schema/SoftwareApplicationSchema.astro';
 import AssistantDemo from '@/components/AssistantDemo.astro';
 import ProductTabs from '@/components/ProductTabs.astro';
+import DemoMotionControl from '@/components/DemoMotionControl.astro';
 import { route } from '@/i18n/routes';
 import { CONTACT_COPY } from '@/data/enquiries';
 
@@ -94,6 +95,7 @@ const narrative = [
 
   <section class="section">
     <div class="container">
+      <DemoMotionControl locale={locale} />
       <ProductTabs
         items={narrative}
         frameLabel="facturacion.vbglabs.com"
@@ -106,6 +108,7 @@ const narrative = [
   <section class="section section--tight bg-alt">
     <div class="container">
       <SectionHeader eyebrow="ASSISTENT IA" title="Pregunta-li directament a les teves factures" lede="Un assistent integrat que respon sobre les teves factures en llenguatge natural, sense haver de buscar manualment." />
+      <DemoMotionControl locale={locale} />
       <AssistantDemo
         userMsg="Quant IVA he suportat aquest trimestre?"
         botMsg="Aquest trimestre has suportat 2.481,00€ d'IVA en 34 factures. Vols el desglossament per proveïdor?"

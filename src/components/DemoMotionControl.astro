@@ -1,0 +1,67 @@
+---
+import type { Locale } from '@/i18n/locales';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+  ca: { note: 'El navegador té activada la preferència de moviment reduït.', play: 'Reprodueix les animacions', stop: 'Atura les animacions' },
+  es: { note: 'El navegador tiene activada la preferencia de movimiento reducido.', play: 'Reproducir las animaciones', stop: 'Detener las animaciones' },
+  en: { note: 'Your browser has reduced motion enabled.', play: 'Play animations', stop: 'Stop animations' },
+}[locale];
+---
+<div class="demo-motion-control" data-demo-motion-control hidden>
+  <p>{copy.note}</p>
+  <button type="button" class="btn btn-outline" data-demo-motion-button data-play-label={copy.play} data-stop-label={copy.stop} aria-pressed="false">{copy.play}</button>
+</div>
+
+<style>
+  .demo-motion-control { display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-3); align-items:center; margin-bottom:var(--space-4); }
+  .demo-motion-control[hidden] { display:none; }
+  .demo-motion-control p { color:var(--muted); font-size:var(--text-sm); }
+  .demo-motion-control button { font-size:var(--text-sm); }
+</style>
+
+<script>
+  const preferenceKey = 'vbg-demo-motion';
+  let dispose: (() => void) | undefined;
+
+  function initDemoMotionControls() {
+    dispose?.();
+    const controls = Array.from(document.querySelectorAll<HTMLElement>('[data-demo-motion-control]'));
+    if (!controls.length) return;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let enabled = false;
+    try { enabled = sessionStorage.getItem(preferenceKey) === 'on'; } catch { /* Session-only fallback if storage is blocked. */ }
+
+    function render() {
+      document.documentElement.toggleAttribute('data-demo-motion-enabled', enabled);
+      controls.forEach((control) => {
+        control.hidden = !motion.matches;
+        const button = control.querySelector<HTMLButtonElement>('[data-demo-motion-button]');
+        if (!button) return;
+        button.textContent = (enabled ? button.dataset.stopLabel : button.dataset.playLabel) ?? '';
+        button.setAttribute('aria-pressed', String(enabled));
+      });
+    }
+    function notify() {
+      render();
+      document.dispatchEvent(new CustomEvent('vbg:demo-motion-change'));
+    }
+    function toggle() {
+      enabled = !enabled;
+      try { sessionStorage.setItem(preferenceKey, enabled ? 'on' : 'off'); } catch { /* The choice still works on this page. */ }
+      notify();
+    }
+    const buttons = controls.flatMap((control) => Array.from(control.querySelectorAll<HTMLButtonElement>('[data-demo-motion-button]')));
+    buttons.forEach((button) => button.addEventListener('click', toggle));
+    motion.addEventListener('change', notify);
+    notify();
+    dispose = () => {
+      buttons.forEach((button) => button.removeEventListener('click', toggle));
+      motion.removeEventListener('change', notify);
+    };
+  }
+
+  initDemoMotionControls();
+  document.addEventListener('astro:page-load', initDemoMotionControls);
+  document.addEventListener('astro:before-swap', () => dispose?.());
+</script>

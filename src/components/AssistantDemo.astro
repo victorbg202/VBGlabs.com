@@ -144,15 +144,15 @@ const { userMsg, botMsg } = Astro.props;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .assistant-demo[data-animated] .assistant-demo__msg--user {
+    :global(html:not([data-demo-motion-enabled])) .assistant-demo[data-animated] .assistant-demo__msg--user {
       opacity: 1;
       transform: none;
       transition: none;
     }
-    .assistant-demo[data-animated] .assistant-demo__msg--typing {
+    :global(html:not([data-demo-motion-enabled])) .assistant-demo[data-animated] .assistant-demo__msg--typing {
       display: none !important;
     }
-    .assistant-demo[data-animated] .assistant-demo__msg--bot {
+    :global(html:not([data-demo-motion-enabled])) .assistant-demo[data-animated] .assistant-demo__msg--bot {
       display: flex !important;
       opacity: 1;
       animation: none;
@@ -179,7 +179,7 @@ const { userMsg, botMsg } = Astro.props;
 
       function play() {
         reset();
-        if (motion.matches || !('IntersectionObserver' in window)) {
+        if ((motion.matches && !document.documentElement.hasAttribute('data-demo-motion-enabled')) || !('IntersectionObserver' in window)) {
           demo.removeAttribute('data-animated');
           return;
         }
@@ -201,6 +201,7 @@ const { userMsg, botMsg } = Astro.props;
       const onVisibility = () => play();
       const onMotion = () => play();
       document.addEventListener('visibilitychange', onVisibility);
+      document.addEventListener('vbg:demo-motion-change', onMotion);
       motion.addEventListener('change', onMotion);
       play();
       observer?.observe(demo);
@@ -208,6 +209,7 @@ const { userMsg, botMsg } = Astro.props;
         reset();
         observer?.disconnect();
         document.removeEventListener('visibilitychange', onVisibility);
+        document.removeEventListener('vbg:demo-motion-change', onMotion);
         motion.removeEventListener('change', onMotion);
       }, { once: true });
     });

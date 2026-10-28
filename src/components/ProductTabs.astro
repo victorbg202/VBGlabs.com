@@ -225,9 +225,9 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
       }
 
       function syncPlayback() {
-        if (!visible || hovered || focused || document.hidden || motion.matches) {
+        if (!visible || hovered || focused || document.hidden || (motion.matches && !document.documentElement.hasAttribute('data-demo-motion-enabled'))) {
           pause();
-          if (motion.matches) group.removeAttribute('data-autoplay');
+          if (motion.matches && !document.documentElement.hasAttribute('data-demo-motion-enabled')) group.removeAttribute('data-autoplay');
           return;
         }
         if (timer !== null) return;
@@ -280,6 +280,7 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
       const onVisibility = () => syncPlayback();
       const onMotion = () => restart();
       document.addEventListener('visibilitychange', onVisibility);
+      document.addEventListener('vbg:demo-motion-change', onMotion);
       motion.addEventListener('change', onMotion);
       const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
         const entered = entry.isIntersecting && !visible;
@@ -293,6 +294,7 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
         pause();
         observer?.disconnect();
         document.removeEventListener('visibilitychange', onVisibility);
+        document.removeEventListener('vbg:demo-motion-change', onMotion);
         motion.removeEventListener('change', onMotion);
       }, { once: true });
     });
