@@ -72,7 +72,7 @@ const narrative = [
           </div>
           <p class="demo-response">{CONTACT_COPY[locale].response} {CONTACT_COPY[locale].enquiries.invoicing.body}</p>
         </div>
-        <ProductFrame label="app.vbgfacturacio.com">
+        <ProductFrame label="facturacion.vbglabs.com">
           <InvoicingPanels variant="dashboard" labels={panelLabels} />
         </ProductFrame>
       </div>
@@ -96,7 +96,7 @@ const narrative = [
     <div class="container">
       <ProductTabs
         items={narrative}
-        frameLabel="app.vbgfacturacio.com"
+        frameLabel="facturacion.vbglabs.com"
         tablistLabel="Funcions de VBG Facturació"
         panelLabels={panelLabels}
       />
@@ -122,7 +122,7 @@ const narrative = [
           { icon: 'users', title: 'Autònoms', description: 'Deixa d\'apilar tiquets i factures a l\'espera de fer-hi alguna cosa.' },
           { icon: 'building', title: 'Micropimes', description: 'Centralitza les factures de tots els proveïdors en un sol lloc.' },
           { icon: 'chart', title: 'Pimes', description: 'Informes fiscals a punt sense dependre d\'un full de càlcul.' },
-          { icon: 'consulting', title: 'Gestories', description: 'Gestió multiempresa per portar diversos clients des d\'un sol panell.' },
+          { icon: 'consulting', title: 'Gestories i grups', description: 'Gestió de diversos clients o societats des d’un mateix accés, amb dades separades per empresa.' },
         ]}
       />
     </div>
@@ -130,8 +130,8 @@ const narrative = [
 
   <section class="section section--tight bg-alt" id="preus">
     <div class="container">
-      <SectionHeader eyebrow="PREUS" title="Plans senzills, sense sorpreses" lede="Preus orientatius per començar; s'ajusten segons el volum real de factures." />
-      <PricingPlans locale={locale} planLabels={{ starter: 'Starter', pro: 'Pro', business: 'Business' }} />
+      <SectionHeader eyebrow="PREUS" title="Plans senzills, sense sorpreses" lede="Tria segons el volum de documents, l’equip i el nombre d’empreses. Preus orientatius, sense permanència." />
+      <PricingPlans locale={locale} />
     </div>
   </section>
 
@@ -143,8 +143,11 @@ const narrative = [
           { q: 'VBG Facturació emet factures als meus clients?', a: 'No, ara mateix no. Es centra exclusivament a gestionar les factures que reps de proveïdors i col·laboradors.' },
           { q: 'On es guarden les meves dades?', a: 'Les factures i les dades associades es guarden de manera privada, associades només al teu compte. No compartim dades entre comptes de clients diferents.' },
           { q: 'Puc provar-ho abans de contractar-ho?', a: 'Sí. Sol·licita una demo i et l\'ensenyem amb el teu cas real abans de decidir.' },
-          { q: 'Què passa si supero el límit de factures del meu pla?', a: 'T\'avisem abans d\'arribar-hi perquè puguis passar al pla superior sense interrupcions.' },
-          { q: 'Serveix per a gestories que porten diversos clients?', a: 'Sí, el pla Business inclou gestió multiempresa pensada per a gestories.' },
+          { q: 'Com es compten els documents del pla?', a: 'Una factura processada compta com un document i un albarà com un altre. A Pro i Business la quota és per empresa; al pla Gestories i grups empresarials es comparteix entre les empreses incloses. Visualitzar o descarregar un document no consumeix una nova lectura.' },
+          { q: 'Què passa si necessito més volum o més usuaris?', a: 'Abans de contractar concretem el volum i els usuaris inclosos. Si les necessitats canvien, pressupostem una ampliació o un canvi de pla. Les ampliacions no estan incloses en el preu publicat.' },
+          { q: 'El xat d’IA és il·limitat?', a: 'No. Tots els plans inclouen l’assistent amb un crèdit mensual que es concreta a l’oferta abans de l’alta i es pot consultar al panell. Les ampliacions se sol·liciten a part. Arribar al topall del xat no atura el processament de factures.' },
+          { q: 'Serveix per a gestories i grups empresarials?', a: 'Sí. El pla Gestories i grups empresarials parteix de 5 empreses, 10 usuaris en total i 1.000 documents mensuals compartits. Cada empresa manté les seves factures, proveïdors i informes. Per a més societats o volum, preparem una oferta a mida.' },
+          { q: 'Què inclou la posada en marxa?', a: 'Business i el pla multiempresa inclouen una sessió inicial per configurar el circuit de treball. La importació d’històrics, les integracions especials i la formació addicional es pressuposten a part. Els informes són preparatoris i no inclouen la presentació d’impostos ni el servei de gestoria.' },
         ]}
       />
     </div>
@@ -152,7 +155,7 @@ const narrative = [
 
   <EnquirySection locale={locale} interest="invoicing" />
 
-  <SoftwareApplicationSchema />
+  <SoftwareApplicationSchema locale={locale} />
 </BaseLayout>
 
 <style>

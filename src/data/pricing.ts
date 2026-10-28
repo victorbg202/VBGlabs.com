@@ -34,135 +34,219 @@ export const SOLUTION_PRICING = {
 };
 
 export type InvoicingPlan = {
-  id: 'starter' | 'pro' | 'business';
-  price: number; // €/month, ex VAT
+  id: 'starter' | 'pro' | 'business' | 'multi';
+  /** null means quote-only, never a free plan. Figures are monthly, ex VAT. */
+  price: number | null;
   priceIsFrom: boolean;
   highlighted: boolean;
-  limits: {
-    ca: string;
-    es: string;
-    en: string;
-  };
-  features: {
-    ca: string[];
-    es: string[];
-    en: string[];
-  };
+  name: Record<Locale, string>;
+  audience: Record<Locale, string>;
+  limits: Record<Locale, string>;
+  features: Record<Locale, string[]>;
 };
 
+/** Commercial scope; allowances and any extension are agreed before signup. */
 export const INVOICING_PLANS: InvoicingPlan[] = [
   {
-    id: 'starter',
-    price: 14.9,
-    priceIsFrom: false,
-    highlighted: false,
-    limits: {
-      ca: 'Fins a 30 factures/mes · 1 usuari',
-      es: 'Hasta 30 facturas/mes · 1 usuario',
-      en: 'Up to 30 invoices/mo · 1 user',
+    "id": "pro",
+    "price": 39.9,
+    "priceIsFrom": false,
+    "highlighted": true,
+    "name": {
+      "ca": "Pro",
+      "es": "Pro",
+      "en": "Pro"
     },
-    features: {
-      ca: [
-        'Dashboard i entrada de factures',
-        'Estats i seguiment bàsic',
-        'Detecció de possibles duplicats',
-        'Informes fiscals trimestrals (IVA, IRPF)',
-        'Assistent IA amb ús limitat',
-        'Suport per email',
-      ],
-      es: [
-        'Dashboard y entrada de facturas',
-        'Estados y seguimiento básico',
-        'Detección de posibles duplicados',
-        'Informes fiscales trimestrales (IVA, IRPF)',
-        'Asistente IA con uso limitado',
-        'Soporte por email',
-      ],
-      en: [
-        'Dashboard and invoice intake',
-        'Status tracking, basic view',
-        'Possible-duplicate detection',
-        'Quarterly tax reports (VAT, withholding)',
-        'AI assistant, limited usage',
-        'Email support',
-      ],
+    "audience": {
+      "ca": "Per a una empresa que vol controlar factures, albarans i incidències.",
+      "es": "Para una empresa que quiere controlar facturas, albaranes e incidencias.",
+      "en": "For one business managing invoices, delivery notes and exceptions."
     },
+    "limits": {
+      "ca": "200 documents/mes · 1 empresa · fins a 3 usuaris",
+      "es": "200 documentos/mes · 1 empresa · hasta 3 usuarios",
+      "en": "200 documents/mo · 1 company · up to 3 users"
+    },
+    "features": {
+      "ca": [
+        "Totes les funcions comunes detallades a sota",
+        "Lectura i arxiu d’albarans amb detall de línies",
+        "Propostes de vinculació entre albarans i factures, amb revisió humana",
+        "Reclamacions editables amb IA, recordatoris i seguiment d’incidències",
+        "Informes mensuals i trimestrals en PDF i exportació de dades",
+        "Logo i colors de l’empresa als informes i correus",
+        "Suport per correu electrònic"
+      ],
+      "es": [
+        "Todas las funciones comunes detalladas abajo",
+        "Lectura y archivo de albaranes con detalle de líneas",
+        "Propuestas de vinculación entre albaranes y facturas, con revisión humana",
+        "Reclamaciones editables con IA, recordatorios y seguimiento de incidencias",
+        "Informes mensuales y trimestrales en PDF y exportación de datos",
+        "Logo y colores de la empresa en informes y correos",
+        "Soporte por correo electrónico"
+      ],
+      "en": [
+        "All the shared features listed below",
+        "Delivery-note capture and filing, including line items",
+        "Suggested delivery-note and invoice links, reviewed by a person",
+        "Editable AI-assisted claims, reminders and exception tracking",
+        "Monthly and quarterly PDF reports and data exports",
+        "Company logo and colours on reports and emails",
+        "Email support"
+      ]
+    }
   },
   {
-    id: 'pro',
-    price: 29.9,
-    priceIsFrom: false,
-    highlighted: true,
-    limits: {
-      ca: 'Fins a 150 factures/mes · fins a 3 usuaris',
-      es: 'Hasta 150 facturas/mes · hasta 3 usuarios',
-      en: 'Up to 150 invoices/mo · up to 3 users',
+    "id": "business",
+    "price": 79.9,
+    "priceIsFrom": false,
+    "highlighted": false,
+    "name": {
+      "ca": "Business",
+      "es": "Business",
+      "en": "Business"
     },
-    features: {
-      ca: [
-        'Tot el que inclou Starter',
-        'Assistent IA sense límit de consultes',
-        'Gestió de proveedors i incidències',
-        'Seguiment de pagaments pendents',
-        'Informes mensuals exportables',
-        'Suport prioritari',
-      ],
-      es: [
-        'Todo lo de Starter',
-        'Asistente IA sin límite de consultas',
-        'Gestión de proveedores e incidencias',
-        'Seguimiento de pagos pendientes',
-        'Informes mensuales exportables',
-        'Soporte prioritario',
-      ],
-      en: [
-        'Everything in Starter',
-        'AI assistant, unlimited queries',
-        'Supplier and exception management',
-        'Pending-payment tracking',
-        'Exportable monthly reports',
-        'Priority support',
-      ],
+    "audience": {
+      "ca": "Per a una empresa amb més volum documental i un equip més ampli.",
+      "es": "Para una empresa con más volumen documental y un equipo más amplio.",
+      "en": "For one business with more documents and a larger team."
     },
+    "limits": {
+      "ca": "500 documents/mes · 1 empresa · fins a 5 usuaris",
+      "es": "500 documentos/mes · 1 empresa · hasta 5 usuarios",
+      "en": "500 documents/mo · 1 company · up to 5 users"
+    },
+    "features": {
+      "ca": [
+        "Totes les funcions de Pro",
+        "Quota de 500 documents mensuals per a l’empresa",
+        "Fins a 5 usuaris amb rols de consulta, edició o administració",
+        "Albarans, coteig i seguiment de reclamacions inclosos",
+        "Sessió inicial per configurar el circuit de treball",
+        "Suport prioritari per correu electrònic"
+      ],
+      "es": [
+        "Todas las funciones de Pro",
+        "Cuota de 500 documentos mensuales para la empresa",
+        "Hasta 5 usuarios con roles de consulta, edición o administración",
+        "Albaranes, cotejo y seguimiento de reclamaciones incluidos",
+        "Sesión inicial para configurar el circuito de trabajo",
+        "Soporte prioritario por correo electrónico"
+      ],
+      "en": [
+        "All Pro features",
+        "An allowance of 500 documents per month for the company",
+        "Up to 5 users with viewer, editor or administrator roles",
+        "Delivery notes, matching and claim tracking included",
+        "Initial session to set up the workflow",
+        "Priority email support"
+      ]
+    }
   },
   {
-    id: 'business',
-    price: 59.9,
-    priceIsFrom: true,
-    highlighted: false,
-    limits: {
-      ca: 'Factures il·limitades · multiempresa',
-      es: 'Facturas ilimitadas · multiempresa',
-      en: 'Unlimited invoices · multi-company',
+    "id": "multi",
+    "price": 149,
+    "priceIsFrom": true,
+    "highlighted": false,
+    "name": {
+      "ca": "Gestories i grups empresarials",
+      "es": "Gestorías y grupos empresariales",
+      "en": "Accounting firms & business groups"
     },
-    features: {
-      ca: [
-        'Tot el que inclou Pro',
-        'Gestió multiempresa (ideal per a gestories)',
-        'Usuaris il·limitats',
-        "Exportació avançada d'informes",
-        'Acompanyament a la posada en marxa',
-        'Suport prioritari amb gestor assignat',
-      ],
-      es: [
-        'Todo lo de Pro',
-        'Gestión multiempresa (ideal para gestorías)',
-        'Usuarios ilimitados',
-        'Exportación avanzada de informes',
-        'Acompañamiento en la puesta en marcha',
-        'Soporte prioritario con gestor asignado',
-      ],
-      en: [
-        'Everything in Pro',
-        'Multi-company management (built for accounting firms)',
-        'Unlimited users',
-        'Advanced report exports',
-        'Onboarding support',
-        'Priority support with a named contact',
-      ],
+    "audience": {
+      "ca": "Per gestionar clients d’una gestoria o diverses societats d’un mateix grup.",
+      "es": "Para gestionar clientes de una gestoría o varias sociedades de un mismo grupo.",
+      "en": "For accounting clients or several companies within one business group."
     },
+    "limits": {
+      "ca": "1.000 documents/mes compartits · fins a 5 empreses · fins a 10 usuaris",
+      "es": "1.000 documentos/mes compartidos · hasta 5 empresas · hasta 10 usuarios",
+      "en": "1,000 shared documents/mo · up to 5 companies · up to 10 users"
+    },
+    "features": {
+      "ca": [
+        "Totes les funcions de Business per a les empreses incloses",
+        "Canvi d’empresa des d’un mateix accés",
+        "Factures, proveïdors i informes separats per empresa",
+        "Quota documental compartida entre les 5 empreses",
+        "Fins a 10 usuaris en total, amb accés segons empresa i rol",
+        "Suport prioritari per correu electrònic",
+        "Més empreses, usuaris, volum o migració: pressupost a mida"
+      ],
+      "es": [
+        "Todas las funciones de Business para las empresas incluidas",
+        "Cambio de empresa desde un mismo acceso",
+        "Facturas, proveedores e informes separados por empresa",
+        "Cuota documental compartida entre las 5 empresas",
+        "Hasta 10 usuarios en total, con acceso según empresa y rol",
+        "Soporte prioritario por correo electrónico",
+        "Más empresas, usuarios, volumen o migración: presupuesto a medida"
+      ],
+      "en": [
+        "All Business features for the included companies",
+        "Switch companies from one sign-in",
+        "Separate invoices, suppliers and reports for each company",
+        "Document allowance shared across the 5 companies",
+        "Up to 10 users in total, with company and role-based access",
+        "Priority email support",
+        "More companies, users, volume or migration: custom quote"
+      ]
+    }
   },
+  {
+    "id": "starter",
+    "price": null,
+    "priceIsFrom": false,
+    "highlighted": false,
+    "name": {
+      "ca": "Starter",
+      "es": "Starter",
+      "en": "Starter"
+    },
+    "audience": {
+      "ca": "Per a autònoms i negocis amb poques factures de proveïdors.",
+      "es": "Para autónomos y negocios con pocas facturas de proveedores.",
+      "en": "For freelancers and businesses receiving a small number of supplier invoices."
+    },
+    "limits": {
+      "ca": "Fins a 50 factures/mes · 1 empresa · 1 usuari",
+      "es": "Hasta 50 facturas/mes · 1 empresa · 1 usuario",
+      "en": "Up to 50 invoices/mo · 1 company · 1 user"
+    },
+    "features": {
+      "ca": [
+        "Entrada per correu o pujada manual, extracció amb IA i revisió",
+        "Detecció de possibles duplicats i incoherències d’imports",
+        "Fitxes de proveïdors i registre de pagaments",
+        "Resum trimestral d’IVA i IRPF i exportació de dades",
+        "Assistent IA amb crèdit mensual acordat i suport per email",
+        "No inclou albarans, coteig ni reclamacions automàtiques"
+      ],
+      "es": [
+        "Entrada por correo o subida manual, extracción con IA y revisión",
+        "Detección de posibles duplicados e incoherencias de importes",
+        "Fichas de proveedores y registro de pagos",
+        "Resumen trimestral de IVA e IRPF y exportación de datos",
+        "Asistente IA con crédito mensual acordado y soporte por email",
+        "No incluye albaranes, cotejo ni reclamaciones automáticas"
+      ],
+      "en": [
+        "Email or manual intake, AI extraction and review",
+        "Possible-duplicate and amount-consistency checks",
+        "Supplier records and payment registration",
+        "Quarterly VAT and withholding summary and data exports",
+        "AI assistant with agreed monthly credit and email support",
+        "Delivery notes, matching and automated claims are not included"
+      ]
+    }
+  }
 ];
+
+/** Homepage and search metadata must use the same published numeric plans. */
+export const INVOICING_STARTING_PRICE = Math.min(
+  ...INVOICING_PLANS.flatMap((plan) => plan.price === null ? [] : [plan.price]),
+);
 
 export function formatPriceBand(band: PriceBand, locale: Locale): string {
   const suffix = band.unit === 'month' ? (locale === 'en' ? '/mo' : '/mes') : '';

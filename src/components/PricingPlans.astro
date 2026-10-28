@@ -4,159 +4,144 @@ import { t } from '@/i18n/ui';
 import type { Locale } from '@/i18n/locales';
 import Icon from '@/components/Icon.astro';
 
-interface Props {
-  locale: Locale;
-  planLabels: { starter: string; pro: string; business: string };
-}
-
-const { locale, planLabels } = Astro.props;
+interface Props { locale: Locale }
+const { locale } = Astro.props;
 const ui = t(locale);
-const name = { starter: planLabels.starter, pro: planLabels.pro, business: planLabels.business };
+const plans = INVOICING_PLANS.filter((plan) => plan.id !== 'starter');
+const starter = INVOICING_PLANS.find((plan) => plan.id === 'starter')!;
+const copy = {
+  ca: {
+    badge: 'Per al dia a dia', quote: 'Consulta el preu', starterTitle: 'Poques factures? També tenim Starter.',
+    commonTitle: 'Què inclouen Pro, Business i el pla multiempresa?',
+    common: [
+      'Entrada de factures per correu o pujada manual de PDF i imatges, amb extracció de dades amb IA.',
+      'Detecció de possibles duplicats i incoherències, revisió humana i correccions amb historial.',
+      'Dashboard, fitxes de proveïdors, comptes comptables i registre de pagaments pendents o realitzats.',
+      'Albarans amb línies de detall i propostes de coteig amb factures per confirmar o rebutjar.',
+      'Reclamacions editables, seguiment de correccions i historial dels recordatoris al proveïdor.',
+      'Informes mensuals i trimestrals en PDF, resums d’IVA i IRPF i exportació de dades.',
+      'Assistent IA sobre les dades de l’empresa, amb crèdit mensual acordat abans de l’alta.',
+      'Logo i colors de l’empresa en informes i correus; interfície en català o castellà.',
+    ],
+    volumeTitle: 'Una quota de documents clara',
+    volume: 'Cada factura processada compta com un document; cada albarà, com un altre. Consultar o descarregar un document no consumeix una nova lectura. La quota multiempresa es comparteix entre totes les empreses incloses.',
+    aiTitle: 'IA amb un límit conegut abans de començar',
+    ai: 'L’oferta concreta el crèdit mensual del xat i les condicions d’ampliació. El topall és visible al panell; les ampliacions es demanen a part. El límit del xat no atura el processament de factures.',
+    scope: 'Preus mensuals orientatius, més IVA. Starter es pressuposta segons el cas. Més documents, empreses, usuaris, importació d’històrics o integracions especials es pressuposten a part. Els informes són preparatoris: la presentació d’impostos i el servei de gestoria no estan inclosos.',
+  },
+  es: {
+    badge: 'Para el día a día', quote: 'Consultar precio', starterTitle: '¿Pocas facturas? También tenemos Starter.',
+    commonTitle: '¿Qué incluyen Pro, Business y el plan multiempresa?',
+    common: [
+      'Entrada de facturas por correo o subida manual de PDF e imágenes, con extracción de datos con IA.',
+      'Detección de posibles duplicados e incoherencias, revisión humana y correcciones con historial.',
+      'Dashboard, fichas de proveedores, cuentas contables y registro de pagos pendientes o realizados.',
+      'Albaranes con detalle de líneas y propuestas de cotejo con facturas para confirmar o rechazar.',
+      'Reclamaciones editables, seguimiento de correcciones e historial de recordatorios al proveedor.',
+      'Informes mensuales y trimestrales en PDF, resúmenes de IVA e IRPF y exportación de datos.',
+      'Asistente IA sobre los datos de la empresa, con crédito mensual acordado antes del alta.',
+      'Logo y colores de la empresa en informes y correos; interfaz en catalán o castellano.',
+    ],
+    volumeTitle: 'Una cuota de documentos clara',
+    volume: 'Cada factura procesada cuenta como un documento; cada albarán, como otro. Consultar o descargar un documento no consume una nueva lectura. La cuota multiempresa se comparte entre todas las empresas incluidas.',
+    aiTitle: 'IA con un límite conocido antes de empezar',
+    ai: 'La oferta concreta el crédito mensual del chat y las condiciones de ampliación. El tope es visible en el panel; las ampliaciones se piden aparte. El límite del chat no detiene el procesamiento de facturas.',
+    scope: 'Precios mensuales orientativos, más IVA. Starter se presupuesta según el caso. Más documentos, empresas, usuarios, importación de históricos o integraciones especiales se presupuestan aparte. Los informes son preparatorios: la presentación de impuestos y el servicio de gestoría no están incluidos.',
+  },
+  en: {
+    badge: 'For everyday work', quote: 'Ask for a quote', starterTitle: 'Only a few invoices? Starter is also available.',
+    commonTitle: 'What do Pro, Business and the multi-company plan include?',
+    common: [
+      'Invoice intake by email or manual PDF and image upload, with AI data extraction.',
+      'Possible-duplicate and consistency checks, human review and logged corrections.',
+      'Dashboard, supplier records, account codes and registration of pending or completed payments.',
+      'Delivery-note line items and suggested invoice matches for you to confirm or reject.',
+      'Editable claims, correction tracking and a history of supplier reminders.',
+      'Monthly and quarterly PDF reports, VAT and withholding summaries and data exports.',
+      'AI assistant over company data, with monthly credit agreed before signup.',
+      'Company logo and colours on reports and emails; interface in Catalan or Spanish.',
+    ],
+    volumeTitle: 'A clear document allowance',
+    volume: 'Each processed invoice counts as one document; each delivery note counts as another. Viewing or downloading a document does not use another scan. The multi-company allowance is shared across all included companies.',
+    aiTitle: 'An AI limit agreed before you start',
+    ai: 'Your offer specifies monthly chat credit and extension terms. The limit is visible in the dashboard; extra credit is requested separately. Reaching the chat limit does not stop invoice processing.',
+    scope: 'Indicative monthly prices, excluding VAT. Starter is quoted for your needs. Extra documents, companies, users, historical imports or special integrations are quoted separately. Reports are preparatory: tax filing and accounting services are not included.',
+  },
+}[locale];
 ---
 <div class="plans">
-  {INVOICING_PLANS.map((plan, i) => (
-    <div class={`plan ${plan.highlighted ? 'plan--highlighted' : ''}`} data-reveal style={`--i:${i}`}>
-      {plan.highlighted && <span class="plan__badge">{locale === 'ca' ? 'Més triat' : locale === 'es' ? 'Más elegido' : 'Most popular'}</span>}
-      <h3>{name[plan.id]}</h3>
+  {plans.map((plan, i) => (
+    <article class={`plan ${plan.highlighted ? 'plan--highlighted' : ''}`} data-reveal style={`--i:${i}`}>
+      {plan.highlighted && <span class="plan__badge">{copy.badge}</span>}
+      <h3>{plan.name[locale]}</h3>
+      <p class="plan__audience">{plan.audience[locale]}</p>
       <p class="plan__price">
         {plan.priceIsFrom && <span class="plan__from">{ui.common.priceFrom}</span>}
-        <span class="plan__amount tabular">{plan.price.toFixed(2).replace('.', locale === 'en' ? '.' : ',')}€</span>
+        <span class="plan__amount tabular">{plan.price!.toFixed(2).replace('.', locale === 'en' ? '.' : ',')}€</span>
         <span class="plan__suffix">{ui.common.month} {ui.common.plusVat}</span>
       </p>
       <p class="plan__limits">{plan.limits[locale]}</p>
       <ul class="plan__features">
-        {plan.features[locale].map((f) => (
-          <li><Icon name="check" size={16} /> {f}</li>
-        ))}
+        {plan.features[locale].map((f) => <li><Icon name="check" size={16} /><span>{f}</span></li>)}
       </ul>
-      <a href="#parlem" class={`btn ${plan.highlighted ? 'btn-primary' : 'btn-outline'} plan__cta`}>
+      <a href="#parlem" class={`btn ${plan.highlighted ? 'btn-primary' : 'btn-outline'} plan__cta`} aria-label={`${ui.common.requestDemo} · ${plan.name[locale]}`}>
         {ui.common.requestDemo}
       </a>
-    </div>
+    </article>
   ))}
 </div>
-<p class="plans__note">{ui.common.priceOrientativeNote}</p>
+<article class="starter">
+  <div class="starter__intro">
+    <h3>{copy.starterTitle}</h3>
+    <p>{starter.audience[locale]}</p>
+    <p class="plan__limits">{starter.limits[locale]}</p>
+    <p class="starter__quote">{copy.quote}</p>
+    <a href="#parlem" class="btn btn-outline" aria-label={`${copy.quote} · Starter`}>{copy.quote}</a>
+  </div>
+  <ul class="plan__features">
+    {starter.features[locale].map((f) => <li><span>{f}</span></li>)}
+  </ul>
+</article>
+<div class="included">
+  <h3>{copy.commonTitle}</h3>
+  <ul class="included__list">
+    {copy.common.map((feature) => <li><Icon name="check" size={16} /><span>{feature}</span></li>)}
+  </ul>
+</div>
+<div class="plan-terms">
+  <div><h4>{copy.volumeTitle}</h4><p>{copy.volume}</p></div>
+  <div><h4>{copy.aiTitle}</h4><p>{copy.ai}</p></div>
+</div>
+<p class="plans__note">{copy.scope}</p>
 
 <style>
-  .plans {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-  }
-
-  @media (min-width: 860px) {
-    .plans {
-      grid-template-columns: repeat(3, 1fr);
-      align-items: stretch;
-    }
-  }
-
-  .plan {
-    position: relative;
-    background: var(--white);
-    border: 1.5px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    transition: transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
-  }
-
-  .plan:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .plan--highlighted {
-    border-color: var(--red);
-    box-shadow: var(--shadow-md);
-  }
-
-  .plan--highlighted:hover {
-    box-shadow: var(--shadow-lg);
-  }
-
-  .plan__badge {
-    position: absolute;
-    top: -13px;
-    left: var(--space-4);
-    background: var(--red);
-    color: #fff;
-    font-family: var(--font-heading);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    padding: 0.25em 0.8em;
-    border-radius: var(--radius-pill);
-  }
-
-  .plan h3 {
-    font-size: var(--text-md);
-  }
-
-  .plan__price {
-    display: flex;
-    align-items: baseline;
-    gap: 0.35em;
-    flex-wrap: wrap;
-  }
-
-  .plan__from {
-    font-size: var(--text-xs);
-    color: var(--muted);
-  }
-
-  .plan__amount {
-    font-family: var(--font-heading);
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: var(--ink);
-  }
-
-  .plan__suffix {
-    font-size: var(--text-xs);
-    color: var(--muted);
-  }
-
-  .plan__limits {
-    font-size: var(--text-xs);
-    color: var(--red-600);
-    font-weight: 600;
-  }
-
-  .plan__features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    flex: 1;
-  }
-
-  .plan__features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5em;
-    font-size: var(--text-sm);
-    color: var(--ink-soft);
-  }
-
-  .plan__features li svg {
-    color: var(--ok);
-    flex: none;
-    margin-top: 0.2em;
-  }
-
-  .plan__cta {
-    justify-content: center;
-    margin-top: 0.3rem;
-  }
-
-  .plans__note {
-    font-size: var(--text-xs);
-    color: var(--muted);
-    margin-top: var(--space-3);
-    text-align: center;
-  }
+  .plans { display:grid; grid-template-columns:minmax(0,1fr); gap:var(--space-4); }
+  .plan { position:relative; min-width:0; background:var(--white); border:1.5px solid var(--line); border-radius:var(--radius-lg); padding:var(--space-4); display:flex; flex-direction:column; gap:0.9rem; }
+  .plan--highlighted { border-color:var(--red); box-shadow:var(--shadow-md); }
+  .plan__badge { position:absolute; top:-13px; left:var(--space-4); background:var(--red); color:#fff; font-family:var(--font-heading); font-size:var(--text-xs); font-weight:700; padding:0.25em 0.8em; border-radius:var(--radius-pill); }
+  .plan h3 { font-size:var(--text-md); line-height:var(--leading-snug); overflow-wrap:anywhere; }
+  .plan__audience { font-size:var(--text-sm); color:var(--muted); }
+  .plan__price { display:flex; align-items:baseline; gap:0.35em; flex-wrap:wrap; }
+  .plan__from, .plan__suffix { font-size:var(--text-xs); color:var(--muted); }
+  .plan__amount { font-family:var(--font-heading); font-size:var(--text-xl); font-weight:800; color:var(--ink); }
+  .plan__limits { font-size:var(--text-sm); color:var(--red-600); font-weight:600; }
+  .plan__features { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.65rem; flex:1; }
+  .plan__features li, .included__list li { display:flex; align-items:flex-start; gap:0.5em; font-size:var(--text-sm); color:var(--ink-soft); }
+  .plan__features li svg, .included__list li svg { color:var(--ok); flex:none; margin-top:0.25em; }
+  .plan__cta { justify-content:center; margin-top:0.3rem; }
+  .starter { display:grid; gap:var(--space-4); margin-top:var(--space-5); padding:var(--space-4); background:var(--white); border:1px dashed var(--gray-300); border-radius:var(--radius-lg); }
+  .starter__intro { display:flex; flex-direction:column; align-items:flex-start; gap:var(--space-2); }
+  .starter h3, .included h3 { font-size:var(--text-md); }
+  .starter__intro > p { font-size:var(--text-sm); }
+  .starter .starter__quote { font-size:var(--text-lg); font-family:var(--font-heading); font-weight:700; }
+  .starter .plan__features { list-style:disc; padding-left:1.1rem; }
+  .starter .plan__features li { display:list-item; }
+  .included { padding-block:var(--space-5); }
+  .included__list { list-style:none; margin:var(--space-3) 0 0; padding:0; display:grid; gap:var(--space-3) var(--space-5); }
+  .plan-terms { display:grid; gap:var(--space-4); padding-top:var(--space-4); border-top:1px solid var(--line); }
+  .plan-terms h4 { font-size:var(--text-sm); margin-bottom:var(--space-1); }
+  .plan-terms p, .plans__note { font-size:var(--text-sm); color:var(--muted); }
+  .plans__note { margin-top:var(--space-4); }
+  @media (min-width:720px) { .starter { grid-template-columns:1fr 1.4fr; } .included__list, .plan-terms { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (min-width:940px) { .plans { grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch; } }
 </style>

@@ -52,7 +52,7 @@ const narrative = [
           </div>
           <p class="demo-response">{CONTACT_COPY[locale].response} {CONTACT_COPY[locale].enquiries.invoicing.body}</p>
         </div>
-        <ProductFrame label="app.vbgfacturacion.com">
+        <ProductFrame label="facturacion.vbglabs.com">
           <InvoicingPanels variant="dashboard" labels={panelLabels} />
         </ProductFrame>
       </div>
@@ -76,7 +76,7 @@ const narrative = [
     <div class="container">
       <ProductTabs
         items={narrative}
-        frameLabel="app.vbgfacturacion.com"
+        frameLabel="facturacion.vbglabs.com"
         tablistLabel="VBG Invoicing features"
         panelLabels={panelLabels}
       />
@@ -102,7 +102,7 @@ const narrative = [
           { icon: 'users', title: 'Freelancers', description: "Stop piling up receipts and invoices to deal with later." },
           { icon: 'building', title: 'Micro-businesses', description: 'Centralize invoices from every supplier in one place.' },
           { icon: 'chart', title: 'SMEs', description: 'Tax reports ready to go, no spreadsheet required.' },
-          { icon: 'consulting', title: 'Accounting firms', description: 'Multi-company management to run several clients from one dashboard.' },
+          { icon: 'consulting', title: 'Firms and groups', description: 'Manage clients or group companies from one sign-in, with separate records for each company.' },
         ]}
       />
     </div>
@@ -110,8 +110,8 @@ const narrative = [
 
   <section class="section section--tight bg-alt" id="pricing">
     <div class="container">
-      <SectionHeader eyebrow="PRICING" title="Simple plans, no surprises" lede="Indicative pricing to start; scoped to your real invoice volume." />
-      <PricingPlans locale={locale} planLabels={{ starter: 'Starter', pro: 'Pro', business: 'Business' }} />
+      <SectionHeader eyebrow="PRICING" title="Simple plans, no surprises" lede="Choose by document volume, team size and number of companies. Indicative pricing, no minimum term." />
+      <PricingPlans locale={locale} />
     </div>
   </section>
 
@@ -123,8 +123,11 @@ const narrative = [
           { q: 'Does VBG Invoicing issue invoices to my customers?', a: "Not right now. It's focused solely on managing the invoices you receive from suppliers and contractors." },
           { q: 'Where is my data stored?', a: 'Invoices and related data are stored privately, tied only to your account. We never share data between different customer accounts.' },
           { q: 'Can I try it before committing?', a: "Yes. Request a demo and we'll walk through it with your real case before you decide." },
-          { q: 'What happens if I go over my plan\'s invoice limit?', a: "We'll let you know before you hit it so you can move up a tier without any interruption." },
-          { q: 'Does it work for accounting firms managing several clients?', a: 'Yes — the Business plan includes multi-company management built for exactly that.' },
+          { q: 'How are documents counted?', a: 'Each processed invoice counts as one document, and each delivery note as another. Pro and Business allowances apply to one company; the Accounting firms & business groups allowance is shared across the included companies. Viewing or downloading a document does not use another scan.' },
+          { q: 'What if I need more volume or more users?', a: 'We agree the included volume and users before signup. If your needs change, we quote an allowance extension or a plan change. Extensions are not included in the published price.' },
+          { q: 'Is the AI chat unlimited?', a: 'No. All plans include the assistant with a monthly credit allowance agreed in your offer before signup and visible in the dashboard. Extra credit is requested separately. Reaching the chat limit does not stop invoice processing.' },
+          { q: 'Does it work for accounting firms and business groups?', a: 'Yes. The Accounting firms & business groups plan starts with 5 companies, 10 users in total and 1,000 shared documents per month. Each company keeps separate invoices, suppliers and reports. We provide a custom quote for more companies or volume.' },
+          { q: 'What does onboarding include?', a: 'Business and the multi-company plan include an initial session to set up the workflow. Historical imports, special integrations and additional training are quoted separately. Reports are preparatory; tax filing and accounting services are not included.' },
         ]}
       />
     </div>
@@ -132,7 +135,7 @@ const narrative = [
 
   <EnquirySection locale={locale} interest="invoicing" />
 
-  <SoftwareApplicationSchema />
+  <SoftwareApplicationSchema locale={locale} />
 </BaseLayout>
 
 <style>

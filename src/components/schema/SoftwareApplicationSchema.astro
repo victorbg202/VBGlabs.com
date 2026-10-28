@@ -1,26 +1,34 @@
 ---
 import { SITE_URL } from '@/i18n/locales';
-import { INVOICING_PLANS } from '@/data/pricing';
+import type { Locale } from '@/i18n/locales';
+import { route } from '@/i18n/routes';
+import { INVOICING_PLANS, INVOICING_STARTING_PRICE } from '@/data/pricing';
 
-/**
- * SoftwareApplication schema for VBG Facturació. Only the lowest list
- * price is declared (schema.org offers a single price, not a range) —
- * this matches the real Starter tier, not an invented "from" figure.
- */
-const lowestPlan = INVOICING_PLANS[0];
-
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+// Quote-only Starter is deliberately omitted; it is not a free offer.
+const entryPlan = INVOICING_PLANS.find((plan) => plan.price === INVOICING_STARTING_PRICE)!;
+const url = `${SITE_URL}${route('invoicing', locale)}`;
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'VBG Facturació',
+  name: locale === 'ca' ? 'VBG Facturació' : locale === 'es' ? 'VBG Facturación' : 'VBG Invoicing',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web',
-  url: `${SITE_URL}/vbg-facturacio/`,
+  url,
   offers: {
     '@type': 'Offer',
-    price: lowestPlan.price.toFixed(2),
+    name: entryPlan.name[locale],
+    price: entryPlan.price!.toFixed(2),
     priceCurrency: 'EUR',
-    url: `${SITE_URL}/vbg-facturacio/`,
+    url,
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: entryPlan.price!.toFixed(2),
+      priceCurrency: 'EUR',
+      unitText: 'MONTH',
+      valueAddedTaxIncluded: false,
+    },
   },
   provider: { '@id': `${SITE_URL}/#organization` },
 };

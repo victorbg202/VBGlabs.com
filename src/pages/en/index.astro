@@ -17,7 +17,7 @@ import SolutionCatalog from '@/components/SolutionCatalog.astro';
 import { SOLUTION_UI } from '@/data/solutions/ui';
 import { route } from '@/i18n/routes';
 import { contactHref, CONTACT_COPY } from '@/data/enquiries';
-import { SERVICE_PRICING } from '@/data/pricing';
+import { SERVICE_PRICING, INVOICING_STARTING_PRICE } from '@/data/pricing';
 import { getCollection } from 'astro:content';
 
 const locale = 'en' as const;
@@ -155,7 +155,7 @@ const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long'
           <a href={contactHref(locale,'invoicing',Astro.url.pathname)} class="btn btn-outline">Request a demo</a>
         </div>
       </div>
-      <ProductFrame label="app.vbgfacturacion.com">
+      <ProductFrame label="facturacion.vbglabs.com">
         <InvoicingPanels
           variant="dashboard"
           labels={{ thisMonth: 'Invoices this month', correct: 'Correct', pending: 'Pending review', supplier: 'Supplier', amount: 'Amount', status: 'To review', okStatus: 'Correct', reviewTitle: '', reviewNote: '', reportTitle: '', vat: '', withholding: '' }}
@@ -211,7 +211,7 @@ const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long'
           { label: 'Consulting', band: SERVICE_PRICING.consulting },
           { label: 'Automation', band: SERVICE_PRICING.automation },
           { label: 'Training', band: SERVICE_PRICING.training },
-          { label: 'VBG Invoicing', band: { min: 14.9, max: null, unit: 'month' } },
+          { label: 'VBG Invoicing', band: { min: INVOICING_STARTING_PRICE, max: null, unit: 'month' }, note: 'Starter: ask for a quote' },
         ]}
       />
     </div>
