@@ -172,12 +172,11 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
     background: var(--red);
   }
 
-  html.tabs-autoplay .product-tabs__tab[aria-selected='true'] .product-tabs__progress-fill {
+  .product-tabs[data-autoplay] .product-tabs__tab[aria-selected='true'] .product-tabs__progress-fill {
     animation: tab-progress 6s linear forwards;
   }
 
-  .product-tabs__nav:hover .product-tabs__progress-fill,
-  .product-tabs__nav:focus-within .product-tabs__progress-fill {
+  .product-tabs[data-autoplay='paused'] .product-tabs__progress-fill {
     animation-play-state: paused;
   }
 
@@ -196,71 +195,109 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
 </style>
 
 <script>
-  const groups = document.querySelectorAll<HTMLElement>('.product-tabs');
+  const initialized = new WeakSet<HTMLElement>();
+  const duration = 6000;
 
-  if (groups.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.classList.add('tabs-autoplay');
+  function initProductTabs() {
+    document.querySelectorAll<HTMLElement>('.product-tabs').forEach((group) => {
+      if (initialized.has(group)) return;
+      initialized.add(group);
+      const nav = group.querySelector<HTMLElement>('.product-tabs__nav');
+      const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('.product-tabs__tab'));
+      const panels = Array.from(group.querySelectorAll<HTMLElement>('.product-tabs__panel'));
+      if (!nav || !tabs.length) return;
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let index = Math.max(0, tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'));
+      let timer: number | null = null;
+      let startedAt = 0;
+      let remaining = duration;
+      let visible = false;
+      let hovered = nav.matches(':hover');
+      let focused = nav.contains(document.activeElement);
+
+      function pause() {
+        if (timer !== null) {
+          window.clearTimeout(timer);
+          timer = null;
+          remaining = Math.max(0, remaining - (performance.now() - startedAt));
+        }
+        if (group.hasAttribute('data-autoplay')) group.dataset.autoplay = 'paused';
+      }
+
+      function syncPlayback() {
+        if (!visible || hovered || focused || document.hidden || motion.matches) {
+          pause();
+          if (motion.matches) group.removeAttribute('data-autoplay');
+          return;
+        }
+        if (timer !== null) return;
+        group.dataset.autoplay = 'running';
+        startedAt = performance.now();
+        timer = window.setTimeout(() => {
+          timer = null;
+          activate((index + 1) % tabs.length);
+        }, remaining);
+      }
+
+      function restart() {
+        pause();
+        remaining = duration;
+        // Restart the same bar too, e.g. after scrolling back into view.
+        group.removeAttribute('data-autoplay');
+        void group.offsetWidth;
+        syncPlayback();
+      }
+
+      function activate(nextIndex: number, focusTab = false) {
+        index = nextIndex;
+        tabs.forEach((tab, i) => {
+          const selected = i === index;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          if (selected && focusTab) tab.focus();
+        });
+        panels.forEach((panel, i) => { panel.hidden = i !== index; });
+        restart();
+      }
+
+      tabs.forEach((tab, i) => tab.addEventListener('click', () => activate(i)));
+      nav.addEventListener('mouseenter', () => { hovered = true; syncPlayback(); });
+      nav.addEventListener('mouseleave', () => { hovered = false; syncPlayback(); });
+      nav.addEventListener('focusin', () => { focused = true; syncPlayback(); });
+      nav.addEventListener('focusout', (event) => {
+        focused = event.relatedTarget instanceof Node && nav.contains(event.relatedTarget);
+        syncPlayback();
+      });
+      nav.addEventListener('keydown', (event) => {
+        let next: number | undefined;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        if (next !== undefined) { event.preventDefault(); activate(next, true); }
+      });
+
+      const onVisibility = () => syncPlayback();
+      const onMotion = () => restart();
+      document.addEventListener('visibilitychange', onVisibility);
+      motion.addEventListener('change', onMotion);
+      const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
+        const entered = entry.isIntersecting && !visible;
+        visible = entry.isIntersecting;
+        if (entered) restart();
+        else syncPlayback();
+      }, { threshold: 0.3 }) : null;
+      observer?.observe(group);
+      // No observer: leave the tabs usable manually, without a stuck timer.
+      document.addEventListener('astro:before-swap', () => {
+        pause();
+        observer?.disconnect();
+        document.removeEventListener('visibilitychange', onVisibility);
+        motion.removeEventListener('change', onMotion);
+      }, { once: true });
+    });
   }
 
-  groups.forEach((group) => {
-    const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('.product-tabs__tab'));
-    const panels = Array.from(group.querySelectorAll<HTMLElement>('.product-tabs__panel'));
-    let autoplayTimer: number | null = null;
-
-    function activate(index: number, focusTab = false) {
-      tabs.forEach((tab, i) => {
-        const selected = i === index;
-        tab.setAttribute('aria-selected', String(selected));
-        tab.tabIndex = selected ? 0 : -1;
-        if (selected && focusTab) tab.focus();
-      });
-      panels.forEach((panel, i) => {
-        panel.hidden = i !== index;
-      });
-      restartAutoplay(index);
-    }
-
-    function restartAutoplay(currentIndex: number) {
-      if (autoplayTimer) window.clearTimeout(autoplayTimer);
-      if (!document.documentElement.classList.contains('tabs-autoplay')) return;
-      autoplayTimer = window.setTimeout(() => activate((currentIndex + 1) % tabs.length), 6000);
-    }
-
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => activate(i));
-    });
-
-    group.querySelector('.product-tabs__nav')?.addEventListener('keydown', (e) => {
-      const key = (e as KeyboardEvent).key;
-      const current = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
-      if (key === 'ArrowRight' || key === 'ArrowDown') {
-        e.preventDefault();
-        activate((current + 1) % tabs.length, true);
-      } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
-        e.preventDefault();
-        activate((current - 1 + tabs.length) % tabs.length, true);
-      } else if (key === 'Home') {
-        e.preventDefault();
-        activate(0, true);
-      } else if (key === 'End') {
-        e.preventDefault();
-        activate(tabs.length - 1, true);
-      }
-    });
-
-    if (document.documentElement.classList.contains('tabs-autoplay') && 'IntersectionObserver' in window) {
-      const visibilityObserver = new IntersectionObserver(
-        ([entry]) => {
-          const current = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
-          if (entry.isIntersecting) {
-            restartAutoplay(current);
-          } else if (autoplayTimer) {
-            window.clearTimeout(autoplayTimer);
-          }
-        },
-        { threshold: 0.3 },
-      );
-      visibilityObserver.observe(group);
-    }
-  });
+  initProductTabs();
+  document.addEventListener('astro:page-load', initProductTabs);
 </script>

@@ -66,7 +66,7 @@ const { userMsg, botMsg } = Astro.props;
     align-self: flex-start;
     background: var(--white);
     border: 1px solid var(--line);
-    display: flex;
+    display: none;
     align-items: center;
     gap: 5px;
     padding: 1em 1.2em;
@@ -100,34 +100,33 @@ const { userMsg, botMsg } = Astro.props;
     }
   }
 
-  /* Sequenced entrance, gated behind html.reveal-ready so — without JS, or
-     if the observer never fires — all three simply render at once instead
-     of the user message being permanently hidden. */
-  html.reveal-ready .assistant-demo__msg--user {
+  /* The demo owns its animation state: it does not depend on the global
+     scroll-reveal script having initialized first. */
+  .assistant-demo[data-animated]__msg--user {
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
   }
 
-  html.reveal-ready .assistant-demo.is-visible .assistant-demo__msg--user {
+  .assistant-demo[data-animated].is-visible .assistant-demo__msg--user {
     opacity: 1;
     transform: none;
   }
 
-  html.reveal-ready .assistant-demo__msg--typing,
-  html.reveal-ready .assistant-demo__msg--bot {
+  .assistant-demo[data-animated]__msg--typing,
+  .assistant-demo[data-animated]__msg--bot {
     display: none;
   }
 
-  html.reveal-ready .assistant-demo.show-typing .assistant-demo__msg--typing {
+  .assistant-demo[data-animated].show-typing .assistant-demo__msg--typing {
     display: flex;
   }
 
-  html.reveal-ready .assistant-demo.show-bot .assistant-demo__msg--typing {
+  .assistant-demo[data-animated].show-bot .assistant-demo__msg--typing {
     display: none;
   }
 
-  html.reveal-ready .assistant-demo.show-bot .assistant-demo__msg--bot {
+  .assistant-demo[data-animated].show-bot .assistant-demo__msg--bot {
     display: flex;
     opacity: 0;
     animation: msg-in 0.35s var(--ease) forwards;
@@ -145,15 +144,15 @@ const { userMsg, botMsg } = Astro.props;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html.reveal-ready .assistant-demo__msg--user {
+    .assistant-demo[data-animated]__msg--user {
       opacity: 1;
       transform: none;
       transition: none;
     }
-    html.reveal-ready .assistant-demo__msg--typing {
+    .assistant-demo[data-animated]__msg--typing {
       display: none !important;
     }
-    html.reveal-ready .assistant-demo__msg--bot {
+    .assistant-demo[data-animated]__msg--bot {
       display: flex !important;
       opacity: 1;
       animation: none;
@@ -162,32 +161,58 @@ const { userMsg, botMsg } = Astro.props;
 </style>
 
 <script>
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches === false && 'IntersectionObserver' in window) {
-    // Re-plays the user -> typing -> reply sequence every time the demo
-    // scrolls into view, in either direction, instead of once ever.
-    const timers = new WeakMap<Element, number[]>();
+  const initialized = new WeakSet<HTMLElement>();
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const demo = entry.target as HTMLElement;
-          const pending = timers.get(demo) ?? [];
-          pending.forEach((id) => window.clearTimeout(id));
+  function initAssistantDemos() {
+    document.querySelectorAll<HTMLElement>('.assistant-demo').forEach((demo) => {
+      if (initialized.has(demo)) return;
+      initialized.add(demo);
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let timers: number[] = [];
+      let visible = false;
 
-          if (entry.isIntersecting) {
-            demo.classList.remove('show-typing', 'show-bot');
-            demo.classList.add('is-visible');
-            const t1 = window.setTimeout(() => demo.classList.add('show-typing'), 500);
-            const t2 = window.setTimeout(() => demo.classList.add('show-bot'), 1500);
-            timers.set(demo, [t1, t2]);
-          } else {
-            demo.classList.remove('is-visible', 'show-typing', 'show-bot');
-            timers.set(demo, []);
-          }
+      function reset() {
+        timers.forEach((id) => window.clearTimeout(id));
+        timers = [];
+        demo.classList.remove('is-visible', 'show-typing', 'show-bot');
+      }
+
+      function play() {
+        reset();
+        if (motion.matches || !('IntersectionObserver' in window)) {
+          demo.removeAttribute('data-animated');
+          return;
         }
-      },
-      { threshold: 0.4 },
-    );
-    document.querySelectorAll('.assistant-demo').forEach((el) => observer.observe(el));
+        demo.setAttribute('data-animated', '');
+        if (!visible || document.hidden) return;
+        // Flush the hidden state so the question animates on every re-entry.
+        void demo.offsetWidth;
+        demo.classList.add('is-visible');
+        timers = [
+          window.setTimeout(() => demo.classList.add('show-typing'), 500),
+          window.setTimeout(() => demo.classList.add('show-bot'), 1500),
+        ];
+      }
+
+      const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        play();
+      }, { threshold: 0.4 }) : null;
+      const onVisibility = () => play();
+      const onMotion = () => play();
+      document.addEventListener('visibilitychange', onVisibility);
+      motion.addEventListener('change', onMotion);
+      play();
+      observer?.observe(demo);
+      document.addEventListener('astro:before-swap', () => {
+        reset();
+        observer?.disconnect();
+        document.removeEventListener('visibilitychange', onVisibility);
+        motion.removeEventListener('change', onMotion);
+      }, { once: true });
+    });
   }
+
+  initAssistantDemos();
+  document.addEventListener('astro:page-load', initAssistantDemos);
 </script>
