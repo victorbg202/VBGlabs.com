@@ -187,6 +187,16 @@ const primaryLinks = [
     transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
   }
 
+  /* Keep the existing visual gap, but make it safe to cross with the pointer. */
+  .header__dropdown-menu::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 20px;
+  }
+
   .header__dropdown-menu a {
     padding: 0.6em 0.8em;
     border-radius: var(--radius-sm);
@@ -206,16 +216,6 @@ const primaryLinks = [
     border-bottom: 1px solid var(--line-soft);
     border-radius: 0 !important;
     margin-bottom: 0.25rem;
-  }
-
-  @media (hover: hover) {
-    .header__dropdown:hover .header__dropdown-menu,
-    .header__dropdown:focus-within .header__dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
   }
 
   .header__dropdown-btn[aria-expanded='true'] + .header__dropdown-menu {
@@ -409,23 +409,52 @@ const primaryLinks = [
     });
   }
 
-  // Desktop "Serveis" dropdown: keyboard + touch support via aria-expanded,
-  // in addition to the CSS :hover/:focus-within fallback for mouse users.
-  document.querySelectorAll<HTMLButtonElement>('.header__dropdown-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
+  // One state controls both visibility and accessibility, for mouse, touch and keyboard.
+  document.querySelectorAll<HTMLElement>('.header__dropdown').forEach((dropdown) => {
+    const button = dropdown.querySelector<HTMLButtonElement>('.header__dropdown-btn');
+    const panel = dropdown.querySelector<HTMLElement>('.header__dropdown-menu');
+    if (!button || !panel) return;
+
+    let pinned = false;
+    const setOpen = (open: boolean) => button.setAttribute('aria-expanded', String(open));
+    const close = () => {
+      pinned = false;
+      setOpen(false);
+    };
+    const links = () => Array.from(panel.querySelectorAll<HTMLAnchorElement>('a[href]'));
+
+    dropdown.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') setOpen(true);
     });
-  });
-  document.addEventListener('click', (e) => {
-    if (!(e.target as HTMLElement).closest('.header__dropdown')) {
-      document.querySelectorAll<HTMLButtonElement>('.header__dropdown-btn').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-    }
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll<HTMLButtonElement>('.header__dropdown-btn').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-    }
+    dropdown.addEventListener('pointerleave', (event) => {
+      if (event.pointerType === 'mouse' && !pinned && !panel.contains(document.activeElement)) close();
+    });
+    button.addEventListener('click', () => {
+      // The first click keeps a hover-open menu open; the next click closes it.
+      pinned = !pinned;
+      setOpen(pinned);
+    });
+    dropdown.addEventListener('focusout', (event) => {
+      if (!dropdown.contains(event.relatedTarget as Node | null)) close();
+    });
+    dropdown.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close();
+        button.focus();
+      } else if (event.target === button && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+        event.preventDefault();
+        setOpen(true);
+        const items = links();
+        (event.key === 'ArrowDown' ? items[0] : items[items.length - 1])?.focus();
+      }
+    });
+    panel.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a[href]')) close();
+    });
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target as Node | null)) close();
+    });
   });
 
   // Language switch: navigate to the equivalent page in the chosen locale.
