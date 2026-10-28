@@ -102,7 +102,7 @@ const { userMsg, botMsg } = Astro.props;
 
   /* The demo owns its animation state: it does not depend on the global
      scroll-reveal script having initialized first. */
-  .assistant-demo[data-animated]__msg--user {
+  .assistant-demo[data-animated] .assistant-demo__msg--user {
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
@@ -113,8 +113,8 @@ const { userMsg, botMsg } = Astro.props;
     transform: none;
   }
 
-  .assistant-demo[data-animated]__msg--typing,
-  .assistant-demo[data-animated]__msg--bot {
+  .assistant-demo[data-animated] .assistant-demo__msg--typing,
+  .assistant-demo[data-animated] .assistant-demo__msg--bot {
     display: none;
   }
 
@@ -144,15 +144,15 @@ const { userMsg, botMsg } = Astro.props;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .assistant-demo[data-animated]__msg--user {
+    .assistant-demo[data-animated] .assistant-demo__msg--user {
       opacity: 1;
       transform: none;
       transition: none;
     }
-    .assistant-demo[data-animated]__msg--typing {
+    .assistant-demo[data-animated] .assistant-demo__msg--typing {
       display: none !important;
     }
-    .assistant-demo[data-animated]__msg--bot {
+    .assistant-demo[data-animated] .assistant-demo__msg--bot {
       display: flex !important;
       opacity: 1;
       animation: none;
