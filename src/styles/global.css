@@ -15,7 +15,8 @@ html {
   html {
     scroll-behavior: auto;
   }
-  *,
+  /* These two timed product demos keep their automatic sequence. */
+  *:not(.product-tabs__progress-fill):not(.assistant-demo__msg):not(.assistant-demo__dot),
   *::before,
   *::after {
     animation-duration: 0.01ms !important;

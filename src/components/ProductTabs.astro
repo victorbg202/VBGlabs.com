@@ -4,7 +4,7 @@
  * ProductFrame swaps its panel to match whichever tab is active. Replaces
  * the old passive "scroll past four stacked frames" narrative with
  * something the user actually drives. Auto-advances slowly (paused on
- * hover/focus, off entirely under prefers-reduced-motion) so a visitor who
+ * hover/focus) so a visitor who
  * never clicks still sees the other three states.
  */
 import ProductFrame from '@/components/ProductFrame.astro';
@@ -206,7 +206,6 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
       const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('.product-tabs__tab'));
       const panels = Array.from(group.querySelectorAll<HTMLElement>('.product-tabs__panel'));
       if (!nav || !tabs.length) return;
-      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let index = Math.max(0, tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'));
       let timer: number | null = null;
       let startedAt = 0;
@@ -225,9 +224,8 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
       }
 
       function syncPlayback() {
-        if (!visible || hovered || focused || document.hidden || (motion.matches && !document.documentElement.hasAttribute('data-demo-motion-enabled'))) {
+        if (!visible || hovered || focused || document.hidden) {
           pause();
-          if (motion.matches && !document.documentElement.hasAttribute('data-demo-motion-enabled')) group.removeAttribute('data-autoplay');
           return;
         }
         if (timer !== null) return;
@@ -278,10 +276,7 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
       });
 
       const onVisibility = () => syncPlayback();
-      const onMotion = () => restart();
       document.addEventListener('visibilitychange', onVisibility);
-      document.addEventListener('vbg:demo-motion-change', onMotion);
-      motion.addEventListener('change', onMotion);
       const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
         const entered = entry.isIntersecting && !visible;
         visible = entry.isIntersecting;
@@ -294,8 +289,6 @@ const { items, frameLabel, tablistLabel, panelLabels } = Astro.props;
         pause();
         observer?.disconnect();
         document.removeEventListener('visibilitychange', onVisibility);
-        document.removeEventListener('vbg:demo-motion-change', onMotion);
-        motion.removeEventListener('change', onMotion);
       }, { once: true });
     });
   }

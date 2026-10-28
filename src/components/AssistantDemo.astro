@@ -17,7 +17,7 @@ const { userMsg, botMsg } = Astro.props;
 <div class="assistant-demo">
   <div class="assistant-demo__msg assistant-demo__msg--user">{userMsg}</div>
   <div class="assistant-demo__msg assistant-demo__msg--typing" aria-hidden="true">
-    <span></span><span></span><span></span>
+    <span class="assistant-demo__dot"></span><span class="assistant-demo__dot"></span><span class="assistant-demo__dot"></span>
   </div>
   <div class="assistant-demo__msg assistant-demo__msg--bot">
     <Icon name="sparkle" size={16} /> {botMsg}
@@ -143,21 +143,6 @@ const { userMsg, botMsg } = Astro.props;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    :global(html:not([data-demo-motion-enabled])) .assistant-demo[data-animated] .assistant-demo__msg--user {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-    :global(html:not([data-demo-motion-enabled])) .assistant-demo[data-animated] .assistant-demo__msg--typing {
-      display: none !important;
-    }
-    :global(html:not([data-demo-motion-enabled])) .assistant-demo[data-animated] .assistant-demo__msg--bot {
-      display: flex !important;
-      opacity: 1;
-      animation: none;
-    }
-  }
 </style>
 
 <script>
@@ -167,7 +152,6 @@ const { userMsg, botMsg } = Astro.props;
     document.querySelectorAll<HTMLElement>('.assistant-demo').forEach((demo) => {
       if (initialized.has(demo)) return;
       initialized.add(demo);
-      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let timers: number[] = [];
       let visible = false;
 
@@ -179,7 +163,7 @@ const { userMsg, botMsg } = Astro.props;
 
       function play() {
         reset();
-        if ((motion.matches && !document.documentElement.hasAttribute('data-demo-motion-enabled')) || !('IntersectionObserver' in window)) {
+        if (!('IntersectionObserver' in window)) {
           demo.removeAttribute('data-animated');
           return;
         }
@@ -199,18 +183,13 @@ const { userMsg, botMsg } = Astro.props;
         play();
       }, { threshold: 0.4 }) : null;
       const onVisibility = () => play();
-      const onMotion = () => play();
       document.addEventListener('visibilitychange', onVisibility);
-      document.addEventListener('vbg:demo-motion-change', onMotion);
-      motion.addEventListener('change', onMotion);
       play();
       observer?.observe(demo);
       document.addEventListener('astro:before-swap', () => {
         reset();
         observer?.disconnect();
         document.removeEventListener('visibilitychange', onVisibility);
-        document.removeEventListener('vbg:demo-motion-change', onMotion);
-        motion.removeEventListener('change', onMotion);
       }, { once: true });
     });
   }
