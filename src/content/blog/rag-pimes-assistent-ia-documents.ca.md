@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "rag-small-business-ai-assistant-documents"
 category: "Intel·ligència artificial"
 date: 2026-10-26
-relatedSlugs: ["ia-per-a-pimes-per-on-comencar", "alfabetitzacio-ia-empreses-que-documentar", "fitxa-proces-una-pagina-abans-automatitzar"]
+relatedSlugs: ["ia-per-a-pimes-per-on-comencar", "alfabetitzacio-ia-empreses-que-documentar", "fitxa-proces-una-pagina-abans-automatitzar", "guies-ia-aesia-reglament-pimes"]
 ---
 
 Un assistent RAG permet que una IA respongui a partir de la documentació que controla la teva empresa: procediments, manuals, catàlegs, preguntes freqüents o condicions de servei. Quan rep una consulta, busca els fragments rellevants, els aporta al model i genera una resposta que pot incloure les fonts utilitzades. És una bona opció quan el coneixement existeix però costa trobar-lo; no és una solució màgica per arreglar documents desordenats ni garanteix respostes correctes per si sola.

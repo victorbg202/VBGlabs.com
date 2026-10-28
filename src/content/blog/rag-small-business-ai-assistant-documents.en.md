@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "rag-small-business-ai-assistant-documents"
 category: "Artificial intelligence"
 date: 2026-10-26
-relatedSlugs: ["ai-for-smes-where-to-start", "ai-literacy-businesses-what-to-document", "one-page-process-template-before-automation"]
+relatedSlugs: ["ai-for-smes-where-to-start", "ai-literacy-businesses-what-to-document", "one-page-process-template-before-automation", "aesia-ai-act-guides-smes"]
 ---
 
 A RAG assistant lets AI answer from information your business controls: procedures, manuals, catalogues, FAQs or service terms. When somebody asks a question, the system retrieves relevant passages, gives them to the model and produces an answer that can point back to its sources. It is useful when the knowledge exists but is hard to find. It will not magically repair a disorganised document collection, and it cannot guarantee correct answers on its own.

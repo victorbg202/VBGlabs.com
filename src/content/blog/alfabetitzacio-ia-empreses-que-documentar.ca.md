@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "ai-literacy-businesses-2026"
 category: "Intel·ligència artificial"
 date: 2026-09-29
-relatedSlugs: ["ia-per-a-pimes-per-on-comencar", "primera-bretxa-dades-agent-ia-pimes", "rag-pimes-assistent-ia-documents"]
+relatedSlugs: ["ia-per-a-pimes-per-on-comencar", "primera-bretxa-dades-agent-ia-pimes", "rag-pimes-assistent-ia-documents", "guies-ia-aesia-reglament-pimes"]
 ---
 
 Si al teu negoci algú fa servir ChatGPT per redactar correus, Copilot per resumir documents o una eina que classifica factures, ja hi ha IA dins del dia a dia de l'empresa. La qüestió no és només si l'eina funciona: també cal saber qui la fa servir, amb quines dades, per prendre quines decisions i amb quina supervisió.

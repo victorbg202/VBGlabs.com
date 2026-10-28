@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "ai-literacy-businesses-2026"
 category: "Inteligencia artificial"
 date: 2026-09-29
-relatedSlugs: ["ia-para-pymes-por-donde-empezar", "primera-brecha-datos-agente-ia-pymes", "rag-pymes-asistente-ia-documentos"]
+relatedSlugs: ["ia-para-pymes-por-donde-empezar", "primera-brecha-datos-agente-ia-pymes", "rag-pymes-asistente-ia-documentos", "guias-ia-aesia-reglamento-pymes"]
 ---
 
 Si en tu negocio alguien utiliza ChatGPT para redactar correos, Copilot para resumir documentos o una herramienta que clasifica facturas, la IA ya forma parte del trabajo diario. La cuestión no es solamente si la herramienta funciona: también hay que saber quién la utiliza, con qué datos, para tomar qué decisiones y bajo qué supervisión.
