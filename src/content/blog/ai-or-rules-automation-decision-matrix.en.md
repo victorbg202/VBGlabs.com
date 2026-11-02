@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "ai-or-rules-automation-decision-matrix"
 category: "AI automation"
 date: 2026-10-30
-relatedSlugs: ["what-is-worth-automating", "one-page-process-template-before-automation", "manual-task-cost-automation-calculator", "rag-small-business-ai-assistant-documents"]
+relatedSlugs: ["what-is-worth-automating", "one-page-process-template-before-automation", "manual-task-cost-automation-calculator", "rag-small-business-ai-assistant-documents", "automate-incoming-invoices-ai-human-review"]
 ---
 
 Not every process that appears “intelligent” needs artificial intelligence. If the inputs are structured and the decision can be expressed as stable conditions, rules are usually cheaper, more predictable and easier to audit. AI adds value when language, documents or variable situations need to be interpreted. In many cases, the best design is hybrid: AI interprets, while rules validate and decide what may be executed.

@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "ai-or-rules-automation-decision-matrix"
 category: "Automatización con IA"
 date: 2026-10-30
-relatedSlugs: ["que-vale-la-pena-automatizar", "ficha-proceso-una-pagina-antes-automatizar", "calcular-coste-tarea-manual-automatizar", "rag-pymes-asistente-ia-documentos"]
+relatedSlugs: ["que-vale-la-pena-automatizar", "ficha-proceso-una-pagina-antes-automatizar", "calcular-coste-tarea-manual-automatizar", "rag-pymes-asistente-ia-documentos", "automatizar-facturas-recibidas-ia-revision-humana"]
 ---
 
 No todos los procesos que parecen “inteligentes” necesitan inteligencia artificial. Si las entradas son estructuradas y la decisión se puede explicar mediante condiciones estables, las reglas suelen ser más baratas, predecibles y fáciles de auditar. La IA aporta valor cuando hay que interpretar lenguaje, documentos o situaciones variables. En muchos casos, la mejor arquitectura es híbrida: la IA interpreta; las reglas validan y deciden qué se puede ejecutar.
