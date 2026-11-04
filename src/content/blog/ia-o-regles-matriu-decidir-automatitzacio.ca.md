@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "ai-or-rules-automation-decision-matrix"
 category: "Automatització amb IA"
 date: 2026-10-30
-relatedSlugs: ["que-val-la-pena-automatitzar", "fitxa-proces-una-pagina-abans-automatitzar", "calcular-cost-tasca-manual-automatitzar", "rag-pimes-assistent-ia-documents", "automatitzar-factures-rebudes-ia-revisio-humana"]
+relatedSlugs: ["que-val-la-pena-automatitzar", "fitxa-proces-una-pagina-abans-automatitzar", "calcular-cost-tasca-manual-automatitzar", "rag-pimes-assistent-ia-documents", "automatitzar-factures-rebudes-ia-revisio-humana", "agents-ia-pimes-actuar-eines"]
 ---
 
 No tots els processos que semblen “intel·ligents” necessiten intel·ligència artificial. Si les entrades són estructurades i la decisió es pot explicar amb condicions estables, les regles acostumen a ser més barates, previsibles i fàcils d'auditar. La IA aporta valor quan cal interpretar llenguatge, documents o situacions variables. En molts casos, la millor arquitectura és híbrida: la IA interpreta; les regles validen i decideixen què es pot executar.
