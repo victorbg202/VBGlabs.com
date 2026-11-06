@@ -1,0 +1,131 @@
+---
+title: "¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso"
+description: "Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión."
+slug: "calculadora-coste-automatizacion-ia-caso"
+lang: "es"
+translationGroup: "ai-automation-cost-per-case-calculator"
+category: "Costes y retorno de la IA"
+date: 2026-11-06
+relatedSlugs: ["calcular-coste-tarea-manual-automatizar", "ia-o-reglas-matriz-decidir-automatizacion", "automatizar-facturas-recibidas-ia-revision-humana", "agentes-ia-pymes-actuar-herramientas"]
+---
+
+import AiAutomationCostCalculator from '../../components/AiAutomationCostCalculator.astro';
+
+Para calcular cuánto cuesta una automatización con IA no basta con mirar la tarifa del modelo. Hay que sumar la puesta en marcha, las integraciones, el consumo por operación, las excepciones que revisará una persona, el control de calidad y el mantenimiento. La herramienta de esta página compara el flujo completo con el trabajo manual actual y estima el coste por caso procesado, el ahorro mensual y el plazo de recuperación de la inversión.
+
+## Por qué el precio del modelo no responde a la pregunta
+
+La [calculadora del coste de una tarea manual](/es/blog/calcular-coste-tarea-manual-automatizar/) permite detectar procesos con suficiente volumen y dedicación. Sin embargo, la IA introduce costes que no aparecen igual en una automatización basada únicamente en reglas.
+
+Una factura puede pasar por OCR antes de extraer sus campos. Un asistente puede consultar varias veces una base de conocimiento. Un agente puede llamar a diferentes herramientas, repetir una acción o detenerse por falta de datos. Un bot de voz combina telefonía, transcripción, modelo y síntesis. Y ningún porcentaje de automatización elimina por arte de magia todas las excepciones.
+
+Por eso, saber que una llamada al modelo cuesta céntimos aporta poco si no conocemos el **coste del proceso completo por resultado comprobado**.
+
+<AiAutomationCostCalculator locale="es" />
+
+Los valores iniciales forman un ejemplo ficticio para explicar la herramienta. No son precios de mercado ni una promesa de resultados. Sustitúyelos por datos del proceso que quieres evaluar.
+
+## Cómo completar cada campo con datos defendibles
+
+### Casos mensuales
+
+Antes de introducir una cifra, decide qué cuenta como caso: una factura, un correo, una llamada, una incidencia o un expediente. Si el esfuerzo varía mucho, crea cálculos separados.
+
+Utiliza el volumen observado en varios meses. La capacidad deseada no sustituye al volumen real.
+
+### Tiempo manual y coste por hora
+
+Mide el ciclo entero: abrir la entrada, localizar contexto, copiar o interpretar datos, registrar el resultado, comunicarlo y corregir incidencias. Una muestra breve tomada mientras el equipo trabaja suele ser más fiable que una estimación de memoria.
+
+El coste horario debe ser el coste total para la empresa, no el salario neto, y debes aplicar el mismo criterio al proceso actual y al futuro.
+
+### Casos resueltos sin revisión
+
+Este porcentaje representa las entradas que el flujo completa y valida sin intervención. No cuentes una salida porque parezca razonable. Debe cumplir una definición objetiva de “caso resuelto”.
+
+En documentos, puede exigir que todos los campos críticos superen las reglas. En cualificación de leads, que la intención y los datos obligatorios queden preparados. En un asistente interno, que la respuesta use una fuente autorizada, muestre la referencia y no active ninguna condición de escalado.
+
+Si aún no existe un piloto, trabaja con un rango prudente. La [matriz para elegir entre IA, reglas o un flujo híbrido](/es/blog/ia-o-reglas-matriz-decidir-automatizacion/) ayuda a separar la interpretación del modelo de las comprobaciones que deben seguir siendo exactas.
+
+### Minutos por excepción
+
+Una cola de revisión bien diseñada muestra la propuesta de la IA, la regla que ha fallado, la evidencia y el paso pendiente. La persona no debería repetir toda la tarea desde cero.
+
+Si revisar una excepción tarda casi lo mismo que el proceso manual, revisa la interfaz o el reparto de trabajo entre IA y reglas. Este tiempo puede cambiar por completo la rentabilidad y debe medirse durante el piloto, no darse por supuesto.
+
+### Muestra de control de calidad
+
+Aunque una parte de los casos pase directamente, revisar una muestra permite detectar nuevos formatos, cambios en las fuentes o errores que las reglas todavía no reconocen. La calculadora utiliza el mismo tiempo para una excepción y para un control. Si el control es más rápido, introduce una media ponderada.
+
+La muestra puede ser mayor durante el piloto y volver a aumentar después de modificar el modelo, el prompt, los datos o una integración.
+
+### Implantación inicial
+
+Incluye el análisis del proceso, la preparación de datos, la configuración del modelo, las reglas, los permisos, las integraciones, la pantalla de revisión, las pruebas y la puesta en producción. Ordenar documentos o conseguir accesos que todavía no existen también consume trabajo.
+
+Antes de presupuestar, la [ficha de proceso de una página](/es/blog/ficha-proceso-una-pagina-antes-automatizar/) ayuda a fijar entrada, salida, responsables y excepciones. Un alcance ambiguo suele convertirse en cambios y costes durante la implantación.
+
+### Coste fijo y coste variable de IA
+
+En el coste fijo mensual pueden entrar la plataforma de automatización, los conectores, la base de datos, la monitorización y las licencias mínimas. En el coste variable deben figurar todos los elementos que crecen con el volumen:
+
+- consumo del modelo;
+- OCR, transcripción o síntesis de voz;
+- embeddings, búsquedas y reordenación de resultados;
+- ejecuciones de herramientas o conectores;
+- reintentos y pasos intermedios habituales;
+- almacenamiento y transferencia asociados a cada caso.
+
+No calcules con el precio de un único prompt si el recorrido real hace cinco llamadas. Utiliza el coste medio de una ejecución completa y añade también los intentos que terminan en excepción.
+
+### Mantenimiento mensual
+
+El sistema necesitará revisar incidencias, adaptar instrucciones, actualizar fuentes, vigilar costes y repetir pruebas cuando cambie un componente. Suponer mantenimiento cero hace que cualquier comparación nazca sesgada.
+
+La herramienta valora estas horas con el coste horario del proceso manual. Si el mantenimiento lo realiza otro perfil, convierte sus horas en un importe mensual y súmalo al campo de plataforma e integraciones.
+
+## Fórmulas que utiliza la calculadora
+
+El **coste manual mensual** se obtiene así:
+
+`casos × minutos manuales ÷ 60 × coste por hora`
+
+El **coste mensual del flujo con IA** suma plataforma, consumo variable de todos los casos, mantenimiento, revisión de excepciones y controles de calidad.
+
+El **ahorro mensual** es la diferencia entre ambos circuitos. Para el **balance del primer año**, la herramienta resta la implantación inicial a doce meses de ahorro. El **plazo de recuperación** divide la inversión inicial por el ahorro mensual, siempre que el ahorro sea positivo.
+
+El **coste por caso** divide todo el coste operativo mensual entre el volumen. Esta cifra es más útil que el precio aislado del modelo porque incorpora la parte humana y técnica necesaria para que el resultado llegue al siguiente paso.
+
+## Calcula tres escenarios antes de decidir
+
+No guardes una única previsión. Prepara al menos estas tres:
+
+| Escenario | Volumen | Resolución directa | Revisión y mantenimiento |
+|---|---:|---:|---|
+| Conservador | bajo | menor de la esperada | más altos |
+| Base | habitual | resultado medido en el piloto | media observada |
+| Capacidad | alto | solo lo ya demostrado | incluye el coste de escalar |
+
+Un proyecto que solo funciona en la versión optimista todavía no tiene un caso económico robusto. Cambia una variable cada vez para saber si el resultado depende del volumen, la tasa de resolución o el coste de revisión.
+
+## Un ROI positivo no demuestra que la automatización funcione
+
+La calculadora genera una hipótesis económica. El piloto debe comprobarla con métricas del proceso:
+
+- porcentaje de casos correctos sin intervención;
+- precisión en campos o decisiones críticas;
+- causas de excepción, reintento y bloqueo;
+- minutos reales de revisión y mantenimiento;
+- coste completo por caso procesado;
+- errores que alcanzan la siguiente etapa;
+- disponibilidad e incidencias del servicio.
+
+En la [automatización de facturas recibidas con IA](/es/blog/automatizar-facturas-recibidas-ia-revision-humana/), por ejemplo, leer bien el total no es suficiente. Hay que saber si los campos críticos superan las validaciones y cuánto cuesta revisar el resto. En un agente también deben contarse las herramientas utilizadas, las aprobaciones y los trabajos incompletos.
+
+Evita registrar como ahorro todas las horas liberadas de forma automática. Explica qué tarea concreta podrá asumir el equipo, qué espera desaparecerá o qué volumen adicional podrá gestionarse. Mantén ese valor potencial separado del ahorro directo para no forzar la conclusión.
+
+## Cuándo merece la pena iniciar un piloto
+
+El siguiente paso tiene sentido cuando el proceso está acotado, existe volumen suficiente, la salida correcta se puede verificar y las excepciones cuentan con una ruta segura. El propósito del piloto es sustituir estimaciones por cuatro datos reales: resolución sin revisión, coste variable, tiempo humano y mantenimiento.
+
+Si quieres valorar un proceso antes de invertir, la [consultoría de IA](/es/consultoria/) de VBG Labs puede convertirlo en escenarios, riesgos y un alcance de piloto. Cuando el circuito ya está definido, una [automatización con IA](/es/automatizaciones/) puede conectar el modelo con las herramientas, reglas y aprobaciones del negocio. La primera pregunta no debería ser qué modelo comprar, sino qué resultado verificable necesitamos y cuánto cuesta conseguirlo bien.

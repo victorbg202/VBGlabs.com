@@ -1,0 +1,133 @@
+---
+title: "How much does AI automation cost? A cost-per-case calculator"
+description: "Estimate the true cost of AI automation, including models, integrations, exceptions, human review, maintenance and investment payback."
+slug: "ai-automation-cost-per-case-calculator"
+lang: "en"
+translationGroup: "ai-automation-cost-per-case-calculator"
+category: "AI costs and returns"
+date: 2026-11-06
+relatedSlugs: ["manual-task-cost-automation-calculator", "ai-or-rules-automation-decision-matrix", "automate-incoming-invoices-ai-human-review", "ai-agents-small-business-act-across-tools"]
+---
+
+import AiAutomationCostCalculator from '../../components/AiAutomationCostCalculator.astro';
+
+The cost of AI automation is not the model bill. A useful estimate also includes implementation, integrations, usage across every step, human handling of exceptions, quality checks and ongoing maintenance. The calculator below compares that complete workflow with the current manual process. It estimates monthly operating cost, cost per processed case, monthly savings and the time needed to recover the initial investment.
+
+## Why AI automation needs its own cost model
+
+The [manual task cost calculator](/en/blog/manual-task-cost-automation-calculator/) is a good first filter: it shows whether a process has enough volume and labour to justify further analysis. AI adds another layer of variables.
+
+A document may need OCR before extraction. A knowledge assistant may run several searches before producing an answer. An agent may call tools, retry a step or stop because a required field is missing. A voice bot combines telephony, speech recognition, model usage and speech synthesis. Some cases will still need a person, even when the average model response looks good.
+
+That is why a low price per token or prompt does not establish a business case. The useful unit is the **end-to-end cost of a verified outcome**.
+
+<AiAutomationCostCalculator locale="en" />
+
+The starting values are an illustrative example, not market pricing or a performance promise. Replace them with evidence from the process you want to assess.
+
+## How to provide inputs you can defend
+
+### Monthly case volume
+
+Decide what one case means before entering a number. It might be one incoming invoice, enquiry, call, support request or file. Do not combine short, predictable items with cases that involve several documents and decisions. Calculate them separately if their effort differs materially.
+
+Use observed volume across several months rather than hoped-for capacity. Volume strongly affects the cost per case because fixed costs are spread across every item.
+
+### Manual minutes and hourly cost
+
+Measure the full cycle: opening the item, finding context, copying or interpreting information, recording the decision, communicating it and correcting mistakes. A short time study during normal work is usually more dependable than asking for a figure from memory.
+
+Use the fully loaded cost of the role, not take-home pay, and apply the same basis to both workflows.
+
+### Cases completed without review
+
+This percentage is the share of items that the workflow completes and validates without human intervention. Do not count outputs merely because they look plausible. Define what a successful case must prove.
+
+For document extraction, every critical field might need to pass deterministic checks. For lead qualification, the required details and intent may need to be complete. For an internal assistant, a response may need to cite an authorised source and avoid every escalation condition.
+
+If you do not have pilot data, use a cautious range rather than one confident number. The [AI, rules or hybrid decision matrix](/en/blog/ai-or-rules-automation-decision-matrix/) can help keep exact validations outside the probabilistic part of the workflow.
+
+### Time to handle an exception
+
+A well-designed review queue should show the AI proposal, the failed rule, the supporting evidence and the decision that remains. The reviewer should not have to repeat the entire task.
+
+If an exception takes almost as long as the original manual process, the review experience may be poor or the AI may be handling the wrong part of the work. Measure this input during the pilot: a few extra minutes across a large exception queue can overturn an attractive estimate.
+
+### Quality-control sample
+
+Even when cases pass automatically, reviewing a sample helps reveal new input formats, source changes and errors that existing rules do not catch. The calculator assumes that a sampled case takes the same review time as an exception. If your quality check is shorter, enter a weighted average.
+
+The sample may be large during the pilot and increase again after a model, prompt, data source or integration changes.
+
+### Initial implementation
+
+Include process analysis, data preparation, model configuration, rules, permissions, integrations, the review interface, testing and release. If documents first need to be organised or access has not been arranged, that preparation is part of the project too.
+
+The [one-page process template](/en/blog/one-page-process-template-before-automation/) helps define the input, output, owner and exceptions before anyone estimates the build. An unclear boundary tends to reappear later as rework and additional cost.
+
+### Fixed platform and variable AI costs
+
+Fixed monthly costs can include orchestration, connectors, databases, monitoring and minimum licence fees. Variable cost should cover every item that grows with case volume:
+
+- model usage;
+- OCR, transcription or speech synthesis;
+- embeddings, search and result reranking;
+- tool and connector executions;
+- normal retries and intermediate steps;
+- case-related storage and data transfer.
+
+Do not use the price of one prompt if the production workflow makes five calls. Estimate the average cost of a complete run, including attempts that end in an exception.
+
+### Monthly maintenance
+
+AI automation needs attention. Someone must review incidents, update instructions, adapt to source changes, monitor spend and rerun tests after a component changes. A zero-maintenance assumption makes the comparison favourable before any evidence exists.
+
+The calculator values maintenance at the hourly cost entered for the manual process. If a different role maintains the system, convert that effort into a monthly amount and add it to the platform and integrations field.
+
+## What the calculator works out
+
+The **current monthly manual cost** is:
+
+`cases × manual minutes ÷ 60 × hourly cost`
+
+The **monthly AI workflow cost** adds fixed platform charges, variable usage for every case, maintenance, exception handling and quality sampling.
+
+The **monthly saving** is the difference between those two workflows. The **first-year balance** subtracts the implementation cost from twelve months of operating savings. Where monthly savings are positive, the **payback period** divides the initial investment by that monthly saving.
+
+The **workflow cost per case** divides monthly operating cost by total volume. It is not the model price. It represents the estimated cost of taking one input through the complete operating process, including its share of human and technical overhead.
+
+## Model three scenarios rather than one forecast
+
+Keep at least three versions of the calculation:
+
+| Scenario | Volume | No-review completion | Exceptions and maintenance |
+|---|---:|---:|---|
+| Conservative | low | below plan | higher |
+| Base | typical | measured in the pilot | observed average |
+| Capacity | high | only what evidence supports | includes scaling effects |
+
+If the project works only under the optimistic scenario, it does not yet have a resilient economic case.
+
+Change one input at a time as well. This sensitivity check shows whether the case depends mainly on volume, the no-review rate or review effort. That insight can be more useful for pilot design than a single ROI percentage.
+
+## Positive payback does not prove quality
+
+The calculator produces a financial hypothesis. A pilot should test it with operational measures:
+
+- correctly completed cases without intervention;
+- accuracy on critical fields or decisions;
+- reasons for exceptions, retries and stops;
+- actual review and maintenance time;
+- total cost per processed case;
+- errors that reach the next stage;
+- service availability and incident resolution time.
+
+For [incoming invoice automation with AI](/en/blog/automate-incoming-invoices-ai-human-review/), reading the total correctly is not enough. You need to know whether critical fields pass validation and what the remaining invoices cost to review. An agent assessment must also count tools called, approvals requested and work left incomplete.
+
+Do not automatically treat every released hour as cash saving. State which specific work the team can now absorb, which delay disappears or which extra volume can be handled. Keep this capacity value separate from direct cost savings so that it does not force the conclusion.
+
+## When to move from estimate to pilot
+
+A pilot is sensible when the process has a clear boundary, meaningful volume, a verifiable correct output and a safe route for exceptions. Its job is to replace assumptions with four observed numbers: no-review completion, variable cost, human review time and maintenance.
+
+If you want to assess a process before committing to implementation, VBG Labs' [AI consulting service](/en/consulting/) can turn it into cost scenarios, risks and a bounded pilot. When the workflow is already defined, [AI automation](/en/automation/) can connect the model to business tools, rules and human approvals. The first question should not be “which model should we buy?” but “what verified outcome do we need, and what does it cost to produce it properly?”.

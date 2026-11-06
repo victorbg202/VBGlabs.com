@@ -1,0 +1,131 @@
+---
+title: "Quant costa una automatització amb IA? Calculadora de cost per cas"
+description: "Calcula el cost real d'una automatització amb IA incloent model, integracions, excepcions, revisió humana, manteniment i retorn de la inversió."
+slug: "calculadora-cost-automatitzacio-ia-cas"
+lang: "ca"
+translationGroup: "ai-automation-cost-per-case-calculator"
+category: "Costos i retorn de la IA"
+date: 2026-11-06
+relatedSlugs: ["calcular-cost-tasca-manual-automatitzar", "ia-o-regles-matriu-decidir-automatitzacio", "automatitzar-factures-rebudes-ia-revisio-humana", "agents-ia-pimes-actuar-eines"]
+---
+
+import AiAutomationCostCalculator from '../../components/AiAutomationCostCalculator.astro';
+
+El cost d'una automatització amb IA no és només la factura del model. Per saber si el projecte pot compensar, cal sumar la implantació, les integracions, el consum per cada cas, la revisió d'excepcions, els controls de qualitat i el manteniment. La calculadora d'aquesta pàgina compara tot això amb el cost manual actual i estima el cost per cas processat, l'estalvi mensual i el temps necessari per recuperar la inversió.
+
+## Per què una calculadora específica per a IA
+
+La [calculadora del cost d'una tasca manual](/blog/calcular-cost-tasca-manual-automatitzar/) serveix per identificar processos on hi ha prou volum i temps dedicat. Però una automatització amb IA afegeix variables que una automatització determinista no sempre té.
+
+Un document pot necessitar OCR abans d'arribar al model. Un assistent pot fer diverses consultes a una base de coneixement. Un agent pot invocar eines, repetir un pas o aturar-se perquè falta una dada. Un bot de veu combina telefonia, transcripció, generació i síntesi. A més, una part dels casos continuarà necessitant una persona.
+
+Per això, “el model costa pocs cèntims” no permet decidir res per si sol. La unitat útil és el **cost del procés complet per resultat verificat**.
+
+<AiAutomationCostCalculator locale="ca" />
+
+Les dades inicials són un exemple il·lustratiu, no una referència de mercat ni una promesa de rendiment. Canvia-les per les del teu procés.
+
+## Com omplir les deu dades sense enganyar-te
+
+### 1. Casos al mes
+
+Defineix primer què és un cas: una factura rebuda, una consulta comercial, una trucada, una incidència o un expedient. No barregis unitats amb dificultats molt diferents. Si algunes entrades són simples i d'altres contenen diversos documents, separa-les en grups.
+
+Utilitza el volum real dels últims mesos, no la capacitat que t'agradaria assolir.
+
+### 2. Minuts manuals per cas i cost per hora
+
+Mesura el temps complet: obrir l'entrada, buscar context, copiar dades, prendre una decisió, registrar el resultat i resoldre correccions. Una mostra d'una o dues setmanes acostuma a ser més fiable que una estimació feta de memòria.
+
+El cost per hora ha de representar el cost total per a l'empresa, no el salari net, i s'ha d'aplicar amb el mateix criteri als dos circuits.
+
+### 3. Percentatge resolt sense revisió
+
+És la part dels casos que el flux pot completar i que supera les validacions sense intervenció. No és el percentatge de respostes que “semblen correctes”. Per comptar un cas com a resolt, la sortida ha de complir una definició verificable.
+
+En extracció documental, pot significar que tots els camps crítics passen les regles. En qualificació de consultes, que la intenció i les dades obligatòries queden preparades. En un assistent intern, que la resposta cita una font autoritzada i no activa cap condició de derivació.
+
+Si encara no tens un pilot, utilitza un rang prudent. La [matriu entre IA, regles i automatització híbrida](/blog/ia-o-regles-matriu-decidir-automatitzacio/) ajuda a reservar per a regles exactes allò que no hauria de dependre del model.
+
+### 4. Temps de revisió d'una excepció
+
+Una excepció ben dissenyada no hauria d'obligar a repetir tota la tasca. La persona ha de veure què s'ha extret, quina regla ha fallat, les fonts consultades i quin pas necessita confirmació.
+
+Si revisar un cas triga gairebé el mateix que fer-lo manualment, pot ser que la interfície de revisió sigui insuficient o que la IA no estigui resolent la part adequada del procés. Aquest temps és una de les variables que més convé mesurar durant el pilot.
+
+### 5. Mostra de control de qualitat
+
+Encara que alguns casos passin directament, convé revisar una mostra per detectar canvis de comportament, nous formats d'entrada o errors que les regles no capturen. La calculadora aplica el mateix temps de revisió a les excepcions i a la mostra; si el control és més curt, introdueix una mitjana ponderada.
+
+La mostra pot ser més gran durant el pilot i tornar a créixer després d'un canvi de model, prompt, font o integració.
+
+### 6. Implantació inicial
+
+Inclou l'anàlisi del procés, preparació de dades, configuració del model, integracions, regles, permisos, interfície de revisió, proves i posada en marxa. Si el projecte depèn de documentació desordenada o d'accessos que encara no existeixen, aquesta preparació també forma part del cost.
+
+La [fitxa de procés d'una pàgina](/blog/fitxa-proces-una-pagina-abans-automatitzar/) ajuda a delimitar l'entrada, el resultat, les excepcions i el responsable abans de pressupostar.
+
+### 7. Plataforma, integracions i cost variable d'IA
+
+Separa el cost fix mensual del cost per cas. En el fix hi poden entrar l'orquestració, els connectors, la base de dades, la monitorització o una llicència mínima. En el variable, suma tot el que creix amb el volum:
+
+- ús del model d'IA;
+- OCR, transcripció o síntesi de veu;
+- cerques, embeddings o reordenació de resultats;
+- execucions de connectors i eines;
+- reintents i passos intermedis habituals;
+- emmagatzematge o transferència vinculats al cas.
+
+No facis el càlcul amb el preu d'un sol prompt si el flux real en necessita cinc. Utilitza el cost mitjà d'una execució completa, incloent els intents fallits.
+
+### 8. Hores de manteniment
+
+Una automatització amb IA necessita seguiment: revisar incidències, actualitzar instruccions, adaptar-se a canvis de les fonts, comprovar costos i repetir proves quan canvia un component. No assumeixis manteniment zero.
+
+La calculadora valora aquestes hores amb el mateix cost horari introduït per al procés manual. Si el manteniment el fa un perfil amb un cost diferent, converteix-lo en un cost mensual equivalent i afegeix-lo a “plataforma i integracions”.
+
+## Què calcula l'eina
+
+El **cost manual mensual** és:
+
+`casos × minuts manuals ÷ 60 × cost per hora`
+
+El **cost mensual del flux amb IA** suma la plataforma, el cost variable de tots els casos, el manteniment, la revisió de les excepcions i el control de qualitat.
+
+L'**estalvi mensual** és la diferència entre els dos circuits. El **balanç del primer any** resta la implantació inicial a dotze mesos d'estalvi. El **temps de recuperació** divideix la implantació per l'estalvi mensual, sempre que aquest sigui positiu.
+
+El **cost per cas** divideix el cost operatiu del flux pel volum total. No equival al preu del model: és una estimació del que costa processar cada entrada amb el circuit complet.
+
+## Fes tres escenaris, no una sola previsió
+
+Guarda tres versions del càlcul:
+
+| Escenari | Volum | Resolució sense revisió | Excepcions i manteniment |
+|---|---:|---:|---|
+| Conservador | baix | menor del previst | més alts |
+| Base | volum habitual | resultat observat al pilot | mitjana mesurada |
+| Capacitat | alt | només si el sistema ho ha demostrat | inclou l'impacte d'escalar |
+
+Si el projecte només surt rendible en l'escenari optimista, encara no hi ha un cas econòmic sòlid.
+
+## El retorn econòmic no substitueix la qualitat
+
+Un resultat positiu a la calculadora és una hipòtesi per provar. Abans d'ampliar el flux, mesura almenys:
+
+- percentatge de casos correctes sense revisió;
+- precisió dels camps o decisions crítics;
+- motius de derivació i de reintent;
+- minuts reals de revisió i manteniment;
+- cost complet per cas;
+- errors que arriben al pas següent;
+- disponibilitat del servei i temps de resolució d'incidències.
+
+En una [automatització de factures rebudes amb IA](/blog/automatitzar-factures-rebudes-ia-revisio-humana/), per exemple, no n'hi ha prou que el total es llegeixi bé: cal saber si els camps crítics passen les validacions i quant costa revisar la resta. En un agent, també s'han de comptar les eines invocades, les aprovacions i els passos que queden a mig fer.
+
+No converteixis automàticament totes les hores “alliberades” en estalvi. Indica quin treball concret podrà absorbir l'equip, quina espera desapareixerà o quin volum addicional es podrà gestionar. Separa aquest valor potencial de l'estalvi directe perquè la decisió sigui auditable.
+
+## Quan passar de la calculadora a un pilot
+
+Té sentit preparar un pilot quan el procés està delimitat, hi ha volum suficient, la sortida correcta es pot verificar i les excepcions tenen una ruta segura. El pilot ha de servir per substituir supòsits per dades: taxa real de resolució, cost variable, temps de revisió i manteniment.
+
+Si vols estimar un cas abans d'invertir, la [consultoria d'IA](/consultoria/) de VBG Labs pot convertir el procés en escenaris de cost, riscos i un abast de pilot. Si el procés ja està definit, una [automatització amb IA](/automatitzacions/) pot connectar el model amb les eines del negoci, les regles i la revisió humana. La decisió no hauria de començar per “quin model utilitzem?”, sinó per “quin resultat verificable volem i quant costa obtenir-lo bé?”.

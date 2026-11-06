@@ -1,0 +1,270 @@
+---
+import type { Locale } from '@/i18n/locales';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  ca: {
+    title: "Calculadora de cost d'una automatització amb IA",
+    intro: "Substitueix l'exemple per dades del teu procés. Inclou model, plataforma, excepcions, control de qualitat i manteniment.",
+    volume: 'Casos al mes',
+    manualMinutes: 'Minuts manuals per cas',
+    hourlyCost: 'Cost total per hora (€)',
+    automationRate: 'Casos resolts sense revisió (%)',
+    exceptionMinutes: "Minuts per revisar una excepció",
+    qaRate: 'Mostra de control de qualitat (%)',
+    implementation: "Implantació inicial (€)",
+    fixedMonthly: 'Plataforma i integracions al mes (€)',
+    variableCost: "Cost variable d'IA per cas (€)",
+    maintenanceHours: 'Manteniment mensual (hores)',
+    calculate: 'Calcular',
+    currentMonthly: 'Cost manual mensual',
+    aiMonthly: 'Cost mensual del flux amb IA',
+    costPerCase: 'Cost del flux per cas',
+    monthlySavings: 'Estalvi mensual estimat',
+    firstYear: 'Balanç del primer any',
+    payback: 'Recuperació de la inversió',
+    months: 'mesos',
+    noPayback: 'No es recupera amb aquestes dades',
+    strong: "La hipòtesi econòmica és prometedora. Abans de decidir, valida en un pilot la qualitat, les excepcions i el temps real de revisió.",
+    review: "Pot tenir sentit, però el resultat depèn molt del volum i de la revisió. Prova un abast més petit i mesura'l abans d'ampliar.",
+    weak: "Amb aquestes dades, el flux no redueix el cost actual. Revisa l'abast, el volum o una alternativa més simple abans d'invertir.",
+  },
+  es: {
+    title: 'Calculadora de coste de una automatización con IA',
+    intro: 'Sustituye el ejemplo por datos de tu proceso. Incluye modelo, plataforma, excepciones, control de calidad y mantenimiento.',
+    volume: 'Casos al mes',
+    manualMinutes: 'Minutos manuales por caso',
+    hourlyCost: 'Coste total por hora (€)',
+    automationRate: 'Casos resueltos sin revisión (%)',
+    exceptionMinutes: 'Minutos para revisar una excepción',
+    qaRate: 'Muestra de control de calidad (%)',
+    implementation: 'Implantación inicial (€)',
+    fixedMonthly: 'Plataforma e integraciones al mes (€)',
+    variableCost: 'Coste variable de IA por caso (€)',
+    maintenanceHours: 'Mantenimiento mensual (horas)',
+    calculate: 'Calcular',
+    currentMonthly: 'Coste manual mensual',
+    aiMonthly: 'Coste mensual del flujo con IA',
+    costPerCase: 'Coste del flujo por caso',
+    monthlySavings: 'Ahorro mensual estimado',
+    firstYear: 'Balance del primer año',
+    payback: 'Recuperación de la inversión',
+    months: 'meses',
+    noPayback: 'No se recupera con estos datos',
+    strong: 'La hipótesis económica es prometedora. Antes de decidir, valida en un piloto la calidad, las excepciones y el tiempo real de revisión.',
+    review: 'Puede tener sentido, pero el resultado depende mucho del volumen y de la revisión. Prueba un alcance menor y mídelo antes de ampliarlo.',
+    weak: 'Con estos datos, el flujo no reduce el coste actual. Revisa el alcance, el volumen o una alternativa más sencilla antes de invertir.',
+  },
+  en: {
+    title: 'AI automation cost calculator',
+    intro: 'Replace the example with data from your process. It includes model usage, platform costs, exceptions, quality checks and maintenance.',
+    volume: 'Cases per month',
+    manualMinutes: 'Manual minutes per case',
+    hourlyCost: 'Fully loaded hourly cost (€)',
+    automationRate: 'Cases completed without review (%)',
+    exceptionMinutes: 'Minutes to review an exception',
+    qaRate: 'Quality-control sample (%)',
+    implementation: 'Initial implementation (€)',
+    fixedMonthly: 'Platform and integrations per month (€)',
+    variableCost: 'Variable AI cost per case (€)',
+    maintenanceHours: 'Monthly maintenance (hours)',
+    calculate: 'Calculate',
+    currentMonthly: 'Current monthly manual cost',
+    aiMonthly: 'Monthly AI workflow cost',
+    costPerCase: 'Workflow cost per case',
+    monthlySavings: 'Estimated monthly saving',
+    firstYear: 'First-year balance',
+    payback: 'Payback period',
+    months: 'months',
+    noPayback: 'No payback with these inputs',
+    strong: 'The economic case looks promising. Before deciding, use a pilot to validate quality, exception rates and actual review time.',
+    review: 'It may be viable, but the result is sensitive to volume and review effort. Test a smaller scope and measure it before expanding.',
+    weak: 'With these inputs, the workflow does not reduce the current cost. Review the scope, volume or a simpler alternative before investing.',
+  },
+}[locale];
+---
+
+<section
+  class="ai-cost-calculator"
+  data-ai-cost-calculator
+  data-locale={locale}
+  data-months={copy.months}
+  data-no-payback={copy.noPayback}
+  data-strong={copy.strong}
+  data-review={copy.review}
+  data-weak={copy.weak}
+  aria-labelledby={`ai-cost-calculator-title-${locale}`}
+>
+  <header>
+    <h2 id={`ai-cost-calculator-title-${locale}`}>{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </header>
+
+  <div class="ai-cost-calculator__grid">
+    <label>{copy.volume}<input name="volume" type="number" min="1" max="1000000000" step="1" value="400" inputmode="decimal" /></label>
+    <label>{copy.manualMinutes}<input name="manualMinutes" type="number" min="0" max="1000000000" step="0.5" value="8" inputmode="decimal" /></label>
+    <label>{copy.hourlyCost}<input name="hourlyCost" type="number" min="0" max="1000000000" step="0.5" value="24" inputmode="decimal" /></label>
+    <label>{copy.automationRate}<input name="automationRate" type="number" min="0" max="100" step="1" value="70" inputmode="decimal" /></label>
+    <label>{copy.exceptionMinutes}<input name="exceptionMinutes" type="number" min="0" max="1000000000" step="0.5" value="4" inputmode="decimal" /></label>
+    <label>{copy.qaRate}<input name="qaRate" type="number" min="0" max="100" step="1" value="10" inputmode="decimal" /></label>
+    <label>{copy.implementation}<input name="implementation" type="number" min="0" max="1000000000" step="50" value="5000" inputmode="decimal" /></label>
+    <label>{copy.fixedMonthly}<input name="fixedMonthly" type="number" min="0" max="1000000000" step="5" value="150" inputmode="decimal" /></label>
+    <label>{copy.variableCost}<input name="variableCost" type="number" min="0" max="1000000000" step="0.01" value="0.12" inputmode="decimal" /></label>
+    <label>{copy.maintenanceHours}<input name="maintenanceHours" type="number" min="0" max="1000000000" step="0.5" value="4" inputmode="decimal" /></label>
+  </div>
+
+  <button class="btn btn-primary ai-cost-calculator__button" type="button" data-calculate>{copy.calculate}</button>
+
+  <div class="ai-cost-calculator__results" aria-live="polite">
+    <div><span>{copy.currentMonthly}</span><strong data-current-monthly>—</strong></div>
+    <div><span>{copy.aiMonthly}</span><strong data-ai-monthly>—</strong></div>
+    <div><span>{copy.costPerCase}</span><strong data-cost-per-case>—</strong></div>
+    <div><span>{copy.monthlySavings}</span><strong data-monthly-savings>—</strong></div>
+    <div><span>{copy.firstYear}</span><strong data-first-year>—</strong></div>
+    <div><span>{copy.payback}</span><strong data-payback>—</strong></div>
+  </div>
+  <p class="ai-cost-calculator__recommendation" data-recommendation></p>
+</section>
+
+<script>
+  const setupAiCostCalculators = () => {
+    document.querySelectorAll<HTMLElement>('[data-ai-cost-calculator]').forEach((root) => {
+      if (root.dataset.ready === 'true') return;
+      root.dataset.ready = 'true';
+
+      const value = (name: string, max = Number.POSITIVE_INFINITY) => {
+        const input = root.querySelector<HTMLInputElement>(`[name="${name}"]`);
+        return Math.min(max, Math.max(0, Number(input?.value) || 0));
+      };
+
+      const numberLocale = root.dataset.locale === 'en' ? 'en-GB' : root.dataset.locale === 'es' ? 'es-ES' : 'ca-ES';
+      const formatMoney = (amount: number, decimals = 0) => new Intl.NumberFormat(numberLocale, {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }).format(amount);
+
+      const calculate = () => {
+        const volume = Math.max(1, value('volume'));
+        const hourlyCost = value('hourlyCost');
+        const automationRate = value('automationRate', 100) / 100;
+        const qaRate = value('qaRate', 100) / 100;
+
+        const currentMonthly = volume * value('manualMinutes') / 60 * hourlyCost;
+        const exceptionCases = volume * (1 - automationRate);
+        const qaCases = volume * automationRate * qaRate;
+        const humanReview = (exceptionCases + qaCases) * value('exceptionMinutes') / 60 * hourlyCost;
+        const aiMonthly = value('fixedMonthly')
+          + volume * value('variableCost')
+          + value('maintenanceHours') * hourlyCost
+          + humanReview;
+        const costPerCase = aiMonthly / volume;
+        const monthlySavings = currentMonthly - aiMonthly;
+        const firstYear = monthlySavings * 12 - value('implementation');
+        const payback = monthlySavings > 0 ? value('implementation') / monthlySavings : null;
+
+        root.querySelector<HTMLElement>('[data-current-monthly]')!.textContent = formatMoney(currentMonthly);
+        root.querySelector<HTMLElement>('[data-ai-monthly]')!.textContent = formatMoney(aiMonthly);
+        root.querySelector<HTMLElement>('[data-cost-per-case]')!.textContent = formatMoney(costPerCase, 2);
+        root.querySelector<HTMLElement>('[data-monthly-savings]')!.textContent = formatMoney(monthlySavings);
+        root.querySelector<HTMLElement>('[data-first-year]')!.textContent = formatMoney(firstYear);
+        root.querySelector<HTMLElement>('[data-payback]')!.textContent = payback === null
+          ? root.dataset.noPayback ?? ''
+          : `${new Intl.NumberFormat(numberLocale, { maximumFractionDigits: 1 }).format(payback)} ${root.dataset.months}`;
+
+        const recommendation = root.querySelector<HTMLElement>('[data-recommendation]')!;
+        recommendation.textContent = monthlySavings <= 0 || payback === null || payback > 24
+          ? root.dataset.weak ?? ''
+          : payback <= 12
+            ? root.dataset.strong ?? ''
+            : root.dataset.review ?? '';
+      };
+
+      root.querySelector('[data-calculate]')?.addEventListener('click', calculate);
+      root.querySelectorAll('input').forEach((input) => input.addEventListener('input', calculate));
+      calculate();
+    });
+  };
+
+  setupAiCostCalculators();
+  document.addEventListener('astro:page-load', setupAiCostCalculators);
+</script>
+
+<style>
+  .ai-cost-calculator {
+    margin-block: var(--space-5);
+    padding: clamp(1.2rem, 4vw, 2rem);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--red);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .ai-cost-calculator header h2 { margin: 0 0 0.5rem; font-size: var(--text-xl); }
+  .ai-cost-calculator header p { margin-bottom: var(--space-4); color: var(--muted); font-size: var(--text-sm); }
+
+  .ai-cost-calculator__grid,
+  .ai-cost-calculator__results {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .ai-cost-calculator label {
+    display: grid;
+    gap: 0.35rem;
+    color: var(--ink);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .ai-cost-calculator input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--ink);
+    font: inherit;
+  }
+
+  .ai-cost-calculator input:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--red) 28%, transparent);
+    border-color: var(--red);
+  }
+
+  .ai-cost-calculator__button { margin-block: var(--space-4); }
+
+  .ai-cost-calculator__results div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: var(--gray-50);
+  }
+
+  .ai-cost-calculator__results span { color: var(--ink-soft); font-size: var(--text-sm); }
+  .ai-cost-calculator__results strong { color: var(--ink); text-align: right; }
+
+  .ai-cost-calculator__recommendation {
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-3);
+    border-left: 3px solid var(--red);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (min-width: 640px) {
+    .ai-cost-calculator__grid,
+    .ai-cost-calculator__results { grid-template-columns: 1fr 1fr; }
+  }
+</style>
