@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero, .page-hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const calculatorCta=event.target.closest('[data-enquiry-cta]');
+          if(calculatorCta){
+            window.vbgTrackEvent('cta_click',{cta_location:'calculator',destination_path:location.pathname,page_language:document.documentElement.lang});
+            return;
+          }
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && (contactPaths.includes(destination.pathname) || destination.hash === '#parlem')) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso | VBG Labs</title> <meta name="description" content="Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/es/blog/calculadora-coste-automatizacion-ia-caso/"> <link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/ai-automation-cost-per-case-calculator/"><link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/calculadora-cost-automatitzacio-ia-cas/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/calculadora-coste-automatizacion-ia-caso/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/calculadora-cost-automatitzacio-ia-cas/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/es/blog/calculadora-coste-automatizacion-ia-caso/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso | VBG Labs"> <meta property="og:description" content="Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión."> <meta property="og:image" content="https://vbglabs.com/og/og-es.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="es_ES"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso | VBG Labs"> <meta name="twitter:description" content="Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión."> <meta name="twitter:image" content="https://vbglabs.com/og/og-es.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.Dpt6J_U_.css"><style>.solution-catalog[data-astro-cid-azbw6ygn]{scroll-margin-top:100px}.catalog-intro[data-astro-cid-azbw6ygn]{max-width:760px;margin-bottom:var(--space-5)}.catalog-intro[data-astro-cid-azbw6ygn] h2[data-astro-cid-azbw6ygn]{font-size:var(--text-2xl);margin:var(--space-2) 0;text-wrap:balance}.solution-grid[data-astro-cid-azbw6ygn]{gap:var(--space-3);grid-template-columns:minmax(0,1fr);display:grid}.solution-card[data-astro-cid-azbw6ygn]{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);min-width:0;padding:var(--space-4);flex-direction:column;align-items:flex-start;display:flex}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn]{font-size:var(--text-lg);margin-bottom:var(--space-2);overflow-wrap:break-word;line-height:1.3}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]{color:var(--ink);text-decoration:none}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]:hover{color:var(--red);text-decoration:underline}.solution-card[data-astro-cid-azbw6ygn]>p[data-astro-cid-azbw6ygn]{font-size:var(--text-sm);color:var(--ink-soft)}.solution-card[data-astro-cid-azbw6ygn] .solution-card__price[data-astro-cid-azbw6ygn]{padding-top:var(--space-3);color:var(--ink);margin-top:auto;font-weight:600}.solution-card__link[data-astro-cid-azbw6ygn]{margin-top:var(--space-3);color:var(--red);font-weight:600;font-size:var(--text-sm)}@media (width>=700px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width>=1080px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style><style>.ai-cost-calculator[data-astro-cid-35d5efab]{margin-block:var(--space-5);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:var(--radius-md);background:var(--white);box-shadow:var(--shadow-sm);padding:clamp(1.2rem,4vw,2rem)}.ai-cost-calculator[data-astro-cid-35d5efab] header[data-astro-cid-35d5efab] h2[data-astro-cid-35d5efab]{font-size:var(--text-xl);margin:0 0 .5rem}.ai-cost-calculator[data-astro-cid-35d5efab] header[data-astro-cid-35d5efab] p[data-astro-cid-35d5efab]{margin-bottom:var(--space-4);color:var(--muted);font-size:var(--text-sm)}.ai-cost-calculator__grid[data-astro-cid-35d5efab],.ai-cost-calculator__results[data-astro-cid-35d5efab]{grid-template-columns:1fr;gap:.75rem;display:grid}.ai-cost-calculator[data-astro-cid-35d5efab] label[data-astro-cid-35d5efab]{color:var(--ink);font-size:var(--text-sm);gap:.35rem;font-weight:600;display:grid}.ai-cost-calculator[data-astro-cid-35d5efab] input[data-astro-cid-35d5efab]{border:1px solid var(--line);background:var(--white);width:100%;min-height:44px;color:var(--ink);font:inherit;border-radius:8px;padding:.65rem .75rem}.ai-cost-calculator[data-astro-cid-35d5efab] input[data-astro-cid-35d5efab]:focus-visible{outline:3px solid color-mix(in srgb, var(--red) 28%, transparent);border-color:var(--red)}.ai-cost-calculator__button[data-astro-cid-35d5efab]{margin-block:var(--space-4)}.ai-cost-calculator__results[data-astro-cid-35d5efab] div[data-astro-cid-35d5efab]{background:var(--gray-50);border-radius:8px;justify-content:space-between;gap:1rem;padding:.8rem;display:flex}.ai-cost-calculator__results[data-astro-cid-35d5efab] span[data-astro-cid-35d5efab]{color:var(--ink-soft);font-size:var(--text-sm)}.ai-cost-calculator__results[data-astro-cid-35d5efab] strong[data-astro-cid-35d5efab]{color:var(--ink);text-align:right}.ai-cost-calculator__recommendation[data-astro-cid-35d5efab]{margin:var(--space-3) 0 0;padding-left:var(--space-3);border-left:3px solid var(--red);color:var(--ink);font-weight:600}@media (width>=640px){.ai-cost-calculator__grid[data-astro-cid-35d5efab],.ai-cost-calculator__results[data-astro-cid-35d5efab]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Ir al contenido</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/es/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inicio</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Servicios <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a></li> <li data-astro-cid-nen7h5rs><a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/ai-automation-cost-per-case-calculator/&quot;},{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/calculadora-cost-automatitzacio-ia-cas/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/calculadora-coste-automatizacion-ia-caso/&quot;}]" data-astro-cid-nen7h5rs> <option value="/en/blog/ai-automation-cost-per-case-calculator/" data-astro-cid-nen7h5rs>EN</option><option value="/blog/calculadora-cost-automatitzacio-ia-cas/" data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/calculadora-coste-automatizacion-ia-caso/" selected data-astro-cid-nen7h5rs>ES</option> </select> </label> <a href="/es/contacto/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Hablemos</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> <a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/es/preguntas-frecuentes/" data-astro-cid-nen7h5rs>Preguntas frecuentes</a> <a href="/es/contacto/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Hablemos</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown`).forEach(e=>{let t=e.querySelector(`.header__dropdown-btn`),n=e.querySelector(`.header__dropdown-menu`);if(!t||!n)return;let r=!1,i=e=>t.setAttribute(`aria-expanded`,String(e)),a=()=>{r=!1,i(!1)},o=()=>Array.from(n.querySelectorAll(`a[href]`));e.addEventListener(`pointerenter`,e=>{e.pointerType===`mouse`&&i(!0)}),e.addEventListener(`pointerleave`,e=>{e.pointerType===`mouse`&&!r&&!n.contains(document.activeElement)&&a()}),t.addEventListener(`click`,()=>{r=!r,i(r)}),e.addEventListener(`focusout`,t=>{e.contains(t.relatedTarget)||a()}),e.addEventListener(`keydown`,e=>{if(e.key===`Escape`)e.preventDefault(),a(),t.focus();else if(e.target===t&&(e.key===`ArrowDown`||e.key===`ArrowUp`)){e.preventDefault(),i(!0);let t=o();(e.key===`ArrowDown`?t[0]:t[t.length-1])?.focus()}}),n.addEventListener(`click`,e=>{e.target.closest(`a[href]`)&&a()}),document.addEventListener(`click`,t=>{e.contains(t.target)||a()})});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{let e=new URL(r.value,location.origin),t=document.querySelector(`[data-general="true"]`);if(t){let n=t.querySelector(`[name="interest"]`);n&&Array.from(n.options).some(e=>e.value===n.value)&&e.searchParams.set(`interest`,n.value);let r=t.querySelector(`[name="source_page"]`),i=JSON.parse(t.dataset.config||`{}`);r&&i.sources?.some(e=>e.path===r.value)&&e.searchParams.set(`from`,r.value),e.hash=`contact-form`}window.location.href=e.href});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/es/" data-astro-cid-ezvlwyc3>Inicio</a> </li><li data-astro-cid-ezvlwyc3> <a href="/es/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://vbglabs.com/es/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/es/blog/"},{"@type":"ListItem","position":3,"name":"¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso","item":"https://vbglabs.com/es/blog/calculadora-coste-automatizacion-ia-caso/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Costes y retorno de la IA</span> <h1 data-astro-cid-cgze3hqb>¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-11-06T00:00:00.000Z" data-astro-cid-cgze3hqb>6 de noviembre de 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>Para calcular cuánto cuesta una automatización con IA no basta con mirar la tarifa del modelo. Hay que sumar la puesta en marcha, las integraciones, el consumo por operación, las excepciones que revisará una persona, el control de calidad y el mantenimiento. La herramienta de esta página compara el flujo completo con el trabajo manual actual y estima el coste por caso procesado, el ahorro mensual y el plazo de recuperación de la inversión.</p>
+<h2 id="por-qué-el-precio-del-modelo-no-responde-a-la-pregunta">Por qué el precio del modelo no responde a la pregunta</h2>
+<p>La <a href="/es/blog/calcular-coste-tarea-manual-automatizar/">calculadora del coste de una tarea manual</a> permite detectar procesos con suficiente volumen y dedicación. Sin embargo, la IA introduce costes que no aparecen igual en una automatización basada únicamente en reglas.</p>
+<p>Una factura puede pasar por OCR antes de extraer sus campos. Un asistente puede consultar varias veces una base de conocimiento. Un agente puede llamar a diferentes herramientas, repetir una acción o detenerse por falta de datos. Un bot de voz combina telefonía, transcripción, modelo y síntesis. Y ningún porcentaje de automatización elimina por arte de magia todas las excepciones.</p>
+<p>Por eso, saber que una llamada al modelo cuesta céntimos aporta poco si no conocemos el <strong>coste del proceso completo por resultado comprobado</strong>.</p>
+<section class="ai-cost-calculator" data-ai-cost-calculator data-locale="es" data-months="meses" data-no-payback="No se recupera con estos datos" data-strong="La hipótesis económica es prometedora. Antes de decidir, valida en un piloto la calidad, las excepciones y el tiempo real de revisión." data-review="Puede tener sentido, pero el resultado depende mucho del volumen y de la revisión. Prueba un alcance menor y mídelo antes de ampliarlo." data-weak="Con estos datos, el flujo no reduce el coste actual. Revisa el alcance, el volumen o una alternativa más sencilla antes de invertir." aria-labelledby="ai-cost-calculator-title-es" data-astro-cid-35d5efab> <header data-astro-cid-35d5efab> <h2 id="ai-cost-calculator-title-es" data-astro-cid-35d5efab>Calculadora de coste de una automatización con IA</h2> <p data-astro-cid-35d5efab>Sustituye el ejemplo por datos de tu proceso. Incluye modelo, plataforma, excepciones, control de calidad y mantenimiento.</p> </header> <div class="ai-cost-calculator__grid" data-astro-cid-35d5efab> <label data-astro-cid-35d5efab>Casos al mes<input name="volume" type="number" min="1" max="1000000000" step="1" value="400" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Minutos manuales por caso<input name="manualMinutes" type="number" min="0" max="1000000000" step="0.5" value="8" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Coste total por hora (€)<input name="hourlyCost" type="number" min="0" max="1000000000" step="0.5" value="24" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Casos resueltos sin revisión (%)<input name="automationRate" type="number" min="0" max="100" step="1" value="70" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Minutos para revisar una excepción<input name="exceptionMinutes" type="number" min="0" max="1000000000" step="0.5" value="4" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Muestra de control de calidad (%)<input name="qaRate" type="number" min="0" max="100" step="1" value="10" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Implantación inicial (€)<input name="implementation" type="number" min="0" max="1000000000" step="50" value="5000" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Plataforma e integraciones al mes (€)<input name="fixedMonthly" type="number" min="0" max="1000000000" step="5" value="150" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Coste variable de IA por caso (€)<input name="variableCost" type="number" min="0" max="1000000000" step="0.01" value="0.12" inputmode="decimal" data-astro-cid-35d5efab></label> <label data-astro-cid-35d5efab>Mantenimiento mensual (horas)<input name="maintenanceHours" type="number" min="0" max="1000000000" step="0.5" value="4" inputmode="decimal" data-astro-cid-35d5efab></label> </div> <button class="btn btn-primary ai-cost-calculator__button" type="button" data-calculate data-astro-cid-35d5efab>Calcular</button> <div class="ai-cost-calculator__results" aria-live="polite" data-astro-cid-35d5efab> <div data-astro-cid-35d5efab><span data-astro-cid-35d5efab>Coste manual mensual</span><strong data-current-monthly data-astro-cid-35d5efab>—</strong></div> <div data-astro-cid-35d5efab><span data-astro-cid-35d5efab>Coste mensual del flujo con IA</span><strong data-ai-monthly data-astro-cid-35d5efab>—</strong></div> <div data-astro-cid-35d5efab><span data-astro-cid-35d5efab>Coste del flujo por caso</span><strong data-cost-per-case data-astro-cid-35d5efab>—</strong></div> <div data-astro-cid-35d5efab><span data-astro-cid-35d5efab>Ahorro mensual estimado</span><strong data-monthly-savings data-astro-cid-35d5efab>—</strong></div> <div data-astro-cid-35d5efab><span data-astro-cid-35d5efab>Balance del primer año</span><strong data-first-year data-astro-cid-35d5efab>—</strong></div> <div data-astro-cid-35d5efab><span data-astro-cid-35d5efab>Recuperación de la inversión</span><strong data-payback data-astro-cid-35d5efab>—</strong></div> </div> <p class="ai-cost-calculator__recommendation" data-recommendation data-astro-cid-35d5efab></p> </section> <script type="module">var e=()=>{document.querySelectorAll(`[data-ai-cost-calculator]`).forEach(e=>{if(e.dataset.ready===`true`)return;e.dataset.ready=`true`;let t=(t,n=1/0)=>{let r=e.querySelector(`[name="${t}"]`);return Math.min(n,Math.max(0,Number(r?.value)||0))},n=e.dataset.locale===`en`?`en-GB`:e.dataset.locale===`es`?`es-ES`:`ca-ES`,r=(e,t=0)=>new Intl.NumberFormat(n,{style:`currency`,currency:`EUR`,minimumFractionDigits:t,maximumFractionDigits:t}).format(e),i=()=>{let i=Math.max(1,t(`volume`)),a=t(`hourlyCost`),o=t(`automationRate`,100)/100,s=t(`qaRate`,100)/100,c=i*t(`manualMinutes`)/60*a,l=(i*(1-o)+i*o*s)*t(`exceptionMinutes`)/60*a,u=t(`fixedMonthly`)+i*t(`variableCost`)+t(`maintenanceHours`)*a+l,d=u/i,f=c-u,p=f*12-t(`implementation`),m=f>0?t(`implementation`)/f:null;e.querySelector(`[data-current-monthly]`).textContent=r(c),e.querySelector(`[data-ai-monthly]`).textContent=r(u),e.querySelector(`[data-cost-per-case]`).textContent=r(d,2),e.querySelector(`[data-monthly-savings]`).textContent=r(f),e.querySelector(`[data-first-year]`).textContent=r(p),e.querySelector(`[data-payback]`).textContent=m===null?e.dataset.noPayback??``:`${new Intl.NumberFormat(n,{maximumFractionDigits:1}).format(m)} ${e.dataset.months}`;let h=e.querySelector(`[data-recommendation]`);h.textContent=f<=0||m===null||m>24?e.dataset.weak??``:m<=12?e.dataset.strong??``:e.dataset.review??``};e.querySelector(`[data-calculate]`)?.addEventListener(`click`,i),e.querySelectorAll(`input`).forEach(e=>e.addEventListener(`input`,i)),i()})};e(),document.addEventListener(`astro:page-load`,e);</script>
+<p>Los valores iniciales forman un ejemplo ficticio para explicar la herramienta. No son precios de mercado ni una promesa de resultados. Sustitúyelos por datos del proceso que quieres evaluar.</p>
+<h2 id="cómo-completar-cada-campo-con-datos-defendibles">Cómo completar cada campo con datos defendibles</h2>
+<h3 id="casos-mensuales">Casos mensuales</h3>
+<p>Antes de introducir una cifra, decide qué cuenta como caso: una factura, un correo, una llamada, una incidencia o un expediente. Si el esfuerzo varía mucho, crea cálculos separados.</p>
+<p>Utiliza el volumen observado en varios meses. La capacidad deseada no sustituye al volumen real.</p>
+<h3 id="tiempo-manual-y-coste-por-hora">Tiempo manual y coste por hora</h3>
+<p>Mide el ciclo entero: abrir la entrada, localizar contexto, copiar o interpretar datos, registrar el resultado, comunicarlo y corregir incidencias. Una muestra breve tomada mientras el equipo trabaja suele ser más fiable que una estimación de memoria.</p>
+<p>El coste horario debe ser el coste total para la empresa, no el salario neto, y debes aplicar el mismo criterio al proceso actual y al futuro.</p>
+<h3 id="casos-resueltos-sin-revisión">Casos resueltos sin revisión</h3>
+<p>Este porcentaje representa las entradas que el flujo completa y valida sin intervención. No cuentes una salida porque parezca razonable. Debe cumplir una definición objetiva de “caso resuelto”.</p>
+<p>En documentos, puede exigir que todos los campos críticos superen las reglas. En cualificación de leads, que la intención y los datos obligatorios queden preparados. En un asistente interno, que la respuesta use una fuente autorizada, muestre la referencia y no active ninguna condición de escalado.</p>
+<p>Si aún no existe un piloto, trabaja con un rango prudente. La <a href="/es/blog/ia-o-reglas-matriz-decidir-automatizacion/">matriz para elegir entre IA, reglas o un flujo híbrido</a> ayuda a separar la interpretación del modelo de las comprobaciones que deben seguir siendo exactas.</p>
+<h3 id="minutos-por-excepción">Minutos por excepción</h3>
+<p>Una cola de revisión bien diseñada muestra la propuesta de la IA, la regla que ha fallado, la evidencia y el paso pendiente. La persona no debería repetir toda la tarea desde cero.</p>
+<p>Si revisar una excepción tarda casi lo mismo que el proceso manual, revisa la interfaz o el reparto de trabajo entre IA y reglas. Este tiempo puede cambiar por completo la rentabilidad y debe medirse durante el piloto, no darse por supuesto.</p>
+<h3 id="muestra-de-control-de-calidad">Muestra de control de calidad</h3>
+<p>Aunque una parte de los casos pase directamente, revisar una muestra permite detectar nuevos formatos, cambios en las fuentes o errores que las reglas todavía no reconocen. La calculadora utiliza el mismo tiempo para una excepción y para un control. Si el control es más rápido, introduce una media ponderada.</p>
+<p>La muestra puede ser mayor durante el piloto y volver a aumentar después de modificar el modelo, el prompt, los datos o una integración.</p>
+<h3 id="implantación-inicial">Implantación inicial</h3>
+<p>Incluye el análisis del proceso, la preparación de datos, la configuración del modelo, las reglas, los permisos, las integraciones, la pantalla de revisión, las pruebas y la puesta en producción. Ordenar documentos o conseguir accesos que todavía no existen también consume trabajo.</p>
+<p>Antes de presupuestar, la <a href="/es/blog/ficha-proceso-una-pagina-antes-automatizar/">ficha de proceso de una página</a> ayuda a fijar entrada, salida, responsables y excepciones. Un alcance ambiguo suele convertirse en cambios y costes durante la implantación.</p>
+<h3 id="coste-fijo-y-coste-variable-de-ia">Coste fijo y coste variable de IA</h3>
+<p>En el coste fijo mensual pueden entrar la plataforma de automatización, los conectores, la base de datos, la monitorización y las licencias mínimas. En el coste variable deben figurar todos los elementos que crecen con el volumen:</p>
+<ul>
+<li>consumo del modelo;</li>
+<li>OCR, transcripción o síntesis de voz;</li>
+<li>embeddings, búsquedas y reordenación de resultados;</li>
+<li>ejecuciones de herramientas o conectores;</li>
+<li>reintentos y pasos intermedios habituales;</li>
+<li>almacenamiento y transferencia asociados a cada caso.</li>
+</ul>
+<p>No calcules con el precio de un único prompt si el recorrido real hace cinco llamadas. Utiliza el coste medio de una ejecución completa y añade también los intentos que terminan en excepción.</p>
+<h3 id="mantenimiento-mensual">Mantenimiento mensual</h3>
+<p>El sistema necesitará revisar incidencias, adaptar instrucciones, actualizar fuentes, vigilar costes y repetir pruebas cuando cambie un componente. Suponer mantenimiento cero hace que cualquier comparación nazca sesgada.</p>
+<p>La herramienta valora estas horas con el coste horario del proceso manual. Si el mantenimiento lo realiza otro perfil, convierte sus horas en un importe mensual y súmalo al campo de plataforma e integraciones.</p>
+<h2 id="fórmulas-que-utiliza-la-calculadora">Fórmulas que utiliza la calculadora</h2>
+<p>El <strong>coste manual mensual</strong> se obtiene así:</p>
+<p><code>casos × minutos manuales ÷ 60 × coste por hora</code></p>
+<p>El <strong>coste mensual del flujo con IA</strong> suma plataforma, consumo variable de todos los casos, mantenimiento, revisión de excepciones y controles de calidad.</p>
+<p>El <strong>ahorro mensual</strong> es la diferencia entre ambos circuitos. Para el <strong>balance del primer año</strong>, la herramienta resta la implantación inicial a doce meses de ahorro. El <strong>plazo de recuperación</strong> divide la inversión inicial por el ahorro mensual, siempre que el ahorro sea positivo.</p>
+<p>El <strong>coste por caso</strong> divide todo el coste operativo mensual entre el volumen. Esta cifra es más útil que el precio aislado del modelo porque incorpora la parte humana y técnica necesaria para que el resultado llegue al siguiente paso.</p>
+<h2 id="calcula-tres-escenarios-antes-de-decidir">Calcula tres escenarios antes de decidir</h2>
+<p>No guardes una única previsión. Prepara al menos estas tres:</p>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th style="text-align:right">Volumen</th>
+<th style="text-align:right">Resolución directa</th>
+<th>Revisión y mantenimiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conservador</td>
+<td style="text-align:right">bajo</td>
+<td style="text-align:right">menor de la esperada</td>
+<td>más altos</td>
+</tr>
+<tr>
+<td>Base</td>
+<td style="text-align:right">habitual</td>
+<td style="text-align:right">resultado medido en el piloto</td>
+<td>media observada</td>
+</tr>
+<tr>
+<td>Capacidad</td>
+<td style="text-align:right">alto</td>
+<td style="text-align:right">solo lo ya demostrado</td>
+<td>incluye el coste de escalar</td>
+</tr>
+</tbody>
+</table>
+<p>Un proyecto que solo funciona en la versión optimista todavía no tiene un caso económico robusto. Cambia una variable cada vez para saber si el resultado depende del volumen, la tasa de resolución o el coste de revisión.</p>
+<h2 id="un-roi-positivo-no-demuestra-que-la-automatización-funcione">Un ROI positivo no demuestra que la automatización funcione</h2>
+<p>La calculadora genera una hipótesis económica. El piloto debe comprobarla con métricas del proceso:</p>
+<ul>
+<li>porcentaje de casos correctos sin intervención;</li>
+<li>precisión en campos o decisiones críticas;</li>
+<li>causas de excepción, reintento y bloqueo;</li>
+<li>minutos reales de revisión y mantenimiento;</li>
+<li>coste completo por caso procesado;</li>
+<li>errores que alcanzan la siguiente etapa;</li>
+<li>disponibilidad e incidencias del servicio.</li>
+</ul>
+<p>En la <a href="/es/blog/automatizar-facturas-recibidas-ia-revision-humana/">automatización de facturas recibidas con IA</a>, por ejemplo, leer bien el total no es suficiente. Hay que saber si los campos críticos superan las validaciones y cuánto cuesta revisar el resto. En un agente también deben contarse las herramientas utilizadas, las aprobaciones y los trabajos incompletos.</p>
+<p>Evita registrar como ahorro todas las horas liberadas de forma automática. Explica qué tarea concreta podrá asumir el equipo, qué espera desaparecerá o qué volumen adicional podrá gestionarse. Mantén ese valor potencial separado del ahorro directo para no forzar la conclusión.</p>
+<h2 id="cuándo-merece-la-pena-iniciar-un-piloto">Cuándo merece la pena iniciar un piloto</h2>
+<p>El siguiente paso tiene sentido cuando el proceso está acotado, existe volumen suficiente, la salida correcta se puede verificar y las excepciones cuentan con una ruta segura. El propósito del piloto es sustituir estimaciones por cuatro datos reales: resolución sin revisión, coste variable, tiempo humano y mantenimiento.</p>
+<p>Si quieres valorar un proceso antes de invertir, la <a href="/es/consultoria/">consultoría de IA</a> de VBG Labs puede convertirlo en escenarios, riesgos y un alcance de piloto. Cuando el circuito ya está definido, una <a href="/es/automatizaciones/">automatización con IA</a> puede conectar el modelo con las herramientas, reglas y aprobaciones del negocio. La primera pregunta no debería ser qué modelo comprar, sino qué resultado verificable necesitamos y cuánto cuesta conseguirlo bien.</p> </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>También te puede interesar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/es/blog/agentes-ia-pymes-actuar-herramientas/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Agentes y automatización con IA</span> <h3 data-astro-cid-vqljwchw="true">Agentes de IA para pymes: qué cambia cuando pueden actuar sobre tus herramientas</h3> <p data-astro-cid-vqljwchw>Los agentes de IA ya no solo responden preguntas: pueden consultar herramientas y ejecutar tareas. Qué debe preparar una pyme antes de darles acceso y autonomía.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>4 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a><a href="/es/blog/automatizar-facturas-recibidas-ia-revision-humana/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automatización con IA</span> <h3 data-astro-cid-vqljwchw="true">Automatizar facturas recibidas con IA: de la entrada a la revisión humana</h3> <p data-astro-cid-vqljwchw>Guía práctica para captar facturas, extraer sus datos con IA, validarlos mediante reglas y enviar solo las excepciones a revisión humana.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>2 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Encuentra un punto de partida para aplicar IA</h2> <p class="lede" data-astro-cid-hwvj6ntz>Primero te respondemos por correo. Si hace falta, acordamos una reunión breve para entender mejor el caso.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/es/contacto/?interest=consulting&amp;from=%2Fes%2Fblog%2Fcalculadora-coste-automatizacion-ia-caso%2F#contact-form" class="btn btn-primary" data-astro-cid-hwvj6ntz>Pedir orientación inicial</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso","description":"Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión.","url":"https://vbglabs.com/es/blog/calculadora-coste-automatizacion-ia-caso/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-11-06T00:00:00.000Z","dateModified":"2026-11-06T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/es/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnología práctica para que tu negocio funcione mejor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Cataluña</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Servicios</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/servicios/#solucions" data-astro-cid-jo6i4kqk>Soluciones de IA y automatización</a></li><li data-astro-cid-jo6i4kqk><a href="/es/servicios/#sectors" data-astro-cid-jo6i4kqk>Por tipo de negocio</a></li><li data-astro-cid-jo6i4kqk><a href="/es/automatizaciones/" data-astro-cid-jo6i4kqk>Automatizaciones</a></li><li data-astro-cid-jo6i4kqk><a href="/es/consultoria/" data-astro-cid-jo6i4kqk>Consultoría</a></li><li data-astro-cid-jo6i4kqk><a href="/es/formacion/" data-astro-cid-jo6i4kqk>Formación</a></li><li data-astro-cid-jo6i4kqk><a href="/es/vbg-facturacion/" data-astro-cid-jo6i4kqk>VBG Facturación</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/es/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/es/preguntas-frecuentes/" data-astro-cid-jo6i4kqk>Preguntas frecuentes</a></li><li data-astro-cid-jo6i4kqk><a href="/es/contacto/" data-astro-cid-jo6i4kqk>Contacto</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacto</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Todos los derechos reservados.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/es/aviso-legal/" data-astro-cid-jo6i4kqk>Aviso legal</a> <a href="/es/politica-privacidad/" data-astro-cid-jo6i4kqk>Privacidad</a> <a href="/es/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tú decides sobre las cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias. <a href="/es/politica-cookies/" data-astro-cid-hq3mgpmn>Más información</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rechazar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Aceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
