@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "ai-agents-small-business-tools-2026"
 category: "Agentes y automatización con IA"
 date: 2026-11-04
-relatedSlugs: ["ia-o-reglas-matriz-decidir-automatizacion", "rag-pymes-asistente-ia-documentos", "alfabetizacion-ia-empresas-que-documentar", "automatizar-facturas-recibidas-ia-revision-humana"]
+relatedSlugs: ["ia-o-reglas-matriz-decidir-automatizacion", "rag-pymes-asistente-ia-documentos", "automatizar-facturas-recibidas-ia-revision-humana", "bots-voz-ia-pymes-piloto-util-seguro"]
 ---
 
 Los agentes de IA están empezando a pasar del chat a la acción. En vez de limitarse a redactar una respuesta, pueden buscar información en las herramientas de la empresa, conservar contexto entre pasos y ejecutar tareas con permisos propios. Para una pyme, la oportunidad no consiste en incorporar un «empleado digital» genérico, sino en delegar una parte acotada de un proceso. Antes de conectar nada, hay que decidir qué puede leer, qué puede modificar, cuándo necesita aprobación y cómo se reconstruirá cada acción.

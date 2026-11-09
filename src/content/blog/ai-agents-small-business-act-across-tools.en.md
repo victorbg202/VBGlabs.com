@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "ai-agents-small-business-tools-2026"
 category: "AI agents and automation"
 date: 2026-11-04
-relatedSlugs: ["ai-or-rules-automation-decision-matrix", "rag-small-business-ai-assistant-documents", "ai-literacy-businesses-what-to-document", "automate-incoming-invoices-ai-human-review"]
+relatedSlugs: ["ai-or-rules-automation-decision-matrix", "rag-small-business-ai-assistant-documents", "automate-incoming-invoices-ai-human-review", "ai-voice-bots-small-business-pilot"]
 ---
 
 AI agents are beginning to move from conversation to action. Instead of only drafting an answer, they can search company tools, carry context across steps and perform tasks with their own permissions. The opportunity for a small business is not a generic “digital employee”. It is the ability to delegate a bounded part of a process. Before connecting anything, the business needs to decide what the agent may read, what it may change, when approval is required and how every action can be reconstructed.

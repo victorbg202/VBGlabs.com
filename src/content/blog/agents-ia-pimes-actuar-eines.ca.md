@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "ai-agents-small-business-tools-2026"
 category: "Agents i automatització amb IA"
 date: 2026-11-04
-relatedSlugs: ["ia-o-regles-matriu-decidir-automatitzacio", "rag-pimes-assistent-ia-documents", "alfabetitzacio-ia-empreses-que-documentar", "automatitzar-factures-rebudes-ia-revisio-humana"]
+relatedSlugs: ["ia-o-regles-matriu-decidir-automatitzacio", "rag-pimes-assistent-ia-documents", "automatitzar-factures-rebudes-ia-revisio-humana", "bots-veu-ia-pimes-pilot-util-segur"]
 ---
 
 Els agents d'IA comencen a passar del xat a l'acció. En lloc de limitar-se a redactar una resposta, poden cercar informació en eines de l'empresa, mantenir context entre passos i executar tasques amb permisos propis. Per a una pime, l'oportunitat no és tenir un “empleat digital” genèric, sinó delegar una part acotada d'un procés. Abans de connectar res, però, cal decidir què pot llegir, què pot modificar, quan necessita aprovació i com es reconstruirà cada acció.
