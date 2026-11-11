@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero, .page-hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const calculatorCta=event.target.closest('[data-enquiry-cta]');
+          if(calculatorCta){
+            window.vbgTrackEvent('cta_click',{cta_location:'calculator',destination_path:location.pathname,page_language:document.documentElement.lang});
+            return;
+          }
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && (contactPaths.includes(destination.pathname) || destination.hash === '#parlem')) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>IA en las pymes europeas: cómo pasar del piloto a un proceso fiable | VBG Labs</title> <meta name="description" content="El nuevo Eurobarómetro muestra una adopción creciente pero todavía experimental de la IA. Siete decisiones para convertir una prueba en un proceso útil, controlado y medible."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/"> <link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/eurobarometer-ai-smes-pilot-reliable-process/"><link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/eurobarometre-ia-pimes-passar-pilot-proces-fiable/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/eurobarometre-ia-pimes-passar-pilot-proces-fiable/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="IA en las pymes europeas: cómo pasar del piloto a un proceso fiable | VBG Labs"> <meta property="og:description" content="El nuevo Eurobarómetro muestra una adopción creciente pero todavía experimental de la IA. Siete decisiones para convertir una prueba en un proceso útil, controlado y medible."> <meta property="og:image" content="https://vbglabs.com/og/og-es.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="es_ES"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="IA en las pymes europeas: cómo pasar del piloto a un proceso fiable | VBG Labs"> <meta name="twitter:description" content="El nuevo Eurobarómetro muestra una adopción creciente pero todavía experimental de la IA. Siete decisiones para convertir una prueba en un proceso útil, controlado y medible."> <meta name="twitter:image" content="https://vbglabs.com/og/og-es.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.Dpt6J_U_.css"><style>.solution-catalog[data-astro-cid-azbw6ygn]{scroll-margin-top:100px}.catalog-intro[data-astro-cid-azbw6ygn]{max-width:760px;margin-bottom:var(--space-5)}.catalog-intro[data-astro-cid-azbw6ygn] h2[data-astro-cid-azbw6ygn]{font-size:var(--text-2xl);margin:var(--space-2) 0;text-wrap:balance}.solution-grid[data-astro-cid-azbw6ygn]{gap:var(--space-3);grid-template-columns:minmax(0,1fr);display:grid}.solution-card[data-astro-cid-azbw6ygn]{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);min-width:0;padding:var(--space-4);flex-direction:column;align-items:flex-start;display:flex}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn]{font-size:var(--text-lg);margin-bottom:var(--space-2);overflow-wrap:break-word;line-height:1.3}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]{color:var(--ink);text-decoration:none}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]:hover{color:var(--red);text-decoration:underline}.solution-card[data-astro-cid-azbw6ygn]>p[data-astro-cid-azbw6ygn]{font-size:var(--text-sm);color:var(--ink-soft)}.solution-card[data-astro-cid-azbw6ygn] .solution-card__price[data-astro-cid-azbw6ygn]{padding-top:var(--space-3);color:var(--ink);margin-top:auto;font-weight:600}.solution-card__link[data-astro-cid-azbw6ygn]{margin-top:var(--space-3);color:var(--red);font-weight:600;font-size:var(--text-sm)}@media (width>=700px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width>=1080px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Ir al contenido</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/es/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inicio</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Servicios <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a></li> <li data-astro-cid-nen7h5rs><a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/eurobarometer-ai-smes-pilot-reliable-process/&quot;},{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/eurobarometre-ia-pimes-passar-pilot-proces-fiable/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/&quot;}]" data-astro-cid-nen7h5rs> <option value="/en/blog/eurobarometer-ai-smes-pilot-reliable-process/" data-astro-cid-nen7h5rs>EN</option><option value="/blog/eurobarometre-ia-pimes-passar-pilot-proces-fiable/" data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/" selected data-astro-cid-nen7h5rs>ES</option> </select> </label> <a href="/es/contacto/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Hablemos</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> <a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/es/preguntas-frecuentes/" data-astro-cid-nen7h5rs>Preguntas frecuentes</a> <a href="/es/contacto/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Hablemos</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown`).forEach(e=>{let t=e.querySelector(`.header__dropdown-btn`),n=e.querySelector(`.header__dropdown-menu`);if(!t||!n)return;let r=!1,i=e=>t.setAttribute(`aria-expanded`,String(e)),a=()=>{r=!1,i(!1)},o=()=>Array.from(n.querySelectorAll(`a[href]`));e.addEventListener(`pointerenter`,e=>{e.pointerType===`mouse`&&i(!0)}),e.addEventListener(`pointerleave`,e=>{e.pointerType===`mouse`&&!r&&!n.contains(document.activeElement)&&a()}),t.addEventListener(`click`,()=>{r=!r,i(r)}),e.addEventListener(`focusout`,t=>{e.contains(t.relatedTarget)||a()}),e.addEventListener(`keydown`,e=>{if(e.key===`Escape`)e.preventDefault(),a(),t.focus();else if(e.target===t&&(e.key===`ArrowDown`||e.key===`ArrowUp`)){e.preventDefault(),i(!0);let t=o();(e.key===`ArrowDown`?t[0]:t[t.length-1])?.focus()}}),n.addEventListener(`click`,e=>{e.target.closest(`a[href]`)&&a()}),document.addEventListener(`click`,t=>{e.contains(t.target)||a()})});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{let e=new URL(r.value,location.origin),t=document.querySelector(`[data-general="true"]`);if(t){let n=t.querySelector(`[name="interest"]`);n&&Array.from(n.options).some(e=>e.value===n.value)&&e.searchParams.set(`interest`,n.value);let r=t.querySelector(`[name="source_page"]`),i=JSON.parse(t.dataset.config||`{}`);r&&i.sources?.some(e=>e.path===r.value)&&e.searchParams.set(`from`,r.value),e.hash=`contact-form`}window.location.href=e.href});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/es/" data-astro-cid-ezvlwyc3>Inicio</a> </li><li data-astro-cid-ezvlwyc3> <a href="/es/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>IA en las pymes europeas: cómo pasar del piloto a un proceso fiable</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://vbglabs.com/es/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/es/blog/"},{"@type":"ListItem","position":3,"name":"IA en las pymes europeas: cómo pasar del piloto a un proceso fiable","item":"https://vbglabs.com/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Adopción de IA y automatización</span> <h1 data-astro-cid-cgze3hqb>IA en las pymes europeas: cómo pasar del piloto a un proceso fiable</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-11-11T00:00:00.000Z" data-astro-cid-cgze3hqb>11 de noviembre de 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>El nuevo Eurobarómetro sobre inteligencia artificial y gestión algorítmica dibuja una situación reconocible: muchas empresas ya han empezado, pero una parte importante continúa en fase de prueba. El <strong>42% de las pymes y empresas medianas consultadas utiliza IA o sistemas automatizados</strong>, aunque solo un 12% lo hace de forma extensa; el 30% los usa de manera limitada o experimental. Para pasar del piloto a un proceso fiable no hace falta sumar más herramientas: hay que definir el resultado, separar IA y reglas, controlar datos y permisos, mantener supervisión humana y medir el coste completo por caso.</p>
+<h2 id="qué-dice-realmente-el-nuevo-eurobarómetro">Qué dice realmente el nuevo Eurobarómetro</h2>
+<p>La Comisión Europea publicó el 14 de octubre de 2026 los resultados del <a href="https://employment-social-affairs.ec.europa.eu/news/growing-use-ai-european-companies-2026-10-14_en">Flash Eurobarometer 578</a>, basado en 12.826 entrevistas telefónicas realizadas entre el 20 de marzo y el 13 de abril de 2026 a empresas privadas de entre 1 y 749 trabajadores de los 27 Estados miembros.</p>
+<p>Conviene conservar tres matices. La muestra combina pymes y <em>mid-caps</em>; no representa únicamente a microempresas. Las cifras agrupan inteligencia artificial y gestión algorítmica, que también puede incluir automatizaciones sin IA. Y el resultado es europeo, no una estimación específica para España.</p>
+<p>Con esos límites, los datos ayudan a entender dónde se está aplicando la tecnología:</p>
+<ul>
+<li>el 42% ya utiliza IA o sistemas automatizados: 12% de manera extensa y 30% de forma limitada o experimental;</li>
+<li>el 21% prevé utilizarlos en el futuro;</li>
+<li>los usos actuales o previstos se concentran en atención y relación con clientes (47%), seguimiento del rendimiento y la productividad (36%) y logística, planificación u horarios (30%);</li>
+<li>entre las empresas usuarias, el 52% indica que el sistema propone pero una persona decide, mientras que solo el 2% declara decisiones totalmente automatizadas sin revisión humana.</li>
+</ul>
+<p>La <a href="https://employment-social-affairs.ec.europa.eu/document/download/65dc0ab3-eb08-40d9-8383-d81d69c1794f_en?filename=Flash+Eurobarometer+-+Artificial+Intelligence+and+Algorithmic+Management_FINAL.pdf">infografía oficial del Flash Eurobarometer 578</a> sitúa los principales obstáculos en el coste de inversión (50%), la incertidumbre legal o regulatoria (49%) y la falta de conocimiento interno (48%). No son tres problemas independientes: un piloto mal delimitado suele resultar más caro, más difícil de gobernar y más dependiente del proveedor.</p>
+<h2 id="el-reto-no-es-probar-ia-sino-convertirla-en-proceso">El reto no es probar IA, sino convertirla en proceso</h2>
+<p>Abrir un asistente, resumir documentos o conectar un modelo a un formulario demuestra que la tecnología puede hacer una tarea. No demuestra que pueda hacerla cada día con datos reales, excepciones, permisos, errores y una persona responsable.</p>
+<p>Un piloto se convierte en proceso cuando el equipo puede responder, con evidencias, a estas preguntas:</p>
+<ol>
+<li>qué resultado deja cada ejecución;</li>
+<li>qué datos puede consultar y cuáles no;</li>
+<li>qué interpreta el modelo y qué queda fijado mediante reglas;</li>
+<li>cuándo se detiene o deriva el caso;</li>
+<li>quién revisa las excepciones;</li>
+<li>cuánto cuesta el caso completo;</li>
+<li>cómo se detectará una degradación.</li>
+</ol>
+<p>Si esas respuestas no existen, ampliar usuarios o volumen solo amplía la incertidumbre.</p>
+<h2 id="siete-decisiones-antes-de-escalar-una-automatización-con-ia">Siete decisiones antes de escalar una automatización con IA</h2>
+<h3 id="1-define-una-salida-verificable">1. Define una salida verificable</h3>
+<p>“Ayudar al equipo comercial” es demasiado amplio. “Clasificar una consulta, extraer cinco campos, preparar un resumen con su fuente y dejar el caso pendiente de aprobación” sí se puede probar.</p>
+<p>Escribe qué entrada recibe el sistema, qué salida debe producir y qué condiciones la hacen aceptable. Si el proceso aún no está claro, empieza por la guía sobre <a href="/es/blog/ia-para-pymes-por-donde-empezar/">dónde aplicar IA en una pyme</a> antes de comparar modelos o plataformas.</p>
+<h3 id="2-separa-interpretación-validación-y-decisión">2. Separa interpretación, validación y decisión</h3>
+<p>La IA es útil para interpretar texto, voz o documentos variables. Una regla es mejor para validar un NIF, un límite de gasto, un estado de consentimiento o una fecha. Una persona debe conservar las decisiones con impacto relevante o contexto insuficiente.</p>
+<p>Esta arquitectura híbrida evita pedir al modelo exactitud en aquello que puede quedar determinado. La <a href="/es/blog/ia-o-reglas-matriz-decidir-automatizacion/">matriz entre IA, reglas y automatización híbrida</a> ayuda a decidir qué mecanismo corresponde a cada paso.</p>
+<h3 id="3-diseña-las-excepciones-antes-que-el-volumen">3. Diseña las excepciones antes que el volumen</h3>
+<p>Ningún proceso real tiene solo el camino correcto. Habrá documentos incompletos, idiomas diferentes, campos contradictorios, integraciones caídas y casos fuera de alcance. Define una cola visible de excepciones, un responsable, un plazo y un resultado posible: corregir, pedir información, reintentar o descartar.</p>
+<p>Una automatización no es fiable porque acierte a menudo, sino porque cuando no puede continuar lo deja claro y no pierde el caso.</p>
+<h3 id="4-limita-datos-herramientas-y-permisos">4. Limita datos, herramientas y permisos</h3>
+<p>El piloto puede haber funcionado con una carpeta de muestra o una cuenta administradora. Producción necesita una identidad propia, permisos mínimos, fuentes autorizadas y registro de acciones. Si el sistema puede enviar mensajes, crear registros o modificar datos, separa lectura, propuesta y ejecución.</p>
+<p>La guía de <a href="/es/blog/agentes-ia-pymes-actuar-herramientas/">agentes de IA que actúan sobre herramientas</a> desarrolla estos controles. El acceso técnico no equivale a autorización empresarial.</p>
+<h3 id="5-fija-la-revisión-humana-por-criterio-no-por-miedo">5. Fija la revisión humana por criterio, no por miedo</h3>
+<p>Revisarlo todo elimina buena parte del ahorro; no revisar nada convierte cualquier error en una acción. La revisión debe concentrarse en baja confianza, datos sensibles, importes, compromisos, contradicciones y muestras periódicas de casos normales.</p>
+<p>También hay que registrar qué corrige la persona. Sin ese retorno, el sistema puede repetir el mismo error y el equipo se limitará a compensarlo manualmente.</p>
+<h3 id="6-calcula-el-coste-por-caso-completo">6. Calcula el coste por caso completo</h3>
+<p>El precio del modelo es solo una línea. Añade integraciones, extracción, almacenamiento, reintentos, revisión humana, monitorización, incidencias y mantenimiento. Después divide el coste total entre casos útiles, no entre intentos.</p>
+<p>Compara ese importe con el tiempo actual, los errores evitables y el valor de responder antes. La <a href="/es/blog/calculadora-coste-automatizacion-ia-caso/">calculadora de coste de una automatización con IA</a> permite incluir excepciones y supervisión en vez de presentar un ahorro teórico.</p>
+<h3 id="7-establece-criterios-para-continuar-corregir-o-parar">7. Establece criterios para continuar, corregir o parar</h3>
+<p>Antes de empezar, acuerda umbrales: porcentaje de salidas aceptadas sin corrección, tiempo de revisión, coste por caso válido, incidencias, derivaciones y satisfacción del equipo. Mide también los errores graves por separado; una media alta puede ocultar un único tipo de error inaceptable.</p>
+<p>Escalar puede significar más volumen, pero también ampliar una sola acción, añadir una fuente o reducir la revisión. Haz un cambio cada vez y conserva una muestra de prueba para detectar regresiones.</p>
+<h2 id="un-ejemplo-ilustrativo-cualificar-consultas-entrantes">Un ejemplo ilustrativo: cualificar consultas entrantes</h2>
+<p>Imaginemos una empresa que recibe consultas mediante formulario y correo. El piloto resume el mensaje y propone categoría, urgencia y responsable. Para llevarlo a producción no hace falta que la IA decida qué oportunidad “merece la pena”. Hace falta un flujo más modesto y verificable:</p>
+<ol>
+<li>el modelo extrae datos y propone una clasificación;</li>
+<li>las reglas comprueban los campos obligatorios e impiden compromisos de precio o plazo;</li>
+<li>los casos con baja confianza, quejas o datos contradictorios pasan a revisión;</li>
+<li>una persona aprueba la ficha antes de cualquier respuesta comercial;</li>
+<li>el sistema registra correcciones, tiempo y resultado.</li>
+</ol>
+<p>Durante unas semanas se compara el proceso asistido con el anterior. Si reduce tiempo sin aumentar errores relevantes y el coste por caso es sostenible, se puede valorar una segunda fase. El ejemplo es ilustrativo, no un resultado de cliente.</p>
+<h2 id="qué-debería-hacer-ahora-una-pyme">Qué debería hacer ahora una pyme</h2>
+<p>El mensaje útil del Eurobarómetro no es que haya que adoptar IA porque otras empresas lo hacen. Es que la experimentación ya es habitual y que el valor aparece cuando la prueba se convierte en una forma de trabajar controlada.</p>
+<p>Elige un proceso con volumen suficiente, resultado observable y riesgo asumible. Documenta datos, permisos, reglas, excepciones, revisión y coste. Forma al equipo para que sepa utilizar el sistema y también detectar cuándo no debe confiar en él; la guía sobre <a href="/es/blog/alfabetizacion-ia-empresas-que-documentar/">qué documentar cuando una empresa utiliza IA</a> es un buen punto de partida.</p>
+<p>Si quieres convertir un piloto disperso en un alcance medible, la <a href="/es/consultoria/">consultoría de IA</a> de VBG Labs puede ayudarte a definir proceso, datos, controles, pruebas y retorno esperado. Cuando el caso ya está validado, una <a href="/es/automatizaciones/">automatización con IA</a> puede conectar el modelo con las herramientas del negocio manteniendo reglas, revisión humana y trazabilidad.</p>
+<h2 id="fuentes">Fuentes</h2>
+<ul>
+<li><a href="https://employment-social-affairs.ec.europa.eu/news/growing-use-ai-european-companies-2026-10-14_en">Comisión Europea: Growing use of AI in European companies, 14 de octubre de 2026</a></li>
+<li><a href="https://employment-social-affairs.ec.europa.eu/document/download/65dc0ab3-eb08-40d9-8383-d81d69c1794f_en?filename=Flash+Eurobarometer+-+Artificial+Intelligence+and+Algorithmic+Management_FINAL.pdf">Flash Eurobarometer 578: Drivers and obstacles for the adoption of AI and algorithmic management in the workplace</a></li>
+</ul>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>También te puede interesar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/es/blog/agentes-ia-pymes-actuar-herramientas/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Agentes y automatización con IA</span> <h3 data-astro-cid-vqljwchw="true">Agentes de IA para pymes: qué cambia cuando pueden actuar sobre tus herramientas</h3> <p data-astro-cid-vqljwchw>Los agentes de IA ya no solo responden preguntas: pueden consultar herramientas y ejecutar tareas. Qué debe preparar una pyme antes de darles acceso y autonomía.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>4 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a><a href="/es/blog/alfabetizacion-ia-empresas-que-documentar/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Inteligencia artificial</span> <h3 data-astro-cid-vqljwchw="true">¿Tu empresa utiliza IA? Esto es lo que deberías documentar ya</h3> <p data-astro-cid-vqljwchw>Una guía práctica para ordenar el uso de la IA en la empresa: inventario, normas, formación, supervisión humana y transparencia según el AI Act.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>29 de septiembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Encuentra un punto de partida para aplicar IA</h2> <p class="lede" data-astro-cid-hwvj6ntz>Primero te respondemos por correo. Si hace falta, acordamos una reunión breve para entender mejor el caso.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/es/contacto/?interest=consulting&amp;from=%2Fes%2Fblog%2Feurobarometro-ia-pymes-pasar-piloto-proceso-fiable%2F#contact-form" class="btn btn-primary" data-astro-cid-hwvj6ntz>Pedir orientación inicial</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"IA en las pymes europeas: cómo pasar del piloto a un proceso fiable","description":"El nuevo Eurobarómetro muestra una adopción creciente pero todavía experimental de la IA. Siete decisiones para convertir una prueba en un proceso útil, controlado y medible.","url":"https://vbglabs.com/es/blog/eurobarometro-ia-pymes-pasar-piloto-proceso-fiable/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-11-11T00:00:00.000Z","dateModified":"2026-11-11T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/es/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnología práctica para que tu negocio funcione mejor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Cataluña</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Servicios</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/servicios/#solucions" data-astro-cid-jo6i4kqk>Soluciones de IA y automatización</a></li><li data-astro-cid-jo6i4kqk><a href="/es/servicios/#sectors" data-astro-cid-jo6i4kqk>Por tipo de negocio</a></li><li data-astro-cid-jo6i4kqk><a href="/es/automatizaciones/" data-astro-cid-jo6i4kqk>Automatizaciones</a></li><li data-astro-cid-jo6i4kqk><a href="/es/consultoria/" data-astro-cid-jo6i4kqk>Consultoría</a></li><li data-astro-cid-jo6i4kqk><a href="/es/formacion/" data-astro-cid-jo6i4kqk>Formación</a></li><li data-astro-cid-jo6i4kqk><a href="/es/vbg-facturacion/" data-astro-cid-jo6i4kqk>VBG Facturación</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/es/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/es/preguntas-frecuentes/" data-astro-cid-jo6i4kqk>Preguntas frecuentes</a></li><li data-astro-cid-jo6i4kqk><a href="/es/contacto/" data-astro-cid-jo6i4kqk>Contacto</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacto</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Todos los derechos reservados.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/es/aviso-legal/" data-astro-cid-jo6i4kqk>Aviso legal</a> <a href="/es/politica-privacidad/" data-astro-cid-jo6i4kqk>Privacidad</a> <a href="/es/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tú decides sobre las cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias. <a href="/es/politica-cookies/" data-astro-cid-hq3mgpmn>Más información</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rechazar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Aceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
