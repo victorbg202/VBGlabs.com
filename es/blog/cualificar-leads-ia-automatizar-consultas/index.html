@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero, .page-hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const calculatorCta=event.target.closest('[data-enquiry-cta]');
+          if(calculatorCta){
+            window.vbgTrackEvent('cta_click',{cta_location:'calculator',destination_path:location.pathname,page_language:document.documentElement.lang});
+            return;
+          }
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && (contactPaths.includes(destination.pathname) || destination.hash === '#parlem')) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>Cualificar leads con IA: guía para automatizar la entrada de consultas | VBG Labs</title> <meta name="description" content="Cómo diseñar un flujo de cualificación de leads con IA que extrae datos, propone prioridades, pide información y mantiene revisión humana."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/es/blog/cualificar-leads-ia-automatizar-consultas/"> <link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/ai-lead-qualification-automate-inbound-enquiries/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/cualificar-leads-ia-automatizar-consultas/"><link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/qualificar-leads-ia-automatitzar-consultes/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/qualificar-leads-ia-automatitzar-consultes/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/es/blog/cualificar-leads-ia-automatizar-consultas/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="Cualificar leads con IA: guía para automatizar la entrada de consultas | VBG Labs"> <meta property="og:description" content="Cómo diseñar un flujo de cualificación de leads con IA que extrae datos, propone prioridades, pide información y mantiene revisión humana."> <meta property="og:image" content="https://vbglabs.com/og/og-es.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="es_ES"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Cualificar leads con IA: guía para automatizar la entrada de consultas | VBG Labs"> <meta name="twitter:description" content="Cómo diseñar un flujo de cualificación de leads con IA que extrae datos, propone prioridades, pide información y mantiene revisión humana."> <meta name="twitter:image" content="https://vbglabs.com/og/og-es.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.Dpt6J_U_.css"><style>.solution-catalog[data-astro-cid-azbw6ygn]{scroll-margin-top:100px}.catalog-intro[data-astro-cid-azbw6ygn]{max-width:760px;margin-bottom:var(--space-5)}.catalog-intro[data-astro-cid-azbw6ygn] h2[data-astro-cid-azbw6ygn]{font-size:var(--text-2xl);margin:var(--space-2) 0;text-wrap:balance}.solution-grid[data-astro-cid-azbw6ygn]{gap:var(--space-3);grid-template-columns:minmax(0,1fr);display:grid}.solution-card[data-astro-cid-azbw6ygn]{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);min-width:0;padding:var(--space-4);flex-direction:column;align-items:flex-start;display:flex}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn]{font-size:var(--text-lg);margin-bottom:var(--space-2);overflow-wrap:break-word;line-height:1.3}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]{color:var(--ink);text-decoration:none}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]:hover{color:var(--red);text-decoration:underline}.solution-card[data-astro-cid-azbw6ygn]>p[data-astro-cid-azbw6ygn]{font-size:var(--text-sm);color:var(--ink-soft)}.solution-card[data-astro-cid-azbw6ygn] .solution-card__price[data-astro-cid-azbw6ygn]{padding-top:var(--space-3);color:var(--ink);margin-top:auto;font-weight:600}.solution-card__link[data-astro-cid-azbw6ygn]{margin-top:var(--space-3);color:var(--red);font-weight:600;font-size:var(--text-sm)}@media (width>=700px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width>=1080px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Ir al contenido</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/es/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inicio</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Servicios <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a></li> <li data-astro-cid-nen7h5rs><a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/ai-lead-qualification-automate-inbound-enquiries/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/cualificar-leads-ia-automatizar-consultas/&quot;},{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/qualificar-leads-ia-automatitzar-consultes/&quot;}]" data-astro-cid-nen7h5rs> <option value="/en/blog/ai-lead-qualification-automate-inbound-enquiries/" data-astro-cid-nen7h5rs>EN</option><option value="/es/blog/cualificar-leads-ia-automatizar-consultas/" selected data-astro-cid-nen7h5rs>ES</option><option value="/blog/qualificar-leads-ia-automatitzar-consultes/" data-astro-cid-nen7h5rs>CA</option> </select> </label> <a href="/es/contacto/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Hablemos</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> <a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/es/preguntas-frecuentes/" data-astro-cid-nen7h5rs>Preguntas frecuentes</a> <a href="/es/contacto/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Hablemos</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown`).forEach(e=>{let t=e.querySelector(`.header__dropdown-btn`),n=e.querySelector(`.header__dropdown-menu`);if(!t||!n)return;let r=!1,i=e=>t.setAttribute(`aria-expanded`,String(e)),a=()=>{r=!1,i(!1)},o=()=>Array.from(n.querySelectorAll(`a[href]`));e.addEventListener(`pointerenter`,e=>{e.pointerType===`mouse`&&i(!0)}),e.addEventListener(`pointerleave`,e=>{e.pointerType===`mouse`&&!r&&!n.contains(document.activeElement)&&a()}),t.addEventListener(`click`,()=>{r=!r,i(r)}),e.addEventListener(`focusout`,t=>{e.contains(t.relatedTarget)||a()}),e.addEventListener(`keydown`,e=>{if(e.key===`Escape`)e.preventDefault(),a(),t.focus();else if(e.target===t&&(e.key===`ArrowDown`||e.key===`ArrowUp`)){e.preventDefault(),i(!0);let t=o();(e.key===`ArrowDown`?t[0]:t[t.length-1])?.focus()}}),n.addEventListener(`click`,e=>{e.target.closest(`a[href]`)&&a()}),document.addEventListener(`click`,t=>{e.contains(t.target)||a()})});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{let e=new URL(r.value,location.origin),t=document.querySelector(`[data-general="true"]`);if(t){let n=t.querySelector(`[name="interest"]`);n&&Array.from(n.options).some(e=>e.value===n.value)&&e.searchParams.set(`interest`,n.value);let r=t.querySelector(`[name="source_page"]`),i=JSON.parse(t.dataset.config||`{}`);r&&i.sources?.some(e=>e.path===r.value)&&e.searchParams.set(`from`,r.value),e.hash=`contact-form`}window.location.href=e.href});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/es/" data-astro-cid-ezvlwyc3>Inicio</a> </li><li data-astro-cid-ezvlwyc3> <a href="/es/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>Cualificar leads con IA: guía para automatizar la entrada de consultas</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://vbglabs.com/es/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/es/blog/"},{"@type":"ListItem","position":3,"name":"Cualificar leads con IA: guía para automatizar la entrada de consultas","item":"https://vbglabs.com/es/blog/cualificar-leads-ia-automatizar-consultas/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Automatización con IA</span> <h1 data-astro-cid-cgze3hqb>Cualificar leads con IA: guía para automatizar la entrada de consultas</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-11-16T00:00:00.000Z" data-astro-cid-cgze3hqb>16 de noviembre de 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>Cualificar leads con IA no consiste en permitir que un modelo decida quién merece atención. Consiste en transformar correos, formularios, mensajes de WhatsApp o transcripciones de llamadas en una ficha coherente: qué necesita la persona, qué datos faltan, qué servicio podría encajar y cuál debería ser el siguiente paso. La IA interpreta el lenguaje; las reglas comprueban criterios exactos; una persona conserva las decisiones comerciales y los casos dudosos.</p>
+<p>Esta guía explica cómo diseñar el flujo completo sin empezar por una herramienta ni convertir el proyecto en una implantación genérica de CRM.</p>
+<h2 id="qué-debe-entregar-una-cualificación-útil">Qué debe entregar una cualificación útil</h2>
+<p>“Lead bueno” o “lead malo” es una salida pobre y difícil de auditar. El sistema debe dejar información verificable para que el equipo pueda actuar:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Pregunta que debe responder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Necesidad</td>
+<td>¿Qué problema quiere resolver y qué resultado espera?</td>
+</tr>
+<tr>
+<td>Posible servicio</td>
+<td>¿Qué línea podría encajar, sin darla por confirmada?</td>
+</tr>
+<tr>
+<td>Contexto</td>
+<td>Sector, tamaño, proceso actual y herramientas, si se han indicado.</td>
+</tr>
+<tr>
+<td>Plazo</td>
+<td>¿Existe una fecha real, una preferencia o solo sensación de urgencia?</td>
+</tr>
+<tr>
+<td>Datos pendientes</td>
+<td>¿Qué falta para valorar el caso?</td>
+</tr>
+<tr>
+<td>Señales de riesgo</td>
+<td>¿Hay contradicciones, datos sensibles o una petición fuera de alcance?</td>
+</tr>
+<tr>
+<td>Siguiente paso</td>
+<td>Responder, pedir información, preparar una reunión o derivar.</td>
+</tr>
+<tr>
+<td>Evidencia</td>
+<td>¿Qué frase o dato justifica la clasificación?</td>
+</tr>
+</tbody>
+</table>
+<p>Pedir la evidencia evita que una prioridad sin fundamento se disfrace de criterio comercial. También acelera la revisión: la persona puede contrastar la propuesta con el mensaje original.</p>
+<h2 id="define-qué-significa-cualificado-antes-de-usar-ia">Define qué significa “cualificado” antes de usar IA</h2>
+<p>Reúne a ventas, atención y a la persona responsable del servicio. Revisad ejemplos recientes y decidid qué debería ocurrir con cada uno. No empecéis por una puntuación numérica, sino por decisiones observables:</p>
+<ul>
+<li><strong>listo para valorar:</strong> necesidad concreta, posible encaje y datos mínimos disponibles;</li>
+<li><strong>falta información:</strong> puede tener sentido, pero falta un dato determinante;</li>
+<li><strong>fuera de alcance:</strong> no corresponde a los servicios o zona definidos;</li>
+<li><strong>sensible o de riesgo:</strong> necesita revisión antes de responder;</li>
+<li><strong>duplicado o existente:</strong> ya hay una conversación abierta que debe unificarse.</li>
+</ul>
+<p>Cada categoría necesita propietario y siguiente paso. Si una etiqueta no cambia ninguna acción, probablemente sobra. La <a href="/es/blog/ficha-proceso-una-pagina-antes-automatizar/">ficha de proceso de una página</a> ayuda a documentar entradas, resultados, excepciones y responsables antes de conectar sistemas.</p>
+<h2 id="flujo-híbrido-para-cualificar-leads-con-ia">Flujo híbrido para cualificar leads con IA</h2>
+<h3 id="1-captura-la-consulta-sin-perder-el-canal-original">1. Captura la consulta sin perder el canal original</h3>
+<p>El flujo puede empezar en un formulario, un buzón, WhatsApp o una transcripción. Conserva el mensaje original, canal, fecha e identificador. Evita copiar datos innecesarios y crear un registro nuevo cada vez que la misma persona responde.</p>
+<h3 id="2-normaliza-el-contenido">2. Normaliza el contenido</h3>
+<p>Separa firmas repetidas e historial, identifica idioma y localiza adjuntos. Esta limpieza reduce ruido, pero nunca debe borrar información que cambie el significado.</p>
+<h3 id="3-usa-la-ia-para-interpretar-y-extraer">3. Usa la IA para interpretar y extraer</h3>
+<p>El modelo puede resumir la necesidad, detectar la intención, extraer campos y proponer una categoría. Exige una salida estructurada: campo, valor, evidencia e indicador de dato ausente. Un párrafo libre es más difícil de validar e integrar.</p>
+<h3 id="4-aplica-reglas-a-los-criterios-exactos">4. Aplica reglas a los criterios exactos</h3>
+<p>La IA no debería decidir si un código postal está dentro de cobertura, si un servicio está disponible o si falta un consentimiento obligatorio. Esas comprobaciones deben vivir en reglas verificables. La <a href="/es/blog/ia-o-reglas-matriz-decidir-automatizacion/">matriz entre IA, reglas y automatización híbrida</a> ayuda a asignar cada paso.</p>
+<h3 id="5-detecta-vacíos-y-contradicciones">5. Detecta vacíos y contradicciones</h3>
+<p>Si alguien dice “lo necesitamos esta semana” pero no explica el proceso, el sistema debe marcar el vacío y preparar una pregunta concreta. Si dos datos se contradicen, el caso pasa a revisión en vez de escoger silenciosamente uno.</p>
+<h3 id="6-propón-prioridad-mostrando-el-motivo">6. Propón prioridad mostrando el motivo</h3>
+<p>La prioridad puede combinar criterios explícitos —plazo, impacto, encaje e información disponible— con interpretación de la IA. Evita una caja negra con precisión aparente. “Fecha indicada: viernes; posible servicio: asistente documental; falta volumen mensual” es más útil que “87/100”.</p>
+<h3 id="7-prepara-la-respuesta-y-el-siguiente-paso">7. Prepara la respuesta y el siguiente paso</h3>
+<p>La IA puede redactar un mensaje para confirmar la necesidad, solicitar los datos pendientes o proponer una reunión. En el primer piloto, debe quedar como borrador. Precios, plazos, compromisos y exclusiones proceden de fuentes aprobadas o quedan pendientes de una persona.</p>
+<h3 id="8-registra-la-corrección-humana">8. Registra la corrección humana</h3>
+<p>Cuando el equipo cambia la categoría, servicio, prioridad o respuesta, registra el campo corregido y el motivo. Ese retorno revela patrones: una pregunta mal planteada, una regla incompleta, servicios que se confunden o canales con información insuficiente.</p>
+<h2 id="qué-automatizar-y-qué-revisar">Qué automatizar y qué revisar</h2>
+<table>
+<thead>
+<tr>
+<th>Tarea</th>
+<th>Punto de partida prudente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detectar idioma y tipo de consulta</td>
+<td>automático con muestras de control</td>
+</tr>
+<tr>
+<td>Extraer nombre, empresa, necesidad y plazo</td>
+<td>automático con validación de formato</td>
+</tr>
+<tr>
+<td>Proponer servicio o categoría</td>
+<td>propuesta revisable con evidencia</td>
+</tr>
+<tr>
+<td>Comprobar zona, campos y duplicados</td>
+<td>reglas deterministas</td>
+</tr>
+<tr>
+<td>Pedir un dato no sensible</td>
+<td>borrador; automatizar tras validar</td>
+</tr>
+<tr>
+<td>Asignar responsable</td>
+<td>regla o aprobación según la organización</td>
+</tr>
+<tr>
+<td>Descartar una oportunidad</td>
+<td>decisión humana</td>
+</tr>
+<tr>
+<td>Enviar precio, plazo o compromiso</td>
+<td>fuente controlada y aprobación explícita</td>
+</tr>
+</tbody>
+</table>
+<p>El objetivo inicial no es eliminar la revisión, sino hacerla más breve y mejor informada. Un caso bien preparado ahorra lectura y copia manual aunque una persona siga aprobando el siguiente paso.</p>
+<h2 id="diseña-una-cola-de-excepciones">Diseña una cola de excepciones</h2>
+<p>El flujo encontrará mensajes vacíos, idiomas imprevistos, archivos ilegibles, peticiones mixtas, integraciones caídas y contactos ya existentes. Define una cola visible con motivo, responsable y estado: pendiente de información, pendiente de revisión, reintento o cerrado.</p>
+<p>No presentes una consulta como procesada si el sistema de destino no confirma la escritura. Tampoco escondas una confianza baja en un campo técnico. La persona que gestiona la cola debe ver qué falló y qué puede hacer.</p>
+<h2 id="cómo-probar-el-piloto">Cómo probar el piloto</h2>
+<p>Reúne una muestra anonimizada de varios canales con casos normales y difíciles: incompletos, fuera de alcance, duplicados, sensibles y contradictorios. Para cada uno, define categoría, campos y siguiente paso esperados.</p>
+<p>Mide al menos:</p>
+<ul>
+<li>porcentaje de categorías confirmadas sin cambio;</li>
+<li>campos corregidos o inventados;</li>
+<li>consultas que requieren más información;</li>
+<li>tiempo de revisión por caso;</li>
+<li>fallos de permisos, duplicados o acciones;</li>
+<li>coste por consulta preparada;</li>
+<li>resultado posterior, sin atribuirlo automáticamente a la IA.</li>
+</ul>
+<p>Ejecuta además las pruebas de permisos, abstención, duplicados y fallos de integración de la <a href="/es/blog/checklist-pruebas-asistente-ia-antes-produccion/">checklist para validar un asistente de IA</a>. Un piloto no debe aprobarse si expone datos o envía una acción indebida aunque clasifique bien la mayoría de mensajes.</p>
+<h2 id="ejemplo-ilustrativo-una-consultoría-con-tres-servicios">Ejemplo ilustrativo: una consultoría con tres servicios</h2>
+<p>Imaginemos una consultoría que recibe peticiones sobre automatización documental, asistentes internos y bots de voz. El sistema extrae necesidad, canal, idioma, herramientas actuales, volumen aproximado y plazo. Después propone una línea de servicio y marca los datos ausentes.</p>
+<p>Una consulta clara sobre procesar facturas recibidas puede llegar preparada para una reunión. Una petición que solo dice “quiero poner IA” genera dos preguntas sobre proceso y resultado. Una solicitud fuera de los servicios se deriva para que una persona decida si responde o recomienda otra vía. El ejemplo es ficticio: muestra el flujo, no resultados de un cliente.</p>
+<h2 id="tres-errores-frecuentes">Tres errores frecuentes</h2>
+<p><strong>Confundir velocidad con calidad.</strong> Responder en segundos no ayuda si el sistema pregunta lo que ya estaba explicado o promete algo incorrecto.</p>
+<p><strong>Ocultar el criterio en una puntuación.</strong> Una cifra sin evidencia dificulta corregir errores y puede convertir un sesgo comercial en una regla silenciosa.</p>
+<p><strong>Automatizar el envío demasiado pronto.</strong> Empieza con extracción, propuesta y borrador. Amplía la autonomía solo cuando los casos de bajo riesgo estén bien delimitados y las excepciones funcionen.</p>
+<h2 id="empieza-con-un-piloto-acotado">Empieza con un piloto acotado</h2>
+<p>Elige un canal, una familia de servicios y una salida concreta. Documenta categorías, campos, fuentes, reglas, aprobaciones y excepciones. Prueba con casos históricos anonimizados, abre el flujo a un grupo pequeño y revisa cada corrección. Después compara tiempo, calidad y coste antes de añadir canales o acciones.</p>
+<p>Si quieres convertir la entrada de consultas en un proceso medible, la <a href="/es/consultoria/">consultoría de IA</a> de VBG Labs puede ayudarte a definir criterios, datos, pruebas y retorno esperado. Cuando el flujo esté validado, una <a href="/es/automatizaciones/">automatización con IA</a> puede conectar canales, modelo y herramientas del negocio manteniendo reglas, revisión humana y trazabilidad.</p>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>También te puede interesar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/es/blog/agentes-ia-pymes-actuar-herramientas/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Agentes y automatización con IA</span> <h3 data-astro-cid-vqljwchw="true">Agentes de IA para pymes: qué cambia cuando pueden actuar sobre tus herramientas</h3> <p data-astro-cid-vqljwchw>Los agentes de IA ya no solo responden preguntas: pueden consultar herramientas y ejecutar tareas. Qué debe preparar una pyme antes de darles acceso y autonomía.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>4 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a><a href="/es/blog/calculadora-coste-automatizacion-ia-caso/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Costes y retorno de la IA</span> <h3 data-astro-cid-vqljwchw="true">¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso</h3> <p data-astro-cid-vqljwchw>Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>6 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Encuentra un punto de partida para aplicar IA</h2> <p class="lede" data-astro-cid-hwvj6ntz>Primero te respondemos por correo. Si hace falta, acordamos una reunión breve para entender mejor el caso.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/es/contacto/?interest=consulting&amp;from=%2Fes%2Fblog%2Fcualificar-leads-ia-automatizar-consultas%2F#contact-form" class="btn btn-primary" data-astro-cid-hwvj6ntz>Pedir orientación inicial</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Cualificar leads con IA: guía para automatizar la entrada de consultas","description":"Cómo diseñar un flujo de cualificación de leads con IA que extrae datos, propone prioridades, pide información y mantiene revisión humana.","url":"https://vbglabs.com/es/blog/cualificar-leads-ia-automatizar-consultas/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-11-16T00:00:00.000Z","dateModified":"2026-11-16T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/es/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnología práctica para que tu negocio funcione mejor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Cataluña</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Servicios</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/servicios/#solucions" data-astro-cid-jo6i4kqk>Soluciones de IA y automatización</a></li><li data-astro-cid-jo6i4kqk><a href="/es/servicios/#sectors" data-astro-cid-jo6i4kqk>Por tipo de negocio</a></li><li data-astro-cid-jo6i4kqk><a href="/es/automatizaciones/" data-astro-cid-jo6i4kqk>Automatizaciones</a></li><li data-astro-cid-jo6i4kqk><a href="/es/consultoria/" data-astro-cid-jo6i4kqk>Consultoría</a></li><li data-astro-cid-jo6i4kqk><a href="/es/formacion/" data-astro-cid-jo6i4kqk>Formación</a></li><li data-astro-cid-jo6i4kqk><a href="/es/vbg-facturacion/" data-astro-cid-jo6i4kqk>VBG Facturación</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/es/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/es/preguntas-frecuentes/" data-astro-cid-jo6i4kqk>Preguntas frecuentes</a></li><li data-astro-cid-jo6i4kqk><a href="/es/contacto/" data-astro-cid-jo6i4kqk>Contacto</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacto</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Todos los derechos reservados.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/es/aviso-legal/" data-astro-cid-jo6i4kqk>Aviso legal</a> <a href="/es/politica-privacidad/" data-astro-cid-jo6i4kqk>Privacidad</a> <a href="/es/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tú decides sobre las cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias. <a href="/es/politica-cookies/" data-astro-cid-hq3mgpmn>Más información</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rechazar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Aceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
