@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero, .page-hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const calculatorCta=event.target.closest('[data-enquiry-cta]');
+          if(calculatorCta){
+            window.vbgTrackEvent('cta_click',{cta_location:'calculator',destination_path:location.pathname,page_language:document.documentElement.lang});
+            return;
+          }
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && (contactPaths.includes(destination.pathname) || destination.hash === '#parlem')) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA | VBG Labs</title> <meta name="description" content="Comparativa práctica para decidir cómo adaptar un asistente de IA: prompt, contexto largo, RAG o fine-tuning según documentos, conducta, coste y mantenimiento."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/"> <link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/rag-context-llarg-fine-tuning-assistents-ia/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/"><link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/rag-long-context-fine-tuning-ai-assistants/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/rag-context-llarg-fine-tuning-assistents-ia/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA | VBG Labs"> <meta property="og:description" content="Comparativa práctica para decidir cómo adaptar un asistente de IA: prompt, contexto largo, RAG o fine-tuning según documentos, conducta, coste y mantenimiento."> <meta property="og:image" content="https://vbglabs.com/og/og-es.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="es_ES"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="en_US"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA | VBG Labs"> <meta name="twitter:description" content="Comparativa práctica para decidir cómo adaptar un asistente de IA: prompt, contexto largo, RAG o fine-tuning según documentos, conducta, coste y mantenimiento."> <meta name="twitter:image" content="https://vbglabs.com/og/og-es.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.Dpt6J_U_.css"><style>.solution-catalog[data-astro-cid-azbw6ygn]{scroll-margin-top:100px}.catalog-intro[data-astro-cid-azbw6ygn]{max-width:760px;margin-bottom:var(--space-5)}.catalog-intro[data-astro-cid-azbw6ygn] h2[data-astro-cid-azbw6ygn]{font-size:var(--text-2xl);margin:var(--space-2) 0;text-wrap:balance}.solution-grid[data-astro-cid-azbw6ygn]{gap:var(--space-3);grid-template-columns:minmax(0,1fr);display:grid}.solution-card[data-astro-cid-azbw6ygn]{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);min-width:0;padding:var(--space-4);flex-direction:column;align-items:flex-start;display:flex}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn]{font-size:var(--text-lg);margin-bottom:var(--space-2);overflow-wrap:break-word;line-height:1.3}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]{color:var(--ink);text-decoration:none}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]:hover{color:var(--red);text-decoration:underline}.solution-card[data-astro-cid-azbw6ygn]>p[data-astro-cid-azbw6ygn]{font-size:var(--text-sm);color:var(--ink-soft)}.solution-card[data-astro-cid-azbw6ygn] .solution-card__price[data-astro-cid-azbw6ygn]{padding-top:var(--space-3);color:var(--ink);margin-top:auto;font-weight:600}.solution-card__link[data-astro-cid-azbw6ygn]{margin-top:var(--space-3);color:var(--red);font-weight:600;font-size:var(--text-sm)}@media (width>=700px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width>=1080px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Ir al contenido</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/es/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Inicio</span> </a> <nav class="header__nav" aria-label="Menú" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Servicios <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="header__dropdown-all" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a></li> <li data-astro-cid-nen7h5rs><a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Idioma</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/rag-context-llarg-fine-tuning-assistents-ia/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/&quot;},{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/rag-long-context-fine-tuning-ai-assistants/&quot;}]" data-astro-cid-nen7h5rs> <option value="/blog/rag-context-llarg-fine-tuning-assistents-ia/" data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/" selected data-astro-cid-nen7h5rs>ES</option><option value="/en/blog/rag-long-context-fine-tuning-ai-assistants/" data-astro-cid-nen7h5rs>EN</option> </select> </label> <a href="/es/contacto/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Hablemos</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menú" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/es/servicios/" class="mobile-menu__section" data-astro-cid-nen7h5rs>Todos los servicios</a> <a href="/es/servicios/#solucions" data-astro-cid-nen7h5rs>Soluciones de IA y automatización</a> <a href="/es/servicios/#sectors" data-astro-cid-nen7h5rs>Por tipo de negocio</a> <a href="/es/automatizaciones/" data-astro-cid-nen7h5rs>Automatizaciones</a><a href="/es/consultoria/" data-astro-cid-nen7h5rs>Consultoría</a><a href="/es/formacion/" data-astro-cid-nen7h5rs>Formación</a> <a href="/es/vbg-facturacion/" data-astro-cid-nen7h5rs>VBG Facturación</a> <a href="/es/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/es/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/es/sobre-vbglabs/" data-astro-cid-nen7h5rs>Sobre VBG Labs</a> <a href="/es/preguntas-frecuentes/" data-astro-cid-nen7h5rs>Preguntas frecuentes</a> <a href="/es/contacto/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Hablemos</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown`).forEach(e=>{let t=e.querySelector(`.header__dropdown-btn`),n=e.querySelector(`.header__dropdown-menu`);if(!t||!n)return;let r=!1,i=e=>t.setAttribute(`aria-expanded`,String(e)),a=()=>{r=!1,i(!1)},o=()=>Array.from(n.querySelectorAll(`a[href]`));e.addEventListener(`pointerenter`,e=>{e.pointerType===`mouse`&&i(!0)}),e.addEventListener(`pointerleave`,e=>{e.pointerType===`mouse`&&!r&&!n.contains(document.activeElement)&&a()}),t.addEventListener(`click`,()=>{r=!r,i(r)}),e.addEventListener(`focusout`,t=>{e.contains(t.relatedTarget)||a()}),e.addEventListener(`keydown`,e=>{if(e.key===`Escape`)e.preventDefault(),a(),t.focus();else if(e.target===t&&(e.key===`ArrowDown`||e.key===`ArrowUp`)){e.preventDefault(),i(!0);let t=o();(e.key===`ArrowDown`?t[0]:t[t.length-1])?.focus()}}),n.addEventListener(`click`,e=>{e.target.closest(`a[href]`)&&a()}),document.addEventListener(`click`,t=>{e.contains(t.target)||a()})});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{let e=new URL(r.value,location.origin),t=document.querySelector(`[data-general="true"]`);if(t){let n=t.querySelector(`[name="interest"]`);n&&Array.from(n.options).some(e=>e.value===n.value)&&e.searchParams.set(`interest`,n.value);let r=t.querySelector(`[name="source_page"]`),i=JSON.parse(t.dataset.config||`{}`);r&&i.sources?.some(e=>e.path===r.value)&&e.searchParams.set(`from`,r.value),e.hash=`contact-form`}window.location.href=e.href});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/es/" data-astro-cid-ezvlwyc3>Inicio</a> </li><li data-astro-cid-ezvlwyc3> <a href="/es/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://vbglabs.com/es/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/es/blog/"},{"@type":"ListItem","position":3,"name":"¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA","item":"https://vbglabs.com/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>Herramientas de IA</span> <h1 data-astro-cid-cgze3hqb>¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-11-20T00:00:00.000Z" data-astro-cid-cgze3hqb>20 de noviembre de 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>Si un asistente de IA debe responder con documentos que cambian y citar la fuente, normalmente conviene RAG. Si solo tiene que analizar un conjunto pequeño y concreto en una consulta, puede bastar con enviarlo como contexto largo. Si el problema es conseguir una conducta, un formato o una clasificación muy consistentes, el fine-tuning puede tener sentido después de agotar el prompt y los ejemplos. A menudo la mejor arquitectura combina técnicas: RAG aporta el conocimiento y el prompt o el ajuste fino definen cómo utilizarlo.</p>
+<h2 id="separa-conocimiento-y-comportamiento-antes-de-elegir">Separa conocimiento y comportamiento antes de elegir</h2>
+<p>Muchas comparativas mezclan dos preguntas diferentes:</p>
+<ol>
+<li><strong>¿Qué necesita saber el asistente?</strong> Manuales, procedimientos, tarifas, políticas o datos de la empresa.</li>
+<li><strong>¿Cómo debe comportarse?</strong> Clasificar, extraer campos, responder con un estilo, respetar un esquema o elegir una herramienta.</li>
+</ol>
+<p>RAG y el contexto largo aportan principalmente información a la consulta. El fine-tuning modifica el comportamiento del modelo a partir de ejemplos. Un buen prompt también puede fijar instrucciones, límites y formato sin entrenar nada.</p>
+<p>La documentación de <a href="https://learn.microsoft.com/azure/ai-studio/concepts/retrieval-augmented-generation">Microsoft Foundry sobre RAG</a> resume la diferencia: recuperación para información privada o cambiante; fine-tuning para modificar comportamiento, estilo o rendimiento en una tarea. La guía de <a href="https://docs.cloud.google.com/docs/ai-ml/generative-ai/develop-generative-ai-application">Google Cloud para desarrollar aplicaciones de IA generativa</a> también distingue entre anclar respuestas a fuentes verificables y ajustar un modelo a requisitos específicos de salida.</p>
+<h2 id="matriz-rápida-de-decisión">Matriz rápida de decisión</h2>
+<table>
+<thead>
+<tr>
+<th>Enfoque</th>
+<th>Encaja mejor cuando</th>
+<th>Cómo se actualiza</th>
+<th>Citas</th>
+<th>Coste y complejidad principales</th>
+<th>Riesgo habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompt + ejemplos</td>
+<td>Las instrucciones, el formato y los casos están acotados</td>
+<td>Editando el prompt</td>
+<td>Solo si aportas fuentes</td>
+<td>Bajos al empezar; crece el contexto</td>
+<td>Prompt frágil o demasiado largo</td>
+</tr>
+<tr>
+<td>Contexto largo</td>
+<td>Hay pocos documentos y la consulta es puntual</td>
+<td>Enviando la versión nueva</td>
+<td>Posibles si conservas metadatos</td>
+<td>Tokens y latencia en cada consulta</td>
+<td>Enviar información irrelevante</td>
+</tr>
+<tr>
+<td>RAG</td>
+<td>La base documental es grande, cambia o tiene permisos</td>
+<td>Reindexando fuentes</td>
+<td>Es la opción más natural</td>
+<td>Preparación, búsqueda, índice y monitorización</td>
+<td>Recuperar fragmentos equivocados</td>
+</tr>
+<tr>
+<td>Fine-tuning</td>
+<td>Se repite una conducta o formato con mucha consistencia</td>
+<td>Entrenando y desplegando otra versión</td>
+<td>No aporta fuentes por sí solo</td>
+<td>Datos de calidad, entrenamiento, evaluación y mantenimiento</td>
+<td>Entrenar errores o patrones pobres</td>
+</tr>
+</tbody>
+</table>
+<p>La tabla ayuda a descartar opciones antes de invertir. La <a href="/es/blog/ia-o-reglas-matriz-decidir-automatizacion/">matriz entre IA, reglas y automatización híbrida</a> separa interpretación, comprobaciones y acciones.</p>
+<h2 id="opción-1-prompt-y-ejemplos-como-línea-base">Opción 1: prompt y ejemplos como línea base</h2>
+<p>Antes de construir un índice o entrenar un modelo, prueba una instrucción clara con ejemplos representativos. Define entrada, salida, campos obligatorios, abstención y límites. Puede bastar para clasificar consultas, extraer datos a un esquema o redactar un borrador estable.</p>
+<p>La guía de <a href="https://developers.openai.com/api/docs/guides/model-optimization">model optimization de OpenAI</a> propone un ciclo de evaluaciones, prompt, ejemplos y, solo cuando demuestra una mejora, fine-tuning. La idea es aplicable con cualquier proveedor: sin una línea base y casos de prueba no podrás saber si una arquitectura más compleja rinde mejor.</p>
+<h2 id="opción-2-contexto-largo-para-un-conjunto-pequeño">Opción 2: contexto largo para un conjunto pequeño</h2>
+<p>El contexto largo consiste en enviar los documentos relevantes directamente con la consulta. No requiere una base vectorial ni un proceso de recuperación. Puede funcionar para resumir un contrato, comparar tres presupuestos o analizar un manual que ya has seleccionado.</p>
+<p>La arquitectura es sencilla y visible, pero cada consulta vuelve a transportar el contenido. Eso puede aumentar coste y latencia, y más páginas no garantizan encontrar la información correcta.</p>
+<p>Utilízalo cuando:</p>
+<ul>
+<li>el conjunto es pequeño y conocido antes de preguntar;</li>
+<li>la tarea es puntual o de bajo volumen;</li>
+<li>no necesitas buscar entre miles de fuentes;</li>
+<li>puedes controlar qué documentos recibe cada usuario.</li>
+</ul>
+<p>Evita convertir el contexto largo en un almacén improvisado. Si cada consulta manda toda una carpeta «por si acaso», probablemente ya necesitas recuperación.</p>
+<h2 id="opción-3-rag-para-conocimiento-cambiante-y-verificable">Opción 3: RAG para conocimiento cambiante y verificable</h2>
+<p>RAG busca los fragmentos relevantes antes de llamar al modelo. Resulta útil con manuales, procedimientos, catálogos, preguntas frecuentes o políticas que cambian y que el usuario debe poder comprobar.</p>
+<p>No hay que entrenar el modelo cuando se actualiza un documento: se actualizan la fuente y el índice. También es posible filtrar por perfil antes de recuperar información y conservar título, versión o enlace para citarlos.</p>
+<p>RAG añade una segunda capa de calidad: también hay que medir si el buscador recupera el fragmento adecuado. Microsoft señala que una mala preparación, segmentación o configuración puede provocar respuestas incompletas.</p>
+<p>La guía de <a href="/es/blog/rag-pymes-asistente-ia-documentos/">RAG para pymes</a> explica cómo preparar fuentes, permisos y pruebas. Esta comparativa resuelve la pregunta anterior: si RAG es realmente el mecanismo que necesitas.</p>
+<h2 id="opción-4-fine-tuning-para-cambiar-el-comportamiento">Opción 4: fine-tuning para cambiar el comportamiento</h2>
+<p>En un fine-tuning, el modelo aprende de parejas de entrada y salida que representan el comportamiento deseado. Puede ayudar a mantener un formato, clasificar casos con matices, utilizar herramientas de forma consistente o especializar un modelo pequeño en una tarea repetitiva.</p>
+<p>No es el método adecuado para mantener un manual actualizado. El conocimiento queda ligado a los datos y a la versión entrenada; una política nueva obliga a preparar datos, volver a entrenar y validar. La documentación de <a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/fine-tuning-considerations">Microsoft sobre fine-tuning</a> recuerda que añade costes de entrenamiento y servicio, no sustituye la recuperación de información actual ni los controles de la aplicación, y no garantiza una mejora.</p>
+<p>Plantéalo solo si tienes:</p>
+<ul>
+<li>una tarea repetida y estable;</li>
+<li>ejemplos correctos, diversos y representativos;</li>
+<li>un conjunto de prueba separado de los datos de entrenamiento;</li>
+<li>una métrica que el modelo base no alcanza con prompt;</li>
+<li>volumen o latencia que justifiquen el mantenimiento.</li>
+</ul>
+<p>Los modelos compatibles y los costes varían según el proveedor; confírmalos antes de crear una dependencia.</p>
+<h2 id="árbol-de-decisión-en-seis-preguntas">Árbol de decisión en seis preguntas</h2>
+<ol>
+<li><strong>¿La información cambia a menudo?</strong> Si es así, prioriza RAG o una consulta directa al sistema de origen.</li>
+<li><strong>¿Necesitas mostrar la fuente?</strong> Si la respuesta es sí, RAG es el punto de partida más claro.</li>
+<li><strong>¿Ya sabes qué pocos documentos hay que analizar?</strong> Prueba primero con contexto largo.</li>
+<li><strong>¿El problema es el formato o la conducta, no el conocimiento?</strong> Empieza con prompt y ejemplos; valora fine-tuning si no alcanza el umbral.</li>
+<li><strong>¿Existen permisos por documento o usuario?</strong> Aplícalos antes de recuperar o enviar contexto; no los delegues al prompt.</li>
+<li><strong>¿Tienes pruebas comparables?</strong> Si no, aún no toca elegir la arquitectura definitiva.</li>
+</ol>
+<p>Si dos respuestas apuntan a técnicas distintas, quizá debas combinarlas.</p>
+<h2 id="ejemplo-ilustrativo-asistente-de-soporte-técnico">Ejemplo ilustrativo: asistente de soporte técnico</h2>
+<p>Imaginemos una empresa que recibe preguntas sobre equipos, garantías e instalación. Es un ejemplo ficticio y no representa resultados de un cliente.</p>
+<p>El <strong>prompt</strong> establece que la respuesta debe ser breve, incluir pasos y derivar cualquier riesgo eléctrico. Unos pocos ejemplos muestran el formato.</p>
+<p>Para analizar puntualmente el manual de un único equipo, el <strong>contexto largo</strong> puede bastar. Cuando el asistente debe buscar entre cientos de manuales, versiones y condiciones, <strong>RAG</strong> recupera las fuentes autorizadas y las cita.</p>
+<p>Si, tras muchas pruebas, el sistema sigue fallando en una clasificación estable —tipo de incidencia, urgencia y equipo responsable—, un <strong>fine-tuning</strong> podría mejorar esa conducta. Seguiría usando RAG para obtener el contenido vigente. Entrenar con los manuales no resolvería por sí solo sus actualizaciones.</p>
+<h2 id="cómo-comparar-las-opciones-con-un-mismo-piloto">Cómo comparar las opciones con un mismo piloto</h2>
+<p>Prepara entre 30 y 50 casos anonimizados, incluidos ambiguos, fuera de alcance y con fuentes contradictorias. Ejecuta cada alternativa sobre el mismo conjunto y registra:</p>
+<ul>
+<li>respuesta correcta y sustentada;</li>
+<li>fuente recuperada o documento utilizado;</li>
+<li>abstenciones correctas;</li>
+<li>campos y formato válidos;</li>
+<li>tiempo de respuesta;</li>
+<li>coste por caso completado;</li>
+<li>errores de permisos o datos expuestos;</li>
+<li>trabajo de mantenimiento necesario.</li>
+</ul>
+<p>No compares una demostración sencilla de RAG con los casos difíciles del prompt. La <a href="/es/blog/checklist-pruebas-asistente-ia-antes-produccion/">checklist para validar un asistente de IA</a> ayuda a mantener el conjunto de pruebas, y la <a href="/es/blog/calculadora-coste-automatizacion-ia-caso/">calculadora del coste por caso</a> incorpora consumo, revisión y excepciones.</p>
+<h2 id="fuentes-técnicas">Fuentes técnicas</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/azure/ai-studio/concepts/retrieval-augmented-generation">Microsoft Foundry: Retrieval-augmented generation and indexes</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/fine-tuning-considerations">Microsoft Foundry: Fine-tuning considerations</a></li>
+<li><a href="https://docs.cloud.google.com/docs/ai-ml/generative-ai/develop-generative-ai-application">Google Cloud: Develop a generative AI application</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/model-optimization">OpenAI: Model optimization</a></li>
+</ul>
+<p>Si quieres decidir la arquitectura antes de invertir en una plataforma, la <a href="/es/consultoria/">consultoría de IA</a> de VBG Labs puede convertir el caso de uso en requisitos, pruebas y una comparación de coste y mantenimiento. Cuando el diseño ya está validado, una <a href="/es/automatizaciones/">automatización con IA</a> puede conectar fuentes, modelo, reglas y revisión humana con trazabilidad.</p>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>También te puede interesar</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/es/blog/calculadora-coste-automatizacion-ia-caso/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Costes y retorno de la IA</span> <h3 data-astro-cid-vqljwchw="true">¿Cuánto cuesta una automatización con IA? Calculadora del coste por caso</h3> <p data-astro-cid-vqljwchw>Calcula el coste real de una automatización con IA: modelo, integraciones, excepciones, revisión humana, mantenimiento y retorno de la inversión.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>6 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a><a href="/es/blog/checklist-pruebas-asistente-ia-antes-produccion/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>Automatización con IA</span> <h3 data-astro-cid-vqljwchw="true">Checklist de 20 pruebas para validar un asistente de IA antes de producción</h3> <p data-astro-cid-vqljwchw>Un conjunto práctico para validar calidad, fuentes, permisos, acciones y recuperación de errores antes de desplegar un asistente de IA en una pyme.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>13 de noviembre de 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Leer →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Encuentra un punto de partida para aplicar IA</h2> <p class="lede" data-astro-cid-hwvj6ntz>Primero te respondemos por correo. Si hace falta, acordamos una reunión breve para entender mejor el caso.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/es/contacto/?interest=consulting&amp;from=%2Fes%2Fblog%2Frag-contexto-largo-fine-tuning-asistentes-ia%2F#contact-form" class="btn btn-primary" data-astro-cid-hwvj6ntz>Pedir orientación inicial</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"¿RAG, contexto largo o fine-tuning? Matriz para asistentes de IA","description":"Comparativa práctica para decidir cómo adaptar un asistente de IA: prompt, contexto largo, RAG o fine-tuning según documentos, conducta, coste y mantenimiento.","url":"https://vbglabs.com/es/blog/rag-contexto-largo-fine-tuning-asistentes-ia/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-11-20T00:00:00.000Z","dateModified":"2026-11-20T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/es/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Tecnología práctica para que tu negocio funcione mejor.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Cataluña</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Servicios</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/servicios/#solucions" data-astro-cid-jo6i4kqk>Soluciones de IA y automatización</a></li><li data-astro-cid-jo6i4kqk><a href="/es/servicios/#sectors" data-astro-cid-jo6i4kqk>Por tipo de negocio</a></li><li data-astro-cid-jo6i4kqk><a href="/es/automatizaciones/" data-astro-cid-jo6i4kqk>Automatizaciones</a></li><li data-astro-cid-jo6i4kqk><a href="/es/consultoria/" data-astro-cid-jo6i4kqk>Consultoría</a></li><li data-astro-cid-jo6i4kqk><a href="/es/formacion/" data-astro-cid-jo6i4kqk>Formación</a></li><li data-astro-cid-jo6i4kqk><a href="/es/vbg-facturacion/" data-astro-cid-jo6i4kqk>VBG Facturación</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Empresa</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/es/sobre-vbglabs/" data-astro-cid-jo6i4kqk>Sobre VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/es/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/es/preguntas-frecuentes/" data-astro-cid-jo6i4kqk>Preguntas frecuentes</a></li><li data-astro-cid-jo6i4kqk><a href="/es/contacto/" data-astro-cid-jo6i4kqk>Contacto</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contacto</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. Todos los derechos reservados.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/es/aviso-legal/" data-astro-cid-jo6i4kqk>Aviso legal</a> <a href="/es/politica-privacidad/" data-astro-cid-jo6i4kqk>Privacidad</a> <a href="/es/politica-cookies/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Configurar cookies </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>Tú decides sobre las cookies</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>Usamos almacenamiento esencial y, solo si lo aceptas, Google Analytics para entender cómo se utiliza la web y mejorarla. No utilizamos cookies publicitarias. <a href="/es/politica-cookies/" data-astro-cid-hq3mgpmn>Más información</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Rechazar</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Aceptar</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
