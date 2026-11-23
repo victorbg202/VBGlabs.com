@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b0b"><script>(function(){const measurementId = "G-6D4DW5CPW9";
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+      (() => {
+        const disableKey = `ga-disable-${measurementId}`;
+        let tagLoaded = false;
+        let analyticsGranted = false;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments);
+        };
+
+        // Consent Mode v2 defaults. Advertising storage and signals remain
+        // disabled because VBG Labs currently uses Analytics only.
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window[disableKey] = true;
+
+        function readConsent() {
+          try {
+            const raw = localStorage.getItem(consentKey);
+            if (!raw) return null;
+
+            const consent = JSON.parse(raw);
+            const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+            const validVersion = consent.version === consentVersion;
+            const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+            if (!validDecision || !validVersion || !validDate) {
+              localStorage.removeItem(consentKey);
+              return null;
+            }
+
+            return consent.analytics;
+          } catch {
+            return null;
+          }
+        }
+
+        function injectTag() {
+          if (tagLoaded) return;
+          tagLoaded = true;
+
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            cookie_domain: 'auto',
+            send_page_view: true,
+          });
+
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          script.dataset.vbgAnalytics = 'ga4';
+          document.head.appendChild(script);
+        }
+
+        function grantAnalytics() {
+          analyticsGranted = true;
+          window[disableKey] = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          injectTag();
+        }
+
+        function clearAnalyticsCookies() {
+          const names = document.cookie
+            .split(';')
+            .map((part) => part.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+          const rootDomain = location.hostname.replace(/^www\./, '');
+          const domains = ['', location.hostname, `.${rootDomain}`];
+
+          for (const name of names) {
+            for (const domain of domains) {
+              const domainPart = domain ? ` Domain=${domain};` : '';
+              document.cookie = `${name}=; Max-Age=0; Path=/;${domainPart} SameSite=Lax`;
+            }
+          }
+        }
+
+        function denyAnalytics() {
+          analyticsGranted = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          window[disableKey] = true;
+          clearAnalyticsCookies();
+        }
+
+        window.vbgTrackEvent = function (eventName, parameters = {}) {
+          if (!analyticsGranted || typeof eventName !== 'string' || !eventName) return;
+          window.gtag('event', eventName, parameters);
+        };
+
+        window.addEventListener('vbg:consent-change', (event) => {
+          if (event.detail?.analytics === true) grantAnalytics();
+          else denyAnalytics();
+        });
+
+        if (readConsent() === 'granted') grantAnalytics();
+        else denyAnalytics();
+
+        function linkLocation(link) {
+          if (link.closest('#site-header, #mobile-menu')) return 'header';
+          if (link.closest('.hero, .page-hero')) return 'hero';
+          if (link.closest('.cta-band')) return 'cta_band';
+          if (link.closest('.plan')) return 'pricing';
+          if (link.closest('footer')) return 'footer';
+          return 'content';
+        }
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const calculatorCta=event.target.closest('[data-enquiry-cta]');
+          if(calculatorCta){
+            window.vbgTrackEvent('cta_click',{cta_location:'calculator',destination_path:location.pathname,page_language:document.documentElement.lang});
+            return;
+          }
+          const link = event.target.closest('a');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const destination = new URL(link.href, location.href);
+          const contactPaths = ['/contacte/', '/es/contacto/', '/en/contact/'];
+
+          if (destination.origin === location.origin && (contactPaths.includes(destination.pathname) || destination.hash === '#parlem')) {
+            window.vbgTrackEvent('cta_click', {
+              cta_location: linkLocation(link),
+              destination_path: destination.pathname,
+              page_language: document.documentElement.lang,
+            });
+          } else if (destination.protocol === 'mailto:' || destination.protocol === 'tel:') {
+            window.vbgTrackEvent('contact_click', {
+              contact_method: destination.protocol === 'mailto:' ? 'email' : 'phone',
+              link_location: linkLocation(link),
+              page_language: document.documentElement.lang,
+            });
+          }
+        });
+      })();
+    })();</script><title>AI quote automation: from customer enquiry to reviewable draft | VBG Labs</title> <meta name="description" content="A practical guide to turning enquiries and documents into reviewable quote drafts with AI, business rules, traceability and human approval."> <meta name="robots" content="index, follow, max-image-preview:large"> <link rel="canonical" href="https://vbglabs.com/en/blog/ai-quote-automation-reviewable-draft/"> <link rel="alternate" hreflang="en" href="https://vbglabs.com/en/blog/ai-quote-automation-reviewable-draft/"><link rel="alternate" hreflang="ca" href="https://vbglabs.com/blog/automatitzar-pressupostos-ia-esborrany-revisable/"><link rel="alternate" hreflang="es" href="https://vbglabs.com/es/blog/automatizar-presupuestos-ia-borrador-revisable/"> <link rel="alternate" hreflang="x-default" href="https://vbglabs.com/blog/automatitzar-pressupostos-ia-esborrany-revisable/"> <meta property="og:type" content="article"> <meta property="og:url" content="https://vbglabs.com/en/blog/ai-quote-automation-reviewable-draft/"> <meta property="og:site_name" content="VBG Labs"> <meta property="og:title" content="AI quote automation: from customer enquiry to reviewable draft | VBG Labs"> <meta property="og:description" content="A practical guide to turning enquiries and documents into reviewable quote drafts with AI, business rules, traceability and human approval."> <meta property="og:image" content="https://vbglabs.com/og/og-en.jpg"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:locale" content="en_US"> <meta property="og:locale:alternate" content="ca_ES"><meta property="og:locale:alternate" content="es_ES"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="AI quote automation: from customer enquiry to reviewable draft | VBG Labs"> <meta name="twitter:description" content="A practical guide to turning enquiries and documents into reviewable quote drafts with AI, business rules, traceability and human approval."> <meta name="twitter:image" content="https://vbglabs.com/og/og-en.jpg"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"></noscript><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://vbglabs.com/#organization","name":"VBG Labs","url":"https://vbglabs.com","logo":"https://vbglabs.com/brand/vbg-logo-black.png","email":"info@vbglabs.com","address":{"@type":"PostalAddress","addressLocality":"Almenar","addressRegion":"Lleida","postalCode":"25126","addressCountry":"ES"},"areaServed":["Almenar","Lleida","Catalunya","España"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://vbglabs.com/#website","url":"https://vbglabs.com","name":"VBG Labs","publisher":{"@id":"https://vbglabs.com/#organization"},"inLanguage":["ca","es","en"]}</script><style>.blog-card[data-astro-cid-vqljwchw]{color:inherit;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:var(--radius-md);padding:var(--space-4);transition:transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);flex-direction:column;gap:.6rem;text-decoration:none;display:flex}.blog-card[data-astro-cid-vqljwchw]:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}.blog-card__category[data-astro-cid-vqljwchw]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700}.blog-card[data-astro-cid-vqljwchw] h2[data-astro-cid-vqljwchw],.blog-card[data-astro-cid-vqljwchw] h3[data-astro-cid-vqljwchw]{font-size:var(--text-md)}.blog-card[data-astro-cid-vqljwchw] p[data-astro-cid-vqljwchw]{font-size:var(--text-sm);color:var(--muted);flex:1}.blog-card__meta[data-astro-cid-vqljwchw]{font-size:var(--text-xs);color:var(--muted);justify-content:space-between;align-items:center;margin-top:.3rem;display:flex}.blog-card__read[data-astro-cid-vqljwchw]{color:var(--red);font-weight:600}
+.breadcrumb[data-astro-cid-ezvlwyc3]{padding-block:var(--space-3)}.breadcrumb[data-astro-cid-ezvlwyc3] ol[data-astro-cid-ezvlwyc3]{font-size:var(--text-xs);color:var(--muted);flex-wrap:wrap;gap:.5em;margin:0;padding:0;list-style:none;display:flex}.breadcrumb[data-astro-cid-ezvlwyc3] li[data-astro-cid-ezvlwyc3]:not(:last-child):after{content:"/";color:var(--gray-300);margin-left:.5em}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]{color:var(--muted);text-decoration:none}.breadcrumb[data-astro-cid-ezvlwyc3] a[data-astro-cid-ezvlwyc3]:hover{color:var(--red);text-decoration:underline}.breadcrumb[data-astro-cid-ezvlwyc3] [data-astro-cid-ezvlwyc3][aria-current=page]{color:var(--ink-soft);font-weight:500}
+.cta-band[data-astro-cid-hwvj6ntz]{padding-block:var(--space-7);position:relative;overflow:clip}.cta-band--dark[data-astro-cid-hwvj6ntz]{background:var(--ink);color:var(--gray-300)}.cta-band--dark[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:var(--red-300)}.cta-band--red[data-astro-cid-hwvj6ntz]{background:linear-gradient(135deg, var(--red-600), var(--red-500));color:#fff0ef}.cta-band--red[data-astro-cid-hwvj6ntz] .eyebrow[data-astro-cid-hwvj6ntz]{color:#fff}.cta-band__inner[data-astro-cid-hwvj6ntz]{text-align:center;align-items:center;gap:var(--space-3);flex-direction:column;display:flex;position:relative}.cta-band[data-astro-cid-hwvj6ntz] h2[data-astro-cid-hwvj6ntz]{color:var(--white);font-size:var(--text-2xl);max-width:24ch}.cta-band[data-astro-cid-hwvj6ntz] .lede[data-astro-cid-hwvj6ntz]{color:inherit;opacity:.85;max-width:48ch}.cta-band__actions[data-astro-cid-hwvj6ntz]{justify-content:center;gap:var(--space-2);margin-top:var(--space-2);flex-wrap:wrap;display:flex}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]{background:var(--ink);border-color:var(--ink)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-primary[data-astro-cid-hwvj6ntz]:hover{background:var(--gray-800)}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]{color:#fff;border-color:#ffffff80}.cta-band--red[data-astro-cid-hwvj6ntz] .btn-outline[data-astro-cid-hwvj6ntz]:hover{border-color:#fff}
+</style><link rel="stylesheet" href="/_astro/BaseLayout.Dpt6J_U_.css"><style>.solution-catalog[data-astro-cid-azbw6ygn]{scroll-margin-top:100px}.catalog-intro[data-astro-cid-azbw6ygn]{max-width:760px;margin-bottom:var(--space-5)}.catalog-intro[data-astro-cid-azbw6ygn] h2[data-astro-cid-azbw6ygn]{font-size:var(--text-2xl);margin:var(--space-2) 0;text-wrap:balance}.solution-grid[data-astro-cid-azbw6ygn]{gap:var(--space-3);grid-template-columns:minmax(0,1fr);display:grid}.solution-card[data-astro-cid-azbw6ygn]{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);min-width:0;padding:var(--space-4);flex-direction:column;align-items:flex-start;display:flex}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn]{font-size:var(--text-lg);margin-bottom:var(--space-2);overflow-wrap:break-word;line-height:1.3}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]{color:var(--ink);text-decoration:none}.solution-card[data-astro-cid-azbw6ygn] h3[data-astro-cid-azbw6ygn] a[data-astro-cid-azbw6ygn]:hover{color:var(--red);text-decoration:underline}.solution-card[data-astro-cid-azbw6ygn]>p[data-astro-cid-azbw6ygn]{font-size:var(--text-sm);color:var(--ink-soft)}.solution-card[data-astro-cid-azbw6ygn] .solution-card__price[data-astro-cid-azbw6ygn]{padding-top:var(--space-3);color:var(--ink);margin-top:auto;font-weight:600}.solution-card__link[data-astro-cid-azbw6ygn]{margin-top:var(--space-3);color:var(--red);font-weight:600;font-size:var(--text-sm)}@media (width>=700px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width>=1080px){.solution-grid[data-astro-cid-azbw6ygn]{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.post[data-astro-cid-cgze3hqb]{padding-block:var(--space-4) var(--space-7)}.narrow[data-astro-cid-cgze3hqb]{max-width:720px}.post__category[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:var(--space-2);font-weight:700;display:inline-block}.post[data-astro-cid-cgze3hqb] h1[data-astro-cid-cgze3hqb]{font-size:var(--text-3xl);margin-block:var(--space-2)}.post__meta[data-astro-cid-cgze3hqb]{font-size:var(--text-sm);color:var(--muted);margin-bottom:var(--space-5);gap:.5em;display:flex}.prose[data-astro-cid-cgze3hqb]{font-size:var(--text-md);color:var(--ink-soft);line-height:var(--leading-relaxed)}.prose[data-astro-cid-cgze3hqb] h2{font-size:var(--text-xl);margin-top:var(--space-6);margin-bottom:var(--space-2)}.prose[data-astro-cid-cgze3hqb] h3{font-size:var(--text-lg);margin-top:var(--space-5);margin-bottom:.6rem}.prose[data-astro-cid-cgze3hqb] p{max-width:none;margin-bottom:1.2em}.prose[data-astro-cid-cgze3hqb] ul,.prose[data-astro-cid-cgze3hqb] ol{margin-bottom:1.2em;padding-left:1.4em}.prose[data-astro-cid-cgze3hqb] li{margin-bottom:.5em}.prose[data-astro-cid-cgze3hqb] strong{color:var(--ink)}.prose[data-astro-cid-cgze3hqb] a{color:var(--red);text-decoration-thickness:1.5px}.prose[data-astro-cid-cgze3hqb] blockquote{border-left:3px solid var(--red);padding-left:var(--space-3);margin:var(--space-4) 0;color:var(--ink);font-style:italic}.prose[data-astro-cid-cgze3hqb] code{background:var(--gray-100);font-family:var(--font-mono);border-radius:4px;padding:.15em .4em;font-size:.88em}.bg-alt[data-astro-cid-cgze3hqb]{background:var(--gray-50)}.related-title[data-astro-cid-cgze3hqb]{font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)}.related-grid[data-astro-cid-cgze3hqb]{gap:var(--space-3);grid-template-columns:1fr;display:grid}@media (width>=640px){.related-grid[data-astro-cid-cgze3hqb]{grid-template-columns:1fr 1fr}}
+</style></head> <body> <a href="#main" class="skip-link">Skip to content</a> <header class="header" id="site-header" data-astro-cid-nen7h5rs> <div class="header__bar container" data-astro-cid-nen7h5rs> <a href="/en/" class="header__logo" data-astro-cid-nen7h5rs> <img src="/brand/vbg-isotype-black.webp" width="28" height="28" alt="" class="header__mark" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs>VBG<em data-astro-cid-nen7h5rs>Labs</em></span> <span class="visually-hidden" data-astro-cid-nen7h5rs> — Home</span> </a> <nav class="header__nav" aria-label="Menu" data-astro-cid-nen7h5rs> <ul class="header__links" data-astro-cid-nen7h5rs> <li class="header__dropdown" data-astro-cid-nen7h5rs> <button type="button" class="header__dropdown-btn" aria-expanded="false" aria-controls="services-menu" data-astro-cid-nen7h5rs> Services <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" data-astro-cid-nen7h5rs><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs></path></svg> </button> <div class="header__dropdown-menu" id="services-menu" data-astro-cid-nen7h5rs> <a href="/en/services/" class="header__dropdown-all" data-astro-cid-nen7h5rs>All services</a> <a href="/en/services/#solucions" data-astro-cid-nen7h5rs>AI and automation solutions</a> <a href="/en/services/#sectors" data-astro-cid-nen7h5rs>By business type</a> <a href="/en/automation/" data-astro-cid-nen7h5rs>Automation</a><a href="/en/consulting/" data-astro-cid-nen7h5rs>Consulting</a><a href="/en/training/" data-astro-cid-nen7h5rs>Training</a> <a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a> </div> </li> <li data-astro-cid-nen7h5rs><a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a></li> <li data-astro-cid-nen7h5rs><a href="/en/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a></li> <li data-astro-cid-nen7h5rs><a href="/en/blog/" data-astro-cid-nen7h5rs>Blog</a></li> <li data-astro-cid-nen7h5rs><a href="/en/about/" data-astro-cid-nen7h5rs>About VBG Labs</a></li> </ul> </nav> <div class="header__actions" data-astro-cid-nen7h5rs> <label class="header__lang" data-astro-cid-nen7h5rs> <span class="visually-hidden" data-astro-cid-nen7h5rs>Language</span> <select id="lang-switch" data-alternates="[{&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;/en/blog/ai-quote-automation-reviewable-draft/&quot;},{&quot;locale&quot;:&quot;ca&quot;,&quot;path&quot;:&quot;/blog/automatitzar-pressupostos-ia-esborrany-revisable/&quot;},{&quot;locale&quot;:&quot;es&quot;,&quot;path&quot;:&quot;/es/blog/automatizar-presupuestos-ia-borrador-revisable/&quot;}]" data-astro-cid-nen7h5rs> <option value="/en/blog/ai-quote-automation-reviewable-draft/" selected data-astro-cid-nen7h5rs>EN</option><option value="/blog/automatitzar-pressupostos-ia-esborrany-revisable/" data-astro-cid-nen7h5rs>CA</option><option value="/es/blog/automatizar-presupuestos-ia-borrador-revisable/" data-astro-cid-nen7h5rs>ES</option> </select> </label> <a href="/en/contact/" class="btn btn-primary header__cta" data-astro-cid-nen7h5rs>Let&#39;s talk</a> <button type="button" class="header__burger" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" data-astro-cid-nen7h5rs> <span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs></span> </button> </div> </div> </header> <div class="mobile-menu" id="mobile-menu" inert data-astro-cid-nen7h5rs> <nav aria-label="Menu" class="mobile-menu__nav" data-astro-cid-nen7h5rs> <a href="/en/services/" class="mobile-menu__section" data-astro-cid-nen7h5rs>All services</a> <a href="/en/services/#solucions" data-astro-cid-nen7h5rs>AI and automation solutions</a> <a href="/en/services/#sectors" data-astro-cid-nen7h5rs>By business type</a> <a href="/en/automation/" data-astro-cid-nen7h5rs>Automation</a><a href="/en/consulting/" data-astro-cid-nen7h5rs>Consulting</a><a href="/en/training/" data-astro-cid-nen7h5rs>Training</a> <a href="/en/vbg-invoicing/" data-astro-cid-nen7h5rs>VBG Invoicing</a> <a href="/en/postcraft/" data-astro-cid-nen7h5rs>Postcraft</a> <a href="/en/blog/" data-astro-cid-nen7h5rs>Blog</a> <a href="/en/about/" data-astro-cid-nen7h5rs>About VBG Labs</a> <a href="/en/faq/" data-astro-cid-nen7h5rs>FAQ</a> <a href="/en/contact/" class="btn btn-primary mobile-menu__cta" data-astro-cid-nen7h5rs>Let&#39;s talk</a> </nav> </div> <script type="module">var e=document.getElementById(`menu-toggle`),t=document.getElementById(`mobile-menu`),n=document.getElementById(`site-header`);if(e&&t){let n=()=>Array.from(t.querySelectorAll(`a[href], button:not([disabled])`)),r=()=>{t.removeAttribute(`inert`),t.classList.add(`is-open`),e.setAttribute(`aria-expanded`,`true`),document.body.style.overflow=`hidden`,n()[0]?.focus()},i=(n=!0)=>{t.classList.remove(`is-open`),e.setAttribute(`aria-expanded`,`false`),document.body.style.overflow=``,window.setTimeout(()=>t.setAttribute(`inert`,``),250),n&&e.focus()};e.addEventListener(`click`,()=>{e.getAttribute(`aria-expanded`)===`true`?i():r()}),t.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e.getAttribute(`aria-expanded`)===`true`&&i()}),t.addEventListener(`keydown`,e=>{if(e.key!==`Tab`)return;let t=n();if(t.length===0)return;let r=t[0],i=t[t.length-1];e.shiftKey&&document.activeElement===r?(e.preventDefault(),i.focus()):!e.shiftKey&&document.activeElement===i&&(e.preventDefault(),r.focus())})}document.querySelectorAll(`.header__dropdown`).forEach(e=>{let t=e.querySelector(`.header__dropdown-btn`),n=e.querySelector(`.header__dropdown-menu`);if(!t||!n)return;let r=!1,i=e=>t.setAttribute(`aria-expanded`,String(e)),a=()=>{r=!1,i(!1)},o=()=>Array.from(n.querySelectorAll(`a[href]`));e.addEventListener(`pointerenter`,e=>{e.pointerType===`mouse`&&i(!0)}),e.addEventListener(`pointerleave`,e=>{e.pointerType===`mouse`&&!r&&!n.contains(document.activeElement)&&a()}),t.addEventListener(`click`,()=>{r=!r,i(r)}),e.addEventListener(`focusout`,t=>{e.contains(t.relatedTarget)||a()}),e.addEventListener(`keydown`,e=>{if(e.key===`Escape`)e.preventDefault(),a(),t.focus();else if(e.target===t&&(e.key===`ArrowDown`||e.key===`ArrowUp`)){e.preventDefault(),i(!0);let t=o();(e.key===`ArrowDown`?t[0]:t[t.length-1])?.focus()}}),n.addEventListener(`click`,e=>{e.target.closest(`a[href]`)&&a()}),document.addEventListener(`click`,t=>{e.contains(t.target)||a()})});var r=document.getElementById(`lang-switch`);r?.addEventListener(`change`,()=>{let e=new URL(r.value,location.origin),t=document.querySelector(`[data-general="true"]`);if(t){let n=t.querySelector(`[name="interest"]`);n&&Array.from(n.options).some(e=>e.value===n.value)&&e.searchParams.set(`interest`,n.value);let r=t.querySelector(`[name="source_page"]`),i=JSON.parse(t.dataset.config||`{}`);r&&i.sources?.some(e=>e.path===r.value)&&e.searchParams.set(`from`,r.value),e.hash=`contact-form`}window.location.href=e.href});var i=n;if(i){let e=!1;window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(()=>{i.classList.toggle(`is-scrolled`,window.scrollY>8),e=!1}))})}</script> <main id="main">  <article class="post" data-astro-cid-cgze3hqb> <div class="container narrow" data-astro-cid-cgze3hqb> <nav aria-label="Breadcrumb" class="breadcrumb" data-astro-cid-ezvlwyc3> <ol data-astro-cid-ezvlwyc3> <li data-astro-cid-ezvlwyc3> <a href="/en/" data-astro-cid-ezvlwyc3>Home</a> </li><li data-astro-cid-ezvlwyc3> <a href="/en/blog/" data-astro-cid-ezvlwyc3>Blog</a> </li><li data-astro-cid-ezvlwyc3> <span aria-current="page" data-astro-cid-ezvlwyc3>AI quote automation: from customer enquiry to reviewable draft</span> </li> </ol> </nav> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://vbglabs.com/en/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://vbglabs.com/en/blog/"},{"@type":"ListItem","position":3,"name":"AI quote automation: from customer enquiry to reviewable draft","item":"https://vbglabs.com/en/blog/ai-quote-automation-reviewable-draft/"}]}</script> <span class="post__category" data-astro-cid-cgze3hqb>AI automation</span> <h1 data-astro-cid-cgze3hqb>AI quote automation: from customer enquiry to reviewable draft</h1> <p class="post__meta" data-astro-cid-cgze3hqb> <span data-astro-cid-cgze3hqb>VBG Labs</span> <span aria-hidden="true" data-astro-cid-cgze3hqb>·</span> <time datetime="2026-11-23T00:00:00.000Z" data-astro-cid-cgze3hqb>23 November 2026</time> </p> <div class="prose" data-astro-cid-cgze3hqb> <p>AI quote automation can reduce reading, copying and drafting, but the model should not become your price list or sales authority. A sound design is hybrid: AI interprets the enquiry and attachments, proposes scope and writes a draft; deterministic rules retrieve prices and check conditions; a person resolves uncertainty and approves the send. This shortens preparation without surrendering control over commitments, amounts or customer expectations.</p>
+<h2 id="the-part-of-quoting-that-ai-can-improve">The part of quoting that AI can improve</h2>
+<p>Producing a quote often means reconstructing a request from an email, form, call notes, photographs or a PDF. Someone must identify the service, spot missing information, find the correct rate, define scope and make exclusions explicit. The slow part is not only arithmetic. It is turning unstructured material into a coherent proposal.</p>
+<p>That is where AI can help. It can interpret free text, summarise attachments, normalise terminology and draft clear language. A quote also contains exact decisions that must not be improvised. The model should never invent a price, choose a discount or tax treatment, or promise a delivery date.</p>
+<p>Use a division of responsibility like this:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>AI</th>
+<th>Controlled rules or data</th>
+<th>Person</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Understand the need</td>
+<td>Extracts and summarises</td>
+<td>Check required fields</td>
+<td>Confirms ambiguity</td>
+</tr>
+<tr>
+<td>Propose scope</td>
+<td>Drafts a proposal</td>
+<td>Restrict valid services and options</td>
+<td>Accepts or corrects</td>
+</tr>
+<tr>
+<td>Calculate amounts</td>
+<td>Does not decide</td>
+<td>Rates, quantities, taxes and formulas</td>
+<td>Approves exceptions</td>
+</tr>
+<tr>
+<td>Draft terms</td>
+<td>Adapts an approved template</td>
+<td>Insert current clauses</td>
+<td>Reviews commitments</td>
+</tr>
+<tr>
+<td>Send</td>
+<td>May prepare the email</td>
+<td>Block unapproved sends</td>
+<td>Authorises release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="define-the-output-before-choosing-a-model">Define the output before choosing a model</h2>
+<p>A useful pilot does not begin with “write me a quote”. It begins with an output contract: which fields the system must produce and how it will distinguish a fact, a proposal and a missing input.</p>
+<p>At minimum, the structured draft should contain:</p>
+<ul>
+<li>identified customer and contact details;</li>
+<li>stated need and desired outcome;</li>
+<li>proposed service or service family;</li>
+<li>detected units, quantities and variants;</li>
+<li>missing information and questions to ask;</li>
+<li>quote lines tied to a valid rate code;</li>
+<li>assumptions, exclusions and validity period;</li>
+<li>source passage or document for each material fact;</li>
+<li>status: complete, awaiting information or special review.</li>
+</ul>
+<p>Structured formats help the model return predictable fields. OpenAI’s <a href="https://developers.openai.com/api/docs/guides/structured-outputs">Structured Outputs documentation</a>, for example, explains how to constrain a response to a JSON schema. It also says the application must still handle incomplete responses, errors and business rules that the schema cannot express. A schema controls shape; it does not make an invented value true.</p>
+<h2 id="the-end-to-end-workflow">The end-to-end workflow</h2>
+<h3 id="1-capture-the-whole-case">1. Capture the whole case</h3>
+<p>The entry point may be a form, email, transcript or internal record. Group the message, attachments and known facts under one identifier. If the previous step already uses <a href="/en/blog/ai-lead-qualification-automate-inbound-enquiries/">AI to qualify inbound enquiries</a>, quoting can start from that reviewed record instead of rereading the full conversation.</p>
+<h3 id="2-separate-noise-data-and-instructions">2. Separate noise, data and instructions</h3>
+<p>Strip repeated signatures and quoted history without deleting relevant facts. Classify attachments before extracting them: a photograph, specification and old quotation have different roles. Treat any instruction found inside a customer document as customer content, not as a command to the system.</p>
+<h3 id="3-extract-facts-with-evidence">3. Extract facts with evidence</h3>
+<p>AI fills the schema and links every important field to its source passage. If a quantity is missing or two documents disagree, the field must remain unresolved. Filling the gap with the most plausible value is not acceptable.</p>
+<p>The <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence">NIST Generative AI Profile</a> identifies confabulation —confidently stated false content— as a risk of these systems. For quoting, the practical response is to limit sources, retain evidence and route uncertainty for review rather than trust fluent wording.</p>
+<h3 id="4-apply-commercial-rules-outside-the-model">4. Apply commercial rules outside the model</h3>
+<p>Now bring in rates, formulas, minimum charges, service areas, taxes and incompatibilities. These checks should be deterministic and versioned. If there is no valid service code or the selected rate has expired, stop the workflow and open an exception.</p>
+<p>This follows the same boundary as the <a href="/en/blog/ai-or-rules-automation-decision-matrix/">AI or rules decision matrix</a>: use the model for ambiguous language; use controlled code or tables for arithmetic, permissions and exact conditions.</p>
+<h3 id="5-generate-a-draft-not-a-promise">5. Generate a draft, not a promise</h3>
+<p>Once facts are validated, AI can draft a readable document: short context, scope, line items, assumptions, exclusions and next step. Templates should define the structure and approved clauses. The model may adjust wording, but it must not remove a mandatory exclusion or extend a warranty.</p>
+<h3 id="6-make-review-efficient">6. Make review efficient</h3>
+<p>The review screen should show the quote alongside alerts, source evidence and any deviations from the standard rate. The reviewer should not need to reconstruct the case from scratch.</p>
+<p>Block sending when there is:</p>
+<ul>
+<li>a missing or contradictory required field;</li>
+<li>a line without a rate code;</li>
+<li>a manually changed price without a reason;</li>
+<li>a service outside the catalogue;</li>
+<li>an obsolete clause or template;</li>
+<li>a value or commitment above the approval threshold.</li>
+</ul>
+<h3 id="7-send-only-after-approval">7. Send only after approval</h3>
+<p>At first, let the automation prepare the PDF and email but not send them. Record who reviewed the draft, which version they approved and when it was sent. The system can then create the follow-up task using the dates and conditions from the approved document.</p>
+<h2 id="illustrative-example-a-maintenance-business">Illustrative example: a maintenance business</h2>
+<p>Imagine a business receives an enquiry containing an email, three photographs and an equipment list. AI identifies the type of intervention, extracts locations and quantities, and proposes two service lines. It also finds that access to one machine is unclear and a photograph cannot confirm the model number.</p>
+<p>Rules retrieve the current rate, calculate travel and units, and block an option that is unavailable in that area. The system produces a draft with two open questions and leaves one line unpriced because it requires inspection. A person completes that line, reviews the exclusions and approves the quote.</p>
+<p>This is illustrative, not a client or claimed result. Its purpose is to show that the value is not “AI quotes by itself”. The value is a prepared case that makes uncertainty visible to the right person.</p>
+<h2 id="what-must-be-ready-first">What must be ready first</h2>
+<p>The workflow will depend more on its operational foundation than on a long prompt. Prepare:</p>
+<ol>
+<li><strong>Service catalogue:</strong> codes, descriptions, units and valid combinations.</li>
+<li><strong>Versioned rate table:</strong> prices, effective dates, taxes and formulas.</li>
+<li><strong>Approved templates:</strong> structure, mandatory text, exclusions and validity.</li>
+<li><strong>Escalation criteria:</strong> cases requiring a visit, technical input or second approval.</li>
+<li><strong>Reviewed examples:</strong> standard, incomplete, contradictory and out-of-scope cases.</li>
+<li><strong>Owners:</strong> who maintains each dataset and who can approve exceptions.</li>
+</ol>
+<p>If the process still lives in inboxes and tacit knowledge, document it first with the <a href="/en/blog/one-page-process-template-before-automation/">one-page process template</a>. Automating an ambiguous rate structure merely moves the ambiguity faster.</p>
+<h2 id="how-to-test-without-putting-sales-at-risk">How to test without putting sales at risk</h2>
+<p>Start with one service family, one channel and drafts that cannot be sent automatically. Use anonymised historical cases or synthetic examples, and keep development examples separate from the test set. Include ordinary inputs and deliberate exceptions.</p>
+<p>Measure at least:</p>
+<ul>
+<li>accuracy of extracted fields;</li>
+<li>percentage of lines tied to a valid rate;</li>
+<li>pricing or terms errors, with zero tolerance before sending;</li>
+<li>missing questions detected and overlooked;</li>
+<li>review time per draft;</li>
+<li>percentage of cases routed correctly;</li>
+<li>technical cost per prepared quote.</li>
+</ul>
+<p>The <a href="/en/blog/ai-assistant-testing-checklist-before-production/">AI assistant pre-production checklist</a> includes tests for prompt injection, permissions, sources, failures and recovery that apply to this workflow too. Do not grant more autonomy until the system handles what it does not know.</p>
+<h2 id="when-it-is-worth-doing">When it is worth doing</h2>
+<p>The case is promising when there is recurring volume, similar structures, a maintainable rate table and meaningful manual preparation time. It may not be worth automating when every proposal is unique, the necessary facts only emerge during an expert site visit, or prices change without a controlled record.</p>
+<p>Do not calculate return from time saved alone. Include maintenance of rates and templates, review, exceptions, model usage and improvement work. The <a href="/en/blog/ai-automation-cost-per-case-calculator/">AI automation cost-per-case calculator</a> helps turn those items into a realistic volume threshold.</p>
+<h2 id="a-sensible-first-target">A sensible first target</h2>
+<p>The first goal is not untouched quotes sent automatically. It is a complete draft with source evidence, amounts calculated from the correct rate and uncertainty made visible to a reviewer. If that removes repetitive work without increasing errors, you have a sound base for the next step.</p>
+<p>If you need to define the process, prepare the data and decide which parts belong to AI, rules and human review, VBG Labs’ <a href="/en/consulting/">AI consulting service</a> can turn the case into requirements, risks and a measurable pilot. Once the workflow is proven, <a href="/en/automation/">AI automation</a> can connect inputs, rates, templates and approvals without handing the model decisions it should not make.</p>
+ </div> </div> </article> <section class="section section--tight bg-alt" data-astro-cid-cgze3hqb> <div class="container" data-astro-cid-cgze3hqb> <h2 class="related-title" data-astro-cid-cgze3hqb>You might also like</h2> <div class="related-grid" data-astro-cid-cgze3hqb> <a href="/en/blog/ai-assistant-testing-checklist-before-production/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>AI automation</span> <h3 data-astro-cid-vqljwchw="true">20 tests for validating an AI assistant before production</h3> <p data-astro-cid-vqljwchw>A practical test set for checking quality, sources, permissions, actions and failure recovery before deploying an AI assistant in a small business.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>13 November 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Read →</span> </span> </a><a href="/en/blog/ai-automation-cost-per-case-calculator/" class="blog-card" data-reveal data-astro-cid-vqljwchw> <span class="blog-card__category" data-astro-cid-vqljwchw>AI costs and returns</span> <h3 data-astro-cid-vqljwchw="true">How much does AI automation cost? A cost-per-case calculator</h3> <p data-astro-cid-vqljwchw>Estimate the true cost of AI automation, including models, integrations, exceptions, human review, maintenance and investment payback.</p> <span class="blog-card__meta" data-astro-cid-vqljwchw> <time data-astro-cid-vqljwchw>6 November 2026</time> <span class="blog-card__read" data-astro-cid-vqljwchw>Read →</span> </span> </a> </div> </div> </section><section class="cta-band cta-band--dark" data-astro-cid-hwvj6ntz> <div class="container cta-band__inner" data-reveal data-astro-cid-hwvj6ntz>  <h2 data-astro-cid-hwvj6ntz>Find a starting point for AI in your business</h2> <p class="lede" data-astro-cid-hwvj6ntz>We reply by email first. If needed, we arrange a brief meeting to understand your needs.</p> <div class="cta-band__actions" data-astro-cid-hwvj6ntz> <a href="/en/contact/?interest=consulting&amp;from=%2Fen%2Fblog%2Fai-quote-automation-reviewable-draft%2F#contact-form" class="btn btn-primary" data-astro-cid-hwvj6ntz>Request initial guidance</a>  </div> </div> </section> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI quote automation: from customer enquiry to reviewable draft","description":"A practical guide to turning enquiries and documents into reviewable quote drafts with AI, business rules, traceability and human approval.","url":"https://vbglabs.com/en/blog/ai-quote-automation-reviewable-draft/","author":{"@type":"Organization","name":"VBG Labs"},"publisher":{"@id":"https://vbglabs.com/#organization"},"datePublished":"2026-11-23T00:00:00.000Z","dateModified":"2026-11-23T00:00:00.000Z"}</script>  </main> <footer class="footer" data-astro-cid-jo6i4kqk> <div class="container footer__grid" data-astro-cid-jo6i4kqk> <div class="footer__brand" data-astro-cid-jo6i4kqk> <a href="/en/" class="footer__logo" data-astro-cid-jo6i4kqk> <img src="/brand/vbg-isotype-white.webp" width="24" height="24" alt="" data-astro-cid-jo6i4kqk> <span data-astro-cid-jo6i4kqk>VBG<em data-astro-cid-jo6i4kqk>Labs</em></span> </a> <p class="footer__tagline" data-astro-cid-jo6i4kqk>Practical technology so your business runs better.</p> <p class="footer__location" data-astro-cid-jo6i4kqk>Almenar, Lleida · Catalonia, Spain</p> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Services</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/en/services/#solucions" data-astro-cid-jo6i4kqk>AI and automation solutions</a></li><li data-astro-cid-jo6i4kqk><a href="/en/services/#sectors" data-astro-cid-jo6i4kqk>By business type</a></li><li data-astro-cid-jo6i4kqk><a href="/en/automation/" data-astro-cid-jo6i4kqk>Automation</a></li><li data-astro-cid-jo6i4kqk><a href="/en/consulting/" data-astro-cid-jo6i4kqk>Consulting</a></li><li data-astro-cid-jo6i4kqk><a href="/en/training/" data-astro-cid-jo6i4kqk>Training</a></li><li data-astro-cid-jo6i4kqk><a href="/en/vbg-invoicing/" data-astro-cid-jo6i4kqk>VBG Invoicing</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Company</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="/en/about/" data-astro-cid-jo6i4kqk>About VBG Labs</a></li><li data-astro-cid-jo6i4kqk><a href="/en/blog/" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href="/en/faq/" data-astro-cid-jo6i4kqk>FAQ</a></li><li data-astro-cid-jo6i4kqk><a href="/en/contact/" data-astro-cid-jo6i4kqk>Contact</a></li> </ul> </div> <div class="footer__col" data-astro-cid-jo6i4kqk> <h2 data-astro-cid-jo6i4kqk>Contact</h2> <ul data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href="mailto:info@vbglabs.com" data-astro-cid-jo6i4kqk>info@vbglabs.com</a></li>   </ul> </div> </div> <div class="container footer__bottom" data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>&copy; 2026 VBG Labs. All rights reserved.</p> <nav aria-label="Legal" class="footer__legal" data-astro-cid-jo6i4kqk> <a href="/en/legal-notice/" data-astro-cid-jo6i4kqk>Legal notice</a> <a href="/en/privacy-policy/" data-astro-cid-jo6i4kqk>Privacy</a> <a href="/en/cookie-policy/" data-astro-cid-jo6i4kqk>Cookies</a> <button type="button" data-cookie-settings data-astro-cid-jo6i4kqk> Cookie settings </button> </nav> </div> </footer> <div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden data-analytics-enabled="1" data-astro-cid-hq3mgpmn> <div class="cookie-banner__inner container" data-astro-cid-hq3mgpmn> <div class="cookie-banner__copy" data-astro-cid-hq3mgpmn> <p class="cookie-banner__title" id="cookie-banner-title" data-astro-cid-hq3mgpmn>You choose which cookies we use</p> <p id="cookie-banner-description" data-astro-cid-hq3mgpmn>We use essential storage and, only with your permission, Google Analytics to understand and improve site usage. We do not use advertising cookies. <a href="/en/cookie-policy/" data-astro-cid-hq3mgpmn>More information</a></p> </div> <div class="cookie-banner__actions" data-astro-cid-hq3mgpmn> <button type="button" id="cookie-reject" class="btn cookie-banner__choice" data-astro-cid-hq3mgpmn>Reject</button> <button type="button" id="cookie-accept" class="btn cookie-banner__choice cookie-banner__choice--accept" data-astro-cid-hq3mgpmn>Accept</button> </div> </div> </div> <script>(function(){const analyticsEnabled = true;
+const consentKey = "vbg-cookie-consent";
+const consentVersion = 1;
+const consentMaxAgeMs = 63072000000;
+
+  (() => {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const rejectButton = document.getElementById('cookie-reject');
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(consentKey);
+        if (!raw) return null;
+
+        const consent = JSON.parse(raw);
+        const validDecision = consent.analytics === 'granted' || consent.analytics === 'denied';
+        const validVersion = consent.version === consentVersion;
+        const validDate = Number.isFinite(consent.updatedAt) && Date.now() - consent.updatedAt <= consentMaxAgeMs;
+
+        if (!validDecision || !validVersion || !validDate) {
+          localStorage.removeItem(consentKey);
+          return null;
+        }
+
+        return consent.analytics;
+      } catch {
+        return null;
+      }
+    }
+
+    function showBanner() {
+      if (banner instanceof HTMLElement && analyticsEnabled) banner.hidden = false;
+    }
+
+    function saveConsent(granted) {
+      try {
+        localStorage.setItem(consentKey, JSON.stringify({
+          version: consentVersion,
+          analytics: granted ? 'granted' : 'denied',
+          updatedAt: Date.now(),
+        }));
+      } catch {
+        // The choice still applies to this page when storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('vbg:consent-change', {
+        detail: { analytics: granted },
+      }));
+      if (banner instanceof HTMLElement) banner.hidden = true;
+    }
+
+    try {
+      // The previous acknowledgement did not represent analytics consent.
+      localStorage.removeItem('vbg-cookie-ack');
+    } catch {
+      // Ignore unavailable storage and show the consent controls.
+    }
+
+    if (!readConsent()) showBanner();
+
+    acceptButton?.addEventListener('click', () => saveConsent(true));
+    rejectButton?.addEventListener('click', () => saveConsent(false));
+    document.querySelectorAll('[data-cookie-settings]').forEach((control) => {
+      control.addEventListener('click', () => {
+        showBanner();
+        if (rejectButton instanceof HTMLButtonElement) rejectButton.focus();
+      });
+    });
+  })();
+})();</script> <script type="module">if(`IntersectionObserver`in window){document.documentElement.classList.add(`reveal-ready`);let e=new IntersectionObserver(e=>{for(let t of e)t.target.classList.toggle(`is-in`,t.isIntersecting)},{rootMargin:`0px 0px -10% 0px`,threshold:.1});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t))}</script></body> </html>
