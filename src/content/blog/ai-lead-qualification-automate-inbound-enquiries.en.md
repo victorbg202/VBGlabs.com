@@ -6,7 +6,7 @@ lang: "en"
 translationGroup: "ai-lead-qualification-inbound-enquiries"
 category: "AI automation"
 date: 2026-11-16
-relatedSlugs: ["ai-agents-small-business-act-across-tools", "ai-or-rules-automation-decision-matrix", "ai-assistant-testing-checklist-before-production", "ai-for-smes-where-to-start", "ai-automation-cost-per-case-calculator"]
+relatedSlugs: ["ai-quote-automation-reviewable-draft", "ai-agents-small-business-act-across-tools", "ai-or-rules-automation-decision-matrix", "ai-assistant-testing-checklist-before-production", "ai-automation-cost-per-case-calculator"]
 ---
 
 AI lead qualification should not decide who deserves attention. Its job is to turn emails, forms, WhatsApp messages or call transcripts into a consistent working record: what the person needs, which facts are missing, which service may fit and what should happen next. AI interprets language, deterministic rules check exact criteria, and people retain commercial decisions and uncertain cases.

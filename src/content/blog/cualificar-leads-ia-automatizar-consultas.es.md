@@ -6,7 +6,7 @@ lang: "es"
 translationGroup: "ai-lead-qualification-inbound-enquiries"
 category: "Automatización con IA"
 date: 2026-11-16
-relatedSlugs: ["agentes-ia-pymes-actuar-herramientas", "ia-o-reglas-matriz-decidir-automatizacion", "checklist-pruebas-asistente-ia-antes-produccion", "ia-para-pymes-por-donde-empezar", "calculadora-coste-automatizacion-ia-caso"]
+relatedSlugs: ["automatizar-presupuestos-ia-borrador-revisable", "agentes-ia-pymes-actuar-herramientas", "ia-o-reglas-matriz-decidir-automatizacion", "checklist-pruebas-asistente-ia-antes-produccion", "calculadora-coste-automatizacion-ia-caso"]
 ---
 
 Cualificar leads con IA no consiste en permitir que un modelo decida quién merece atención. Consiste en transformar correos, formularios, mensajes de WhatsApp o transcripciones de llamadas en una ficha coherente: qué necesita la persona, qué datos faltan, qué servicio podría encajar y cuál debería ser el siguiente paso. La IA interpreta el lenguaje; las reglas comprueban criterios exactos; una persona conserva las decisiones comerciales y los casos dudosos.

@@ -6,7 +6,7 @@ lang: "ca"
 translationGroup: "ai-lead-qualification-inbound-enquiries"
 category: "Automatització amb IA"
 date: 2026-11-16
-relatedSlugs: ["agents-ia-pimes-actuar-eines", "ia-o-regles-matriu-decidir-automatitzacio", "checklist-proves-assistent-ia-abans-produccio", "ia-per-a-pimes-per-on-comencar", "calculadora-cost-automatitzacio-ia-cas"]
+relatedSlugs: ["automatitzar-pressupostos-ia-esborrany-revisable", "agents-ia-pimes-actuar-eines", "ia-o-regles-matriu-decidir-automatitzacio", "checklist-proves-assistent-ia-abans-produccio", "calculadora-cost-automatitzacio-ia-cas"]
 ---
 
 Qualificar leads amb IA no vol dir deixar que un model decideixi qui mereix atenció. Vol dir convertir correus, formularis, WhatsApp o transcripcions de trucades en una fitxa coherent: què necessita la persona, quines dades falten, quin servei podria encaixar i quin és el següent pas. La IA interpreta el llenguatge; les regles validen criteris exactes; una persona conserva les decisions comercials i els casos amb dubtes.
